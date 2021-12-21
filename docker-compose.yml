@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  vscode:
+    build:
+      context: .devcontainer
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+        no_proxy: ${no_proxy}
+    volumes:
+      - ./:/workspace
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    entrypoint: tail -f /dev/null
+
+  ci:
+    build:
+      context: .devcontainer
+      dockerfile: Dockerfile.ci
+    user: root
+    volumes:
+      - ./:/workspace
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    security_opt:
+      - seccomp:unconfined
+    entrypoint: tail -f /dev/null

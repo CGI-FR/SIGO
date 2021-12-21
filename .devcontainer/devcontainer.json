@@ -1,0 +1,74 @@
+{
+    "name": "CHANGE IT",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "vscode",
+    "runServices": [
+        "vscode"
+    ],
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "sudo chown -R vscode:vscode /workspace/. && make init",
+    "workspaceFolder": "/workspace",
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/workspace/bin/"
+    },
+    "extensions": [
+        "golang.Go",
+		"eamodio.gitlens",
+		"donjayamanne.githistory",
+		"DavidAnson.vscode-markdownlint",
+		"esbenp.prettier-vscode",
+		"yzhang.markdown-all-in-one",
+		"ms-azuretools.vscode-docker",
+		"shardulm94.trailing-spaces",
+		"vscode-icons-team.vscode-icons",
+		"johnpapa.vscode-peacock",
+		"aaron-bond.better-comments",
+		"quicktype.quicktype",
+		"spikespaz.vscode-smoothtype",
+        "EditorConfig.EditorConfig",
+    ],
+    "settings": {
+        // General settings
+        "files.eol": "\n",
+        // Docker
+        "remote.extensionKind": {
+            "ms-azuretools.vscode-docker": "workspace"
+        },
+        // Golang general settings
+        "go.useLanguageServer": true,
+        "gopls": {
+            "usePlaceholders": false,
+            "gofumpt": true
+        },
+        "go.lintTool": "golangci-lint",
+        "go.lintFlags": [
+            //"--fast",
+            "--enable-all",
+            "--disable", "gci",
+            "--disable", "forbidigo",
+            "--disable", "scopelint",
+            "--disable", "interfacer",
+            "--disable", "maligned",
+        ],
+        // Golang on save
+        "go.buildOnSave": "workspace",
+        "go.lintOnSave": "workspace",
+        "go.vetOnSave": "workspace",
+        "editor.formatOnSave": true,
+        "[go]": {
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": true
+            }
+        },
+        // Golang testing
+        "go.testFlags": [
+            "-v"
+        ],
+        "go.testTimeout": "600s",
+        "go.coverOnSingleTest": true,
+        "go.coverOnSingleTestFile": true,
+        "go.coverShowCounts": true,
+    }
+}
