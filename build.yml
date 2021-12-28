@@ -38,7 +38,15 @@ properties:
   buildpaths: [] # By default, all paths under the cmd/ folder are built, specify a different folder list with `-props "{buildpaths: ["other/path", "to/build"]}"`
   linters: [] # List of linters to run on the lint target, if left empty : run all linters
   lintersno: # List of linters to exclude on running the lint target
-    ["scopelint", "interfacer", "maligned", "forbidigo", "gci", "golint"]
+    [
+      "scopelint",
+      "interfacer",
+      "maligned",
+      "forbidigo",
+      "gci",
+      "golint",
+      "wrapcheck",
+    ]
   snapshot: false # If true, do not upload release when publish target is used
   dockerfiles: # List of Dockerfiles to build, defined by a map of {key=Dockerfile name ; value=path to build context}, the image name will be determined by the extension of the Dockerfile
     Dockerfile: . # Build a file named Dockerfile at the root of the workspace, will produce image name "<DOCKERHUB_USER>/<PROJECT>"

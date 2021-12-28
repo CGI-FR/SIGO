@@ -17,7 +17,8 @@ services:
     security_opt:
       - seccomp:unconfined
     entrypoint: tail -f /dev/null
-
+    environment:
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
   ci:
     build:
       context: .devcontainer
