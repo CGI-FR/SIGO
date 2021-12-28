@@ -19,109 +19,16 @@ package sigo_test
 
 import (
 	"encoding/json"
-	"io"
 	"strings"
 	"testing"
 
+	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 
 	"github.com/stretchr/testify/assert"
 )
-
-func NewJSONLineRecord(row *jsonline.Row, quasiIdentifers *[]string) JSONLineRecord {
-	return JSONLineRecord{row, quasiIdentifers}
-}
-
-type JSONLineRecord struct {
-	row             *jsonline.Row
-	quasiIdentifers *[]string
-}
-
-func (jlr JSONLineRecord) QuasiIdentifer() []float32 {
-	result := []float32{}
-
-	for _, key := range *jlr.quasiIdentifers {
-		result = append(result, (*jlr.row).GetFloat32(key))
-	}
-
-	return result
-}
-
-func (jlr JSONLineRecord) Row() map[string]interface{} {
-	result, err := (*jlr.row).Export()
-	if err != nil {
-		return nil
-	}
-
-	return result.(map[string]interface{})
-}
-
-func NewJSONLineSource(r io.Reader, quasiIdentifers []string) sigo.RecordSource {
-	// nolint: exhaustivestruct
-	return &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers}
-}
-
-type JSONLineSource struct {
-	importer        jsonline.Importer
-	err             error
-	record          sigo.Record
-	quasiIdentifers []string
-}
-
-func (s *JSONLineSource) Err() error {
-	return s.err
-}
-
-func (s *JSONLineSource) Next() bool {
-	hasNext := s.importer.Import()
-	if !hasNext {
-		return false
-	}
-
-	row, err := s.importer.GetRow()
-
-	s.err = err
-
-	if s.err != nil {
-		return false
-	}
-
-	s.record = NewJSONLineRecord(&row, &s.quasiIdentifers)
-
-	return true
-}
-
-func (s *JSONLineSource) Value() sigo.Record {
-	return s.record
-}
-
-func NewJSONLineSink(w io.Writer) JSONLineSink {
-	return JSONLineSink{exporter: jsonline.NewExporter(w)}
-}
-
-type JSONLineSink struct {
-	exporter jsonline.Exporter
-}
-
-func (s JSONLineSink) Collect(rec sigo.Record) error {
-	return s.exporter.Export(rec.Row())
-}
-
-func NewSliceDictionariesSink(slice *[]map[string]interface{}) *SliceDictionariesSink {
-	return &SliceDictionariesSink{slice: slice}
-}
-
-type SliceDictionariesSink struct {
-	slice *[]map[string]interface{}
-}
-
-func (s *SliceDictionariesSink) Collect(rec sigo.Record) error {
-	*s.slice = append(*s.slice, rec.Row())
-
-	return nil
-}
 
 func TestSimpleClustering(t *testing.T) {
 	t.Parallel()
@@ -136,9 +43,9 @@ func TestSimpleClustering(t *testing.T) {
 {"x":3, "y":2, "foo":"baz"}
 {"x":2, "y":3, "foo":"baz"}
 `
-	source := NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"})
+	source := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"})
 	result := []map[string]interface{}{}
-	sink := NewSliceDictionariesSink(&result)
+	sink := infra.NewSliceDictionariesSink(&result)
 	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, sigo.NewNoAnonymizer(), sink)
 	assert.Nil(t, err)
 

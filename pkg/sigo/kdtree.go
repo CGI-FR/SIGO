@@ -32,8 +32,9 @@ type KDTreeFactory struct{}
 func (f KDTreeFactory) New(k int, l int) Generalizer {
 	// nolint: exhaustivestruct
 	tree := KDTree{k: k, l: l}
-	// nolint: exhaustivestruct
-	tree.root = &node{tree: &tree, cluster: []Record{}}
+	root := newNode(&tree)
+	root.validate()
+	tree.root = &root
 
 	return tree
 }
@@ -46,7 +47,6 @@ type KDTree struct {
 
 func (t KDTree) Add(r Record) {
 	t.root.add(r)
-	fmt.Println(t.String())
 }
 
 func (t KDTree) Clusters() []Cluster {
@@ -57,11 +57,17 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
+func newNode(tree *KDTree) node {
+	// nolint: exhaustivestruct
+	return node{tree: tree, valid: false, cluster: []Record{}}
+}
+
 type node struct {
 	tree     *KDTree
 	cluster  []Record
 	subNodes []node
 	pivot    []float32
+	valid    bool
 }
 
 func (n *node) add(r Record) {
@@ -77,29 +83,51 @@ func (n *node) add(r Record) {
 
 	n.cluster = append(n.cluster, r)
 
-	if len(n.cluster) >= 2*n.tree.k {
-		sort.SliceStable(n.cluster, func(i int, j int) bool {
-			return n.cluster[i].QuasiIdentifer()[0] < n.cluster[j].QuasiIdentifer()[0]
-		})
-
-		n.pivot = []float32{n.cluster[len(n.cluster)/2].QuasiIdentifer()[0]}
-		lower := []Record{}
-		upper := []Record{}
-
-		for _, row := range n.cluster {
-			if row.QuasiIdentifer()[0] < n.pivot[0] {
-				lower = append(lower, row)
-			} else {
-				upper = append(upper, row)
-			}
+	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
+		// rollback to simple node
+		lower, upper, shouldReturn := n.newMethod()
+		if shouldReturn {
+			return
 		}
 
+		lower.validate()
+		upper.validate()
+
 		n.subNodes = []node{
-			{tree: n.tree, cluster: lower},
-			{tree: n.tree, cluster: upper},
+			lower,
+			upper,
 		}
 		n.cluster = nil
 	}
+}
+
+func (n *node) newMethod() (node, node, bool) {
+	sort.SliceStable(n.cluster, func(i int, j int) bool {
+		return n.cluster[i].QuasiIdentifer()[0] < n.cluster[j].QuasiIdentifer()[0]
+	})
+
+	n.pivot = nil
+	lower := newNode(n.tree)
+	upper := newNode(n.tree)
+	lowerSize := 0
+	upperSize := 0
+	previous := n.cluster[0]
+
+	for _, row := range n.cluster {
+		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[0] == previous.QuasiIdentifer()[0] {
+			lower.add(row)
+			previous = row
+			lowerSize++
+		} else {
+			if n.pivot == nil {
+				n.pivot = row.QuasiIdentifer()
+			}
+			upper.add(row)
+			upperSize++
+		}
+	}
+
+	return lower, upper, upperSize < n.tree.k
 }
 
 func (n *node) Records() []Record {
@@ -139,4 +167,12 @@ func (n *node) string(offset int) string {
 		n.subNodes[1].string(offset+1),
 		strings.Repeat(" ", offset),
 	)
+}
+
+func (n *node) validate() {
+	n.valid = true
+}
+
+func (n *node) isValid() bool {
+	return n.valid
 }

@@ -22,6 +22,7 @@ import (
 	"math/rand"
 	"testing"
 
+	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -37,7 +38,7 @@ func TestAddRecord(t *testing.T) {
 	row := jsonline.NewRow()
 	row.Set("x", 0)
 
-	record := NewJSONLineRecord(&row, &[]string{"x"})
+	record := infra.NewJSONLineRecord(&row, &[]string{"x"})
 
 	kdtree.Add(record)
 
@@ -48,39 +49,110 @@ func TestAddRecord(t *testing.T) {
 	assert.Equal(t, 0, clusters[0].Records()[0].Row()["x"])
 }
 
+// nolint: funlen
 func TestAddNRecords(t *testing.T) {
 	t.Parallel()
 
-	k := 2
-	N := 8
-
-	rand.Seed(10)
-
-	kdtree := sigo.NewKDTreeFactory().New(k, 1)
-	rows := []jsonline.Row{}
-
-	for i := 0; i < N; i++ {
-		row := jsonline.NewRow()
-		// nolint: gosec
-		row.Set("x", rand.Float32())
-		rows = append(rows, row)
+	type test struct {
+		k int
+		n int
+		d int
+		s int64
 	}
 
-	fmt.Printf("%v\n", rows)
-
-	for i := 0; i < N; i++ {
-		record := NewJSONLineRecord(&rows[i], &[]string{"x"})
-
-		kdtree.Add(record)
+	tests := []test{
+		{k: 1, n: 10, d: 1, s: 10},
+		{k: 2, n: 10, d: 1, s: 10},
+		{k: 3, n: 10, d: 1, s: 10},
+		{k: 4, n: 10, d: 1, s: 10},
+		{k: 5, n: 10, d: 1, s: 10},
+		{k: 6, n: 10, d: 1, s: 10},
+		{k: 1, n: 10, d: 1, s: 10},
+		{k: 2, n: 20, d: 1, s: 10},
+		{k: 3, n: 30, d: 1, s: 10},
+		{k: 4, n: 40, d: 1, s: 10},
+		{k: 5, n: 100, d: 1, s: 10},
+		{k: 6, n: 1000, d: 1, s: 10},
+		{k: 1, n: 10, d: 1, s: 10},
+		{k: 2, n: 10, d: 2, s: 10},
+		{k: 3, n: 10, d: 3, s: 10},
+		{k: 4, n: 10, d: 4, s: 10},
+		{k: 5, n: 10, d: 5, s: 10},
+		{k: 6, n: 10, d: 6, s: 10},
+		{k: 1, n: 10, d: 1, s: 10},
+		{k: 2, n: 20, d: 2, s: 10},
+		{k: 3, n: 30, d: 3, s: 10},
+		{k: 4, n: 40, d: 4, s: 10},
+		{k: 5, n: 100, d: 5, s: 10},
+		{k: 6, n: 1000, d: 6, s: 10},
+		{k: 1, n: 10, d: 1, s: 5},
+		{k: 2, n: 10, d: 1, s: 5},
+		{k: 3, n: 10, d: 1, s: 5},
+		{k: 4, n: 10, d: 1, s: 5},
+		{k: 5, n: 10, d: 1, s: 5},
+		{k: 6, n: 10, d: 1, s: 5},
+		{k: 1, n: 10, d: 1, s: 5},
+		{k: 2, n: 20, d: 1, s: 5},
+		{k: 3, n: 30, d: 1, s: 5},
+		{k: 4, n: 40, d: 1, s: 5},
+		{k: 5, n: 100, d: 1, s: 5},
+		{k: 6, n: 1000, d: 1, s: 5},
+		{k: 1, n: 10, d: 1, s: 5},
+		{k: 2, n: 10, d: 2, s: 5},
+		{k: 3, n: 10, d: 3, s: 5},
+		{k: 4, n: 10, d: 4, s: 5},
+		{k: 5, n: 10, d: 5, s: 5},
+		{k: 6, n: 10, d: 6, s: 5},
+		{k: 1, n: 10, d: 1, s: 5},
+		{k: 2, n: 20, d: 2, s: 5},
+		{k: 3, n: 30, d: 3, s: 5},
+		{k: 4, n: 40, d: 4, s: 5},
+		{k: 5, n: 100, d: 5, s: 5},
+		{k: 6, n: 1000, d: 6, s: 5},
 	}
 
-	clusters := kdtree.Clusters()
+	// nolint: paralleltest
+	for i, tc := range tests {
+		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
+			t.Parallel()
 
-	fmt.Println(kdtree.(sigo.KDTree).String())
+			k := tc.k
+			N := tc.n
+			D := tc.d
 
-	assert.Truef(t, len(clusters) >= N/k, "#clusters(%d) != %d", len(clusters), N/k)
+			rand.Seed(tc.s)
 
-	for i := 0; i < len(clusters); i++ {
-		assert.True(t, len(clusters[i].Records()) >= k)
+			kdtree := sigo.NewKDTreeFactory().New(k, 1)
+			rows := []jsonline.Row{}
+
+			for i := 0; i < N; i++ {
+				// nolint: gosec
+				x := rand.Intn(N)
+				// nolint: gosec
+				y := rand.Intn(N)
+				for j := 0; j < D; j++ {
+					row := jsonline.NewRow()
+					row.Set("x", x)
+					row.Set("y", y)
+					rows = append(rows, row)
+				}
+			}
+
+			fmt.Printf("%v\n", rows)
+
+			for i := 0; i < N; i++ {
+				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"})
+
+				kdtree.Add(record)
+			}
+
+			clusters := kdtree.Clusters()
+
+			fmt.Println(kdtree.(sigo.KDTree).String())
+
+			for i := 0; i < len(clusters); i++ {
+				assert.True(t, len(clusters[i].Records()) >= k)
+			}
+		})
 	}
 }

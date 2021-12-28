@@ -14,4 +14,7 @@ RUN    wget -nv -O- https://github.com/mitchellh/golicense/releases/download/v${
     && wget -nv -O/usr/bin/mlr https://github.com/johnkerl/miller/releases/download/v${VERSION_MILLER}/mlr.linux.x86_64 \
     && chmod +x /usr/bin/golicense /usr/bin/mlr
 
+RUN     wget https://github.com/sgreben/jp/releases/download/1.1.12/jp_1.1.12_linux_x86_64.zip -nv -O/tmp/jp.zip \
+    && unzip /tmp/jp.zip  -d /usr/bin/ \
+    && rm /tmp/jp.zip
 USER vscode

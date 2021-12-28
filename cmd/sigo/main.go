@@ -18,9 +18,10 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
+	"github.com/cgi-fr/sigo/internal/infra"
+	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -41,5 +42,12 @@ func main() {
 
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
 
-	fmt.Println()
+	source := infra.NewJSONLineSource(os.Stdin, []string{"x", "y"})
+	sink := infra.NewJSONLineSink(os.Stdout)
+
+	// nolint:gomnd
+	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, sigo.NewNoAnonymizer(), sink)
+	if err != nil {
+		panic(err)
+	}
 }
