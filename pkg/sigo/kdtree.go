@@ -21,6 +21,8 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/rs/zerolog/log"
 )
 
 func NewKDTreeFactory() KDTreeFactory {
@@ -85,10 +87,14 @@ func (n *node) add(r Record) {
 
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
-		lower, upper, shouldReturn := n.newMethod()
-		if shouldReturn {
+		lower, upper, valide := n.split()
+		if !valide {
 			return
 		}
+
+		log.Info().Msgf("new pivot: %v", n.pivot)
+		log.Info().Str("node", lower.string(0)).Msg("new node")
+		log.Info().Str("node", upper.string(0)).Msg("new node")
 
 		lower.validate()
 		upper.validate()
@@ -101,7 +107,7 @@ func (n *node) add(r Record) {
 	}
 }
 
-func (n *node) newMethod() (node, node, bool) {
+func (n *node) split() (node, node, bool) {
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
 		return n.cluster[i].QuasiIdentifer()[0] < n.cluster[j].QuasiIdentifer()[0]
 	})
@@ -127,7 +133,7 @@ func (n *node) newMethod() (node, node, bool) {
 		}
 	}
 
-	return lower, upper, upperSize < n.tree.k
+	return lower, upper, upperSize >= n.tree.k
 }
 
 func (n *node) Records() []Record {

@@ -31,7 +31,7 @@ Given a distribution of Paris's trees.
 SIGO generalize the distribution and anomyze it without pertubation.
 
 ```console
-❯ < examples/tree.json  | sigo |jq -s '.' |  ./jp -xy '..[x,y]' -type hist2d -height 20 -width 50
+❯ < examples/tree.json  | sigo |jq -s '.' |  jp -xy '..[x,y]' -type hist2d -height 20 -width 50
 10:47AM INF sigo main (commit=c35c2c0a16ca39aa47c3fe87bd21996ee2a811d0 date=2021-12-28 by=youen.peron@cgi.com)
  2.469759│                ·········
          │                ··░░░▓▓··
