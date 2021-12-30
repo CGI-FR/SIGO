@@ -18,12 +18,18 @@
 package main
 
 import (
+	"fmt"
 	"os"
+	"runtime"
+	"strings"
 
+	over "github.com/Trendyol/overlog"
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
+	"github.com/mattn/go-isatty"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"github.com/spf13/cobra"
 )
 
 // Provisioned by ldflags
@@ -34,20 +40,124 @@ var (
 	commit    string
 	buildDate string
 	builtBy   string
+
+	verbosity string
+	debug     bool
+	jsonlog   bool
+	colormode string
+	k         int
+	l         int
+	QI        []string
+	sensitive []string
 )
 
 func main() {
-	// nolint: exhaustivestruct
-	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	//nolint: exhaustivestruct
+	rootCmd := &cobra.Command{
+		Use:   name,
+		Short: "Command line to generalize and anonymize the content of a jsonline flow set",
+		Version: fmt.Sprintf(`%v (commit=%v date=%v by=%v)
+	Copyright (C) 2021 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
+	This is free software: you are free to change and redistribute it.
+	There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
+		Run: func(cmd *cobra.Command, args []string) {
+			// nolint: exhaustivestruct
+			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
-	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
+			run()
+		},
+	}
 
-	source := infra.NewJSONLineSource(os.Stdin, []string{"x", "y"})
+	rootCmd.PersistentFlags().
+		StringVarP(&verbosity, "verbosity", "v", "info",
+			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
+	rootCmd.PersistentFlags().
+		BoolVar(&debug, "debug", false, "add debug information to logs (very slow)")
+	rootCmd.PersistentFlags().
+		BoolVar(&jsonlog, "log-json", false, "output logs in JSON format")
+	rootCmd.PersistentFlags().StringVar(&colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
+	rootCmd.PersistentFlags().
+		IntVar(&k, "k", 1, "k-value for k-anonymization")
+	rootCmd.PersistentFlags().
+		IntVar(&l, "l", 1, "l-value for l-diversity")
+	rootCmd.PersistentFlags().
+		StringSliceVar(&QI, "QI", []string{}, "list of quasi-identifying attributes")
+	rootCmd.PersistentFlags().
+		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
+
+	if err := rootCmd.Execute(); err != nil {
+		log.Err(err).Msg("Error when executing command")
+		os.Exit(1)
+	}
+}
+
+func run() {
+	initLog()
+
+	log.Info().
+		Int("k-anonymity", k).
+		Int("l-diversity", l).
+		Strs("Quasi-Identifiers", QI).
+		Strs("Sensitive", sensitive).
+		Msg("Start SIGO")
+
+	source := infra.NewJSONLineSource(os.Stdin, QI)
 	sink := infra.NewJSONLineSink(os.Stdout)
 
-	// nolint:gomnd
-	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, sigo.NewNoAnonymizer(), sink)
+	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, sigo.NewNoAnonymizer(), sink)
 	if err != nil {
 		panic(err)
 	}
+
+	if err := sink.Collect(source.Value()); err != nil {
+		fmt.Printf("Error: %s", err)
+	}
+}
+
+// nolint: cyclop
+func initLog() {
+	color := false
+
+	switch strings.ToLower(colormode) {
+	case "auto":
+		if isatty.IsTerminal(os.Stdout.Fd()) && runtime.GOOS != "windows" {
+			color = true
+		}
+	case "yes", "true", "1", "on", "enable":
+		color = true
+	}
+
+	var logger zerolog.Logger
+	if jsonlog {
+		logger = zerolog.New(os.Stderr) // .With().Caller().Logger()
+	} else {
+		// nolint: exhaustivestruct
+		logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, NoColor: !color}) // .With().Caller().Logger()
+	}
+
+	if debug {
+		logger = logger.With().Caller().Logger()
+	}
+
+	over.New(logger)
+
+	switch verbosity {
+	case "trace", "5":
+		zerolog.SetGlobalLevel(zerolog.TraceLevel)
+		log.Info().Msg("Logger level set to trace")
+	case "debug", "4":
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+		log.Info().Msg("Logger level set to debug")
+	case "info", "3":
+		zerolog.SetGlobalLevel(zerolog.InfoLevel)
+		log.Info().Msg("Logger level set to info")
+	case "warn", "2":
+		zerolog.SetGlobalLevel(zerolog.WarnLevel)
+	case "error", "1":
+		zerolog.SetGlobalLevel(zerolog.ErrorLevel)
+	default:
+		zerolog.SetGlobalLevel(zerolog.Disabled)
+	}
+
+	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
 }

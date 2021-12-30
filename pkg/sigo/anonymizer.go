@@ -20,16 +20,19 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	for k, v := range ar.mask {
 		original[k] = v
 	}
+
 	return original
 }
 
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
+	//nolint: gosec
 	choice := clus.Records()[rand.Intn(len(clus.Records()))]
 
 	for {
 		if choice != rec {
 			break
 		}
+		//nolint: gosec
 		choice = clus.Records()[rand.Intn(len(clus.Records()))]
 	}
 

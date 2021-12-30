@@ -18,6 +18,7 @@
 package infra
 
 import (
+	"errors"
 	"io"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -33,7 +34,7 @@ type JSONLineSink struct {
 }
 
 func (s JSONLineSink) Collect(rec sigo.Record) error {
-	return s.exporter.Export(rec.Row())
+	return errors.Unwrap(s.exporter.Export(rec.Row()))
 }
 
 func NewSliceDictionariesSink(slice *[]map[string]interface{}) *SliceDictionariesSink {
