@@ -74,12 +74,12 @@ func newNode(tree *KDTree, rot int) node {
 }
 
 type node struct {
-	tree     *KDTree
-	cluster  []Record
-	subNodes []node
-	pivot    []float32
-	valid    bool
-	rot      int
+	tree       *KDTree
+	cluster    []Record
+	subNodes   []node
+	pivot      []float32
+	kAno, lDiv bool
+	rot        int
 }
 
 func (n *node) add(r Record) {
@@ -183,9 +183,10 @@ func (n *node) string(offset int) string {
 }
 
 func (n *node) validate() {
-	n.valid = true
+	n.kAno = true
+	n.lDiv = true
 }
 
 func (n *node) isValid() bool {
-	return n.valid
+	return n.kAno && n.lDiv
 }

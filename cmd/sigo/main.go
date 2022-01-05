@@ -68,6 +68,7 @@ func main() {
 		},
 	}
 
+<<<<<<< HEAD
 	rootCmd.PersistentFlags().
 		StringVarP(&verbosity, "verbosity", "v", "info",
 			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
@@ -103,6 +104,9 @@ func run() {
 		Msg("Start SIGO")
 
 	source := infra.NewJSONLineSource(os.Stdin, qi)
+=======
+	source := infra.NewJSONLineSource(os.Stdin, []string{"x", "y"}, []string{})
+>>>>>>> 72db793 (feat(model): add Sensitives())
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink)
