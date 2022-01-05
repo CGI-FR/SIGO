@@ -46,7 +46,7 @@ func main() {
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	// nolint:gomnd
-	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, sigo.NewNoAnonymizer(), sink)
+	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink)
 	if err != nil {
 		panic(err)
 	}
