@@ -131,6 +131,14 @@ func run() {
 	if err != nil {
 		panic(err)
 	}
+
+	/*
+		// nolint:gomnd
+		err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, sigo.NewGeneralAnonymizer(), sink)
+		if err != nil {
+			panic(err)
+		}
+	*/
 }
 
 // nolint: cyclop
