@@ -1,4 +1,4 @@
-// Copyright (C) 2021 CGI France
+// Copyright (C) 2022 CGI France
 //
 // This file is part of SIGO.
 //
@@ -47,7 +47,7 @@ var (
 	colormode string
 	k         int
 	l         int
-	QI        []string
+	qi        []string
 	sensitive []string
 )
 
@@ -57,7 +57,7 @@ func main() {
 		Use:   name,
 		Short: "Command line to generalize and anonymize the content of a jsonline flow set",
 		Version: fmt.Sprintf(`%v (commit=%v date=%v by=%v)
-	Copyright (C) 2021 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
+	Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
 	This is free software: you are free to change and redistribute it.
 	There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
 		Run: func(cmd *cobra.Command, args []string) {
@@ -76,12 +76,13 @@ func main() {
 	rootCmd.PersistentFlags().
 		BoolVar(&jsonlog, "log-json", false, "output logs in JSON format")
 	rootCmd.PersistentFlags().StringVar(&colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
+	// nolint: gomnd
 	rootCmd.PersistentFlags().
-		IntVar(&k, "k", 1, "k-value for k-anonymization")
+		IntVar(&k, "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().
 		IntVar(&l, "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
-		StringSliceVar(&QI, "QI", []string{}, "list of quasi-identifying attributes")
+		StringSliceVarP(&qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 
@@ -97,11 +98,11 @@ func run() {
 	log.Info().
 		Int("k-anonymity", k).
 		Int("l-diversity", l).
-		Strs("Quasi-Identifiers", QI).
+		Strs("Quasi-Identifiers", qi).
 		Strs("Sensitive", sensitive).
 		Msg("Start SIGO")
 
-	source := infra.NewJSONLineSource(os.Stdin, QI)
+	source := infra.NewJSONLineSource(os.Stdin, qi)
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, sigo.NewNoAnonymizer(), sink)
@@ -129,10 +130,10 @@ func initLog() {
 
 	var logger zerolog.Logger
 	if jsonlog {
-		logger = zerolog.New(os.Stderr) // .With().Caller().Logger()
+		logger = zerolog.New(os.Stderr)
 	} else {
 		// nolint: exhaustivestruct
-		logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, NoColor: !color}) // .With().Caller().Logger()
+		logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, NoColor: !color})
 	}
 
 	if debug {

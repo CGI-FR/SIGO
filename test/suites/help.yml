@@ -1,0 +1,13 @@
+name: help features
+testcases:
+  - name: short version
+    steps:
+      - script: sigo -h
+  - name: long version
+    steps:
+      - script: sigo --help
+  - name: unknown flag
+    steps:
+      - script: sigo -unknown
+        assertions:
+          - result.code ShouldEqual 1
