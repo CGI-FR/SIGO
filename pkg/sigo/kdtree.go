@@ -74,12 +74,12 @@ func newNode(tree *KDTree, rot int) node {
 }
 
 type node struct {
-	tree       *KDTree
-	cluster    []Record
-	subNodes   []node
-	pivot      []float32
-	kAno, lDiv bool
-	rot        int
+	tree     *KDTree
+	cluster  []Record
+	subNodes []node
+	pivot    []float32
+	valid    bool
+	rot      int
 }
 
 func (n *node) add(r Record) {
@@ -89,8 +89,9 @@ func (n *node) add(r Record) {
 func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
-		lower, upper, valide := n.split()
-		if !valide {
+		lower, upper, valid := n.split()
+
+		if !valid {
 			return
 		}
 
@@ -137,7 +138,7 @@ func (n *node) split() (node, node, bool) {
 		}
 	}
 
-	return lower, upper, upperSize >= n.tree.k
+	return lower, upper, upperSize >= n.tree.k && lower.lDiv() && upper.lDiv()
 }
 
 func (n *node) Records() []Record {
@@ -183,10 +184,36 @@ func (n *node) string(offset int) string {
 }
 
 func (n *node) validate() {
-	n.kAno = true
-	n.lDiv = true
+	n.valid = true
 }
 
 func (n *node) isValid() bool {
-	return n.kAno && n.lDiv
+	return n.valid
+}
+
+func (n node) lDiv() bool {
+	if n.cluster == nil {
+		return true
+	}
+	//nolint: gomnd
+	Sens := make([]map[string]struct{}, 10)
+
+	for _, row := range n.cluster {
+		b := true
+
+		for i, rowSens := range row.Sensitives() {
+			if s := Sens[i]; s == nil {
+				Sens[i] = make(map[string]struct{})
+			}
+
+			Sens[i][rowSens] = struct{}{}
+			b = b && len(Sens[i]) >= n.tree.l
+		}
+
+		if b {
+			return true
+		}
+	}
+
+	return false
 }
