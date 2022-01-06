@@ -37,12 +37,12 @@ func TestSimpleClustering(t *testing.T) {
 	row.Set("ID", "1")
 
 	sourceText := `{"x":0, "y":0, "foo":"bar"}
-{"x":1, "y":1, "foo":"bar"}
-{"x":0, "y":1, "foo":"bar"}
-{"x":2, "y":1, "foo":"baz"}
-{"x":3, "y":2, "foo":"baz"}
-{"x":2, "y":3, "foo":"baz"}
-`
+				   {"x":1, "y":1, "foo":"bar"}
+				   {"x":0, "y":1, "foo":"bar"}
+				   {"x":2, "y":1, "foo":"baz"}
+				   {"x":3, "y":2, "foo":"baz"}
+				   {"x":2, "y":3, "foo":"baz"}`
+
 	source := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"})
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)

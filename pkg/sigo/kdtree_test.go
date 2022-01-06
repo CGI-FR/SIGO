@@ -138,7 +138,7 @@ func TestAddNRecords(t *testing.T) {
 				}
 			}
 
-			fmt.Printf("%v\n", rows)
+			// fmt.Printf("%v\n", rows)
 
 			for i := 0; i < N; i++ {
 				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"})
@@ -148,7 +148,7 @@ func TestAddNRecords(t *testing.T) {
 
 			clusters := kdtree.Clusters()
 
-			fmt.Println(kdtree.(sigo.KDTree).String())
+			// fmt.Println(kdtree.(sigo.KDTree).String())
 
 			for i := 0; i < len(clusters); i++ {
 				assert.True(t, len(clusters[i].Records()) >= k)
