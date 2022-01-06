@@ -21,8 +21,6 @@ import (
 	"fmt"
 	"sort"
 	"strings"
-
-	"github.com/rs/zerolog/log"
 )
 
 func NewKDTreeFactory() KDTreeFactory {
@@ -92,9 +90,9 @@ func (n *node) add(r Record) {
 			return
 		}
 
-		log.Info().Msgf("new pivot: %v", n.pivot)
-		log.Info().Str("node", lower.string(0)).Msg("new node")
-		log.Info().Str("node", upper.string(0)).Msg("new node")
+		// log.Info().Msgf("new pivot: %v", n.pivot)
+		// log.Info().Str("node", lower.string(0)).Msg("new node")
+		// log.Info().Str("node", upper.string(0)).Msg("new node")
 
 		lower.validate()
 		upper.validate()
