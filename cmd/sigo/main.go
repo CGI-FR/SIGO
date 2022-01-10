@@ -109,10 +109,6 @@ func run() {
 	if err != nil {
 		panic(err)
 	}
-
-	if err := sink.Collect(source.Value()); err != nil {
-		fmt.Printf("Error: %s", err)
-	}
 }
 
 // nolint: cyclop
