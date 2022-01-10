@@ -32,7 +32,7 @@ type KDTreeFactory struct{}
 func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 	// nolint: exhaustivestruct
 	tree := KDTree{k: k, l: l, dim: dim}
-	root := newNode(&tree)
+	root := newNode(&tree, 1)
 	root.validate()
 	tree.root = &root
 
@@ -62,9 +62,15 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
-func newNode(tree *KDTree) node {
-	// nolint: exhaustivestruct
-	return node{tree: tree, valid: false, cluster: []Record{}}
+func newNode(tree *KDTree, rot int) node {
+	return node{
+		tree:     tree,
+		cluster:  []Record{},
+		subNodes: []node{},
+		pivot:    []float32{},
+		valid:    false,
+		rot:      (rot + 1) % tree.dim,
+	}
 }
 
 type node struct {
@@ -111,10 +117,8 @@ func (n *node) split() (node, node, bool) {
 	})
 
 	n.pivot = nil
-	lower := newNode(n.tree)
-	lower.rot = (n.rot + 1) % n.tree.dim
-	upper := newNode(n.tree)
-	upper.rot = (n.rot + 1) % n.tree.dim
+	lower := newNode(n.tree, n.rot)
+	upper := newNode(n.tree, n.rot)
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
