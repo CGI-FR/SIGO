@@ -19,7 +19,7 @@ Consider that the ***Origin*** of the car is a sensitive data and given the orig
 ![original](cars.png)
 
 ```console
-$ < cars.json | jq -c '.[]' | sigo -q Id,Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration | jq -s > cars_sigo.json
+< cars.json | jq -c '.[]' | sigo -q Id,Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration -s Origin | jq -s > cars_sigo.json
 ```
 
 ![masked](cars-sigo.png)

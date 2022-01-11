@@ -1,0 +1,49 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "repeat": {
+        "row": ["circonference","hauteur","x","y"],
+        "column": ["y","x","hauteur","circonference"]
+    },
+    "spec": {
+        "data": { "url": "./trees.json" },
+        "mark": "point",
+        "params": [
+            {
+                "name": "brush",
+                "select": {
+                    "type": "interval",
+                    "resolve": "union",
+                    "on": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
+                    "translate": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
+                    "zoom": "wheel![event.shiftKey]"
+                }
+            },
+            {
+                "name": "grid",
+                "select": {
+                    "type": "interval",
+                    "resolve": "global",
+                    "translate": "[mousedown[!event.shiftKey], window:mouseup] > window:mousemove!",
+                    "zoom": "wheel![!event.shiftKey]"
+                },
+                "bind": "scales"
+            }
+        ],
+        "encoding": {
+            "x": { "field": { "repeat": "column" }, "type": "quantitative" },
+            "y": {
+                "field": { "repeat": "row" },
+                "type": "quantitative",
+                "axis": { "minExtent": 30 }
+            },
+            "color": {
+                "field": "remarquable",
+                "type": "ordinal",
+                "scale": {
+                    "domain": ["OUI", "NON"],
+                    "range": ["#f47e09", "#a8a8a8"]
+                }
+            }
+        }
+    }
+}
