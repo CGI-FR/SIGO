@@ -105,7 +105,7 @@ func run() {
 	source := infra.NewJSONLineSource(os.Stdin, qi)
 	sink := infra.NewJSONLineSink(os.Stdout)
 
-	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, sigo.NewNoAnonymizer(), sink)
+	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink)
 	if err != nil {
 		panic(err)
 	}

@@ -20,8 +20,8 @@ package sigo
 import "fmt"
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, anonymyzer Anonymizer, sink RecordSink) error {
-	generalizer := factory.New(k, l)
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink) error {
+	generalizer := factory.New(k, l, dim)
 
 	for source.Next() {
 		if source.Err() != nil {
@@ -30,6 +30,8 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 
 		generalizer.Add(source.Value())
 	}
+
+	generalizer.Build()
 
 	for _, cluster := range generalizer.Clusters() {
 		for _, record := range cluster.Records() {

@@ -39,10 +39,12 @@ type Cluster interface {
 type Generalizer interface {
 	Add(Record)
 	Clusters() []Cluster
+	String() string
+	Build()
 }
 
 type GeneralizerFactory interface {
-	New(k int, l int) Generalizer
+	New(k int, l int, dim int) Generalizer
 }
 
 type Anonymizer interface {

@@ -46,6 +46,7 @@ properties:
       "gci",
       "golint",
       "wrapcheck",
+      "gosec",
     ]
   snapshot: false # If true, do not upload release when publish target is used
   dockerfiles: # List of Dockerfiles to build, defined by a map of {key=Dockerfile name ; value=path to build context}, the image name will be determined by the extension of the Dockerfile

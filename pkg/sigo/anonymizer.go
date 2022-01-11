@@ -1,6 +1,8 @@
 package sigo
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
@@ -29,7 +31,7 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
 	choice := clus.Records()[rand.Intn(len(clus.Records()))]
 
 	for {
-		if choice != rec {
+		if choice != rec || len(clus.Records()) < 2 {
 			break
 		}
 		//nolint: gosec

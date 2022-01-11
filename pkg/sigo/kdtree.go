@@ -29,10 +29,10 @@ func NewKDTreeFactory() KDTreeFactory {
 
 type KDTreeFactory struct{}
 
-func (f KDTreeFactory) New(k int, l int) Generalizer {
+func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l}
-	root := newNode(&tree)
+	tree := KDTree{k: k, l: l, dim: dim}
+	root := newNode(&tree, 0)
 	root.validate()
 	tree.root = &root
 
@@ -43,10 +43,15 @@ type KDTree struct {
 	k    int
 	l    int
 	root *node
+	dim  int
 }
 
 func (t KDTree) Add(r Record) {
 	t.root.add(r)
+}
+
+func (t KDTree) Build() {
+	t.root.build()
 }
 
 func (t KDTree) Clusters() []Cluster {
@@ -57,9 +62,15 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
-func newNode(tree *KDTree) node {
-	// nolint: exhaustivestruct
-	return node{tree: tree, valid: false, cluster: []Record{}}
+func newNode(tree *KDTree, rot int) node {
+	return node{
+		tree:     tree,
+		cluster:  []Record{},
+		subNodes: []node{},
+		pivot:    []float32{},
+		valid:    false,
+		rot:      rot % tree.dim,
+	}
 }
 
 type node struct {
@@ -68,21 +79,14 @@ type node struct {
 	subNodes []node
 	pivot    []float32
 	valid    bool
+	rot      int
 }
 
 func (n *node) add(r Record) {
-	if n.cluster == nil {
-		if r.QuasiIdentifer()[0] < n.pivot[0] {
-			n.subNodes[0].add(r)
-		} else {
-			n.subNodes[1].add(r)
-		}
-
-		return
-	}
-
 	n.cluster = append(n.cluster, r)
+}
 
+func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
 		lower, upper, valide := n.split()
@@ -102,23 +106,25 @@ func (n *node) add(r Record) {
 			upper,
 		}
 		n.cluster = nil
+		n.subNodes[0].build()
+		n.subNodes[1].build()
 	}
 }
 
 func (n *node) split() (node, node, bool) {
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
-		return n.cluster[i].QuasiIdentifer()[0] < n.cluster[j].QuasiIdentifer()[0]
+		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
 	})
 
 	n.pivot = nil
-	lower := newNode(n.tree)
-	upper := newNode(n.tree)
+	lower := newNode(n.tree, n.rot+1)
+	upper := newNode(n.tree, n.rot+1)
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
 
 	for _, row := range n.cluster {
-		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[0] == previous.QuasiIdentifer()[0] {
+		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
 			lower.add(row)
 			previous = row
 			lowerSize++
@@ -154,7 +160,8 @@ func (n *node) string(offset int) string {
 	if n.cluster != nil {
 		result := "["
 		for _, rec := range n.cluster {
-			result += fmt.Sprintf("%v ", rec.QuasiIdentifer()[0])
+			// result += fmt.Sprintf("%v ", rec.QuasiIdentifer()[n.rot])
+			result += fmt.Sprintf("%v ", rec.QuasiIdentifer())
 		}
 
 		result += "]"
@@ -162,9 +169,11 @@ func (n *node) string(offset int) string {
 		return result
 	}
 
-	return fmt.Sprintf("{\n%s pivot: %v,\n%s n0: %s,\n%s n1: %s,\n%s}",
+	return fmt.Sprintf("{\n%s pivot: %v,\n%s rot: %v, \n%s n0: %s,\n%s n1: %s,\n%s}",
 		strings.Repeat(" ", offset),
-		n.pivot[0],
+		n.pivot[n.rot],
+		strings.Repeat(" ", offset),
+		n.rot,
 		strings.Repeat(" ", offset),
 		n.subNodes[0].string(offset+1),
 		strings.Repeat(" ", offset),
