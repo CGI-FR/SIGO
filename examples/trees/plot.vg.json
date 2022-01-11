@@ -36,14 +36,8 @@
                 "type": "quantitative",
                 "axis": { "minExtent": 30 }
             },
-            "color": {
-                "field": "remarquable",
-                "type": "ordinal",
-                "scale": {
-                    "domain": ["OUI", "NON"],
-                    "range": ["#f47e09", "#a8a8a8"]
-                }
-            }
+            "color": {"field": "remarquable", "type": "nominal"},
+            "shape": {"field": "remarquable", "type": "nominal"}
         }
     }
 }
