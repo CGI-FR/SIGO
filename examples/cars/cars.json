@@ -1,0 +1,3922 @@
+[
+  {
+    "Id": 1,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 8,
+    "Displacement": 307,
+    "Horsepower": 130,
+    "Weight_in_lbs": 3504,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 2,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 165,
+    "Weight_in_lbs": 3693,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 3,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3436,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 4,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3433,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 5,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 140,
+    "Weight_in_lbs": 3449,
+    "Acceleration": 10.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 6,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 429,
+    "Horsepower": 198,
+    "Weight_in_lbs": 4341,
+    "Acceleration": 10,
+    "Origin": "USA"
+  },
+  {
+    "Id": 7,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 454,
+    "Horsepower": 220,
+    "Weight_in_lbs": 4354,
+    "Acceleration": 9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 8,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 440,
+    "Horsepower": 215,
+    "Weight_in_lbs": 4312,
+    "Acceleration": 8.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 9,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 455,
+    "Horsepower": 225,
+    "Weight_in_lbs": 4425,
+    "Acceleration": 10,
+    "Origin": "USA"
+  },
+  {
+    "Id": 10,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 390,
+    "Horsepower": 190,
+    "Weight_in_lbs": 3850,
+    "Acceleration": 8.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 11,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 383,
+    "Horsepower": 170,
+    "Weight_in_lbs": 3563,
+    "Acceleration": 10,
+    "Origin": "USA"
+  },
+  {
+    "Id": 12,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 340,
+    "Horsepower": 160,
+    "Weight_in_lbs": 3609,
+    "Acceleration": 8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 13,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3761,
+    "Acceleration": 9.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 14,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 455,
+    "Horsepower": 225,
+    "Weight_in_lbs": 3086,
+    "Acceleration": 10,
+    "Origin": "USA"
+  },
+  {
+    "Id": 15,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 113,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2372,
+    "Acceleration": 15,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 16,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 6,
+    "Displacement": 198,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2833,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 17,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 199,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2774,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 18,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 85,
+    "Weight_in_lbs": 2587,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 19,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2130,
+    "Acceleration": 14.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 20,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 46,
+    "Weight_in_lbs": 1835,
+    "Acceleration": 20.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 21,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 110,
+    "Horsepower": 87,
+    "Weight_in_lbs": 2672,
+    "Acceleration": 17.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 22,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 107,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2430,
+    "Acceleration": 14.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 23,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 104,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2375,
+    "Acceleration": 17.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 24,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 113,
+    "Weight_in_lbs": 2234,
+    "Acceleration": 12.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 25,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 6,
+    "Displacement": 199,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2648,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 26,
+    "Miles_per_Gallon": 10,
+    "Cylinders": 8,
+    "Displacement": 360,
+    "Horsepower": 215,
+    "Weight_in_lbs": 4615,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 27,
+    "Miles_per_Gallon": 10,
+    "Cylinders": 8,
+    "Displacement": 307,
+    "Horsepower": 200,
+    "Weight_in_lbs": 4376,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 28,
+    "Miles_per_Gallon": 11,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 210,
+    "Weight_in_lbs": 4382,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 29,
+    "Miles_per_Gallon": 9,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 193,
+    "Weight_in_lbs": 4732,
+    "Acceleration": 18.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 30,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2130,
+    "Acceleration": 14.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 31,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2264,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 32,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 113,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2228,
+    "Acceleration": 14,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 33,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2634,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 34,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3439,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 35,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3329,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 36,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 88,
+    "Weight_in_lbs": 3302,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 37,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3288,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 38,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 165,
+    "Weight_in_lbs": 4209,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 39,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 175,
+    "Weight_in_lbs": 4464,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 40,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 153,
+    "Weight_in_lbs": 4154,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 41,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4096,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 42,
+    "Miles_per_Gallon": 12,
+    "Cylinders": 8,
+    "Displacement": 383,
+    "Horsepower": 180,
+    "Weight_in_lbs": 4955,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 43,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 170,
+    "Weight_in_lbs": 4746,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 44,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 175,
+    "Weight_in_lbs": 5140,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 45,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 258,
+    "Horsepower": 110,
+    "Weight_in_lbs": 2962,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 46,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 72,
+    "Weight_in_lbs": 2408,
+    "Acceleration": 19,
+    "Origin": "USA"
+  },
+  {
+    "Id": 47,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3282,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 48,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 88,
+    "Weight_in_lbs": 3139,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 49,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 86,
+    "Weight_in_lbs": 2220,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 50,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 116,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2123,
+    "Acceleration": 14,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 51,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 79,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2074,
+    "Acceleration": 19.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 52,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 88,
+    "Horsepower": 76,
+    "Weight_in_lbs": 2065,
+    "Acceleration": 14.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 53,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 71,
+    "Horsepower": 65,
+    "Weight_in_lbs": 1773,
+    "Acceleration": 19,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 54,
+    "Miles_per_Gallon": 35,
+    "Cylinders": 4,
+    "Displacement": 72,
+    "Horsepower": 69,
+    "Weight_in_lbs": 1613,
+    "Acceleration": 18,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 55,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 60,
+    "Weight_in_lbs": 1834,
+    "Acceleration": 19,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 56,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 70,
+    "Weight_in_lbs": 1955,
+    "Acceleration": 20.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 57,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 113,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2278,
+    "Acceleration": 15.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 58,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 97.5,
+    "Horsepower": 80,
+    "Weight_in_lbs": 2126,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 59,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 54,
+    "Weight_in_lbs": 2254,
+    "Acceleration": 23.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 60,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2408,
+    "Acceleration": 19.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 61,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 86,
+    "Weight_in_lbs": 2226,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 62,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 165,
+    "Weight_in_lbs": 4274,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 63,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 175,
+    "Weight_in_lbs": 4385,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 64,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4135,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 65,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 153,
+    "Weight_in_lbs": 4129,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 66,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3672,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 67,
+    "Miles_per_Gallon": 11,
+    "Cylinders": 8,
+    "Displacement": 429,
+    "Horsepower": 208,
+    "Weight_in_lbs": 4633,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 68,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 155,
+    "Weight_in_lbs": 4502,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 69,
+    "Miles_per_Gallon": 12,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 160,
+    "Weight_in_lbs": 4456,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 70,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 190,
+    "Weight_in_lbs": 4422,
+    "Acceleration": 12.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 71,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 3,
+    "Displacement": 70,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2330,
+    "Acceleration": 13.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 72,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3892,
+    "Acceleration": 12.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 73,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 307,
+    "Horsepower": 130,
+    "Weight_in_lbs": 4098,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 74,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 140,
+    "Weight_in_lbs": 4294,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 75,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4077,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 76,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 112,
+    "Weight_in_lbs": 2933,
+    "Acceleration": 14.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 77,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 76,
+    "Weight_in_lbs": 2511,
+    "Acceleration": 18,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 78,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 87,
+    "Weight_in_lbs": 2979,
+    "Acceleration": 19.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 79,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 96,
+    "Horsepower": 69,
+    "Weight_in_lbs": 2189,
+    "Acceleration": 18,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 80,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 86,
+    "Weight_in_lbs": 2395,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 81,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 92,
+    "Weight_in_lbs": 2288,
+    "Acceleration": 17,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 82,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2506,
+    "Acceleration": 14.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 83,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 80,
+    "Weight_in_lbs": 2164,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 84,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2100,
+    "Acceleration": 16.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 85,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 175,
+    "Weight_in_lbs": 4100,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 86,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3672,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 87,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 145,
+    "Weight_in_lbs": 3988,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 88,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 137,
+    "Weight_in_lbs": 4042,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 89,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3777,
+    "Acceleration": 12.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 90,
+    "Miles_per_Gallon": 12,
+    "Cylinders": 8,
+    "Displacement": 429,
+    "Horsepower": 198,
+    "Weight_in_lbs": 4952,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 91,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4464,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 92,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 158,
+    "Weight_in_lbs": 4363,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 93,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4237,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 94,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 440,
+    "Horsepower": 215,
+    "Weight_in_lbs": 4735,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 95,
+    "Miles_per_Gallon": 12,
+    "Cylinders": 8,
+    "Displacement": 455,
+    "Horsepower": 225,
+    "Weight_in_lbs": 4951,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 96,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 360,
+    "Horsepower": 175,
+    "Weight_in_lbs": 3821,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 97,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3121,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 98,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3278,
+    "Acceleration": 18,
+    "Origin": "USA"
+  },
+  {
+    "Id": 99,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2945,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 100,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 88,
+    "Weight_in_lbs": 3021,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 101,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 6,
+    "Displacement": 198,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2904,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 102,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 46,
+    "Weight_in_lbs": 1950,
+    "Acceleration": 21,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 103,
+    "Miles_per_Gallon": 11,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4997,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 104,
+    "Miles_per_Gallon": 12,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 167,
+    "Weight_in_lbs": 4906,
+    "Acceleration": 12.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 105,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 360,
+    "Horsepower": 170,
+    "Weight_in_lbs": 4654,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 106,
+    "Miles_per_Gallon": 12,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 180,
+    "Weight_in_lbs": 4499,
+    "Acceleration": 12.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 107,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2789,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 108,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2279,
+    "Acceleration": 19,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 109,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 72,
+    "Weight_in_lbs": 2401,
+    "Acceleration": 19.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 110,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 4,
+    "Displacement": 108,
+    "Horsepower": 94,
+    "Weight_in_lbs": 2379,
+    "Acceleration": 16.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 111,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 3,
+    "Displacement": 70,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2124,
+    "Acceleration": 13.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 112,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 85,
+    "Weight_in_lbs": 2310,
+    "Acceleration": 18.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 113,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 6,
+    "Displacement": 155,
+    "Horsepower": 107,
+    "Weight_in_lbs": 2472,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 114,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2265,
+    "Acceleration": 15.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 115,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 145,
+    "Weight_in_lbs": 4082,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 116,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 230,
+    "Weight_in_lbs": 4278,
+    "Acceleration": 9.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 117,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 68,
+    "Horsepower": 49,
+    "Weight_in_lbs": 1867,
+    "Acceleration": 19.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 118,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 116,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2158,
+    "Acceleration": 15.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 119,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 4,
+    "Displacement": 114,
+    "Horsepower": 91,
+    "Weight_in_lbs": 2582,
+    "Acceleration": 14,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 120,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 112,
+    "Weight_in_lbs": 2868,
+    "Acceleration": 15.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 121,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3399,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 122,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 110,
+    "Weight_in_lbs": 2660,
+    "Acceleration": 14,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 123,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 6,
+    "Displacement": 156,
+    "Horsepower": 122,
+    "Weight_in_lbs": 2807,
+    "Acceleration": 13.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 124,
+    "Miles_per_Gallon": 11,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 180,
+    "Weight_in_lbs": 3664,
+    "Acceleration": 11,
+    "Origin": "USA"
+  },
+  {
+    "Id": 125,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 6,
+    "Displacement": 198,
+    "Horsepower": 95,
+    "Weight_in_lbs": 3102,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 126,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2901,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 127,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3336,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 128,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 79,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1950,
+    "Acceleration": 19,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 129,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 80,
+    "Weight_in_lbs": 2451,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 130,
+    "Miles_per_Gallon": 32,
+    "Cylinders": 4,
+    "Displacement": 71,
+    "Horsepower": 65,
+    "Weight_in_lbs": 1836,
+    "Acceleration": 21,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 131,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2542,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 132,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3781,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 133,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 6,
+    "Displacement": 258,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3632,
+    "Acceleration": 18,
+    "Origin": "USA"
+  },
+  {
+    "Id": 134,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3613,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 135,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 140,
+    "Weight_in_lbs": 4141,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 136,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4699,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 137,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4457,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 138,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 140,
+    "Weight_in_lbs": 4638,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 139,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4257,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 140,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 83,
+    "Weight_in_lbs": 2219,
+    "Acceleration": 16.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 141,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 79,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1963,
+    "Acceleration": 15.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 142,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 78,
+    "Weight_in_lbs": 2300,
+    "Acceleration": 14.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 143,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 76,
+    "Horsepower": 52,
+    "Weight_in_lbs": 1649,
+    "Acceleration": 16.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 144,
+    "Miles_per_Gallon": 32,
+    "Cylinders": 4,
+    "Displacement": 83,
+    "Horsepower": 61,
+    "Weight_in_lbs": 2003,
+    "Acceleration": 19,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 145,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2125,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 146,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2108,
+    "Acceleration": 15.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 147,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 116,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2246,
+    "Acceleration": 14,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 148,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2489,
+    "Acceleration": 15,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 149,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 108,
+    "Horsepower": 93,
+    "Weight_in_lbs": 2391,
+    "Acceleration": 15.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 150,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 79,
+    "Horsepower": 67,
+    "Weight_in_lbs": 2000,
+    "Acceleration": 16,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 151,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 95,
+    "Weight_in_lbs": 3264,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 152,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3459,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 153,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 72,
+    "Weight_in_lbs": 3432,
+    "Acceleration": 21,
+    "Origin": "USA"
+  },
+  {
+    "Id": 154,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 72,
+    "Weight_in_lbs": 3158,
+    "Acceleration": 19.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 155,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 170,
+    "Weight_in_lbs": 4668,
+    "Acceleration": 11.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 156,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 145,
+    "Weight_in_lbs": 4440,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 157,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4498,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 158,
+    "Miles_per_Gallon": 14,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 148,
+    "Weight_in_lbs": 4657,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 159,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3907,
+    "Acceleration": 21,
+    "Origin": "USA"
+  },
+  {
+    "Id": 160,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3897,
+    "Acceleration": 18.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 161,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 6,
+    "Displacement": 258,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3730,
+    "Acceleration": 19,
+    "Origin": "USA"
+  },
+  {
+    "Id": 162,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 95,
+    "Weight_in_lbs": 3785,
+    "Acceleration": 19,
+    "Origin": "USA"
+  },
+  {
+    "Id": 163,
+    "Miles_per_Gallon": 21,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3039,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 164,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 8,
+    "Displacement": 262,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3221,
+    "Acceleration": 13.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 165,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 129,
+    "Weight_in_lbs": 3169,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 166,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2171,
+    "Acceleration": 16,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 167,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 83,
+    "Weight_in_lbs": 2639,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 168,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2914,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 169,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 78,
+    "Weight_in_lbs": 2592,
+    "Acceleration": 18.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 170,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 134,
+    "Horsepower": 96,
+    "Weight_in_lbs": 2702,
+    "Acceleration": 13.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 171,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 71,
+    "Weight_in_lbs": 2223,
+    "Acceleration": 16.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 172,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 119,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2545,
+    "Acceleration": 17,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 173,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 171,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2984,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 174,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 70,
+    "Weight_in_lbs": 1937,
+    "Acceleration": 14,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 175,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3211,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 176,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 115,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2694,
+    "Acceleration": 15,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 177,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2957,
+    "Acceleration": 17,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 178,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 98,
+    "Weight_in_lbs": 2945,
+    "Acceleration": 14.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 179,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 115,
+    "Weight_in_lbs": 2671,
+    "Acceleration": 13.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 180,
+    "Miles_per_Gallon": 33,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 53,
+    "Weight_in_lbs": 1795,
+    "Acceleration": 17.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 181,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 107,
+    "Horsepower": 86,
+    "Weight_in_lbs": 2464,
+    "Acceleration": 15.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 182,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 116,
+    "Horsepower": 81,
+    "Weight_in_lbs": 2220,
+    "Acceleration": 16.9,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 183,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 92,
+    "Weight_in_lbs": 2572,
+    "Acceleration": 14.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 184,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 79,
+    "Weight_in_lbs": 2255,
+    "Acceleration": 17.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 185,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 101,
+    "Horsepower": 83,
+    "Weight_in_lbs": 2202,
+    "Acceleration": 15.3,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 186,
+    "Miles_per_Gallon": 17.5,
+    "Cylinders": 8,
+    "Displacement": 305,
+    "Horsepower": 140,
+    "Weight_in_lbs": 4215,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 187,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 4190,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 188,
+    "Miles_per_Gallon": 15.5,
+    "Cylinders": 8,
+    "Displacement": 304,
+    "Horsepower": 120,
+    "Weight_in_lbs": 3962,
+    "Acceleration": 13.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 189,
+    "Miles_per_Gallon": 14.5,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 152,
+    "Weight_in_lbs": 4215,
+    "Acceleration": 12.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 190,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3233,
+    "Acceleration": 15.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 191,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3353,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 192,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 81,
+    "Weight_in_lbs": 3012,
+    "Acceleration": 17.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 193,
+    "Miles_per_Gallon": 22.5,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3085,
+    "Acceleration": 17.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 194,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 52,
+    "Weight_in_lbs": 2035,
+    "Acceleration": 22.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 195,
+    "Miles_per_Gallon": 24.5,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 60,
+    "Weight_in_lbs": 2164,
+    "Acceleration": 22.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 196,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 70,
+    "Weight_in_lbs": 1937,
+    "Acceleration": 14.2,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 197,
+    "Miles_per_Gallon": 33,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 53,
+    "Weight_in_lbs": 1795,
+    "Acceleration": 17.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 198,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3651,
+    "Acceleration": 17.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 199,
+    "Miles_per_Gallon": 18,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 78,
+    "Weight_in_lbs": 3574,
+    "Acceleration": 21,
+    "Origin": "USA"
+  },
+  {
+    "Id": 200,
+    "Miles_per_Gallon": 18.5,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3645,
+    "Acceleration": 16.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 201,
+    "Miles_per_Gallon": 17.5,
+    "Cylinders": 6,
+    "Displacement": 258,
+    "Horsepower": 95,
+    "Weight_in_lbs": 3193,
+    "Acceleration": 17.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 202,
+    "Miles_per_Gallon": 29.5,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 71,
+    "Weight_in_lbs": 1825,
+    "Acceleration": 12.2,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 203,
+    "Miles_per_Gallon": 32,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 70,
+    "Weight_in_lbs": 1990,
+    "Acceleration": 17,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 204,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2155,
+    "Acceleration": 16.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 205,
+    "Miles_per_Gallon": 26.5,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 72,
+    "Weight_in_lbs": 2565,
+    "Acceleration": 13.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 206,
+    "Miles_per_Gallon": 20,
+    "Cylinders": 4,
+    "Displacement": 130,
+    "Horsepower": 102,
+    "Weight_in_lbs": 3150,
+    "Acceleration": 15.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 207,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3940,
+    "Acceleration": 13.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 208,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 88,
+    "Weight_in_lbs": 3270,
+    "Acceleration": 21.9,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 209,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 156,
+    "Horsepower": 108,
+    "Weight_in_lbs": 2930,
+    "Acceleration": 15.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 210,
+    "Miles_per_Gallon": 16.5,
+    "Cylinders": 6,
+    "Displacement": 168,
+    "Horsepower": 120,
+    "Weight_in_lbs": 3820,
+    "Acceleration": 16.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 211,
+    "Miles_per_Gallon": 16.5,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 180,
+    "Weight_in_lbs": 4380,
+    "Acceleration": 12.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 212,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 145,
+    "Weight_in_lbs": 4055,
+    "Acceleration": 12,
+    "Origin": "USA"
+  },
+  {
+    "Id": 213,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 130,
+    "Weight_in_lbs": 3870,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 214,
+    "Miles_per_Gallon": 13,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3755,
+    "Acceleration": 14,
+    "Origin": "USA"
+  },
+  {
+    "Id": 215,
+    "Miles_per_Gallon": 31.5,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 68,
+    "Weight_in_lbs": 2045,
+    "Acceleration": 18.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 216,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 111,
+    "Horsepower": 80,
+    "Weight_in_lbs": 2155,
+    "Acceleration": 14.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 217,
+    "Miles_per_Gallon": 36,
+    "Cylinders": 4,
+    "Displacement": 79,
+    "Horsepower": 58,
+    "Weight_in_lbs": 1825,
+    "Acceleration": 18.6,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 218,
+    "Miles_per_Gallon": 25.5,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 96,
+    "Weight_in_lbs": 2300,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 219,
+    "Miles_per_Gallon": 33.5,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 70,
+    "Weight_in_lbs": 1945,
+    "Acceleration": 16.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 220,
+    "Miles_per_Gallon": 17.5,
+    "Cylinders": 8,
+    "Displacement": 305,
+    "Horsepower": 145,
+    "Weight_in_lbs": 3880,
+    "Acceleration": 12.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 221,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 8,
+    "Displacement": 260,
+    "Horsepower": 110,
+    "Weight_in_lbs": 4060,
+    "Acceleration": 19,
+    "Origin": "USA"
+  },
+  {
+    "Id": 222,
+    "Miles_per_Gallon": 15.5,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 145,
+    "Weight_in_lbs": 4140,
+    "Acceleration": 13.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 223,
+    "Miles_per_Gallon": 15,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 130,
+    "Weight_in_lbs": 4295,
+    "Acceleration": 14.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 224,
+    "Miles_per_Gallon": 17.5,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3520,
+    "Acceleration": 16.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 225,
+    "Miles_per_Gallon": 20.5,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3425,
+    "Acceleration": 16.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 226,
+    "Miles_per_Gallon": 19,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3630,
+    "Acceleration": 17.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 227,
+    "Miles_per_Gallon": 18.5,
+    "Cylinders": 6,
+    "Displacement": 250,
+    "Horsepower": 98,
+    "Weight_in_lbs": 3525,
+    "Acceleration": 19,
+    "Origin": "USA"
+  },
+  {
+    "Id": 228,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 180,
+    "Weight_in_lbs": 4220,
+    "Acceleration": 11.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 229,
+    "Miles_per_Gallon": 15.5,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 170,
+    "Weight_in_lbs": 4165,
+    "Acceleration": 11.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 230,
+    "Miles_per_Gallon": 15.5,
+    "Cylinders": 8,
+    "Displacement": 400,
+    "Horsepower": 190,
+    "Weight_in_lbs": 4325,
+    "Acceleration": 12.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 231,
+    "Miles_per_Gallon": 16,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 149,
+    "Weight_in_lbs": 4335,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 232,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 78,
+    "Weight_in_lbs": 1940,
+    "Acceleration": 14.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 233,
+    "Miles_per_Gallon": 24.5,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2740,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 234,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2265,
+    "Acceleration": 18.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 235,
+    "Miles_per_Gallon": 25.5,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 89,
+    "Weight_in_lbs": 2755,
+    "Acceleration": 15.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 236,
+    "Miles_per_Gallon": 30.5,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 63,
+    "Weight_in_lbs": 2051,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 237,
+    "Miles_per_Gallon": 33.5,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 83,
+    "Weight_in_lbs": 2075,
+    "Acceleration": 15.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 238,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1985,
+    "Acceleration": 16.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 239,
+    "Miles_per_Gallon": 30.5,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 78,
+    "Weight_in_lbs": 2190,
+    "Acceleration": 14.1,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 240,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 6,
+    "Displacement": 146,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2815,
+    "Acceleration": 14.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 241,
+    "Miles_per_Gallon": 21.5,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 110,
+    "Weight_in_lbs": 2600,
+    "Acceleration": 12.8,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 242,
+    "Miles_per_Gallon": 21.5,
+    "Cylinders": 3,
+    "Displacement": 80,
+    "Horsepower": 110,
+    "Weight_in_lbs": 2720,
+    "Acceleration": 13.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 243,
+    "Miles_per_Gallon": 43.1,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 48,
+    "Weight_in_lbs": 1985,
+    "Acceleration": 21.5,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 244,
+    "Miles_per_Gallon": 36.1,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 66,
+    "Weight_in_lbs": 1800,
+    "Acceleration": 14.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 245,
+    "Miles_per_Gallon": 32.8,
+    "Cylinders": 4,
+    "Displacement": 78,
+    "Horsepower": 52,
+    "Weight_in_lbs": 1985,
+    "Acceleration": 19.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 246,
+    "Miles_per_Gallon": 39.4,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2070,
+    "Acceleration": 18.6,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 247,
+    "Miles_per_Gallon": 36.1,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 60,
+    "Weight_in_lbs": 1800,
+    "Acceleration": 16.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 248,
+    "Miles_per_Gallon": 19.9,
+    "Cylinders": 8,
+    "Displacement": 260,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3365,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 249,
+    "Miles_per_Gallon": 19.4,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 140,
+    "Weight_in_lbs": 3735,
+    "Acceleration": 13.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 250,
+    "Miles_per_Gallon": 20.2,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 139,
+    "Weight_in_lbs": 3570,
+    "Acceleration": 12.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 251,
+    "Miles_per_Gallon": 19.2,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3535,
+    "Acceleration": 19.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 252,
+    "Miles_per_Gallon": 20.5,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 95,
+    "Weight_in_lbs": 3155,
+    "Acceleration": 18.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 253,
+    "Miles_per_Gallon": 20.2,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 85,
+    "Weight_in_lbs": 2965,
+    "Acceleration": 15.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 254,
+    "Miles_per_Gallon": 25.1,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2720,
+    "Acceleration": 15.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 255,
+    "Miles_per_Gallon": 20.5,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 100,
+    "Weight_in_lbs": 3430,
+    "Acceleration": 17.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 256,
+    "Miles_per_Gallon": 19.4,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3210,
+    "Acceleration": 17.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 257,
+    "Miles_per_Gallon": 20.6,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3380,
+    "Acceleration": 15.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 258,
+    "Miles_per_Gallon": 20.8,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 85,
+    "Weight_in_lbs": 3070,
+    "Acceleration": 16.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 259,
+    "Miles_per_Gallon": 18.6,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3620,
+    "Acceleration": 18.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 260,
+    "Miles_per_Gallon": 18.1,
+    "Cylinders": 6,
+    "Displacement": 258,
+    "Horsepower": 120,
+    "Weight_in_lbs": 3410,
+    "Acceleration": 15.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 261,
+    "Miles_per_Gallon": 19.2,
+    "Cylinders": 8,
+    "Displacement": 305,
+    "Horsepower": 145,
+    "Weight_in_lbs": 3425,
+    "Acceleration": 13.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 262,
+    "Miles_per_Gallon": 17.7,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 165,
+    "Weight_in_lbs": 3445,
+    "Acceleration": 13.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 263,
+    "Miles_per_Gallon": 18.1,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 139,
+    "Weight_in_lbs": 3205,
+    "Acceleration": 11.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 264,
+    "Miles_per_Gallon": 17.5,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 140,
+    "Weight_in_lbs": 4080,
+    "Acceleration": 13.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 265,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 68,
+    "Weight_in_lbs": 2155,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 266,
+    "Miles_per_Gallon": 27.5,
+    "Cylinders": 4,
+    "Displacement": 134,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2560,
+    "Acceleration": 14.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 267,
+    "Miles_per_Gallon": 27.2,
+    "Cylinders": 4,
+    "Displacement": 119,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2300,
+    "Acceleration": 14.7,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 268,
+    "Miles_per_Gallon": 30.9,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2230,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 269,
+    "Miles_per_Gallon": 21.1,
+    "Cylinders": 4,
+    "Displacement": 134,
+    "Horsepower": 95,
+    "Weight_in_lbs": 2515,
+    "Acceleration": 14.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 270,
+    "Miles_per_Gallon": 23.2,
+    "Cylinders": 4,
+    "Displacement": 156,
+    "Horsepower": 105,
+    "Weight_in_lbs": 2745,
+    "Acceleration": 16.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 271,
+    "Miles_per_Gallon": 23.8,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 85,
+    "Weight_in_lbs": 2855,
+    "Acceleration": 17.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 272,
+    "Miles_per_Gallon": 23.9,
+    "Cylinders": 4,
+    "Displacement": 119,
+    "Horsepower": 97,
+    "Weight_in_lbs": 2405,
+    "Acceleration": 14.9,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 273,
+    "Miles_per_Gallon": 20.3,
+    "Cylinders": 5,
+    "Displacement": 131,
+    "Horsepower": 103,
+    "Weight_in_lbs": 2830,
+    "Acceleration": 15.9,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 274,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 6,
+    "Displacement": 163,
+    "Horsepower": 125,
+    "Weight_in_lbs": 3140,
+    "Acceleration": 13.6,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 275,
+    "Miles_per_Gallon": 21.6,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 115,
+    "Weight_in_lbs": 2795,
+    "Acceleration": 15.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 276,
+    "Miles_per_Gallon": 16.2,
+    "Cylinders": 6,
+    "Displacement": 163,
+    "Horsepower": 133,
+    "Weight_in_lbs": 3410,
+    "Acceleration": 15.8,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 277,
+    "Miles_per_Gallon": 31.5,
+    "Cylinders": 4,
+    "Displacement": 89,
+    "Horsepower": 71,
+    "Weight_in_lbs": 1990,
+    "Acceleration": 14.9,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 278,
+    "Miles_per_Gallon": 29.5,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 68,
+    "Weight_in_lbs": 2135,
+    "Acceleration": 16.6,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 279,
+    "Miles_per_Gallon": 21.5,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 115,
+    "Weight_in_lbs": 3245,
+    "Acceleration": 15.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 280,
+    "Miles_per_Gallon": 19.8,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 85,
+    "Weight_in_lbs": 2990,
+    "Acceleration": 18.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 281,
+    "Miles_per_Gallon": 22.3,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2890,
+    "Acceleration": 17.3,
+    "Origin": "USA"
+  },
+  {
+    "Id": 282,
+    "Miles_per_Gallon": 20.2,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3265,
+    "Acceleration": 18.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 283,
+    "Miles_per_Gallon": 20.6,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3360,
+    "Acceleration": 16.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 284,
+    "Miles_per_Gallon": 17,
+    "Cylinders": 8,
+    "Displacement": 305,
+    "Horsepower": 130,
+    "Weight_in_lbs": 3840,
+    "Acceleration": 15.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 285,
+    "Miles_per_Gallon": 17.6,
+    "Cylinders": 8,
+    "Displacement": 302,
+    "Horsepower": 129,
+    "Weight_in_lbs": 3725,
+    "Acceleration": 13.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 286,
+    "Miles_per_Gallon": 16.5,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 138,
+    "Weight_in_lbs": 3955,
+    "Acceleration": 13.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 287,
+    "Miles_per_Gallon": 18.2,
+    "Cylinders": 8,
+    "Displacement": 318,
+    "Horsepower": 135,
+    "Weight_in_lbs": 3830,
+    "Acceleration": 15.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 288,
+    "Miles_per_Gallon": 16.9,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 155,
+    "Weight_in_lbs": 4360,
+    "Acceleration": 14.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 289,
+    "Miles_per_Gallon": 15.5,
+    "Cylinders": 8,
+    "Displacement": 351,
+    "Horsepower": 142,
+    "Weight_in_lbs": 4054,
+    "Acceleration": 14.3,
+    "Origin": "USA"
+  },
+  {
+    "Id": 290,
+    "Miles_per_Gallon": 19.2,
+    "Cylinders": 8,
+    "Displacement": 267,
+    "Horsepower": 125,
+    "Weight_in_lbs": 3605,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 291,
+    "Miles_per_Gallon": 18.5,
+    "Cylinders": 8,
+    "Displacement": 360,
+    "Horsepower": 150,
+    "Weight_in_lbs": 3940,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 292,
+    "Miles_per_Gallon": 31.9,
+    "Cylinders": 4,
+    "Displacement": 89,
+    "Horsepower": 71,
+    "Weight_in_lbs": 1925,
+    "Acceleration": 14,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 293,
+    "Miles_per_Gallon": 34.1,
+    "Cylinders": 4,
+    "Displacement": 86,
+    "Horsepower": 65,
+    "Weight_in_lbs": 1975,
+    "Acceleration": 15.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 294,
+    "Miles_per_Gallon": 35.7,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 80,
+    "Weight_in_lbs": 1915,
+    "Acceleration": 14.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 295,
+    "Miles_per_Gallon": 27.4,
+    "Cylinders": 4,
+    "Displacement": 121,
+    "Horsepower": 80,
+    "Weight_in_lbs": 2670,
+    "Acceleration": 15,
+    "Origin": "USA"
+  },
+  {
+    "Id": 296,
+    "Miles_per_Gallon": 25.4,
+    "Cylinders": 5,
+    "Displacement": 183,
+    "Horsepower": 77,
+    "Weight_in_lbs": 3530,
+    "Acceleration": 20.1,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 297,
+    "Miles_per_Gallon": 23,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 125,
+    "Weight_in_lbs": 3900,
+    "Acceleration": 17.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 298,
+    "Miles_per_Gallon": 27.2,
+    "Cylinders": 4,
+    "Displacement": 141,
+    "Horsepower": 71,
+    "Weight_in_lbs": 3190,
+    "Acceleration": 24.8,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 299,
+    "Miles_per_Gallon": 23.9,
+    "Cylinders": 8,
+    "Displacement": 260,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3420,
+    "Acceleration": 22.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 300,
+    "Miles_per_Gallon": 34.2,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2200,
+    "Acceleration": 13.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 301,
+    "Miles_per_Gallon": 34.5,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2150,
+    "Acceleration": 14.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 302,
+    "Miles_per_Gallon": 31.8,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 65,
+    "Weight_in_lbs": 2020,
+    "Acceleration": 19.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 303,
+    "Miles_per_Gallon": 37.3,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 69,
+    "Weight_in_lbs": 2130,
+    "Acceleration": 14.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 304,
+    "Miles_per_Gallon": 28.4,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2670,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 305,
+    "Miles_per_Gallon": 28.8,
+    "Cylinders": 6,
+    "Displacement": 173,
+    "Horsepower": 115,
+    "Weight_in_lbs": 2595,
+    "Acceleration": 11.3,
+    "Origin": "USA"
+  },
+  {
+    "Id": 306,
+    "Miles_per_Gallon": 26.8,
+    "Cylinders": 6,
+    "Displacement": 173,
+    "Horsepower": 115,
+    "Weight_in_lbs": 2700,
+    "Acceleration": 12.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 307,
+    "Miles_per_Gallon": 33.5,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2556,
+    "Acceleration": 13.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 308,
+    "Miles_per_Gallon": 41.5,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 76,
+    "Weight_in_lbs": 2144,
+    "Acceleration": 14.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 309,
+    "Miles_per_Gallon": 38.1,
+    "Cylinders": 4,
+    "Displacement": 89,
+    "Horsepower": 60,
+    "Weight_in_lbs": 1968,
+    "Acceleration": 18.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 310,
+    "Miles_per_Gallon": 32.1,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2120,
+    "Acceleration": 15.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 311,
+    "Miles_per_Gallon": 37.2,
+    "Cylinders": 4,
+    "Displacement": 86,
+    "Horsepower": 65,
+    "Weight_in_lbs": 2019,
+    "Acceleration": 16.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 312,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2678,
+    "Acceleration": 16.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 313,
+    "Miles_per_Gallon": 26.4,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2870,
+    "Acceleration": 18.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 314,
+    "Miles_per_Gallon": 24.3,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3003,
+    "Acceleration": 20.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 315,
+    "Miles_per_Gallon": 19.1,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 90,
+    "Weight_in_lbs": 3381,
+    "Acceleration": 18.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 316,
+    "Miles_per_Gallon": 34.3,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 78,
+    "Weight_in_lbs": 2188,
+    "Acceleration": 15.8,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 317,
+    "Miles_per_Gallon": 29.8,
+    "Cylinders": 4,
+    "Displacement": 134,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2711,
+    "Acceleration": 15.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 318,
+    "Miles_per_Gallon": 31.3,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2542,
+    "Acceleration": 17.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 319,
+    "Miles_per_Gallon": 37,
+    "Cylinders": 4,
+    "Displacement": 119,
+    "Horsepower": 92,
+    "Weight_in_lbs": 2434,
+    "Acceleration": 15,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 320,
+    "Miles_per_Gallon": 32.2,
+    "Cylinders": 4,
+    "Displacement": 108,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2265,
+    "Acceleration": 15.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 321,
+    "Miles_per_Gallon": 46.6,
+    "Cylinders": 4,
+    "Displacement": 86,
+    "Horsepower": 65,
+    "Weight_in_lbs": 2110,
+    "Acceleration": 17.9,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 322,
+    "Miles_per_Gallon": 27.9,
+    "Cylinders": 4,
+    "Displacement": 156,
+    "Horsepower": 105,
+    "Weight_in_lbs": 2800,
+    "Acceleration": 14.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 323,
+    "Miles_per_Gallon": 40.8,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 65,
+    "Weight_in_lbs": 2110,
+    "Acceleration": 19.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 324,
+    "Miles_per_Gallon": 44.3,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 48,
+    "Weight_in_lbs": 2085,
+    "Acceleration": 21.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 325,
+    "Miles_per_Gallon": 43.4,
+    "Cylinders": 4,
+    "Displacement": 90,
+    "Horsepower": 48,
+    "Weight_in_lbs": 2335,
+    "Acceleration": 23.7,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 326,
+    "Miles_per_Gallon": 36.4,
+    "Cylinders": 5,
+    "Displacement": 121,
+    "Horsepower": 67,
+    "Weight_in_lbs": 2950,
+    "Acceleration": 19.9,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 327,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 146,
+    "Horsepower": 67,
+    "Weight_in_lbs": 3250,
+    "Acceleration": 21.8,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 328,
+    "Miles_per_Gallon": 44.6,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1850,
+    "Acceleration": 13.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 329,
+    "Miles_per_Gallon": 33.8,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 67,
+    "Weight_in_lbs": 2145,
+    "Acceleration": 18,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 330,
+    "Miles_per_Gallon": 29.8,
+    "Cylinders": 4,
+    "Displacement": 89,
+    "Horsepower": 62,
+    "Weight_in_lbs": 1845,
+    "Acceleration": 15.3,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 331,
+    "Miles_per_Gallon": 32.7,
+    "Cylinders": 6,
+    "Displacement": 168,
+    "Horsepower": 132,
+    "Weight_in_lbs": 2910,
+    "Acceleration": 11.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 332,
+    "Miles_per_Gallon": 23.7,
+    "Cylinders": 3,
+    "Displacement": 70,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2420,
+    "Acceleration": 12.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 333,
+    "Miles_per_Gallon": 35,
+    "Cylinders": 4,
+    "Displacement": 122,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2500,
+    "Acceleration": 15.1,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 334,
+    "Miles_per_Gallon": 32.4,
+    "Cylinders": 4,
+    "Displacement": 107,
+    "Horsepower": 72,
+    "Weight_in_lbs": 2290,
+    "Acceleration": 17,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 335,
+    "Miles_per_Gallon": 27.2,
+    "Cylinders": 4,
+    "Displacement": 135,
+    "Horsepower": 84,
+    "Weight_in_lbs": 2490,
+    "Acceleration": 15.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 336,
+    "Miles_per_Gallon": 26.6,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 84,
+    "Weight_in_lbs": 2635,
+    "Acceleration": 16.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 337,
+    "Miles_per_Gallon": 25.8,
+    "Cylinders": 4,
+    "Displacement": 156,
+    "Horsepower": 92,
+    "Weight_in_lbs": 2620,
+    "Acceleration": 14.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 338,
+    "Miles_per_Gallon": 23.5,
+    "Cylinders": 6,
+    "Displacement": 173,
+    "Horsepower": 110,
+    "Weight_in_lbs": 2725,
+    "Acceleration": 12.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 339,
+    "Miles_per_Gallon": 30,
+    "Cylinders": 4,
+    "Displacement": 135,
+    "Horsepower": 84,
+    "Weight_in_lbs": 2385,
+    "Acceleration": 12.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 340,
+    "Miles_per_Gallon": 39.1,
+    "Cylinders": 4,
+    "Displacement": 79,
+    "Horsepower": 58,
+    "Weight_in_lbs": 1755,
+    "Acceleration": 16.9,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 341,
+    "Miles_per_Gallon": 39,
+    "Cylinders": 4,
+    "Displacement": 86,
+    "Horsepower": 64,
+    "Weight_in_lbs": 1875,
+    "Acceleration": 16.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 342,
+    "Miles_per_Gallon": 35.1,
+    "Cylinders": 4,
+    "Displacement": 81,
+    "Horsepower": 60,
+    "Weight_in_lbs": 1760,
+    "Acceleration": 16.1,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 343,
+    "Miles_per_Gallon": 32.3,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 67,
+    "Weight_in_lbs": 2065,
+    "Acceleration": 17.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 344,
+    "Miles_per_Gallon": 37,
+    "Cylinders": 4,
+    "Displacement": 85,
+    "Horsepower": 65,
+    "Weight_in_lbs": 1975,
+    "Acceleration": 19.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 345,
+    "Miles_per_Gallon": 37.7,
+    "Cylinders": 4,
+    "Displacement": 89,
+    "Horsepower": 62,
+    "Weight_in_lbs": 2050,
+    "Acceleration": 17.3,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 346,
+    "Miles_per_Gallon": 34.1,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 68,
+    "Weight_in_lbs": 1985,
+    "Acceleration": 16,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 347,
+    "Miles_per_Gallon": 34.7,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 63,
+    "Weight_in_lbs": 2215,
+    "Acceleration": 14.9,
+    "Origin": "USA"
+  },
+  {
+    "Id": 348,
+    "Miles_per_Gallon": 34.4,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 65,
+    "Weight_in_lbs": 2045,
+    "Acceleration": 16.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 349,
+    "Miles_per_Gallon": 29.9,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 65,
+    "Weight_in_lbs": 2380,
+    "Acceleration": 20.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 350,
+    "Miles_per_Gallon": 33,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 74,
+    "Weight_in_lbs": 2190,
+    "Acceleration": 14.2,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 351,
+    "Miles_per_Gallon": 33.7,
+    "Cylinders": 4,
+    "Displacement": 107,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2210,
+    "Acceleration": 14.4,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 352,
+    "Miles_per_Gallon": 32.4,
+    "Cylinders": 4,
+    "Displacement": 108,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2350,
+    "Acceleration": 16.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 353,
+    "Miles_per_Gallon": 32.9,
+    "Cylinders": 4,
+    "Displacement": 119,
+    "Horsepower": 100,
+    "Weight_in_lbs": 2615,
+    "Acceleration": 14.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 354,
+    "Miles_per_Gallon": 31.6,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 74,
+    "Weight_in_lbs": 2635,
+    "Acceleration": 18.3,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 355,
+    "Miles_per_Gallon": 28.1,
+    "Cylinders": 4,
+    "Displacement": 141,
+    "Horsepower": 80,
+    "Weight_in_lbs": 3230,
+    "Acceleration": 20.4,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 356,
+    "Miles_per_Gallon": 30.7,
+    "Cylinders": 6,
+    "Displacement": 145,
+    "Horsepower": 76,
+    "Weight_in_lbs": 3160,
+    "Acceleration": 19.6,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 357,
+    "Miles_per_Gallon": 25.4,
+    "Cylinders": 6,
+    "Displacement": 168,
+    "Horsepower": 116,
+    "Weight_in_lbs": 2900,
+    "Acceleration": 12.6,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 358,
+    "Miles_per_Gallon": 24.2,
+    "Cylinders": 6,
+    "Displacement": 146,
+    "Horsepower": 120,
+    "Weight_in_lbs": 2930,
+    "Acceleration": 13.8,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 359,
+    "Miles_per_Gallon": 22.4,
+    "Cylinders": 6,
+    "Displacement": 231,
+    "Horsepower": 110,
+    "Weight_in_lbs": 3415,
+    "Acceleration": 15.8,
+    "Origin": "USA"
+  },
+  {
+    "Id": 360,
+    "Miles_per_Gallon": 26.6,
+    "Cylinders": 8,
+    "Displacement": 350,
+    "Horsepower": 105,
+    "Weight_in_lbs": 3725,
+    "Acceleration": 19,
+    "Origin": "USA"
+  },
+  {
+    "Id": 361,
+    "Miles_per_Gallon": 20.2,
+    "Cylinders": 6,
+    "Displacement": 200,
+    "Horsepower": 88,
+    "Weight_in_lbs": 3060,
+    "Acceleration": 17.1,
+    "Origin": "USA"
+  },
+  {
+    "Id": 362,
+    "Miles_per_Gallon": 17.6,
+    "Cylinders": 6,
+    "Displacement": 225,
+    "Horsepower": 85,
+    "Weight_in_lbs": 3465,
+    "Acceleration": 16.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 363,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 112,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2605,
+    "Acceleration": 19.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 364,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 112,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2640,
+    "Acceleration": 18.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 365,
+    "Miles_per_Gallon": 34,
+    "Cylinders": 4,
+    "Displacement": 112,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2395,
+    "Acceleration": 18,
+    "Origin": "USA"
+  },
+  {
+    "Id": 366,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 112,
+    "Horsepower": 85,
+    "Weight_in_lbs": 2575,
+    "Acceleration": 16.2,
+    "Origin": "USA"
+  },
+  {
+    "Id": 367,
+    "Miles_per_Gallon": 29,
+    "Cylinders": 4,
+    "Displacement": 135,
+    "Horsepower": 84,
+    "Weight_in_lbs": 2525,
+    "Acceleration": 16,
+    "Origin": "USA"
+  },
+  {
+    "Id": 368,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2735,
+    "Acceleration": 18,
+    "Origin": "USA"
+  },
+  {
+    "Id": 369,
+    "Miles_per_Gallon": 24,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 92,
+    "Weight_in_lbs": 2865,
+    "Acceleration": 16.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 370,
+    "Miles_per_Gallon": 36,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 74,
+    "Weight_in_lbs": 1980,
+    "Acceleration": 15.3,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 371,
+    "Miles_per_Gallon": 37,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 68,
+    "Weight_in_lbs": 2025,
+    "Acceleration": 18.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 372,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 68,
+    "Weight_in_lbs": 1970,
+    "Acceleration": 17.6,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 373,
+    "Miles_per_Gallon": 38,
+    "Cylinders": 4,
+    "Displacement": 105,
+    "Horsepower": 63,
+    "Weight_in_lbs": 2125,
+    "Acceleration": 14.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 374,
+    "Miles_per_Gallon": 36,
+    "Cylinders": 4,
+    "Displacement": 98,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2125,
+    "Acceleration": 17.3,
+    "Origin": "USA"
+  },
+  {
+    "Id": 375,
+    "Miles_per_Gallon": 36,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 88,
+    "Weight_in_lbs": 2160,
+    "Acceleration": 14.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 376,
+    "Miles_per_Gallon": 36,
+    "Cylinders": 4,
+    "Displacement": 107,
+    "Horsepower": 75,
+    "Weight_in_lbs": 2205,
+    "Acceleration": 14.5,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 377,
+    "Miles_per_Gallon": 34,
+    "Cylinders": 4,
+    "Displacement": 108,
+    "Horsepower": 70,
+    "Weight_in_lbs": 2245,
+    "Acceleration": 16.9,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 378,
+    "Miles_per_Gallon": 38,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1965,
+    "Acceleration": 15,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 379,
+    "Miles_per_Gallon": 32,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1965,
+    "Acceleration": 15.7,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 380,
+    "Miles_per_Gallon": 38,
+    "Cylinders": 4,
+    "Displacement": 91,
+    "Horsepower": 67,
+    "Weight_in_lbs": 1995,
+    "Acceleration": 16.2,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 381,
+    "Miles_per_Gallon": 25,
+    "Cylinders": 6,
+    "Displacement": 181,
+    "Horsepower": 110,
+    "Weight_in_lbs": 2945,
+    "Acceleration": 16.4,
+    "Origin": "USA"
+  },
+  {
+    "Id": 382,
+    "Miles_per_Gallon": 38,
+    "Cylinders": 6,
+    "Displacement": 262,
+    "Horsepower": 85,
+    "Weight_in_lbs": 3015,
+    "Acceleration": 17,
+    "Origin": "USA"
+  },
+  {
+    "Id": 383,
+    "Miles_per_Gallon": 26,
+    "Cylinders": 4,
+    "Displacement": 156,
+    "Horsepower": 92,
+    "Weight_in_lbs": 2585,
+    "Acceleration": 14.5,
+    "Origin": "USA"
+  },
+  {
+    "Id": 384,
+    "Miles_per_Gallon": 22,
+    "Cylinders": 6,
+    "Displacement": 232,
+    "Horsepower": 112,
+    "Weight_in_lbs": 2835,
+    "Acceleration": 14.7,
+    "Origin": "USA"
+  },
+  {
+    "Id": 385,
+    "Miles_per_Gallon": 32,
+    "Cylinders": 4,
+    "Displacement": 144,
+    "Horsepower": 96,
+    "Weight_in_lbs": 2665,
+    "Acceleration": 13.9,
+    "Origin": "Japan"
+  },
+  {
+    "Id": 386,
+    "Miles_per_Gallon": 36,
+    "Cylinders": 4,
+    "Displacement": 135,
+    "Horsepower": 84,
+    "Weight_in_lbs": 2370,
+    "Acceleration": 13,
+    "Origin": "USA"
+  },
+  {
+    "Id": 387,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 151,
+    "Horsepower": 90,
+    "Weight_in_lbs": 2950,
+    "Acceleration": 17.3,
+    "Origin": "USA"
+  },
+  {
+    "Id": 388,
+    "Miles_per_Gallon": 27,
+    "Cylinders": 4,
+    "Displacement": 140,
+    "Horsepower": 86,
+    "Weight_in_lbs": 2790,
+    "Acceleration": 15.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 389,
+    "Miles_per_Gallon": 44,
+    "Cylinders": 4,
+    "Displacement": 97,
+    "Horsepower": 52,
+    "Weight_in_lbs": 2130,
+    "Acceleration": 24.6,
+    "Origin": "Europe"
+  },
+  {
+    "Id": 390,
+    "Miles_per_Gallon": 32,
+    "Cylinders": 4,
+    "Displacement": 135,
+    "Horsepower": 84,
+    "Weight_in_lbs": 2295,
+    "Acceleration": 11.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 391,
+    "Miles_per_Gallon": 28,
+    "Cylinders": 4,
+    "Displacement": 120,
+    "Horsepower": 79,
+    "Weight_in_lbs": 2625,
+    "Acceleration": 18.6,
+    "Origin": "USA"
+  },
+  {
+    "Id": 392,
+    "Miles_per_Gallon": 31,
+    "Cylinders": 4,
+    "Displacement": 119,
+    "Horsepower": 82,
+    "Weight_in_lbs": 2720,
+    "Acceleration": 19.4,
+    "Origin": "USA"
+  }
+]
