@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "repeat": {
-        "row": ["Miles_per_Gallon","Cylinders","Displacement","Horsepower","Weight_in_lbs","Acceleration"],
-        "column": ["Acceleration","Weight_in_lbs","Horsepower","Displacement","Cylinders","Miles_per_Gallon"]
+        "row": ["Miles_per_Gallon","Cylinders","x","Horsepower","y","Acceleration"],
+        "column": ["Acceleration","y","Horsepower","x","Cylinders","Miles_per_Gallon"]
     },
     "spec": {
         "data": { "url": "./cars.json" },
