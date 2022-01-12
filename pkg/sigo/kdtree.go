@@ -19,6 +19,7 @@ package sigo
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strings"
 )
@@ -142,7 +143,7 @@ func (n *node) split() (node, node, bool) {
 		}
 	}
 
-	return lower, upper, upperSize >= n.tree.k && lower.lDiv() && upper.lDiv()
+	return lower, upper, upperSize >= n.tree.k && lower.wellLDiv() && upper.wellLDiv()
 }
 
 func (n *node) Records() []Record {
@@ -199,29 +200,30 @@ func (n *node) isValid() bool {
 	return n.valid
 }
 
-func (n node) lDiv() bool {
-	if n.cluster == nil {
-		return true
-	}
-	//nolint: gomnd
-	Sens := make([]map[interface{}]struct{}, 10)
-
-	for _, row := range n.cluster {
-		b := true
-
-		for i, rowSens := range row.Sensitives() {
-			if s := Sens[i]; s == nil {
-				Sens[i] = make(map[interface{}]struct{})
-			}
-
-			Sens[i][rowSens] = struct{}{}
-			b = b && len(Sens[i]) >= n.tree.l
-		}
-
-		if b {
-			return true
+func (n node) wellLDiv() bool {
+	rec := n.cluster[0]
+	for i := 0; i < len(rec.Sensitives()); i++ {
+		e := entropy(n.cluster, i)
+		if e < math.Log(float64(n.tree.l)) {
+			return false
 		}
 	}
 
-	return false
+	return true
+}
+
+func entropy(clus []Record, sens int) float64 {
+	frequency := make(map[interface{}]int)
+
+	for _, rec := range clus {
+		val := rec.Sensitives()[sens]
+		frequency[val]++
+	}
+
+	var e float64
+	for _, val := range frequency {
+		e += (float64(val) / float64(len(clus))) * math.Log(float64(val)/float64(len(clus)))
+	}
+
+	return e
 }
