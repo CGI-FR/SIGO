@@ -52,7 +52,6 @@ func (jlr JSONLineRecord) Sensitives() []interface{} {
 		s, _ := (*jlr.row).Get(key)
 		result = append(result, s)
 	}
-
 	return result
 }
 
