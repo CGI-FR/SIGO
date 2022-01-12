@@ -43,7 +43,7 @@ func TestSimpleClustering(t *testing.T) {
 				   {"x":3, "y":2, "foo":"baz"}
 				   {"x":2, "y":3, "foo":"baz"}`
 
-	source := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"})
+	source := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)
 	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink)

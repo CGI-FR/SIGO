@@ -38,7 +38,7 @@ func TestAddRecord(t *testing.T) {
 	row := jsonline.NewRow()
 	row.Set("x", 0)
 
-	record := infra.NewJSONLineRecord(&row, &[]string{"x"})
+	record := infra.NewJSONLineRecord(&row, &[]string{"x"}, &[]string{})
 
 	kdtree.Add(record)
 
@@ -141,7 +141,7 @@ func TestAddNRecords(t *testing.T) {
 			// fmt.Printf("%v\n", rows)
 
 			for i := 0; i < N; i++ {
-				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"})
+				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"}, &[]string{})
 
 				kdtree.Add(record)
 			}

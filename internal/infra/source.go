@@ -24,13 +24,14 @@ import (
 	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
-func NewJSONLineRecord(row *jsonline.Row, quasiIdentifers *[]string) JSONLineRecord {
-	return JSONLineRecord{row, quasiIdentifers}
+func NewJSONLineRecord(row *jsonline.Row, quasiIdentifers *[]string, sensitives *[]string) JSONLineRecord {
+	return JSONLineRecord{row, quasiIdentifers, sensitives}
 }
 
 type JSONLineRecord struct {
 	row             *jsonline.Row
 	quasiIdentifers *[]string
+	sensitives      *[]string
 }
 
 func (jlr JSONLineRecord) QuasiIdentifer() []float32 {
@@ -38,6 +39,17 @@ func (jlr JSONLineRecord) QuasiIdentifer() []float32 {
 
 	for _, key := range *jlr.quasiIdentifers {
 		result = append(result, (*jlr.row).GetFloat32(key))
+	}
+
+	return result
+}
+
+func (jlr JSONLineRecord) Sensitives() []interface{} {
+	result := []interface{}{}
+
+	for _, key := range *jlr.sensitives {
+		s, _ := (*jlr.row).Get(key)
+		result = append(result, s)
 	}
 
 	return result
@@ -52,9 +64,9 @@ func (jlr JSONLineRecord) Row() map[string]interface{} {
 	return result.(map[string]interface{})
 }
 
-func NewJSONLineSource(r io.Reader, quasiIdentifers []string) sigo.RecordSource {
+func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) sigo.RecordSource {
 	// nolint: exhaustivestruct
-	return &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers}
+	return &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}
 }
 
 type JSONLineSource struct {
@@ -62,6 +74,7 @@ type JSONLineSource struct {
 	err             error
 	record          sigo.Record
 	quasiIdentifers []string
+	sensitives      []string
 }
 
 func (s *JSONLineSource) Err() error {
@@ -82,7 +95,7 @@ func (s *JSONLineSource) Next() bool {
 		return false
 	}
 
-	s.record = NewJSONLineRecord(&row, &s.quasiIdentifers)
+	s.record = NewJSONLineRecord(&row, &s.quasiIdentifers, &s.sensitives)
 
 	return true
 }

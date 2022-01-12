@@ -89,8 +89,9 @@ func (n *node) add(r Record) {
 func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
-		lower, upper, valide := n.split()
-		if !valide {
+		lower, upper, valid := n.split()
+
+		if !valid {
 			return
 		}
 
@@ -137,7 +138,7 @@ func (n *node) split() (node, node, bool) {
 		}
 	}
 
-	return lower, upper, upperSize >= n.tree.k
+	return lower, upper, upperSize >= n.tree.k && lower.lDiv() && upper.lDiv()
 }
 
 func (n *node) Records() []Record {
@@ -188,4 +189,31 @@ func (n *node) validate() {
 
 func (n *node) isValid() bool {
 	return n.valid
+}
+
+func (n node) lDiv() bool {
+	if n.cluster == nil {
+		return true
+	}
+	//nolint: gomnd
+	Sens := make([]map[interface{}]struct{}, 10)
+
+	for _, row := range n.cluster {
+		b := true
+
+		for i, rowSens := range row.Sensitives() {
+			if s := Sens[i]; s == nil {
+				Sens[i] = make(map[interface{}]struct{})
+			}
+
+			Sens[i][rowSens] = struct{}{}
+			b = b && len(Sens[i]) >= n.tree.l
+		}
+
+		if b {
+			return true
+		}
+	}
+
+	return false
 }
