@@ -1,7 +1,6 @@
 package sigo
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -60,26 +59,11 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
 }
 
 func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster) Record {
-	if _, ok := a.groupMap[clus]; !ok {
-		rec := clus.Records()
-		arrx := make([]float32, len(rec))
-		arry := make([]float32, len(rec))
-
-		for i, row := range rec {
-			arrx[i] = row.QuasiIdentifer()[0]
-			arry[i] = row.QuasiIdentifer()[1]
-		}
-
-		minx, maxx := MinMax(arrx)
-		miny, maxy := MinMax(arry)
-		a.groupMap[clus] = make(map[string]string)
-		a.groupMap[clus]["x"] = fmt.Sprintf("[%v,%v]", minx, maxx)
-		a.groupMap[clus]["y"] = fmt.Sprintf("[%v,%v]", miny, maxy)
-	}
+	b := clus.Bounds()
 
 	mask := map[string]interface{}{}
-	mask["x"] = a.groupMap[clus]["x"]
-	mask["y"] = a.groupMap[clus]["y"]
+	mask["x"] = []float32{b[0].down, b[0].up}
+	mask["y"] = []float32{b[1].down, b[1].up}
 
 	return AnonymizedRecord{original: rec, mask: mask}
 }
