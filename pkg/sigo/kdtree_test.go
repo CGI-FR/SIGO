@@ -177,7 +177,7 @@ func TestAddClusterID(t *testing.T) {
 	}
 
 	for i := range x {
-		record := infra.NewJSONLineRecord(&rows[i], &[]string{"x", "y"})
+		record := infra.NewJSONLineRecord(&rows[i], &[]string{"x", "y"}, &[]string{})
 
 		kdtree.Add(record)
 	}

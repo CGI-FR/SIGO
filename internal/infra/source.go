@@ -65,11 +65,6 @@ func (jlr JSONLineRecord) Row() map[string]interface{} {
 	return result.(map[string]interface{})
 }
 
-<<<<<<< HEAD
-func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) sigo.RecordSource {
-	// nolint: exhaustivestruct
-	return &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}
-=======
 func NewJSONLineSource(r io.Reader, quasiIdentifers []string) (sigo.RecordSource, error) {
 	// nolint: exhaustivestruct
 	source := &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers}
@@ -81,7 +76,6 @@ func NewJSONLineSource(r io.Reader, quasiIdentifers []string) (sigo.RecordSource
 	}
 
 	return source, nil
->>>>>>> 63988dea10549f4788cd86c4960369fb8c4f58b5
 }
 
 type JSONLineSource struct {

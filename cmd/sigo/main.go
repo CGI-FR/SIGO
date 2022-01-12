@@ -106,9 +106,6 @@ func run() {
 		Bool("ClusterID", clusterID).
 		Msg("Start SIGO")
 
-<<<<<<< HEAD
-	source := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
-=======
 	source, err := infra.NewJSONLineSource(os.Stdin, qi)
 	if err != nil {
 		log.Err(err).Msg("Cannot load jsonline source")
@@ -116,7 +113,6 @@ func run() {
 		os.Exit(1)
 	}
 
->>>>>>> 63988dea10549f4788cd86c4960369fb8c4f58b5
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, clusterID)

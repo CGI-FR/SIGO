@@ -91,14 +91,8 @@ func (n *node) add(r Record) {
 func (n *node) build(up bool) {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
-<<<<<<< HEAD
-		lower, upper, valid := n.split()
-
-		if !valid {
-=======
 		lower, upper, valide := n.split(up)
 		if !valide {
->>>>>>> 63988dea10549f4788cd86c4960369fb8c4f58b5
 			return
 		}
 
