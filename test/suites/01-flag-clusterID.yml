@@ -1,0 +1,34 @@
+# Venom Test Suite definition
+# Check Venom documentation for more information : https://github.com/ovh/venom
+
+name: run flag clusterID
+testcases:
+  - name: with flag
+    steps:
+      - script: |-
+          sigo -q="x,y" --clusterID=true <<EOF
+          { "x": 20, "y": 10, "z": "a" }
+          { "x": 10, "y": 12, "z": "b" }
+          { "x": 12, "y": 4, "z": "a" }
+          { "x": 24, "y": 21, "z": "a" }
+          { "x": 8, "y": 38, "z": "c" }
+          { "x": 16, "y": 16, "z": "c" }
+          EOF
+        assertions:
+          - result.systemoutjson ShouldContainKey clusterID
+          - result.code ShouldEqual 0
+
+  - name: without flag
+    steps:
+      - script: |-
+          sigo -q="x,y" <<EOF
+          { "x": 20, "y": 10, "z": "a" }
+          { "x": 10, "y": 12, "z": "b" }
+          { "x": 12, "y": 4, "z": "a" }
+          { "x": 24, "y": 21, "z": "a" }
+          { "x": 8, "y": 38, "z": "c" }
+          { "x": 16, "y": 16, "z": "c" }
+          EOF
+        assertions:
+          - result.systemoutjson ShouldNotContainKey clusterID
+          - result.code ShouldEqual 0
