@@ -102,7 +102,7 @@ func run() {
 		Strs("Sensitive", sensitive).
 		Msg("Start SIGO")
 
-	source := infra.NewJSONLineSource(os.Stdin, qi, []string{})
+	source := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink)
