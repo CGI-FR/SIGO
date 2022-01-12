@@ -36,8 +36,19 @@
                 "type": "quantitative",
                 "axis": { "minExtent": 30 }
             },
+<<<<<<< HEAD
             "color": {"field": "Origin", "type": "nominal"},
             "shape": {"field": "Origin", "type": "nominal"}
+=======
+            "color": {
+                "field": "Origin",
+                "type": "ordinal",
+                "scale": {
+                    "domain": ["Europe", "Japan", "USA"],
+                    "range": ["#f47e09", "#a8a8a8", "#208be7"]
+                }
+            }
+>>>>>>> 63988dea10549f4788cd86c4960369fb8c4f58b5
         }
     }
 }

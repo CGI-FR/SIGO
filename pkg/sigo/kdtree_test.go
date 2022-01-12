@@ -20,6 +20,7 @@ package sigo_test
 import (
 	"fmt"
 	"math/rand"
+	"reflect"
 	"testing"
 
 	"github.com/cgi-fr/sigo/internal/infra"
@@ -154,5 +155,44 @@ func TestAddNRecords(t *testing.T) {
 				assert.True(t, len(clusters[i].Records()) >= k)
 			}
 		})
+	}
+}
+
+func TestAddClusterID(t *testing.T) {
+	t.Parallel()
+
+	kdtree := sigo.NewKDTreeFactory().New(3, 1, 2)
+	rows := []jsonline.Row{}
+	x := []int{20, 10, 12, 24, 8, 16, 15, 27, 25, 11, 49, 2, 35, 34, 21}
+	y := []int{10, 12, 4, 21, 38, 16, 26, 18, 30, 19, 21, 12, 14, 7, 5}
+	z := []string{"a", "b", "a", "a", "c", "c", "b", "a", "b", "c", "a", "c", "a", "b", "a"}
+	expected := []int{2, 0, 0, 3, 1, 1, 1, 3, 3, 1, 3, 0, 2, 2, 2}
+
+	for i := range x {
+		row := jsonline.NewRow()
+		row.Set("x", x[i])
+		row.Set("y", y[i])
+		row.Set("z", z[i])
+		rows = append(rows, row)
+	}
+
+	for i := range x {
+		record := infra.NewJSONLineRecord(&rows[i], &[]string{"x", "y"})
+
+		kdtree.Add(record)
+	}
+
+	kdtree.Build(false)
+	clusters := kdtree.Clusters()
+
+	for _, cluster := range clusters {
+		for _, record := range cluster.Records() {
+			for i := range rows {
+				result, _ := rows[i].Export()
+				if reflect.DeepEqual(result.(map[string]interface{}), record.Row()) {
+					assert.Equal(t, cluster.ID(), expected[i])
+				}
+			}
+		}
 	}
 }
