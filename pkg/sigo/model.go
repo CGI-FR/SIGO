@@ -29,7 +29,7 @@ type RecordSink interface {
 
 type Record interface {
 	QuasiIdentifer() []float32
-	Sensitives() []string
+	Sensitives() []interface{}
 	Row() map[string]interface{}
 }
 

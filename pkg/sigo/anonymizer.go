@@ -17,7 +17,7 @@ func (ar AnonymizedRecord) QuasiIdentifer() []float32 {
 	return ar.original.QuasiIdentifer()
 }
 
-func (ar AnonymizedRecord) Sensitives() []string {
+func (ar AnonymizedRecord) Sensitives() []interface{} {
 	return ar.original.Sensitives()
 }
 

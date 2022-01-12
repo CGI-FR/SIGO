@@ -196,14 +196,14 @@ func (n node) lDiv() bool {
 		return true
 	}
 	//nolint: gomnd
-	Sens := make([]map[string]struct{}, 10)
+	Sens := make([]map[interface{}]struct{}, 10)
 
 	for _, row := range n.cluster {
 		b := true
 
 		for i, rowSens := range row.Sensitives() {
 			if s := Sens[i]; s == nil {
-				Sens[i] = make(map[string]struct{})
+				Sens[i] = make(map[interface{}]struct{})
 			}
 
 			Sens[i][rowSens] = struct{}{}
