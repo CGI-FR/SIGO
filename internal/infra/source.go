@@ -44,8 +44,14 @@ func (jlr JSONLineRecord) QuasiIdentifer() []float32 {
 	return result
 }
 
-func (jlr JSONLineRecord) Sensitives() []string {
-	return *jlr.sensitives
+func (jlr JSONLineRecord) Sensitives() []interface{} {
+	result := []interface{}{}
+
+	for _, key := range *jlr.sensitives {
+		s, _ := (*jlr.row).Get(key)
+		result = append(result, s)
+	}
+	return result
 }
 
 func (jlr JSONLineRecord) Row() map[string]interface{} {
