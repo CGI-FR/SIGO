@@ -23,9 +23,6 @@ import (
 	"strings"
 )
 
-//nolint: gochecknoglobals
-var mapPathToID = make(map[string]int)
-
 func NewKDTreeFactory() KDTreeFactory {
 	return KDTreeFactory{}
 }
@@ -34,7 +31,7 @@ type KDTreeFactory struct{}
 
 func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim}
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int)}
 	root := newNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
@@ -43,10 +40,11 @@ func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 }
 
 type KDTree struct {
-	k    int
-	l    int
-	root *node
-	dim  int
+	k         int
+	l         int
+	root      *node
+	dim       int
+	clusterID map[string]int
 }
 
 func (t KDTree) Add(r Record) {
@@ -114,7 +112,6 @@ func (n *node) build() {
 		n.cluster = nil
 
 		n.subNodes[0].build()
-		// n.subNodes[1].incID(1)
 		n.subNodes[1].build()
 	}
 }
@@ -159,7 +156,7 @@ func (n *node) Records() []Record {
 func (n *node) ClusterInfos() map[string]interface{} {
 	infos := make(map[string]interface{})
 	infos["Path"] = n.path()
-	infos["ID"] = n.pathToID(mapPathToID)
+	infos["ID"] = n.ID(n.tree.clusterID)
 
 	return infos
 }
@@ -168,7 +165,7 @@ func (n *node) path() string {
 	return n.clusterPath
 }
 
-func (n *node) pathToID(mapPath map[string]int) int {
+func (n *node) ID(mapPath map[string]int) int {
 	count := len(mapPath)
 	if mapPath[n.clusterPath] == 0 {
 		mapPath[n.clusterPath] = count + 1
