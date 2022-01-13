@@ -119,7 +119,6 @@ func run() {
 
 	sink := infra.NewJSONLineSink(os.Stdout)
 
-<<<<<<< HEAD
 	var debugger sigo.Debugger
 
 	if info != "" {
@@ -129,9 +128,6 @@ func run() {
 	}
 
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, debugger)
-=======
-	err := sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewGeneralAnonymizer(), sink)
->>>>>>> 4dbc69e (feat(anonymizer): add GeneralAnonymizer)
 	if err != nil {
 		panic(err)
 	}
