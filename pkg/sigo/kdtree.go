@@ -22,6 +22,8 @@ import (
 	"math"
 	"sort"
 	"strings"
+
+	over "github.com/Trendyol/overlog"
 )
 
 func NewKDTreeFactory() KDTreeFactory {
@@ -201,9 +203,17 @@ func (n *node) isValid() bool {
 }
 
 func (n node) wellLDiv() bool {
+	var f func([]Record, int) float64
+
+	if b, _ := over.MDC().Get("entropy"); b.(bool) {
+		f = entropy
+	} else {
+		f = logQ
+	}
+
 	rec := n.cluster[0]
 	for i := 0; i < len(rec.Sensitives()); i++ {
-		e := entropy(n.cluster, i)
+		e := f(n.cluster, i)
 		if e < math.Log(float64(n.tree.l)) {
 			return false
 		}
@@ -223,6 +233,22 @@ func entropy(clus []Record, sens int) float64 {
 	var e float64
 	for _, val := range frequency {
 		e += (float64(val) / float64(len(clus))) * math.Log(float64(val)/float64(len(clus)))
+	}
+
+	return e
+}
+
+func logQ(clus []Record, sens int) float64 {
+	frequency := make(map[interface{}]int)
+
+	for _, rec := range clus {
+		val := rec.Sensitives()[sens]
+		frequency[val] = 1
+	}
+
+	var e float64
+	for _, val := range frequency {
+		e += float64(val)
 	}
 
 	return e

@@ -69,6 +69,8 @@ func main() {
 		},
 	}
 
+	var entropy bool
+
 	rootCmd.PersistentFlags().
 		StringVarP(&verbosity, "verbosity", "v", "info",
 			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
@@ -88,6 +90,8 @@ func main() {
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
+	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
+	over.MDC().Set("entropy", entropy)
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
