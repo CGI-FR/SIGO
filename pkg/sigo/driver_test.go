@@ -43,15 +43,44 @@ func TestSimpleClustering(t *testing.T) {
 				   {"x":3, "y":2, "foo":"baz"}
 				   {"x":2, "y":3, "foo":"baz"}`
 
-	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"})
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
 	assert.Nil(t, err)
 
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, false)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, "")
 	assert.Nil(t, err)
 
 	assert.Equal(t, json.Number("1"), result[0]["x"])
 	assert.Equal(t, json.Number("1"), result[0]["y"])
 	assert.Equal(t, "bar", result[0]["foo"])
+}
+
+func TestClusteringInfos(t *testing.T) {
+	t.Parallel()
+
+	row := jsonline.NewRow()
+	row.Set("ID", "1")
+
+	sourceText := `{"x":0, "y":0, "foo":"bar"}
+				   {"x":1, "y":1, "foo":"bar"}
+				   {"x":0, "y":1, "foo":"bar"}
+				   {"x":2, "y":1, "foo":"baz"}
+				   {"x":3, "y":2, "foo":"baz"}
+				   {"x":2, "y":3, "foo":"baz"}`
+
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
+	assert.Nil(t, err)
+
+	result := []map[string]interface{}{}
+	sink := infra.NewSliceDictionariesSink(&result)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, "clusterID")
+	assert.Nil(t, err)
+
+	assert.Equal(t, 1, result[0]["clusterID"])
+	assert.Equal(t, 1, result[1]["clusterID"])
+	assert.Equal(t, 1, result[2]["clusterID"])
+	assert.Equal(t, 2, result[3]["clusterID"])
+	assert.Equal(t, 2, result[4]["clusterID"])
+	assert.Equal(t, 2, result[5]["clusterID"])
 }

@@ -65,9 +65,9 @@ func (jlr JSONLineRecord) Row() map[string]interface{} {
 	return result.(map[string]interface{})
 }
 
-func NewJSONLineSource(r io.Reader, quasiIdentifers []string) (sigo.RecordSource, error) {
+func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) (sigo.RecordSource, error) {
 	// nolint: exhaustivestruct
-	source := &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers}
+	source := &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}
 
 	//nolint: goerr113
 	err := errors.New("indicate the list of quasi-identifiers")

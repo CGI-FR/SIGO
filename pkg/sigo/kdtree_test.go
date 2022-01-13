@@ -158,7 +158,7 @@ func TestAddNRecords(t *testing.T) {
 	}
 }
 
-func TestAddClusterID(t *testing.T) {
+func TestAddClusterInfos(t *testing.T) {
 	t.Parallel()
 
 	kdtree := sigo.NewKDTreeFactory().New(3, 1, 2)
@@ -166,7 +166,12 @@ func TestAddClusterID(t *testing.T) {
 	x := []int{20, 10, 12, 24, 8, 16, 15, 27, 25, 11, 49, 2, 35, 34, 21}
 	y := []int{10, 12, 4, 21, 38, 16, 26, 18, 30, 19, 21, 12, 14, 7, 5}
 	z := []string{"a", "b", "a", "a", "c", "c", "b", "a", "b", "c", "a", "c", "a", "b", "a"}
-	expected := []int{2, 0, 0, 3, 1, 1, 1, 3, 3, 1, 3, 0, 2, 2, 2}
+	// expectedID := []int{3, 1, 1, 4, 2, 2, 2, 4, 4, 2, 4, 1, 3, 3, 3}
+	expectedPath := []string{
+		"root-u-l", "root-l-l", "root-l-l", "root-u-u", "root-l-u",
+		"root-l-u", "root-l-u", "root-u-u", "root-u-u", "root-l-u",
+		"root-u-u", "root-l-l", "root-u-l", "root-u-l", "root-u-l",
+	}
 
 	for i := range x {
 		row := jsonline.NewRow()
@@ -182,7 +187,7 @@ func TestAddClusterID(t *testing.T) {
 		kdtree.Add(record)
 	}
 
-	kdtree.Build(false)
+	kdtree.Build()
 	clusters := kdtree.Clusters()
 
 	for _, cluster := range clusters {
@@ -190,7 +195,8 @@ func TestAddClusterID(t *testing.T) {
 			for i := range rows {
 				result, _ := rows[i].Export()
 				if reflect.DeepEqual(result.(map[string]interface{}), record.Row()) {
-					assert.Equal(t, cluster.ID(), expected[i])
+					// assert.Equal(t, cluster.ClusterInfos()["ID"], expectedID[i])
+					assert.Equal(t, cluster.ClusterInfos()["Path"], expectedPath[i])
 				}
 			}
 		}

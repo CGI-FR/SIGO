@@ -24,7 +24,7 @@ type RecordSource interface {
 }
 
 type RecordSink interface {
-	Collect(Record, int, bool) error
+	Collect(Record) error
 }
 
 type Record interface {
@@ -35,14 +35,14 @@ type Record interface {
 
 type Cluster interface {
 	Records() []Record
-	ID() int
+	ClusterInfos() map[string]interface{}
 }
 
 type Generalizer interface {
 	Add(Record)
 	Clusters() []Cluster
 	String() string
-	Build(bool)
+	Build()
 }
 
 type GeneralizerFactory interface {
@@ -51,4 +51,8 @@ type GeneralizerFactory interface {
 
 type Anonymizer interface {
 	Anonymize(Record, Cluster) Record
+}
+
+type Information interface {
+	Information(Record, Cluster) Record
 }

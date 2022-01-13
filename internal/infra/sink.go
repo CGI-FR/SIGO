@@ -33,14 +33,7 @@ type JSONLineSink struct {
 	exporter jsonline.Exporter
 }
 
-func (s JSONLineSink) Collect(rec sigo.Record, clID int, clusterID bool) error {
-	if clusterID {
-		res := rec.Row()
-		res["clusterID"] = clID
-
-		return errors.Unwrap(s.exporter.Export(res))
-	}
-
+func (s JSONLineSink) Collect(rec sigo.Record) error {
 	return errors.Unwrap(s.exporter.Export(rec.Row()))
 }
 
@@ -52,14 +45,7 @@ type SliceDictionariesSink struct {
 	slice *[]map[string]interface{}
 }
 
-func (s *SliceDictionariesSink) Collect(rec sigo.Record, clID int, clusterID bool) error {
-	if clusterID {
-		res := rec.Row()
-		res["clusterID"] = clID
-
-		*s.slice = append(*s.slice, res)
-	}
-
+func (s *SliceDictionariesSink) Collect(rec sigo.Record) error {
 	*s.slice = append(*s.slice, rec.Row())
 
 	return nil

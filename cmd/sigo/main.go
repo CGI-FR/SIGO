@@ -49,7 +49,7 @@ var (
 	l         int
 	qi        []string
 	sensitive []string
-	clusterID bool
+	info      string
 )
 
 func main() {
@@ -87,7 +87,7 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		BoolVarP(&clusterID, "clusterID", "c", false, "display cluster for each jsonline flow")
+		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -103,10 +103,10 @@ func run() {
 		Int("l-diversity", l).
 		Strs("Quasi-Identifiers", qi).
 		Strs("Sensitive", sensitive).
-		Bool("ClusterID", clusterID).
+		Str("Cluster-Info", info).
 		Msg("Start SIGO")
 
-	source, err := infra.NewJSONLineSource(os.Stdin, qi)
+	source, err := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
 	if err != nil {
 		log.Err(err).Msg("Cannot load jsonline source")
 		log.Warn().Int("return", 1).Msg("End SIGO")
@@ -115,7 +115,7 @@ func run() {
 
 	sink := infra.NewJSONLineSink(os.Stdout)
 
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, clusterID)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, info)
 	if err != nil {
 		panic(err)
 	}

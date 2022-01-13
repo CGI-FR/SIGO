@@ -23,6 +23,9 @@ import (
 	"strings"
 )
 
+//nolint: gochecknoglobals
+var mapPathToID = make(map[string]int)
+
 func NewKDTreeFactory() KDTreeFactory {
 	return KDTreeFactory{}
 }
@@ -32,7 +35,7 @@ type KDTreeFactory struct{}
 func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 	// nolint: exhaustivestruct
 	tree := KDTree{k: k, l: l, dim: dim}
-	root := newNode(&tree, 0, 0)
+	root := newNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
 
@@ -50,8 +53,8 @@ func (t KDTree) Add(r Record) {
 	t.root.add(r)
 }
 
-func (t KDTree) Build(up bool) {
-	t.root.build(up)
+func (t KDTree) Build() {
+	t.root.build()
 }
 
 func (t KDTree) Clusters() []Cluster {
@@ -62,36 +65,36 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
-func newNode(tree *KDTree, id int, rot int) node {
+func newNode(tree *KDTree, path string, rot int) node {
 	return node{
-		tree:      tree,
-		cluster:   []Record{},
-		clusterID: id,
-		subNodes:  []node{},
-		pivot:     []float32{},
-		valid:     false,
-		rot:       rot % tree.dim,
+		tree:        tree,
+		cluster:     []Record{},
+		clusterPath: path,
+		subNodes:    []node{},
+		pivot:       []float32{},
+		valid:       false,
+		rot:         rot % tree.dim,
 	}
 }
 
 type node struct {
-	tree      *KDTree
-	cluster   []Record
-	clusterID int
-	subNodes  []node
-	pivot     []float32
-	valid     bool
-	rot       int
+	tree        *KDTree
+	cluster     []Record
+	clusterPath string
+	subNodes    []node
+	pivot       []float32
+	valid       bool
+	rot         int
 }
 
 func (n *node) add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
-func (n *node) build(up bool) {
+func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
-		lower, upper, valide := n.split(up)
+		lower, upper, valide := n.split()
 		if !valide {
 			return
 		}
@@ -110,31 +113,20 @@ func (n *node) build(up bool) {
 
 		n.cluster = nil
 
-		n.subNodes[0].build(false)
-		n.subNodes[1].incID(1)
-		n.subNodes[1].build(true)
+		n.subNodes[0].build()
+		// n.subNodes[1].incID(1)
+		n.subNodes[1].build()
 	}
 }
 
-func (n *node) split(up bool) (node, node, bool) {
+func (n *node) split() (node, node, bool) {
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
 		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
 	})
 
 	n.pivot = nil
-
-	var lower node
-
-	var upper node
-
-	if up {
-		lower = newNode(n.tree, n.ID()+n.rot, n.rot+1)
-		upper = newNode(n.tree, n.ID()+n.rot, n.rot+1)
-	} else {
-		lower = newNode(n.tree, n.ID(), n.rot+1)
-		upper = newNode(n.tree, n.ID(), n.rot+1)
-	}
-
+	lower := newNode(n.tree, n.clusterPath+"-l", n.rot+1)
+	upper := newNode(n.tree, n.clusterPath+"-u", n.rot+1)
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
@@ -164,12 +156,27 @@ func (n *node) Records() []Record {
 	return []Record{}
 }
 
-func (n *node) ID() int {
-	return n.clusterID
+func (n *node) ClusterInfos() map[string]interface{} {
+	infos := make(map[string]interface{})
+	infos["Path"] = n.path()
+	infos["ID"] = n.pathToID(mapPathToID)
+
+	return infos
 }
 
-func (n *node) incID(i int) {
-	n.clusterID += i
+func (n *node) path() string {
+	return n.clusterPath
+}
+
+func (n *node) pathToID(mapPath map[string]int) int {
+	count := len(mapPath)
+	if mapPath[n.clusterPath] == 0 {
+		mapPath[n.clusterPath] = count + 1
+
+		return count + 1
+	}
+
+	return mapPath[n.clusterPath]
 }
 
 func (n *node) clusters() []Cluster {
