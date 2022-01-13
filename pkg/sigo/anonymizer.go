@@ -39,7 +39,7 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	return original
 }
 
-func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
+func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	//nolint: gosec
 	choice := clus.Records()[rand.Intn(len(clus.Records()))]
 
@@ -52,35 +52,20 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
 	}
 
 	mask := map[string]interface{}{}
-	mask["x"] = choice.Row()["x"]
-	mask["y"] = choice.Row()["y"]
+	for _, q := range qi {
+		mask[q] = choice.Row()[q]
+	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
-func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster) Record {
+func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	b := clus.Bounds()
 
 	mask := map[string]interface{}{}
-	mask["x"] = []float32{b[0].down, b[0].up}
-	mask["y"] = []float32{b[1].down, b[1].up}
-
-	return AnonymizedRecord{original: rec, mask: mask}
-}
-
-func MinMax(array []float32) (float32, float32) {
-	max := array[0]
-	min := array[0]
-
-	for _, value := range array {
-		if max < value {
-			max = value
-		}
-
-		if min > value {
-			min = value
-		}
+	for i, q := range qi {
+		mask[q] = []float32{b[i].down, b[i].up}
 	}
 
-	return min, max
+	return AnonymizedRecord{original: rec, mask: mask}
 }

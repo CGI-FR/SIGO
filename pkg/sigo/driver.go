@@ -37,7 +37,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 
 	for _, cluster := range generalizer.Clusters() {
 		for _, record := range cluster.Records() {
-			anonymizedRecord := anonymyzer.Anonymize(record, cluster)
+			anonymizedRecord := anonymyzer.Anonymize(record, cluster, source.QuasiIdentifer(), source.Sensitive())
 
 			anonymizedRecord = debugger.Information(anonymizedRecord, cluster)
 

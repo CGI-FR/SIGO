@@ -21,6 +21,8 @@ type RecordSource interface {
 	Next() bool
 	Err() error
 	Value() Record
+	QuasiIdentifer() []string
+	Sensitive() []string
 }
 
 type RecordSink interface {
@@ -51,7 +53,7 @@ type GeneralizerFactory interface {
 }
 
 type Anonymizer interface {
-	Anonymize(Record, Cluster) Record
+	Anonymize(Record, Cluster, []string, []string) Record
 }
 
 type Debugger interface {
