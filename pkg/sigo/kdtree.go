@@ -87,7 +87,7 @@ type node struct {
 	cluster     []Record
 	clusterPath string
 	subNodes    []node
-	bounds   []bounds
+	bounds      []bounds
 	pivot       []float32
 	valid       bool
 	rot         int
@@ -151,16 +151,11 @@ func (n *node) split() (node, node, bool) {
 	})
 
 	n.pivot = nil
-<<<<<<< HEAD
 	lower := newNode(n.tree, n.clusterPath+"-l", n.rot+1)
-	upper := newNode(n.tree, n.clusterPath+"-u", n.rot+1)
-=======
-	lower := newNode(n.tree, n.rot+1)
 	copy(lower.bounds, n.bounds)
-	upper := newNode(n.tree, n.rot+1)
+	upper := newNode(n.tree, n.clusterPath+"-u", n.rot+1)
 	copy(upper.bounds, n.bounds)
 
->>>>>>> 4dbc69e (feat(anonymizer): add GeneralAnonymizer)
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
@@ -173,7 +168,7 @@ func (n *node) split() (node, node, bool) {
 		} else {
 			if n.pivot == nil {
 				n.pivot = row.QuasiIdentifer()
-				lower.bounds[n.rot].up = n.pivot[n.rot]
+				lower.bounds[n.rot].up = previous.QuasiIdentifer()[n.rot]
 				upper.bounds[n.rot].down = n.pivot[n.rot]
 			}
 			upper.add(row)
