@@ -204,11 +204,10 @@ func (n *node) isValid() bool {
 
 func (n node) wellLDiv() bool {
 	var f func([]Record, int) float64
-
-	if b, _ := over.MDC().Get("entropy"); b.(bool) {
-		f = entropy
-	} else {
+	if b, ok := over.MDC().Get("entropy"); !ok || !b.(bool) {
 		f = logQ
+	} else {
+		f = entropy
 	}
 
 	rec := n.cluster[0]
