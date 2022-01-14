@@ -1,8 +1,10 @@
 package sigo
 
-func NewInfos() Infos { return Infos{} }
+func NewSequenceDebugger() SequenceDebugger { return SequenceDebugger{map[string]int{}} }
 
-type Infos struct{}
+type SequenceDebugger struct {
+	cache map[string]int
+}
 
 type InfosRecord struct {
 	original Record
@@ -26,18 +28,19 @@ func (ir InfosRecord) Row() map[string]interface{} {
 	return original
 }
 
-func (i Infos) Information(rec Record, cluster Cluster, key string) Record {
-	infos := make(map[string]interface{})
-	for k, v := range rec.Row() {
-		infos[k] = v
+func (d SequenceDebugger) id(c Cluster) int {
+	count := len(d.cache)
+	if d.cache[c.ID()] == 0 {
+		d.cache[c.ID()] = count + 1
 	}
 
-	switch key {
-	case "clusterID":
-		infos["clusterID"] = cluster.ClusterInfos()["ID"]
-	case "clusterPath":
-		infos["clusterPath"] = cluster.ClusterInfos()["Path"]
-	}
+	return d.cache[c.ID()]
+}
+
+func (d SequenceDebugger) Information(rec Record, cluster Cluster, key string) Record {
+	infos := make(map[string]interface{})
+
+	infos[key] = d.id(cluster)
 
 	return InfosRecord{original: rec, infos: infos}
 }

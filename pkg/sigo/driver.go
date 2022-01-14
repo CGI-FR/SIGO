@@ -22,7 +22,7 @@ import (
 )
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, info string) error {
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger, info string) error {
 	generalizer := factory.New(k, l, dim)
 
 	for source.Next() {
@@ -40,24 +40,13 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 			anonymizedRecord := anonymyzer.Anonymize(record, cluster)
 
 			if info != "" {
-				anonymizedRecord = NewInfos().Information(anonymizedRecord, cluster, info)
+				anonymizedRecord = debugger.Information(anonymizedRecord, cluster, info)
 			}
 
 			err := sink.Collect(anonymizedRecord)
 			if err != nil {
 				return fmt.Errorf("%w", err)
 			}
-		}
-	}
-
-	return nil
-}
-
-func CollecInfo(rec Record, clus Cluster, info string, mapInfo Information, sink RecordSink) error {
-	if info != "" {
-		err := sink.Collect(mapInfo.Information(rec, clus))
-		if err != nil {
-			return fmt.Errorf("%w", err)
 		}
 	}
 

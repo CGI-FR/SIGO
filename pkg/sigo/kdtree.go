@@ -153,27 +153,8 @@ func (n *node) Records() []Record {
 	return []Record{}
 }
 
-func (n *node) ClusterInfos() map[string]interface{} {
-	infos := make(map[string]interface{})
-	infos["Path"] = n.path()
-	infos["ID"] = n.ID(n.tree.clusterID)
-
-	return infos
-}
-
-func (n *node) path() string {
+func (n *node) ID() string {
 	return n.clusterPath
-}
-
-func (n *node) ID(mapPath map[string]int) int {
-	count := len(mapPath)
-	if mapPath[n.clusterPath] == 0 {
-		mapPath[n.clusterPath] = count + 1
-
-		return count + 1
-	}
-
-	return mapPath[n.clusterPath]
 }
 
 func (n *node) clusters() []Cluster {

@@ -166,7 +166,6 @@ func TestAddClusterInfos(t *testing.T) {
 	x := []int{20, 10, 12, 24, 8, 16, 15, 27, 25, 11, 49, 2, 35, 34, 21}
 	y := []int{10, 12, 4, 21, 38, 16, 26, 18, 30, 19, 21, 12, 14, 7, 5}
 	z := []string{"a", "b", "a", "a", "c", "c", "b", "a", "b", "c", "a", "c", "a", "b", "a"}
-	expectedID := []int{3, 1, 1, 4, 2, 2, 2, 4, 4, 2, 4, 1, 3, 3, 3}
 	expectedPath := []string{
 		"root-u-l", "root-l-l", "root-l-l", "root-u-u", "root-l-u",
 		"root-l-u", "root-l-u", "root-u-u", "root-u-u", "root-l-u",
@@ -195,8 +194,7 @@ func TestAddClusterInfos(t *testing.T) {
 			for i := range rows {
 				result, _ := rows[i].Export()
 				if reflect.DeepEqual(result.(map[string]interface{}), record.Row()) {
-					assert.Equal(t, cluster.ClusterInfos()["ID"], expectedID[i])
-					assert.Equal(t, cluster.ClusterInfos()["Path"], expectedPath[i])
+					assert.Equal(t, cluster.ID(), expectedPath[i])
 				}
 			}
 		}

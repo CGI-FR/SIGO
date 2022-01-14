@@ -35,7 +35,7 @@ type Record interface {
 
 type Cluster interface {
 	Records() []Record
-	ClusterInfos() map[string]interface{}
+	ID() string
 }
 
 type Generalizer interface {
@@ -53,6 +53,6 @@ type Anonymizer interface {
 	Anonymize(Record, Cluster) Record
 }
 
-type Information interface {
-	Information(Record, Cluster) Record
+type Debugger interface {
+	Information(Record, Cluster, string) Record
 }
