@@ -42,10 +42,10 @@ func TestMicroAggregationAnonymizer(t *testing.T) {
 				   {"x":3, "y":2, "foo":"baz"}
 				   {"x":2, "y":3, "foo":"baz"}`
 
-	source1 := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
+	source1 := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
 	resultMean := []map[string]interface{}{}
 	sink1 := infra.NewSliceDictionariesSink(&resultMean)
-	err := sigo.Anonymize(source1, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewAggregationAnonymizer("mean"), sink1)
+	err := sigo.Anonymize(source1, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewAggregationAnonymizer("mean"), sink1, sigo.NewNoDebugger())
 	assert.Nil(t, err)
 
 	assert.Equal(t, 0.33, resultMean[0]["x"])
@@ -55,10 +55,10 @@ func TestMicroAggregationAnonymizer(t *testing.T) {
 	assert.Equal(t, "bar", resultMean[0]["foo"])
 	assert.Equal(t, "baz", resultMean[3]["foo"])
 
-	source2 := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
+	source2 := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
 	resultMedian := []map[string]interface{}{}
 	sink2 := infra.NewSliceDictionariesSink(&resultMedian)
-	err = sigo.Anonymize(source2, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewAggregationAnonymizer("median"), sink2)
+	err = sigo.Anonymize(source2, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewAggregationAnonymizer("median"), sink2, sigo.NewNoDebugger())
 	assert.Nil(t, err)
 
 	assert.Equal(t, float64(0), resultMedian[0]["x"])
