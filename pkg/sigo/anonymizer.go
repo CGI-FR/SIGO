@@ -1,8 +1,6 @@
 package sigo
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
