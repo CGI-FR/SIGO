@@ -111,3 +111,8 @@ The data is recorded in the carsn.json file, below you will find an overview of 
 | Horsepower       |     -0.941530    |  0.932552 |   0.962581   |  1.000000  |    0.964514   |   -0.669607  |
 | Weight_in_lbs    |     -0.927248    |  0.951283 |   0.985833   |  0.964514  |    1.000000   |   -0.500590  |
 | Acceleration     |     0.546557     | -0.501903 |   -0.528976  |  -0.669607 |   -0.500590   |   1.000000   |
+
+### Bibliography
+
+***D. Defays and P. Nanopoulos***, **"Panels of enterprises and confidentiality: The small aggregates method"**,
+[in 92 Symposium on Design and Analysis of Longitudinal Surveys, Canada, Ottawa, 1993, 195–204](<https://publications.gc.ca/site/eng/9.844634/publication.html#:~:text=Symposium%2092%20%3A%20design%20and%20analysis%20of%20longitudinal,year%20the%20symposium%20focuses%20on%20a%20particular%20theme>).
