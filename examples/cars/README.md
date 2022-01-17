@@ -1,27 +1,71 @@
 # Cars data test
 
 This example is based on the **cars.json** dataset containing the technical specs of cars.
-The dataset is downloaded from UCI Machine Learning Repository and and has been slightly modified (we have removed the attribute ***Years*** and changed the ***Name*** attribute to ***Id***).
+The dataset is downloaded from UCI Machine Learning Repository and and has been slightly modified (we have removed the attribute ***Years*** because it is of string type and removed ***Name*** attribute because it is an identifier).
 
 For each car we have the following data :
 
-- ***Id*** vehicle id
+- ***Name*** vehicle Name
 - ***Miles_per_Gallon*** urban cycle fuel consumption in miles per gallon
 - ***Cylinders*** number of cylinders in a car (between 4 and 8)
-- ***Displacement*** (***x***) engine displacement (cu. inches)
+- ***Displacement*** engine displacement (cu. inches)
 - ***Horsepower*** engine horsepower
-- ***Weight_in_lbs*** (***y***) weight of the car (lbs.)
+- ***Weight_in_lbs*** weight of the car (lbs.)
 - ***Acceleration*** time to accelerate (sec.)
 - ***Origin*** origin of the car (1. American, 2. European, 3. Japanese)
 
 Consider that the ***Origin*** of the car is a sensitive data and given the original data,
 
-![original](cars.png)
-
-```console
-< cars.json | jq -c '.[]' | sigo -q Id,Miles_per_Gallon,Cylinders,x,Horsepower,y,Acceleration -s Origin | jq -s > cars_sigo.json
+```json
+    {
+      "Miles_per_Gallon":18,
+      "Cylinders":8,
+      "Displacement":307,
+      "Horsepower":130,
+      "Weight_in_lbs":3504,
+      "Acceleration":12,
+      "Origin":"USA"
+   },
+   {
+      "Miles_per_Gallon":15,
+      "Cylinders":8,
+      "Displacement":350,
+      "Horsepower":165,
+      "Weight_in_lbs":3693,
+      "Acceleration":11.5,
+      "Origin":"USA"
+   },
 ```
 
-![masked](cars-sigo.png)
+This part is intended to show you different anonymization techniques and to show you that this does not significantly affect the correlation of attributes.
 
-We can see that the anonymisation of the dataset has not changed the correlation of the attributes.
+## Correlation
+
+To calculate the correlation between each variable of the dataset we use the pearson correlation.
+Pearson correlation measures the strength of the linear relationship between two continuous variables. It has a value between -1 to 1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and + 1 meaning a total positive correlation.
+
+Pearson Correlation Coefficient =  $\rho(x,y) = \frac{\sum [(x_i - \bar{x}) * (y_i - \bar{y})]}{(\sigma)_x * (\sigma)_y} $
+
+With $\bar{x}, (\sigma)_x$ mean and standart deviation of x variable
+And $\bar{y}, (\sigma)_x$ mean and standart deviation of y variable.
+
+```python
+import pandas as pd
+import numpy as np
+import json
+
+input_file = open(r'cars.json')
+jsondata = json.load(input_file)
+df = pd.DataFrame(jsondata)
+
+df.corr(method='pearson')
+```
+
+|                  | Miles_per_Gallon | Cylinders |     x     | Horsepower |     y     | Acceleration |
+|------------------|------------------|:---------:|:---------:|:----------:|:---------:|:------------:|
+| Miles_per_Gallon |     1.000000     | -0.777618 | -0.805127 |  -0.778427 | -0.832244 |   0.423329   |
+| Cylinders        |     -0.777618    |  1.000000 |  0.950823 |  0.842983  |  0.897527 |   -0.504683  |
+| x                |     -0.805127    |  0.950823 |  1.000000 |  0.897257  |  0.932994 |   -0.543800  |
+| Horsepower       |     -0.778427    |  0.842983 |  0.897257 |  1.000000  |  0.864538 |   -0.689196  |
+| y                |     -0.832244    |  0.897527 |  0.932994 |  0.864538  |  1.000000 |   -0.416839  |
+| Acceleration     |     0.423329     | -0.504683 | -0.543800 |  -0.689196 | -0.416839 |   1.000000   |
