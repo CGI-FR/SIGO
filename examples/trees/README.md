@@ -39,6 +39,7 @@ This part is intended to show you different anonymization techniques and to show
 To calculate the correlation between each variable of the dataset we use the pearson correlation.
 Pearson correlation measures the strength of the linear relationship between two continuous variables. It has a value between -1 to 1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and + 1 meaning a total positive correlation.
 
+<<<<<<< HEAD
 Pearson Correlation Coefficient :
 ![equation](https://latex.codecogs.com/svg.image?%5Crho(x,y)%20=%20%5Cfrac%7B%5Csum%20%5Cleft%20%5B%20%5Cleft%20(%20x_%7Bi%7D%20-%20%5Cbar%7Bx%7D%20%5Cright%20)%20*%20%5Cleft%20(%20y_%7Bi%7D%20-%20%5Cbar%7By%7D%20%5Cright%20)%20%20%5Cright%20%5D%7D%7B%5Csigma_%7Bx%7D%20*%20%5Csigma_%7By%7D%7D)
 
@@ -58,6 +59,35 @@ df = pd.DataFrame(jsondata)
 df.corr(method='pearson')
 ```
 
+=======
+Pearson Correlation Coefficient =
+
+```math
+\rho(x,y) = \frac{\sum [(x_i - \bar{x}) * (y_i - \bar{y})]}{\sigma_x * \sigma_y}
+```
+
+With,
+
+```math
+\bar{x} \text{ : mean of x variable.} \newline
+\bar{y} \text{ : mean of y variable.} \newline
+\sigma_x \text{ : standart deviation of x variable.} \newline
+\sigma_y \text{ : standart deviation of y variable.}
+```
+
+```python
+import pandas as pd
+import numpy as np
+import json
+
+input_file = open(r'trees.json')
+jsondata = json.load(input_file)
+df = pd.DataFrame(jsondata)
+
+df.corr(method='pearson')
+```
+
+>>>>>>> 4378e4e (docs: add demo top bottom coding technique)
 |               | circonference |  hauteur  |     x     |     y    |
 |---------------|:-------------:|:---------:|:---------:|:--------:|
 | circonference |    1.000000   |  0.848523 | -0.045860 | 0.017326 |

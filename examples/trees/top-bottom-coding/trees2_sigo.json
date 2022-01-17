@@ -1,0 +1,502 @@
+[
+  {
+    "circonference": 20,
+    "hauteur": 4,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 4,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 4,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 20,
+    "hauteur": 4
+  },
+  {
+    "circonference": 20,
+    "hauteur": 4,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 20,
+    "hauteur": 5
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 6,
+    "remarquable": "NON",
+    "circonference": 45
+  },
+  {
+    "circonference": 45,
+    "hauteur": 6,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 6,
+    "remarquable": "NON",
+    "circonference": 45
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 45,
+    "hauteur": 6
+  },
+  {
+    "circonference": 45,
+    "hauteur": 6,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 55,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "circonference": 55
+  },
+  {
+    "circonference": 60,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "circonference": 60
+  },
+  {
+    "circonference": 55,
+    "hauteur": 5,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "circonference": 60
+  },
+  {
+    "circonference": 50,
+    "hauteur": 7,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 50,
+    "hauteur": 7,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 52,
+    "hauteur": 7,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 52,
+    "hauteur": 7,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 9,
+    "remarquable": "NON",
+    "circonference": 60
+  },
+  {
+    "circonference": 60,
+    "hauteur": 9,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 60,
+    "hauteur": 9,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 70,
+    "hauteur": 9,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 70,
+    "hauteur": 9,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 60,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 60,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 65,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 10,
+    "remarquable": "NON",
+    "circonference": 70
+  },
+  {
+    "circonference": 70,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 70,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 70,
+    "hauteur": 10
+  },
+  {
+    "circonference": 85,
+    "hauteur": 11,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 85,
+    "hauteur": 11
+  },
+  {
+    "circonference": 85,
+    "hauteur": 11,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 95,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 95,
+    "hauteur": 12,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 100,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 12,
+    "remarquable": "NON",
+    "circonference": 100
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 100,
+    "hauteur": 15
+  },
+  {
+    "circonference": 100,
+    "hauteur": 15,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 100,
+    "hauteur": 15,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 15,
+    "remarquable": "NON",
+    "circonference": 100
+  },
+  {
+    "circonference": 100,
+    "hauteur": 15,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 105,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 105,
+    "hauteur": 10
+  },
+  {
+    "circonference": 105,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 10,
+    "remarquable": "NON",
+    "circonference": 120
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 120,
+    "hauteur": 12
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 125,
+    "hauteur": 12
+  },
+  {
+    "circonference": 125,
+    "hauteur": 12,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 120,
+    "hauteur": 12,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 135,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 135,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 135,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 164,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 164,
+    "hauteur": 10
+  },
+  {
+    "circonference": 164,
+    "hauteur": 10,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 180,
+    "hauteur": 13,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 180,
+    "hauteur": 13,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 180,
+    "hauteur": 13,
+    "remarquable": "NON"
+  },
+  {
+    "remarquable": "NON",
+    "circonference": 315,
+    "hauteur": 15
+  },
+  {
+    "hauteur": 15,
+    "remarquable": "OUI",
+    "circonference": 315
+  },
+  {
+    "circonference": 315,
+    "hauteur": 15,
+    "remarquable": "OUI"
+  },
+  {
+    "hauteur": 20,
+    "remarquable": "NON",
+    "circonference": 145
+  },
+  {
+    "circonference": 145,
+    "hauteur": 20,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 20,
+    "remarquable": "NON",
+    "circonference": 164
+  },
+  {
+    "hauteur": 20,
+    "remarquable": "NON",
+    "circonference": 164
+  },
+  {
+    "circonference": 190,
+    "hauteur": 20,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 190,
+    "hauteur": 20,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 195,
+    "hauteur": 19,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 19,
+    "remarquable": "OUI",
+    "circonference": 195
+  },
+  {
+    "circonference": 261,
+    "hauteur": 25,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 235,
+    "hauteur": 25,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 261,
+    "hauteur": 25,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 235,
+    "hauteur": 25,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 330,
+    "hauteur": 25,
+    "remarquable": "OUI"
+  },
+  {
+    "remarquable": "OUI",
+    "circonference": 330,
+    "hauteur": 25
+  },
+  {
+    "circonference": 330,
+    "hauteur": 25,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 380,
+    "hauteur": 23,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 380,
+    "hauteur": 26,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 407,
+    "hauteur": 23,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 407,
+    "hauteur": 26,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 472,
+    "hauteur": 30,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 472,
+    "hauteur": 30,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 472,
+    "hauteur": 30,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 472,
+    "hauteur": 30,
+    "remarquable": "OUI"
+  },
+  {
+    "hauteur": 30,
+    "remarquable": "OUI",
+    "circonference": 472
+  }
+]
