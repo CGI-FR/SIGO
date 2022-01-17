@@ -72,3 +72,12 @@ df.corr(method='pearson')
 | hauteur       |    0.848523   |  1.000000 | -0.032621 | 0.168414 |
 | x             |   -0.045860   | -0.032621 |  1.000000 | 0.001270 |
 | y             |    0.017326   |  0.168414 |  0.001270 | 1.000000 |
+
+```python
+import seaborn as sb
+
+mask = np.triu(np.ones(df.corr().shape)).astype(np.bool)
+plot = sb.heatmap(df.corr(), mask = mask, cmap="YlGnBu", annot=True)
+```
+
+![correlation](correlation_trees.png)
