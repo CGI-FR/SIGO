@@ -40,12 +40,19 @@ To calculate the correlation between each variable of the dataset we use the pea
 Pearson correlation measures the strength of the linear relationship between two continuous variables. It has a value between -1 to 1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and + 1 meaning a total positive correlation.
 
 Pearson Correlation Coefficient =
-$$ \rho(x,y) = \frac{\sum [(x_i - \bar{x}) * (y_i - \bar{y})]}{(\sigma)_x * (\sigma)_y} $$
 
-With
-$$ \bar{x}, (\sigma)_x $$ mean and standart deviation of x variable
-And
-$$\bar{y}, (\sigma)_x $$ mean and standart deviation of y variable.
+```math
+\rho(x,y) = \frac{\sum [(x_i - \bar{x}) * (y_i - \bar{y})]}{\sigma_x * \sigma_y}
+```
+
+With,
+
+```math
+\bar{x} \text{ : mean of x variable.} \newline
+\bar{y} \text{ : mean of y variable.} \newline
+\sigma_x \text{ : standart deviation of x variable.} \newline
+\sigma_y \text{ : standart deviation of y variable.}
+```
 
 ```python
 import pandas as pd
