@@ -39,10 +39,13 @@ This part is intended to show you different anonymization techniques and to show
 To calculate the correlation between each variable of the dataset we use the pearson correlation.
 Pearson correlation measures the strength of the linear relationship between two continuous variables. It has a value between -1 to 1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and + 1 meaning a total positive correlation.
 
-Pearson Correlation Coefficient =  $\rho(x,y) = \frac{\sum [(x_i - \bar{x}) * (y_i - \bar{y})]}{(\sigma)_x * (\sigma)_y} $
+Pearson Correlation Coefficient =
+$$ \rho(x,y) = \frac{\sum [(x_i - \bar{x}) * (y_i - \bar{y})]}{(\sigma)_x * (\sigma)_y} $$
 
-With $\bar{x}, (\sigma)_x$ mean and standart deviation of x variable
-And $\bar{y}, (\sigma)_x$ mean and standart deviation of y variable.
+With
+$$ \bar{x}, (\sigma)_x $$ mean and standart deviation of x variable
+And
+$$\bar{y}, (\sigma)_x $$ mean and standart deviation of y variable.
 
 ```python
 import pandas as pd
