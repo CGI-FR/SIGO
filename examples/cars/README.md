@@ -79,3 +79,12 @@ df.corr(method='pearson')
 | Horsepower       |     -0.778427    |  0.842983 |  0.897257 |  1.000000  |  0.864538 |   -0.689196  |
 | y                |     -0.832244    |  0.897527 |  0.932994 |  0.864538  |  1.000000 |   -0.416839  |
 | Acceleration     |     0.423329     | -0.504683 | -0.543800 |  -0.689196 | -0.416839 |   1.000000   |
+
+```python
+import seaborn as sb
+
+mask = np.triu(np.ones(df.corr().shape)).astype(np.bool)
+plot = sb.heatmap(df.corr(), mask = mask, cmap="YlGnBu", annot=True)
+```
+
+![correlation](correlation_cars.png)
