@@ -18,6 +18,7 @@
 package infra
 
 import (
+	"errors"
 	"io"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -64,9 +65,17 @@ func (jlr JSONLineRecord) Row() map[string]interface{} {
 	return result.(map[string]interface{})
 }
 
-func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) sigo.RecordSource {
+func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) (sigo.RecordSource, error) {
 	// nolint: exhaustivestruct
-	return &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}
+	source := &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}
+
+	//nolint: goerr113
+	err := errors.New("indicate the list of quasi-identifiers")
+	if len(quasiIdentifers) == 0 {
+		return source, err
+	}
+
+	return source, nil
 }
 
 type JSONLineSource struct {

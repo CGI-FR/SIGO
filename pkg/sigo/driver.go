@@ -17,10 +17,12 @@
 
 package sigo
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink) error {
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
 	generalizer := factory.New(k, l, dim)
 
 	for source.Next() {
@@ -35,7 +37,11 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 
 	for _, cluster := range generalizer.Clusters() {
 		for _, record := range cluster.Records() {
-			err := sink.Collect(anonymyzer.Anonymize(record, cluster))
+			anonymizedRecord := anonymyzer.Anonymize(record, cluster)
+
+			anonymizedRecord = debugger.Information(anonymizedRecord, cluster)
+
+			err := sink.Collect(anonymizedRecord)
 			if err != nil {
 				return fmt.Errorf("%w", err)
 			}

@@ -31,8 +31,8 @@ type KDTreeFactory struct{}
 
 func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim}
-	root := newNode(&tree, 0)
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int)}
+	root := newNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
 
@@ -40,10 +40,11 @@ func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
 }
 
 type KDTree struct {
-	k    int
-	l    int
-	root *node
-	dim  int
+	k         int
+	l         int
+	root      *node
+	dim       int
+	clusterID map[string]int
 }
 
 func (t KDTree) Add(r Record) {
@@ -62,24 +63,26 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
-func newNode(tree *KDTree, rot int) node {
+func newNode(tree *KDTree, path string, rot int) node {
 	return node{
-		tree:     tree,
-		cluster:  []Record{},
-		subNodes: []node{},
-		pivot:    []float32{},
-		valid:    false,
-		rot:      rot % tree.dim,
+		tree:        tree,
+		cluster:     []Record{},
+		clusterPath: path,
+		subNodes:    []node{},
+		pivot:       []float32{},
+		valid:       false,
+		rot:         rot % tree.dim,
 	}
 }
 
 type node struct {
-	tree     *KDTree
-	cluster  []Record
-	subNodes []node
-	pivot    []float32
-	valid    bool
-	rot      int
+	tree        *KDTree
+	cluster     []Record
+	clusterPath string
+	subNodes    []node
+	pivot       []float32
+	valid       bool
+	rot         int
 }
 
 func (n *node) add(r Record) {
@@ -89,9 +92,8 @@ func (n *node) add(r Record) {
 func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
-		lower, upper, valid := n.split()
-
-		if !valid {
+		lower, upper, valide := n.split()
+		if !valide {
 			return
 		}
 
@@ -106,7 +108,9 @@ func (n *node) build() {
 			lower,
 			upper,
 		}
+
 		n.cluster = nil
+
 		n.subNodes[0].build()
 		n.subNodes[1].build()
 	}
@@ -118,8 +122,8 @@ func (n *node) split() (node, node, bool) {
 	})
 
 	n.pivot = nil
-	lower := newNode(n.tree, n.rot+1)
-	upper := newNode(n.tree, n.rot+1)
+	lower := newNode(n.tree, n.clusterPath+"-l", n.rot+1)
+	upper := newNode(n.tree, n.clusterPath+"-u", n.rot+1)
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
@@ -147,6 +151,10 @@ func (n *node) Records() []Record {
 	}
 
 	return []Record{}
+}
+
+func (n *node) ID() string {
+	return n.clusterPath
 }
 
 func (n *node) clusters() []Cluster {

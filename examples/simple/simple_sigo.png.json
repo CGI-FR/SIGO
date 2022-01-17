@@ -35,8 +35,7 @@
                 "field": { "repeat": "row" },
                 "type": "quantitative",
                 "axis": { "minExtent": 30 }
-            },
-            "color": { "field": "group", "type": "nominal" }
+            }
         }
     }
 }
