@@ -22,7 +22,7 @@ import (
 )
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger, info string) error {
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
 	generalizer := factory.New(k, l, dim)
 
 	for source.Next() {
@@ -39,9 +39,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 		for _, record := range cluster.Records() {
 			anonymizedRecord := anonymyzer.Anonymize(record, cluster)
 
-			if info != "" {
-				anonymizedRecord = debugger.Information(anonymizedRecord, cluster, info)
-			}
+			anonymizedRecord = debugger.Information(anonymizedRecord, cluster)
 
 			err := sink.Collect(anonymizedRecord)
 			if err != nil {

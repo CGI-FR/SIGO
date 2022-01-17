@@ -54,5 +54,5 @@ type Anonymizer interface {
 }
 
 type Debugger interface {
-	Information(Record, Cluster, string) Record
+	Information(Record, Cluster) Record
 }

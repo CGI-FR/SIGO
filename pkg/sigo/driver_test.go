@@ -48,7 +48,7 @@ func TestSimpleClustering(t *testing.T) {
 
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, sigo.NewSequenceDebugger(), "")
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, sigo.NewNoDebugger())
 	assert.Nil(t, err)
 
 	assert.Equal(t, json.Number("1"), result[0]["x"])
@@ -74,7 +74,8 @@ func TestClusteringInfos(t *testing.T) {
 
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, sigo.NewSequenceDebugger(), "clusterID")
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,
+		sigo.NewSequenceDebugger("clusterID"))
 	assert.Nil(t, err)
 
 	assert.Equal(t, 1, result[0]["clusterID"])

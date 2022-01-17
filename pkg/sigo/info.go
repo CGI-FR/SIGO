@@ -1,9 +1,10 @@
 package sigo
 
-func NewSequenceDebugger() SequenceDebugger { return SequenceDebugger{map[string]int{}} }
+func NewSequenceDebugger(key string) SequenceDebugger { return SequenceDebugger{map[string]int{}, key} }
 
 type SequenceDebugger struct {
 	cache map[string]int
+	key   string
 }
 
 type InfosRecord struct {
@@ -37,10 +38,18 @@ func (d SequenceDebugger) id(c Cluster) int {
 	return d.cache[c.ID()]
 }
 
-func (d SequenceDebugger) Information(rec Record, cluster Cluster, key string) Record {
+func (d SequenceDebugger) Information(rec Record, cluster Cluster) Record {
 	infos := make(map[string]interface{})
 
-	infos[key] = d.id(cluster)
+	infos[d.key] = d.id(cluster)
 
 	return InfosRecord{original: rec, infos: infos}
+}
+
+func NewNoDebugger() Debugger { return NoDebugger{} }
+
+type NoDebugger struct{}
+
+func (d NoDebugger) Information(rec Record, cluster Cluster) Record {
+	return rec
 }

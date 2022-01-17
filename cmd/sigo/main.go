@@ -115,7 +115,15 @@ func run() {
 
 	sink := infra.NewJSONLineSink(os.Stdout)
 
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, sigo.NewSequenceDebugger(), info)
+	var debugger sigo.Debugger
+
+	if info != "" {
+		debugger = sigo.NewSequenceDebugger(info)
+	} else {
+		debugger = sigo.NewNoDebugger()
+	}
+
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
