@@ -104,7 +104,7 @@ The data is recorded in the treesn.json file, below you will find an overview of
 | x             |   -0.094617   | -0.109564 |  1.000000 | 0.084301 |
 | y             |    0.054231   |  0.226506 |  0.084301 | 1.000000 |
 
-The correlation after anonymization is in the range $$ [\pm 0.035; \pm 0.083] $$
+The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200.035%20;%20%5Cpm%200.083%20%5Cright%20%5D)
 
 ### Bibliography
 
