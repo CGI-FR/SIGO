@@ -83,19 +83,19 @@ func main() {
 	rootCmd.PersistentFlags().StringVar(&colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
 	rootCmd.PersistentFlags().
-		IntVar(&k, "k", 3, "k-value for k-anonymization")
+		IntVarP(&k, "k-value", "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().
-		IntVar(&l, "l", 1, "l-value for l-diversity")
+		IntVarP(&l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
 		StringVarP(&method, "method", "a", "general",
-			"anonymization method used. Select one from this list ['general', 'aggregation', 'coding']")
+			"anonymization method used. Select one from this list ['general', 'aggregation', 'coding', 'noise']")
 	rootCmd.PersistentFlags().
 		StringVarP(&parameter, "param", "p", "",
-			"parameter used for anonymizer. If aggregation, choose ['mean', 'median']. If coding, choose between [0.00;1.00].")
+			"parameter used for anonymizer. If aggregation, choose ['mean', 'median']. If coding, choose between ['0.00';'0.40'].")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
@@ -148,6 +148,9 @@ func run() {
 	case "coding":
 		// f, err := strconv.ParseFloat(parameter, 64)
 		// 	anonymizer = NewCodingAnonymizer(f)
+		anonymizer = sigo.NewNoAnonymizer()
+	case "noise":
+		// 	anonymizer = NewNoiseAnonymizer(parameter)
 		anonymizer = sigo.NewNoAnonymizer()
 	}
 
