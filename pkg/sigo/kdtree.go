@@ -75,6 +75,7 @@ func newNode(tree *KDTree, path string, rot int) node {
 		pivot:       []float32{},
 		valid:       false,
 		rot:         rot % tree.dim,
+		bounds:      make([]bounds, tree.dim),
 	}
 }
 
@@ -100,7 +101,7 @@ func (n *node) add(r Record) {
 func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		if n == n.tree.root {
-			n.createBounds()
+			n.initiateBounds()
 		}
 
 		// rollback to simple node
@@ -128,7 +129,7 @@ func (n *node) build() {
 	}
 }
 
-func (n *node) createBounds() {
+func (n *node) initiateBounds() {
 	for rot := 0; rot < n.tree.dim; rot++ {
 		sort.SliceStable(n.cluster, func(i int, j int) bool {
 			return n.cluster[i].QuasiIdentifer()[rot] < n.cluster[j].QuasiIdentifer()[rot]
