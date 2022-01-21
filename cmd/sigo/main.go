@@ -50,7 +50,6 @@ var (
 	qi        []string
 	sensitive []string
 	method    string
-	parameter string
 	info      string
 )
 
@@ -91,11 +90,9 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&method, "method", "a", "general",
-			"anonymization method used. Select one from this list ['general', 'aggregation', 'coding', 'noise']")
-	rootCmd.PersistentFlags().
-		StringVarP(&parameter, "param", "p", "",
-			"parameter used for anonymizer. If aggregation, choose ['mean', 'median']. If coding, choose between ['0.00';'0.40'].")
+		StringVarP(&method, "anonymizer", "a", "general",
+			"anonymization method used. Select one from this list "+
+				"['general', 'meanAggregation', 'medianAggragation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
@@ -116,7 +113,6 @@ func run() {
 		Strs("Quasi-Identifiers", qi).
 		Strs("Sensitive", sensitive).
 		Str("Method", method).
-		Str("Parameter", parameter).
 		Str("Cluster-Info", info).
 		Msg("Start SIGO")
 
@@ -139,19 +135,11 @@ func run() {
 
 	var anonymizer sigo.Anonymizer
 
-	switch method {
-	case "general":
-		anonymizer = sigo.NewNoAnonymizer()
-	case "aggregation":
-		anonymizer = sigo.NewNoAnonymizer()
-		// anonymizer = NewAggregationAnonymizer(parameter)
-	case "coding":
-		// f, err := strconv.ParseFloat(parameter, 64)
-		// 	anonymizer = NewCodingAnonymizer(f)
-		anonymizer = sigo.NewNoAnonymizer()
-	case "noise":
-		// 	anonymizer = NewNoiseAnonymizer(parameter)
-		anonymizer = sigo.NewNoAnonymizer()
+	anonymizers := sigo.NewAnonymizers()
+	if method != "" {
+		anonymizer = anonymizers.Anonymizer("NoAnonymizer")
+	} else {
+		anonymizer = anonymizers.Anonymizer(method)
 	}
 
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), anonymizer, sink, debugger)

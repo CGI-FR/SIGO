@@ -4,6 +4,21 @@ import (
 	"math/rand"
 )
 
+type Anonymizers struct {
+	dict map[string]Anonymizer
+}
+
+func NewAnonymizers() Anonymizers {
+	dict := make(map[string]Anonymizer)
+	dict["NoAnonymizer"] = NewNoAnonymizer()
+
+	return Anonymizers{dict: dict}
+}
+
+func (anonymizers *Anonymizers) Anonymizer(name string) Anonymizer {
+	return anonymizers.dict[name]
+}
+
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 type NoAnonymizer struct{}
