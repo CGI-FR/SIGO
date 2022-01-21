@@ -2,7 +2,9 @@ package sigo
 
 import (
 	"math"
+	"math/rand"
 	"sort"
+	"time"
 )
 
 func Mean(listValues []float64) (m float64) {
@@ -71,4 +73,40 @@ func IQR(values []float64) float64 {
 	iqr := qs.Q3 - qs.Q1
 
 	return iqr
+}
+
+func Std(listValues []float64) (s float64) {
+	for _, val := range listValues {
+		//nolint: gomnd
+		s += math.Pow((val - Mean(listValues)), 2)
+	}
+
+	return math.Sqrt(s / float64(len(listValues)-1))
+}
+
+func Sum(listValues []float64) (sum float64) {
+	for _, val := range listValues {
+		sum += val
+	}
+
+	return sum
+}
+
+func ExpNumber(mean float64) float64 {
+	rand.Seed(time.Now().UnixNano())
+	//nolint: gosec
+	return -mean * math.Log(rand.Float64())
+}
+
+func LaplaceNumber() float64 {
+	e1 := ExpNumber(1)
+	e2 := ExpNumber(1)
+
+	return e1 - e2
+}
+
+func GaussianNumber(loc float64, scale float64) float64 {
+	rand.Seed(time.Now().UnixNano())
+
+	return rand.NormFloat64()*scale + loc
 }

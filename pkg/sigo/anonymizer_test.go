@@ -18,14 +18,16 @@
 package sigo_test
 
 import (
+	"fmt"
+	"math"
+	"math/rand"
 	"strings"
 	"testing"
-
-	"github.com/cgi-fr/sigo/internal/infra"
-	"github.com/cgi-fr/sigo/pkg/sigo"
+	"time"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
-
+	"github.com/cgi-fr/sigo/internal/infra"
+	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -80,20 +82,20 @@ func TestTopBottomCodingAnonymizer(t *testing.T) {
 	t.Parallel()
 
 	sourceText := `{"x": 0, "y": 0}
-				{"x": 0, "y": 1}
-				{"x": 0, "y": 12}
-				{"x": 1, "y": 1}
-				{"x": 1, "y": 2}
-				{"x": 1, "y": 20}
-				{"x": 2, "y": 1}
-				{"x": 3, "y": 5}
-				{"x": 5, "y": 3}
-				{"x": 6, "y": 5}
-				{"x": 9, "y": 10}
-				{"x": 10, "y": 30}
-				{"x": 11, "y": 11}
-				{"x": 12, "y": 11}
-				{"x": 48, "y": 12}`
+				   {"x": 0, "y": 1}
+				   {"x": 0, "y": 12}
+				   {"x": 1, "y": 1}
+				   {"x": 1, "y": 2}
+				   {"x": 1, "y": 20}
+				   {"x": 2, "y": 1}
+				   {"x": 3, "y": 5}
+				   {"x": 5, "y": 3}
+				   {"x": 6, "y": 5}
+				   {"x": 9, "y": 10}
+				   {"x": 10, "y": 30}
+				   {"x": 11, "y": 11}
+				   {"x": 12, "y": 11}
+				   {"x": 48, "y": 12}`
 
 	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
 	assert.Nil(t, err)
@@ -114,4 +116,128 @@ func TestTopBottomCodingAnonymizer(t *testing.T) {
 	assert.Equal(t, 11.50, result[14]["y"])
 	assert.Equal(t, 11.50, result[14]["x"])
 	assert.Equal(t, 11.50, result[13]["x"])
+}
+
+//nolint: dupl
+func TestRandomLaplaceNoiseAnonymizer(t *testing.T) {
+	t.Parallel()
+
+	tests := []int{10, 20, 50, 100, 200, 500, 1000}
+
+	// nolint: paralleltest
+	for i, N := range tests {
+		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
+			t.Parallel()
+
+			rand.Seed(time.Now().UnixNano())
+
+			result := []map[string]interface{}{}
+			kdtree := sigo.NewKDTreeFactory().New(3, 1, 1)
+			sink := infra.NewSliceDictionariesSink(&result)
+			rows := []jsonline.Row{}
+
+			for i := 0; i < N; i++ {
+				row := jsonline.NewRow()
+				//nolint: gosec
+				x := float64(rand.Intn(N)) + rand.Float64()
+				row.Set("x", x)
+				rows = append(rows, row)
+			}
+
+			for i := 0; i < N; i++ {
+				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"}, &[]string{})
+
+				kdtree.Add(record)
+			}
+
+			kdtree.Build()
+
+			errsMean := []float64{}
+			errsStd := []float64{}
+			for _, cluster := range kdtree.Clusters() {
+				valuesOriginal := []float64{}
+				valuesAnonimyzed := []float64{}
+				for _, record := range cluster.Records() {
+					valuesOriginal = append(valuesOriginal, record.Row()["x"].(float64))
+					anonymizedRecord := sigo.NewNoiseAnonymizer("laplace").Anonymize(record, cluster, []string{"x"}, []string{})
+					valuesAnonimyzed = append(valuesAnonimyzed, anonymizedRecord.Row()["x"].(float64))
+
+					err := sink.Collect(anonymizedRecord)
+					assert.Nil(t, err)
+				}
+
+				meanErr := math.Abs(sigo.Mean(valuesOriginal) - sigo.Mean(valuesAnonimyzed))
+				stdErr := math.Abs(sigo.Std(valuesOriginal) - sigo.Std(valuesAnonimyzed))
+				errsMean = append(errsMean, meanErr)
+				errsStd = append(errsStd, stdErr)
+			}
+			meanMAE := sigo.Sum(errsMean) / float64(len(errsMean))
+			stdMAE := sigo.Sum(errsStd) / float64(len(errsStd))
+
+			assert.InDelta(t, meanMAE, 0, 0.99)
+			assert.InDelta(t, stdMAE, 0, 0.99)
+		})
+	}
+}
+
+//nolint: dupl
+func TestRandomGaussianNoiseAnonymizer(t *testing.T) {
+	t.Parallel()
+
+	tests := []int{10, 20, 50, 100, 200, 500, 1000}
+
+	// nolint: paralleltest
+	for i, N := range tests {
+		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
+			t.Parallel()
+
+			rand.Seed(time.Now().UnixNano())
+
+			result := []map[string]interface{}{}
+			kdtree := sigo.NewKDTreeFactory().New(3, 1, 1)
+			sink := infra.NewSliceDictionariesSink(&result)
+			rows := []jsonline.Row{}
+
+			for i := 0; i < N; i++ {
+				row := jsonline.NewRow()
+				//nolint: gosec
+				x := float64(rand.Intn(N)) + rand.Float64()
+				row.Set("x", x)
+				rows = append(rows, row)
+			}
+
+			for i := 0; i < N; i++ {
+				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"}, &[]string{})
+
+				kdtree.Add(record)
+			}
+
+			kdtree.Build()
+
+			errsMean := []float64{}
+			errsStd := []float64{}
+			for _, cluster := range kdtree.Clusters() {
+				valuesOriginal := []float64{}
+				valuesAnonimyzed := []float64{}
+				for _, record := range cluster.Records() {
+					valuesOriginal = append(valuesOriginal, record.Row()["x"].(float64))
+					anonymizedRecord := sigo.NewNoiseAnonymizer("gaussian").Anonymize(record, cluster, []string{"x"}, []string{})
+					valuesAnonimyzed = append(valuesAnonimyzed, anonymizedRecord.Row()["x"].(float64))
+
+					err := sink.Collect(anonymizedRecord)
+					assert.Nil(t, err)
+				}
+
+				meanErr := math.Abs(sigo.Mean(valuesOriginal) - sigo.Mean(valuesAnonimyzed))
+				stdErr := math.Abs(sigo.Std(valuesOriginal) - sigo.Std(valuesAnonimyzed))
+				errsMean = append(errsMean, meanErr)
+				errsStd = append(errsStd, stdErr)
+			}
+			meanMAE := sigo.Sum(errsMean) / float64(len(errsMean))
+			stdMAE := sigo.Sum(errsStd) / float64(len(errsStd))
+
+			assert.InDelta(t, meanMAE, 0, 0.99)
+			assert.InDelta(t, stdMAE, 0, 0.99)
+		})
+	}
 }

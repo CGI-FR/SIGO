@@ -1,15 +1,11 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "repeat": {
-        "row": ["circonference","hauteur","x","y"],
-        "column": ["y","x","hauteur","circonference"]
+        "row": ["x","y"],
+        "column": ["y","x"]
     },
     "spec": {
-<<<<<<< HEAD:examples/trees/micro-aggregation/plot2.vg.json
-        "data": { "url": "./treesn.json" },
-=======
-        "data": { "url": "./treesn_sigo.json" },
->>>>>>> 429a938 (feat: add random noise method):examples/trees/random-noise/plot2.vg.json
+        "data": { "url": "./trees2.json" },
         "mark": "point",
         "params": [
             {
