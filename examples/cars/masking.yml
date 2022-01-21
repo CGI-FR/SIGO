@@ -1,0 +1,13 @@
+version: 1
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Year"
+    mask:
+      dateParser:
+        inputFormat: "2006-01-02"
+        outputFormat: "2006"
+  - selector:
+      jsonpath: "Year"
+    mask:
+      fromjson: "Year"

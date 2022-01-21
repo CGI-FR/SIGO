@@ -80,3 +80,64 @@ plot = sb.heatmap(df.corr(), mask = mask, cmap="YlGnBu", annot=True)
 ```
 
 ![correlation](correlation_cars.png)
+
+## Usage of **PIMO**
+
+**SIGO** considers quasi-identifiers as float numbers. Therefore, QIs of the orignal dataset must all be float number.
+However, we can find categories or dates that **SIGO** won't understand.
+
+**PIMO** can be used to transform a string attribute into a sequence of float numbers (it's up to the user to create this sequence).
+
+
+In the original dataSet, the attribute `Year` is a quasi identifier, but **SIGO** cannot process it.
+
+```json
+   {
+      "Name":"chevrolet chevelle malibu",
+      "Miles_per_Gallon":18,
+      "Cylinders":8,
+      "Displacement":307,
+      "Horsepower":130,
+      "Weight_in_lbs":3504,
+      "Acceleration":12,
+      "Year":"1970-01-01",
+      "Origin":"USA"
+   }
+```
+
+With a simple **`masking.yml`**, we transform this attribute into a sequence of float numbers.
+
+```yml
+version: 1
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Year"
+    mask:
+      dateParser:
+        inputFormat: "2006-01-02"
+        outputFormat: "2006"
+  - selector:
+      jsonpath: "Year"
+    mask:
+      fromjson: "Year"
+
+```
+DataSet after sequencing:
+```json
+   {
+      "Name":"chevrolet chevelle malibu",
+      "Miles_per_Gallon":18,
+      "Cylinders":8,
+      "Displacement":307,
+      "Horsepower":130,
+      "Weight_in_lbs":3504,
+      "Acceleration":12,
+      "Year":1970,
+      "Origin":"USA"
+   }
+```
+
+(After de-identification with **SIGO**, the operation can be undone with another call to **PIMO**. Original values will be saved, using caches for example.)
+
+Dates can be easily transformed into a sequence of floats, but one can imagine categories like colors, origin (if not a sensitive value), or even genders.
