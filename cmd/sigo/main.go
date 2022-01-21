@@ -92,7 +92,7 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringVarP(&method, "anonymizer", "a", "general",
 			"anonymization method used. Select one from this list "+
-				"['general', 'meanAggregation', 'medianAggragation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
+				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")

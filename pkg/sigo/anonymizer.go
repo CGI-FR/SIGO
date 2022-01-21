@@ -11,6 +11,7 @@ type Anonymizers struct {
 func NewAnonymizers() Anonymizers {
 	dict := make(map[string]Anonymizer)
 	dict["NoAnonymizer"] = NewNoAnonymizer()
+	dict["general"] = NewGeneralAnonymizer()
 
 	return Anonymizers{dict: dict}
 }
