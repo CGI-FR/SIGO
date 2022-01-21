@@ -2,9 +2,7 @@ package sigo
 
 import (
 	"encoding/json"
-	"math"
 	"math/rand"
-	"sort"
 )
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
@@ -79,7 +77,7 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
-func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster) Record {
+func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	values := make(map[string][]float64)
 
 	for _, record := range clus.Records() {
@@ -98,36 +96,14 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster) Record {
 
 	mask := map[string]interface{}{}
 
-	for key := range values {
+	for _, key := range qi {
 		switch a.typeAggregation {
 		case "mean":
-			mask[key] = mean(values[key])
+			mask[key] = Mean(values[key])
 		case "median":
-			mask[key] = median(values[key])
+			mask[key] = Median(values[key])
 		}
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
-}
-
-func mean(listValues []float64) (m float64) {
-	for _, val := range listValues {
-		m += val
-	}
-
-	m /= float64(len(listValues))
-	//nolint: gomnd
-	return math.Round(m*100) / 100
-}
-
-func median(listValues []float64) (m float64) {
-	sort.Float64s(listValues)
-	lenList := len(listValues)
-
-	if lenList%2 == 0 {
-		//nolint: gomnd
-		return (listValues[lenList/2] + listValues[lenList/2-1]) / 2
-	}
-
-	return listValues[(lenList-1)/2]
 }
