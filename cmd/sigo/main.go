@@ -133,16 +133,7 @@ func run() {
 		debugger = sigo.NewNoDebugger()
 	}
 
-	var anonymizer sigo.Anonymizer
-
-	anonymizers := sigo.NewAnonymizers()
-	if method != "" {
-		anonymizer = anonymizers.Anonymizer("NoAnonymizer")
-	} else {
-		anonymizer = anonymizers.Anonymizer(method)
-	}
-
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), anonymizer, sink, debugger)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), newAnonymizer(method), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
@@ -194,4 +185,13 @@ func initLog() {
 	}
 
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
+}
+
+func newAnonymizer(name string) sigo.Anonymizer {
+	switch name {
+	case "general":
+		return sigo.NewGeneralAnonymizer()
+	default:
+		return sigo.NewNoAnonymizer()
+	}
 }
