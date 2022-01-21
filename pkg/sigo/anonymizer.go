@@ -8,10 +8,19 @@ func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 type NoAnonymizer struct{}
 
-type AnonymizedRecord struct {
-	original Record
-	mask     map[string]interface{}
+func NewGeneralAnonymizer() GeneralAnonymizer {
+	return GeneralAnonymizer{groupMap: make(map[Cluster]map[string]string)}
 }
+
+type (
+	GeneralAnonymizer struct {
+		groupMap map[Cluster]map[string]string
+	}
+	AnonymizedRecord struct {
+		original Record
+		mask     map[string]interface{}
+	}
+)
 
 func (ar AnonymizedRecord) QuasiIdentifer() []float32 {
 	return ar.original.QuasiIdentifer()
@@ -30,7 +39,7 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	return original
 }
 
-func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
+func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	//nolint: gosec
 	choice := clus.Records()[rand.Intn(len(clus.Records()))]
 
@@ -43,8 +52,20 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster) Record {
 	}
 
 	mask := map[string]interface{}{}
-	mask["x"] = choice.Row()["x"]
-	mask["y"] = choice.Row()["y"]
+	for _, q := range qi {
+		mask[q] = choice.Row()[q]
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	b := clus.Bounds()
+
+	mask := map[string]interface{}{}
+	for i, q := range qi {
+		mask[q] = []float32{b[i].down, b[i].up}
+	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
 }

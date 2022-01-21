@@ -112,3 +112,11 @@ func (s *JSONLineSource) Next() bool {
 func (s *JSONLineSource) Value() sigo.Record {
 	return s.record
 }
+
+func (s *JSONLineSource) QuasiIdentifer() []string {
+	return s.quasiIdentifers
+}
+
+func (s *JSONLineSource) Sensitive() []string {
+	return s.sensitives
+}

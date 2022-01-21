@@ -75,7 +75,12 @@ func newNode(tree *KDTree, path string, rot int) node {
 		pivot:       []float32{},
 		valid:       false,
 		rot:         rot % tree.dim,
+		bounds:      make([]bounds, tree.dim),
 	}
+}
+
+type bounds struct {
+	down, up float32
 }
 
 type node struct {
@@ -83,6 +88,7 @@ type node struct {
 	cluster     []Record
 	clusterPath string
 	subNodes    []node
+	bounds      []bounds
 	pivot       []float32
 	valid       bool
 	rot         int
@@ -94,6 +100,10 @@ func (n *node) add(r Record) {
 
 func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
+		if n == n.tree.root {
+			n.initiateBounds()
+		}
+
 		// rollback to simple node
 		lower, upper, valide := n.split()
 		if !valide {
@@ -113,10 +123,27 @@ func (n *node) build() {
 		}
 
 		n.cluster = nil
-
+		n.bounds = make([]bounds, n.tree.dim)
 		n.subNodes[0].build()
 		n.subNodes[1].build()
 	}
+}
+
+func (n *node) initiateBounds() {
+	for rot := 0; rot < n.tree.dim; rot++ {
+		sort.SliceStable(n.cluster, func(i int, j int) bool {
+			return n.cluster[i].QuasiIdentifer()[rot] < n.cluster[j].QuasiIdentifer()[rot]
+		})
+
+		n.bounds[rot] = bounds{
+			down: n.cluster[0].QuasiIdentifer()[rot],
+			up:   n.cluster[len(n.cluster)-1].QuasiIdentifer()[rot],
+		}
+	}
+}
+
+func (n *node) Bounds() []bounds {
+	return n.bounds
 }
 
 func (n *node) split() (node, node, bool) {
@@ -126,7 +153,10 @@ func (n *node) split() (node, node, bool) {
 
 	n.pivot = nil
 	lower := newNode(n.tree, n.clusterPath+"-l", n.rot+1)
+	copy(lower.bounds, n.bounds)
 	upper := newNode(n.tree, n.clusterPath+"-u", n.rot+1)
+	copy(upper.bounds, n.bounds)
+
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
@@ -139,6 +169,8 @@ func (n *node) split() (node, node, bool) {
 		} else {
 			if n.pivot == nil {
 				n.pivot = row.QuasiIdentifer()
+				lower.bounds[n.rot].up = previous.QuasiIdentifer()[n.rot]
+				upper.bounds[n.rot].down = n.pivot[n.rot]
 			}
 			upper.add(row)
 			upperSize++
@@ -178,7 +210,7 @@ func (n *node) string(offset int) string {
 
 		result += "]"
 
-		return result
+		return result + "|" + fmt.Sprint(n.bounds)
 	}
 
 	return fmt.Sprintf("{\n%s pivot: %v,\n%s rot: %v, \n%s n0: %s,\n%s n1: %s,\n%s}",

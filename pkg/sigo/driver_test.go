@@ -61,6 +61,10 @@ func TestClusteringInfos(t *testing.T) {
 
 	row := jsonline.NewRow()
 	row.Set("ID", "1")
+}
+
+func TestGeneralizedClustering(t *testing.T) {
+	t.Parallel()
 
 	sourceText := `{"x":0, "y":0, "foo":"bar"}
 				   {"x":1, "y":1, "foo":"bar"}
