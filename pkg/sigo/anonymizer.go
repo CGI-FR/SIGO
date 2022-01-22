@@ -1,6 +1,8 @@
 package sigo
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
@@ -12,6 +14,10 @@ func NewAggregationAnonymizer(typeAgg string) AggregationAnonymizer {
 	return AggregationAnonymizer{typeAggregation: typeAgg}
 }
 
+func NewCodingAnonymizer() CodingAnonymizer {
+	return CodingAnonymizer{}
+}
+
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
@@ -20,6 +26,7 @@ type (
 	AggregationAnonymizer struct {
 		typeAggregation string
 	}
+	CodingAnonymizer struct{}
 	AnonymizedRecord struct {
 		original Record
 		mask     map[string]interface{}
@@ -42,6 +49,15 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 
 	return original
 }
+
+// func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+// 	mask := map[string]interface{}{}
+// 	for _, q := range qi {
+// 		mask[q] = rec.Row()[q]
+// 	}
+
+// 	return AnonymizedRecord{original: rec, mask: mask}
+// }
 
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
@@ -92,4 +108,61 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	values := listValues(clus)
+	mask := map[string]interface{}{}
+
+	for _, key := range qi {
+		vals := values[key]
+		q := Quartile(vals)
+		bottom := q.Q1
+		top := q.Q3
+		val := convertToFloat64(rec.Row()[key])
+
+		switch {
+		case val < bottom:
+			mask[key] = bottom
+		case val > top:
+			mask[key] = top
+		default:
+			mask[key] = val
+		}
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func listValues(clus Cluster) (mapValues map[string][]float64) {
+	mapValues = make(map[string][]float64)
+
+	for _, record := range clus.Records() {
+		for key, value := range record.Row() {
+			switch v := value.(type) {
+			case json.Number:
+				val, _ := v.Float64()
+				mapValues[key] = append(mapValues[key], val)
+			case int:
+				mapValues[key] = append(mapValues[key], float64(v))
+			default:
+				continue
+			}
+		}
+	}
+
+	return mapValues
+}
+
+func convertToFloat64(value interface{}) (val float64) {
+	switch v := value.(type) {
+	case json.Number:
+		val, _ = v.Float64()
+	case int:
+		val = float64(v)
+	default:
+		return
+	}
+
+	return val
 }
