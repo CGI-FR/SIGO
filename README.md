@@ -109,6 +109,18 @@ The `data.json` file contains the following data,
 
 ![coding](./examples/demo/top-bottom-coding/coding.png)
 
+### Random Noise
+
+```console
+< data.json | jq -c '.[]' | sigo -q x,y -a laplaceNoise -i id | jq -s > random-noise/laplace.json
+```
+
+![laplace](./examples/demo/random-noise/laplace.png)
+
+```console
+< data.json | jq -c '.[]' | sigo -q x,y -a gaussianNoise -i id | jq -s > random-noise/gaussian.json
+```
+
 ## Usage of **PIMO**
 
 **SIGO** considers quasi-identifiers as float numbers. Therefore, QIs of the orignal dataset must all be float number.
