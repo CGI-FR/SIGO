@@ -2,7 +2,6 @@ package sigo
 
 import (
 	"encoding/json"
-	"math/rand"
 )
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
@@ -46,30 +45,10 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	return original
 }
 
-// func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-// 	mask := map[string]interface{}{}
-// 	for _, q := range qi {
-// 		mask[q] = rec.Row()[q]
-// 	}
-
-// 	return AnonymizedRecord{original: rec, mask: mask}
-// }
-
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	//nolint: gosec
-	choice := clus.Records()[rand.Intn(len(clus.Records()))]
-
-	for {
-		if choice != rec || len(clus.Records()) < 2 {
-			break
-		}
-		//nolint: gosec
-		choice = clus.Records()[rand.Intn(len(clus.Records()))]
-	}
-
 	mask := map[string]interface{}{}
 	for _, q := range qi {
-		mask[q] = choice.Row()[q]
+		mask[q] = rec.Row()[q]
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}

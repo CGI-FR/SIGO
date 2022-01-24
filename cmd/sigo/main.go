@@ -90,7 +90,7 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&method, "anonymizer", "a", "general",
+		StringVarP(&method, "anonymizer", "a", "",
 			"anonymization method used. Select one from this list "+
 				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
 	rootCmd.PersistentFlags().
@@ -191,6 +191,10 @@ func newAnonymizer(name string) sigo.Anonymizer {
 	switch name {
 	case "general":
 		return sigo.NewGeneralAnonymizer()
+	case "meanAggregation":
+		return sigo.NewAggregationAnonymizer("mean")
+	case "medianAggregation":
+		return sigo.NewAggregationAnonymizer("median")
 	default:
 		return sigo.NewNoAnonymizer()
 	}

@@ -63,42 +63,81 @@ The following flags can be used:
 - `--l-value,-l <int>`, allows to choose the value of l for **l-diversity** (default value is `1`).
 - `--quasi-identifier,-q <strings>`, this flag lists the quasi-identifiers of the dataset.
 - `--sensitive,-s <strings>`, this flag lists the sensitive attributes of the dataset.
-- `--anonymizer,-a <string>`, allows you to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`].
+- `--anonymizer,-a <string>`, allows to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`].
+- `--cluster-info,-i <string>`, allows to display information about cluster.
+- `--entropy <bool>`, allows to choose if entropy model for l-diversity used.
 
 ## DEMO
 
 The `data.json` file contains the following data,
 
 ```json
-    {"x": 20, "y": 20},
+    {"x": 5, "y": 6},
+    {"x": 3, "y": 7},
+    {"x": 4, "y": 4},
+    {"x": 2, "y": 10},
+    {"x": 8, "y": 4},
+    {"x": 8, "y": 10},
     {"x": 3, "y": 16},
-    {"x": 18, "y": 19},
+    {"x": 7, "y": 19},
+    {"x": 6, "y": 18},
+    {"x": 4, "y": 19},
+    {"x": 7, "y": 14},
+    {"x": 10, "y": 14},
     {"x": 15, "y": 5},
     {"x": 15, "y": 7},
-    {"x": 7, "y": 19},
-    {"x": 2, "y": 10},
-    {"x": 7, "y": 14},
-    {"x": 20, "y": 18},
-    {"x": 10, "y": 14},
     {"x": 11, "y": 9},
-    {"x": 3, "y": 7},
-    {"x": 19, "y": 15},
-    {"x": 5, "y": 6},
-    {"x": 12, "y": 3}
+    {"x": 12, "y": 3},
+    {"x": 18, "y": 6},
+    {"x": 14, "y": 6},
+    {"x": 20, "y": 20},
+    {"x": 18, "y": 19},
+    {"x": 20, "y": 18},
+    {"x": 18, "y": 18},
+    {"x": 14, "y": 18},
+    {"x": 19, "y": 15}
 ```
 
 ### Generalization
 
-- 1st step: cluster data using an id and `NoAnonymizer` method.
+- **1st step:**
+  Train the clusters without the anonymization step using the `NoAnonymizer` method and visualize them using `--cluster-info,i`.
 
 ```console
-< data.json | jq -c '.[]' | sigo -q x,y -i id | jq -s > clusters.json
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -i id | jq -s > clusters.json
 ```
 
-- 2nd step: generalizing the clusters using `general` method.
+```json
+  {
+    "x": 4,
+    "y": 4,
+    "id": 1
+  },
+  {
+    "x": 8,
+    "y": 4,
+    "id": 1
+  },
+```
+
+- **2nd step:**
+  Generalize the clusters using `general` method.
 
 ```console
-< data.json | jq -c '.[]' | sigo -q x,y -a general -i id | jq -s > generalization.json
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a general -i id | jq -s > generalization.json
+```
+
+```json
+  {
+    "id": 1,
+    "x": [2,10],
+    "y": [3,10]
+  },
+  {
+    "id": 1,
+    "x": [2,10],
+    "y": [3,10]
+  },
 ```
 
 ![clusters](./examples/demo/clusters.png)
@@ -106,13 +145,13 @@ The `data.json` file contains the following data,
 ### Aggregation
 
 ```console
-< data.json | jq -c '.[]' | sigo -q x,y -a meanAggregation -i id | jq -s > meanAggregation.json
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a meanAggregation -i id | jq -s > aggregation/meanAggregation.json
 ```
 
-![meanAggregation](./examples/demo/meanAggregation.png)
+![meanAggregation](./examples/demo/aggregation/meanAggregation.png)
 
 ```console
-< data.json | jq -c '.[]' | sigo -q x,y -a medianAggregation -i id | jq -s > medianAggregation.json
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a medianAggregation -i id | jq -s > aggregation/medianAggregation.json
 ```
 
-![medianAggregation](./examples/demo/medianAggregation.png)
+![medianAggregation](./examples/demo/aggregation/medianAggregation.png)

@@ -51,8 +51,8 @@ func TestSimpleClustering(t *testing.T) {
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink, sigo.NewNoDebugger())
 	assert.Nil(t, err)
 
-	assert.Equal(t, json.Number("1"), result[0]["x"])
-	assert.Equal(t, json.Number("1"), result[0]["y"])
+	assert.Equal(t, json.Number("0"), result[0]["x"])
+	assert.Equal(t, json.Number("0"), result[0]["y"])
 	assert.Equal(t, "bar", result[0]["foo"])
 }
 
