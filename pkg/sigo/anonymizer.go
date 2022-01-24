@@ -50,15 +50,6 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	return original
 }
 
-// func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-// 	mask := map[string]interface{}{}
-// 	for _, q := range qi {
-// 		mask[q] = rec.Row()[q]
-// 	}
-
-// 	return AnonymizedRecord{original: rec, mask: mask}
-// }
-
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 	for _, q := range qi {
