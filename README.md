@@ -63,20 +63,15 @@ The following flags can be used:
 - `--l-value,-l <int>`, allows to choose the value of l for **l-diversity** (default value is `1`).
 - `--quasi-identifier,-q <strings>`, this flag lists the quasi-identifiers of the dataset.
 - `--sensitive,-s <strings>`, this flag lists the sensitive attributes of the dataset.
-<<<<<<< HEAD
 - `--anonymizer,-a <string>`, allows to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`].
 - `--cluster-info,-i <string>`, allows to display information about cluster.
 - `--entropy <bool>`, allows to choose if entropy model for l-diversity used.
-=======
-- `--anonymizer,-a <string>`, allows you to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`].
->>>>>>> 5f10797 (docs: add demo in examples)
 
 ## DEMO
 
 The `data.json` file contains the following data,
 
 ```json
-<<<<<<< HEAD
     {"x": 5, "y": 6},
     {"x": 3, "y": 7},
     {"x": 4, "y": 4},
@@ -101,28 +96,10 @@ The `data.json` file contains the following data,
     {"x": 18, "y": 18},
     {"x": 14, "y": 18},
     {"x": 19, "y": 15}
-=======
-    {"x": 20, "y": 20},
-    {"x": 3, "y": 16},
-    {"x": 18, "y": 19},
-    {"x": 15, "y": 5},
-    {"x": 15, "y": 7},
-    {"x": 7, "y": 19},
-    {"x": 2, "y": 10},
-    {"x": 7, "y": 14},
-    {"x": 20, "y": 18},
-    {"x": 10, "y": 14},
-    {"x": 11, "y": 9},
-    {"x": 3, "y": 7},
-    {"x": 19, "y": 15},
-    {"x": 5, "y": 6},
-    {"x": 12, "y": 3}
->>>>>>> 5f10797 (docs: add demo in examples)
 ```
 
 ### Generalization
 
-<<<<<<< HEAD
 - **1st step:**
   Train the clusters without the anonymization step using the `NoAnonymizer` method and visualize them using `--cluster-info,i`.
 
@@ -161,23 +138,10 @@ The `data.json` file contains the following data,
     "x": [2,10],
     "y": [3,10]
   },
-=======
-- 1st step: cluster data using an id and `NoAnonymizer` method.
-
-```console
-< data.json | jq -c '.[]' | sigo -q x,y -i id | jq -s > clusters.json
-```
-
-- 2nd step: generalizing the clusters using `general` method.
-
-```console
-< data.json | jq -c '.[]' | sigo -q x,y -a general -i id | jq -s > generalization.json
->>>>>>> 5f10797 (docs: add demo in examples)
 ```
 
 ![clusters](./examples/demo/clusters.png)
 
-<<<<<<< HEAD
 ### Aggregation
 
 ```console
@@ -191,6 +155,14 @@ The `data.json` file contains the following data,
 ```
 
 ![medianAggregation](./examples/demo/aggregation/medianAggregation.png)
+
+### Top and Botton Codding
+
+```console
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a outlier -i id | jq -s > top-bottom-coding/coding.json
+```
+
+![coding](./examples/demo/top-bottom-coding/coding.png)
 
 ## Usage of **PIMO**
 
@@ -253,12 +225,3 @@ DataSet after sequencing:
 (After de-identification with **SIGO**, the operation can be undone with another call to **PIMO**. Original values will be saved, using caches for example.)
 
 Dates can be easily transformed into a sequence of floats, but one can imagine categories like colors, origin (if not a sensitive value), or even genders.
-=======
-### Top and Botton Codding
-
-```console
-< data.json | jq -c '.[]' | sigo -q x,y -a coding -i id | jq -s > top-bottom-coding/coding.json
-```
-
-![coding](./examples/demo/top-bottom-coding/coding.png)
->>>>>>> 5f10797 (docs: add demo in examples)

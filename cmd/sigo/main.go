@@ -195,6 +195,8 @@ func newAnonymizer(name string) sigo.Anonymizer {
 		return sigo.NewAggregationAnonymizer("mean")
 	case "medianAggregation":
 		return sigo.NewAggregationAnonymizer("median")
+	case "outlier":
+		return sigo.NewCodingAnonymizer()
 	default:
 		return sigo.NewNoAnonymizer()
 	}
