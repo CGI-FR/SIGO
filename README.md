@@ -112,14 +112,16 @@ The `data.json` file contains the following data,
 ### Random Noise
 
 ```console
-< data.json | jq -c '.[]' | sigo -q x,y -a laplaceNoise -i id | jq -s > random-noise/laplace.json
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a laplaceNoise -i id | jq -s > random-noise/laplace.json
 ```
 
 ![laplace](./examples/demo/random-noise/laplace.png)
 
 ```console
-< data.json | jq -c '.[]' | sigo -q x,y -a gaussianNoise -i id | jq -s > random-noise/gaussian.json
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a gaussianNoise -i id | jq -s > random-noise/gaussian.json
 ```
+
+![gaussian](./examples/demo/random-noise/gaussian.png)
 
 ## Usage of **PIMO**
 
