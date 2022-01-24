@@ -49,6 +49,7 @@ var (
 	l         int
 	qi        []string
 	sensitive []string
+	method    string
 	info      string
 )
 
@@ -81,13 +82,17 @@ func main() {
 	rootCmd.PersistentFlags().StringVar(&colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
 	rootCmd.PersistentFlags().
-		IntVar(&k, "k", 3, "k-value for k-anonymization")
+		IntVarP(&k, "k-value", "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().
-		IntVar(&l, "l", 1, "l-value for l-diversity")
+		IntVarP(&l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
+	rootCmd.PersistentFlags().
+		StringVarP(&method, "anonymizer", "a", "general",
+			"anonymization method used. Select one from this list "+
+				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
@@ -107,6 +112,7 @@ func run() {
 		Int("l-diversity", l).
 		Strs("Quasi-Identifiers", qi).
 		Strs("Sensitive", sensitive).
+		Str("Method", method).
 		Str("Cluster-Info", info).
 		Msg("Start SIGO")
 
@@ -127,7 +133,7 @@ func run() {
 		debugger = sigo.NewNoDebugger()
 	}
 
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), sigo.NewNoAnonymizer(), sink, debugger)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), newAnonymizer(method), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
@@ -179,4 +185,13 @@ func initLog() {
 	}
 
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
+}
+
+func newAnonymizer(name string) sigo.Anonymizer {
+	switch name {
+	case "general":
+		return sigo.NewGeneralAnonymizer()
+	default:
+		return sigo.NewNoAnonymizer()
+	}
 }

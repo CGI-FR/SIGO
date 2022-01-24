@@ -54,3 +54,13 @@ SIGO generalize the distribution and anomyze it without pertubation.
  2.210241└────────────────────────────────────────
          48.74229                         48.91216
 ```
+
+## Usage
+
+The following flags can be used:
+
+- `--k-value,-k <int>`, allows to choose the value of k for **k-anonymization** (default value is `3`).
+- `--l-value,-l <int>`, allows to choose the value of l for **l-diversity** (default value is `1`).
+- `--quasi-identifier,-q <strings>`, this flag lists the quasi-identifiers of the dataset.
+- `--sensitive,-s <strings>`, this flag lists the sensitive attributes of the dataset.
+- `--anonymizer,-a <string>`, allows you to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`].
