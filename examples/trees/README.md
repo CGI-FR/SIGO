@@ -56,7 +56,7 @@ jsondata = json.load(input_file)
 df = pd.DataFrame(jsondata)
 
 df.corr(method='pearson')
-``
+```
 
 |               | circonference |  hauteur  |     x     |     y    |
 |---------------|:-------------:|:---------:|:---------:|:--------:|
