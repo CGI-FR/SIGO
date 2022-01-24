@@ -1,20 +1,26 @@
 package sigo
 
 import (
-	"math/rand"
+	"encoding/json"
 )
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
-
-type NoAnonymizer struct{}
 
 func NewGeneralAnonymizer() GeneralAnonymizer {
 	return GeneralAnonymizer{groupMap: make(map[Cluster]map[string]string)}
 }
 
+func NewAggregationAnonymizer(typeAgg string) AggregationAnonymizer {
+	return AggregationAnonymizer{typeAggregation: typeAgg}
+}
+
 type (
+	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
 		groupMap map[Cluster]map[string]string
+	}
+	AggregationAnonymizer struct {
+		typeAggregation string
 	}
 	AnonymizedRecord struct {
 		original Record
@@ -40,20 +46,9 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 }
 
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	//nolint: gosec
-	choice := clus.Records()[rand.Intn(len(clus.Records()))]
-
-	for {
-		if choice != rec || len(clus.Records()) < 2 {
-			break
-		}
-		//nolint: gosec
-		choice = clus.Records()[rand.Intn(len(clus.Records()))]
-	}
-
 	mask := map[string]interface{}{}
 	for _, q := range qi {
-		mask[q] = choice.Row()[q]
+		mask[q] = rec.Row()[q]
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
@@ -65,6 +60,37 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 	mask := map[string]interface{}{}
 	for i, q := range qi {
 		mask[q] = []float32{b[i].down, b[i].up}
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	values := make(map[string][]float64)
+
+	for _, record := range clus.Records() {
+		for key, value := range record.Row() {
+			switch v := value.(type) {
+			case json.Number:
+				val, _ := v.Float64()
+				values[key] = append(values[key], val)
+			case int:
+				values[key] = append(values[key], float64(v))
+			default:
+				continue
+			}
+		}
+	}
+
+	mask := map[string]interface{}{}
+
+	for _, key := range qi {
+		switch a.typeAggregation {
+		case "mean":
+			mask[key] = Mean(values[key])
+		case "median":
+			mask[key] = Median(values[key])
+		}
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}

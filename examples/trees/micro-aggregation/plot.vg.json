@@ -1,11 +1,11 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "repeat": {
-        "row": ["Miles_per_Gallon","Cylinders","x","Horsepower","y","Acceleration"],
-        "column": ["Acceleration","y","Horsepower","x","Cylinders","Miles_per_Gallon"]
+        "row": ["circonference","hauteur"],
+        "column": ["hauteur","circonference"]
     },
     "spec": {
-        "data": { "url": "./cars.json" },
+        "data": { "url": "./trees2.json" },
         "mark": "point",
         "params": [
             {
@@ -36,8 +36,8 @@
                 "type": "quantitative",
                 "axis": { "minExtent": 30 }
             },
-            "color": {"field": "Origin", "type": "nominal"},
-            "shape": {"field": "Origin", "type": "nominal"}
+            "color": {"field": "remarquable", "type": "nominal"},
+            "shape": {"field": "remarquable", "type": "nominal"}
         }
     }
 }
