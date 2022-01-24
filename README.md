@@ -1,60 +1,5 @@
 # SIGO
 
-## Examples
-
-Given a distribution of Paris's trees.
-
-```console
- < examples/tree.json  | jq -s '.' |  jp -xy '..[x,y]' -type hist2d -height 20 -width 50
- 2.469759│                ·········
-         │                ··░░░▓▓··
-         │                ·····▒▒··
-         │                  ·········        ··▒▒▒
-         │··                ···▒▒▒▒▒▒▒▒▒▒··  ··▓▓▓
-         │                  ···▒▒▒▒▒▒██░░▒▒▒▒·····
-         │  ▒▒▒▒          ··░░░▒▒▒▒░░▒▒▒▒▒▒░░░░
-         │  ··░░        ▒▒▒▒▒▒▒░░▒▒▒▒▒▒░░▒▒▒▒▒▒
-         │                ▒▒▒▒▒▒▒··▒▒░░····░░░░▒▒▒
-         │                ░░▒▒▒▒▒··········▒▒▒▒···
-         │                ··░░░▒▒··········▒▒░░
-         │            ··▒▒··▒▒▒░░░░▒▒▒▒▒▒░░▒▒░░
-         │            ····  ▒▒▒░░░░▒▒▒▒▒▒░░▒▒··
-         │                  ···▒▒▒▒░░▒▒▒▒░░··
-         │                  ░░░▒▒▒▒▒▒▒▒▒▒··
-         │                     ░░▒▒░░······
-         │                       ········
-         │                         ······
- 2.210241└────────────────────────────────────────
-         48.74229                         48.91216
-```
-
-SIGO generalize the distribution and anomyze it without pertubation.
-
-```console
-❯ < examples/tree.json  | sigo |jq -s '.' |  jp -xy '..[x,y]' -type hist2d -height 20 -width 50
-10:47AM INF sigo main (commit=c35c2c0a16ca39aa47c3fe87bd21996ee2a811d0 date=2021-12-28 by=youen.peron@cgi.com)
- 2.469759│                ·········
-         │                ··░░░▓▓··
-         │                ·····▒▒··
-         │                  ·········        ··▒▒▒
-         │··                ···▒▒▒▒▒▒▒▒▒▒··  ··▓▓▓
-         │                  ···▒▒▒▒▒▒██░░▒▒▒▒·····
-         │  ▒▒▒▒          ··░░░▒▒▒▒░░▒▒▒▒▒▒░░░░
-         │  ··░░        ▒▒▒▒▒▒▒░░▒▒▒▒▒▒░░▒▒▒▒▒▒
-         │                ▒▒▒▒▒▒▒··▒▒░░····░░░░▒▒▒
-         │                ░░▒▒▒▒▒··········▒▒▒▒···
-         │                ··░░░▒▒··········▒▒░░
-         │            ··▒▒··▒▒▒░░░░▒▒▒▒▒▒░░▒▒░░
-         │            ····  ▒▒▒░░░░▒▒▒▒▒▒░░▒▒··
-         │                  ···▒▒▒▒░░▒▒▒▒░░··
-         │                  ░░░▒▒▒▒▒▒▒▒▒▒··
-         │                     ░░▒▒░░······
-         │                       ········
-         │                         ······
- 2.210241└────────────────────────────────────────
-         48.74229                         48.91216
-```
-
 ## Usage
 
 The following flags can be used:
@@ -155,6 +100,14 @@ The `data.json` file contains the following data,
 ```
 
 ![medianAggregation](./examples/demo/aggregation/medianAggregation.png)
+
+### Top and Botton Codding
+
+```console
+< data.json | jq -c '.[]' | sigo -k 6 -q x,y -a outlier -i id | jq -s > top-bottom-coding/coding.json
+```
+
+![coding](./examples/demo/top-bottom-coding/coding.png)
 
 ## Usage of **PIMO**
 

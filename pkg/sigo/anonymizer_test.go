@@ -75,3 +75,43 @@ func TestMicroAggregationAnonymizer(t *testing.T) {
 	assert.Equal(t, "bar", resultMedian[0]["foo"])
 	assert.Equal(t, "baz", resultMedian[3]["foo"])
 }
+
+func TestTopBottomCodingAnonymizer(t *testing.T) {
+	t.Parallel()
+
+	sourceText := `{"x": 0, "y": 0}
+				{"x": 0, "y": 1}
+				{"x": 0, "y": 12}
+				{"x": 1, "y": 1}
+				{"x": 1, "y": 2}
+				{"x": 1, "y": 20}
+				{"x": 2, "y": 1}
+				{"x": 3, "y": 5}
+				{"x": 5, "y": 3}
+				{"x": 6, "y": 5}
+				{"x": 9, "y": 10}
+				{"x": 10, "y": 30}
+				{"x": 11, "y": 11}
+				{"x": 12, "y": 11}
+				{"x": 48, "y": 12}`
+
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
+	assert.Nil(t, err)
+
+	result := []map[string]interface{}{}
+	sink := infra.NewSliceDictionariesSink(&result)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 7, 1, 2, sigo.NewCodingAnonymizer(),
+		sink, sigo.NewNoDebugger())
+	assert.Nil(t, err)
+
+	assert.Equal(t, 1.00, result[0]["y"])
+	assert.Equal(t, 1.00, result[6]["x"])
+	assert.Equal(t, 12.00, result[5]["y"])
+	assert.Equal(t, 5.50, result[7]["x"])
+	assert.Equal(t, 5.50, result[8]["x"])
+	assert.Equal(t, 5.00, result[8]["y"])
+	assert.Equal(t, 11.50, result[11]["y"])
+	assert.Equal(t, 11.50, result[14]["y"])
+	assert.Equal(t, 11.50, result[14]["x"])
+	assert.Equal(t, 11.50, result[13]["x"])
+}

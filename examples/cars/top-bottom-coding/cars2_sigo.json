@@ -1,0 +1,1962 @@
+[
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 72,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 72,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.5,
+    "Horsepower": 85,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.5,
+    "Horsepower": 85,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 90,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 97,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 97,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 100,
+    "Origin": "USA",
+    "Miles_per_Gallon": 18
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 88,
+    "Origin": "USA",
+    "Miles_per_Gallon": 19
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 88,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 90,
+    "Origin": "USA",
+    "Miles_per_Gallon": 19
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 100,
+    "Origin": "USA",
+    "Miles_per_Gallon": 19
+  },
+  {
+    "Horsepower": 100,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 19
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 19,
+    "Horsepower": 100
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 16,
+    "Horsepower": 110
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 16.5,
+    "Horsepower": 120
+  },
+  {
+    "Horsepower": 120,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 16.5
+  },
+  {
+    "Miles_per_Gallon": 16.5,
+    "Horsepower": 120,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.6,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 18.6,
+    "Horsepower": 110
+  },
+  {
+    "Miles_per_Gallon": 18.6,
+    "Horsepower": 110,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 18.1,
+    "Horsepower": 112
+  },
+  {
+    "Miles_per_Gallon": 18.1,
+    "Horsepower": 112,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 112,
+    "Origin": "USA",
+    "Miles_per_Gallon": 18.1
+  },
+  {
+    "Miles_per_Gallon": 19.4,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 19.4,
+    "Horsepower": 90
+  },
+  {
+    "Horsepower": 88,
+    "Origin": "USA",
+    "Miles_per_Gallon": 19.8
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 20,
+    "Horsepower": 88
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 20,
+    "Horsepower": 90
+  },
+  {
+    "Miles_per_Gallon": 20.2,
+    "Horsepower": 85,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.2,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.2,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.2,
+    "Horsepower": 85,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 95,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 95,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 95,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 85,
+    "Origin": "USA",
+    "Miles_per_Gallon": 21
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 85,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 21,
+    "Horsepower": 85
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 76,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 76,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 76,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 21,
+    "Horsepower": 90
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 90,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 94,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 94,
+    "Origin": "USA",
+    "Miles_per_Gallon": 22
+  },
+  {
+    "Miles_per_Gallon": 22.3,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 90,
+    "Origin": "USA",
+    "Miles_per_Gallon": 22.3
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 102,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 102,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 20.5,
+    "Horsepower": 103,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 20.5,
+    "Horsepower": 103,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 105,
+    "Origin": "USA",
+    "Miles_per_Gallon": 20.5
+  },
+  {
+    "Miles_per_Gallon": 20.5,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19.9,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 110,
+    "Origin": "USA",
+    "Miles_per_Gallon": 20
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20,
+    "Horsepower": 122,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 19.9,
+    "Horsepower": 122,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 21.5,
+    "Horsepower": 110
+  },
+  {
+    "Miles_per_Gallon": 21.5,
+    "Horsepower": 110,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 98,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 98,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 105,
+    "Origin": "USA",
+    "Miles_per_Gallon": 22
+  },
+  {
+    "Miles_per_Gallon": 21.6,
+    "Horsepower": 115,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21.6,
+    "Horsepower": 115,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 21.6,
+    "Horsepower": 115
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 145,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 145,
+    "Origin": "USA",
+    "Miles_per_Gallon": 13
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 13,
+    "Horsepower": 150
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 158,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 158,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 158,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 14,
+    "Horsepower": 148
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 148,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 148,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 14,
+    "Horsepower": 150
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 153,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 153,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 153,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 175,
+    "Origin": "USA",
+    "Miles_per_Gallon": 12
+  },
+  {
+    "Miles_per_Gallon": 12,
+    "Horsepower": 170,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 175,
+    "Origin": "USA",
+    "Miles_per_Gallon": 12
+  },
+  {
+    "Miles_per_Gallon": 12,
+    "Horsepower": 175,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 170,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 170,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 170,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 175,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 175,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 175,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 10,
+    "Horsepower": 200,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 10,
+    "Horsepower": 200
+  },
+  {
+    "Miles_per_Gallon": 10,
+    "Horsepower": 210,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 11,
+    "Horsepower": 208,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 11,
+    "Horsepower": 210,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 198,
+    "Origin": "USA",
+    "Miles_per_Gallon": 12
+  },
+  {
+    "Miles_per_Gallon": 12,
+    "Horsepower": 215,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 13,
+    "Horsepower": 198,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 215,
+    "Origin": "USA",
+    "Miles_per_Gallon": 13
+  },
+  {
+    "Horsepower": 175,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 175,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 175,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 220,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 220,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 225,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 225,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 15,
+    "Horsepower": 142
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 15,
+    "Horsepower": 145
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 145,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.5,
+    "Horsepower": 142,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.5,
+    "Horsepower": 145,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 140,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 150,
+    "Origin": "USA",
+    "Miles_per_Gallon": 15
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 16,
+    "Horsepower": 150
+  },
+  {
+    "Horsepower": 150,
+    "Origin": "USA",
+    "Miles_per_Gallon": 16
+  },
+  {
+    "Miles_per_Gallon": 17,
+    "Horsepower": 138,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 138,
+    "Origin": "USA",
+    "Miles_per_Gallon": 17
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 17,
+    "Horsepower": 140
+  },
+  {
+    "Miles_per_Gallon": 17.5,
+    "Horsepower": 140,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 17.5,
+    "Horsepower": 140
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 130,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 130,
+    "Origin": "USA",
+    "Miles_per_Gallon": 18
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 130,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19.4,
+    "Horsepower": 139,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 139,
+    "Origin": "USA",
+    "Miles_per_Gallon": 19.4
+  },
+  {
+    "Miles_per_Gallon": 19.4,
+    "Horsepower": 139,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.5,
+    "Horsepower": 145,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.5,
+    "Horsepower": 145,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.5,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.5,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 165,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 165,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 170,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 170,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 190,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 190,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 190,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 16.9,
+    "Horsepower": 165
+  },
+  {
+    "Miles_per_Gallon": 16.9,
+    "Horsepower": 165,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.9,
+    "Horsepower": 165,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 180,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 180,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 180,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 24.5,
+    "Horsepower": 54
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 24.5,
+    "Horsepower": 54
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 46,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 26,
+    "Horsepower": 46
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 52,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 52,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 52,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 67,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 29.5
+  },
+  {
+    "Miles_per_Gallon": 29.5,
+    "Horsepower": 67,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 29.5,
+    "Horsepower": 67,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 67,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 67,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 67,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 67,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 31,
+    "Horsepower": 63,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 31,
+    "Horsepower": 63,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 31,
+    "Horsepower": 63,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 67,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31
+  },
+  {
+    "Miles_per_Gallon": 31,
+    "Horsepower": 67,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 31.5,
+    "Horsepower": 67,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 31,
+    "Horsepower": 68,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31.5,
+    "Horsepower": 68
+  },
+  {
+    "Horsepower": 71,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 26
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 26,
+    "Horsepower": 71
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 71,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 26.5,
+    "Horsepower": 71,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 26.5,
+    "Horsepower": 72,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 75,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 75,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 25,
+    "Horsepower": 75
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 26,
+    "Horsepower": 75
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 26.5,
+    "Horsepower": 75,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.5,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 70,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 70,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 29,
+    "Horsepower": 70
+  },
+  {
+    "Miles_per_Gallon": 31.5,
+    "Horsepower": 70,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 31.5,
+    "Horsepower": 71,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 31.9,
+    "Horsepower": 71,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 70,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31.9
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 76,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 76,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 30,
+    "Horsepower": 76
+  },
+  {
+    "Horsepower": 75,
+    "Origin": "USA",
+    "Miles_per_Gallon": 31.3
+  },
+  {
+    "Miles_per_Gallon": 31.3,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 31.3,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 33,
+    "Horsepower": 53
+  },
+  {
+    "Miles_per_Gallon": 33,
+    "Horsepower": 53,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33,
+    "Horsepower": 53,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 35.1,
+    "Horsepower": 60
+  },
+  {
+    "Miles_per_Gallon": 35.1,
+    "Horsepower": 60,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 36,
+    "Horsepower": 60,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 36,
+    "Horsepower": 60,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 33.8,
+    "Horsepower": 67
+  },
+  {
+    "Miles_per_Gallon": 33.8,
+    "Horsepower": 67,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33.8,
+    "Horsepower": 67,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 36.1,
+    "Horsepower": 65,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 36.1,
+    "Horsepower": 66,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 36.4,
+    "Horsepower": 66
+  },
+  {
+    "Miles_per_Gallon": 36.4,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 38.1,
+    "Horsepower": 60,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 38.1,
+    "Horsepower": 60,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 38.1,
+    "Horsepower": 60,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 48,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 43.4
+  },
+  {
+    "Miles_per_Gallon": 43.4,
+    "Horsepower": 48,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 44,
+    "Horsepower": 48,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 44,
+    "Horsepower": 48,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 38,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 38,
+    "Horsepower": 65,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 38,
+    "Horsepower": 67
+  },
+  {
+    "Miles_per_Gallon": 38,
+    "Horsepower": 67,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 40.8,
+    "Horsepower": 65
+  },
+  {
+    "Miles_per_Gallon": 40.8,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 44.6,
+    "Horsepower": 65,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 65,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 44.6
+  },
+  {
+    "Miles_per_Gallon": 34,
+    "Horsepower": 70,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33.5,
+    "Horsepower": 70,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 33.5,
+    "Horsepower": 70,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 34,
+    "Horsepower": 70,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 32.4,
+    "Horsepower": 74
+  },
+  {
+    "Miles_per_Gallon": 33,
+    "Horsepower": 74,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 32.4,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32.4,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 34.5,
+    "Horsepower": 70,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 70,
+    "Origin": "USA",
+    "Miles_per_Gallon": 34.5
+  },
+  {
+    "Miles_per_Gallon": 34.5,
+    "Horsepower": 70,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 37,
+    "Horsepower": 70,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 37,
+    "Horsepower": 69,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 37.3,
+    "Horsepower": 69,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 37.3,
+    "Horsepower": 70,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 36,
+    "Horsepower": 75,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 36,
+    "Horsepower": 75,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 36,
+    "Horsepower": 75,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 23,
+    "Horsepower": 83
+  },
+  {
+    "Miles_per_Gallon": 23,
+    "Horsepower": 83,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 23,
+    "Horsepower": 83,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 81,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 81,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 81,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 81,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 23.9,
+    "Horsepower": 90
+  },
+  {
+    "Horsepower": 90,
+    "Origin": "USA",
+    "Miles_per_Gallon": 23.9
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 90,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 24.5,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 24.5,
+    "Horsepower": 88
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 88,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 78,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 78,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 79,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 80,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 26,
+    "Horsepower": 80
+  },
+  {
+    "Miles_per_Gallon": 25.5,
+    "Horsepower": 89,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.5,
+    "Horsepower": 89,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.5,
+    "Horsepower": 89,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 26,
+    "Horsepower": 90
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 23,
+    "Horsepower": 95,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 23,
+    "Horsepower": 95
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 23,
+    "Horsepower": 97
+  },
+  {
+    "Miles_per_Gallon": 23,
+    "Horsepower": 97,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 95,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 95,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 96,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 97,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 97,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 23.7,
+    "Horsepower": 105,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 23.2,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 23.5,
+    "Horsepower": 110
+  },
+  {
+    "Horsepower": 110,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 23.7
+  },
+  {
+    "Miles_per_Gallon": 23.2,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 95,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 95,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 95,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 25.5,
+    "Horsepower": 96,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26,
+    "Horsepower": 96,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 113,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.4,
+    "Horsepower": 113,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 115,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 25.4,
+    "Horsepower": 116
+  },
+  {
+    "Miles_per_Gallon": 25,
+    "Horsepower": 116,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27.2,
+    "Horsepower": 83,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 83,
+    "Origin": "USA",
+    "Miles_per_Gallon": 27.2
+  },
+  {
+    "Miles_per_Gallon": 27.4,
+    "Horsepower": 80,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 28,
+    "Horsepower": 80,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 28,
+    "Horsepower": 80,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 80,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 29
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 80,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 83,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29,
+    "Horsepower": 83,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 88,
+    "Origin": "USA",
+    "Miles_per_Gallon": 27
+  },
+  {
+    "Miles_per_Gallon": 27,
+    "Horsepower": 88,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27,
+    "Horsepower": 88,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27,
+    "Horsepower": 88,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 27,
+    "Horsepower": 88
+  },
+  {
+    "Miles_per_Gallon": 27,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 30,
+    "Horsepower": 80
+  },
+  {
+    "Miles_per_Gallon": 30,
+    "Horsepower": 82,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 30.5,
+    "Horsepower": 80
+  },
+  {
+    "Miles_per_Gallon": 30.5,
+    "Horsepower": 82,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 33.5,
+    "Horsepower": 84,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 33.5,
+    "Horsepower": 83,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 34.3,
+    "Horsepower": 80
+  },
+  {
+    "Miles_per_Gallon": 35.7,
+    "Horsepower": 80,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 35.7,
+    "Horsepower": 84,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 34,
+    "Horsepower": 85,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 85,
+    "Origin": "USA",
+    "Miles_per_Gallon": 36
+  },
+  {
+    "Miles_per_Gallon": 34,
+    "Horsepower": 88,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 88,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 35
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 36,
+    "Horsepower": 88
+  },
+  {
+    "Miles_per_Gallon": 27,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 90,
+    "Origin": "USA",
+    "Miles_per_Gallon": 27
+  },
+  {
+    "Miles_per_Gallon": 28,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 28,
+    "Horsepower": 90,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 90,
+    "Origin": "USA",
+    "Miles_per_Gallon": 28
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 27.9,
+    "Horsepower": 95
+  },
+  {
+    "Miles_per_Gallon": 27.5,
+    "Horsepower": 95,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27.2,
+    "Horsepower": 97,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27.9,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 27.2,
+    "Horsepower": 105,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 29.8,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 29.8,
+    "Horsepower": 90,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33.5,
+    "Horsepower": 90,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 33.5,
+    "Horsepower": 90,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 100,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 32
+  },
+  {
+    "Miles_per_Gallon": 32.7,
+    "Horsepower": 100,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32,
+    "Horsepower": 115,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 32.7,
+    "Horsepower": 115,
+    "Origin": "Japan"
+  }
+]

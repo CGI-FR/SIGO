@@ -1,0 +1,702 @@
+[
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.82814244706871,
+    "y": 2.308661204375296,
+    "circonference": 20
+  },
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.82814244706871,
+    "y": 2.308661204375296,
+    "circonference": 20
+  },
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.82814244706871,
+    "y": 2.308661204375296,
+    "circonference": 20
+  },
+  {
+    "circonference": 50,
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.83469617566751,
+    "y": 2.302345273522114
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.83469617566751,
+    "y": 2.302345273522114,
+    "circonference": 50,
+    "hauteur": 6
+  },
+  {
+    "circonference": 54,
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.845421912578786,
+    "y": 2.261954478273714
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.845421912578786,
+    "y": 2.261954478273714,
+    "circonference": 54,
+    "hauteur": 6
+  },
+  {
+    "circonference": 25,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.83753209315162,
+    "y": 2.353352738145631
+  },
+  {
+    "circonference": 25,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.83753209315162,
+    "y": 2.353352738145631
+  },
+  {
+    "y": 2.353352738145631,
+    "circonference": 25,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.83753209315162
+  },
+  {
+    "circonference": 45,
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.84113602674792,
+    "y": 2.38813366041989
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.84206677567873,
+    "y": 2.337178293774507,
+    "circonference": 45,
+    "hauteur": 6
+  },
+  {
+    "x": 48.84113602674792,
+    "y": 2.337178293774507,
+    "circonference": 50,
+    "hauteur": 6,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 50,
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.84206677567873,
+    "y": 2.38813366041989
+  },
+  {
+    "hauteur": 4,
+    "remarquable": "NON",
+    "x": 48.889835218574916,
+    "y": 2.312860309038757,
+    "circonference": 20
+  },
+  {
+    "circonference": 20,
+    "hauteur": 4,
+    "remarquable": "NON",
+    "x": 48.889835218574916,
+    "y": 2.312860309038757
+  },
+  {
+    "circonference": 20,
+    "hauteur": 4,
+    "remarquable": "NON",
+    "x": 48.889835218574916,
+    "y": 2.312860309038757
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.89327532947279,
+    "y": 2.330466690956117,
+    "circonference": 35,
+    "hauteur": 6
+  },
+  {
+    "circonference": 35,
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.87131167908549,
+    "y": 2.313793140235938
+  },
+  {
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.87131167908549,
+    "y": 2.330466690956117,
+    "circonference": 55
+  },
+  {
+    "circonference": 55,
+    "hauteur": 6,
+    "remarquable": "NON",
+    "x": 48.89327532947279,
+    "y": 2.313793140235938
+  },
+  {
+    "circonference": 20,
+    "hauteur": 3,
+    "remarquable": "NON",
+    "x": 48.88005712578636,
+    "y": 2.378815445825484
+  },
+  {
+    "circonference": 20,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.88005712578636,
+    "y": 2.355087777872965
+  },
+  {
+    "y": 2.355087777872965,
+    "circonference": 20,
+    "hauteur": 3,
+    "remarquable": "NON",
+    "x": 48.87639465399182
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.87639465399182,
+    "y": 2.378815445825484,
+    "circonference": 20,
+    "hauteur": 5
+  },
+  {
+    "circonference": 52,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.8868150937245,
+    "y": 2.340062975791112
+  },
+  {
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.89168839309215,
+    "y": 2.349203749531087,
+    "circonference": 52
+  },
+  {
+    "y": 2.349203749531087,
+    "circonference": 55,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.8868150937245
+  },
+  {
+    "y": 2.340062975791112,
+    "circonference": 55,
+    "hauteur": 5,
+    "remarquable": "NON",
+    "x": 48.89168839309215
+  },
+  {
+    "circonference": 65,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.859265627679385,
+    "y": 2.274120017688578
+  },
+  {
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.859265627679385,
+    "y": 2.274120017688578,
+    "circonference": 65
+  },
+  {
+    "circonference": 65,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.859265627679385,
+    "y": 2.274120017688578
+  },
+  {
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.84532799103363,
+    "y": 2.304305126470145,
+    "circonference": 85
+  },
+  {
+    "circonference": 85,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.84532799103363,
+    "y": 2.304305126470145
+  },
+  {
+    "y": 2.304305126470145,
+    "circonference": 85,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.84532799103363
+  },
+  {
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.86147409676228,
+    "y": 2.354374705728239,
+    "circonference": 76
+  },
+  {
+    "circonference": 76,
+    "hauteur": 10,
+    "remarquable": "OUI",
+    "x": 48.86147409676228,
+    "y": 2.354374705728239
+  },
+  {
+    "circonference": 76,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.86147409676228,
+    "y": 2.354374705728239
+  },
+  {
+    "circonference": 100,
+    "hauteur": 15,
+    "remarquable": "NON",
+    "x": 48.86233112810589,
+    "y": 2.377411810347473
+  },
+  {
+    "hauteur": 15,
+    "remarquable": "NON",
+    "x": 48.86233112810589,
+    "y": 2.377411810347473,
+    "circonference": 100
+  },
+  {
+    "x": 48.86233112810589,
+    "y": 2.377411810347473,
+    "circonference": 100,
+    "hauteur": 15,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 60,
+    "hauteur": 8,
+    "remarquable": "NON",
+    "x": 48.89489254465784,
+    "y": 2.331275317898585
+  },
+  {
+    "hauteur": 8,
+    "remarquable": "NON",
+    "x": 48.89489254465784,
+    "y": 2.331275317898585,
+    "circonference": 60
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.89489254465784,
+    "y": 2.331275317898585,
+    "circonference": 60,
+    "hauteur": 8
+  },
+  {
+    "y": 2.340313992347383,
+    "circonference": 95,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.8802243127902
+  },
+  {
+    "circonference": 95,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.8802243127902,
+    "y": 2.340313992347383
+  },
+  {
+    "y": 2.340313992347383,
+    "circonference": 95,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.8802243127902
+  },
+  {
+    "circonference": 80,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8855950059333,
+    "y": 2.375146527944409
+  },
+  {
+    "circonference": 80,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8855950059333,
+    "y": 2.379297924473075
+  },
+  {
+    "y": 2.375146527944409,
+    "circonference": 80,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.88530435818631
+  },
+  {
+    "circonference": 80,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.88530435818631,
+    "y": 2.375146527944409
+  },
+  {
+    "x": 48.88530435818631,
+    "y": 2.379297924473075,
+    "circonference": 80,
+    "hauteur": 10,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 80,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8855950059333,
+    "y": 2.379297924473075
+  },
+  {
+    "remarquable": "OUI",
+    "x": 48.82684079577445,
+    "y": 2.314655550910464,
+    "circonference": 135,
+    "hauteur": 12
+  },
+  {
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.82684079577445,
+    "y": 2.314655550910464,
+    "circonference": 135
+  },
+  {
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.82684079577445,
+    "y": 2.314655550910464,
+    "circonference": 135
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.82684079577445,
+    "y": 2.314655550910464,
+    "circonference": 135,
+    "hauteur": 12
+  },
+  {
+    "circonference": 135,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.82684079577445,
+    "y": 2.314655550910464
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.84935636396974,
+    "y": 2.349764627345979
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.84935636396974,
+    "y": 2.349764627345979
+  },
+  {
+    "y": 2.349764627345979,
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "OUI",
+    "x": 48.84935636396974
+  },
+  {
+    "x": 48.821788234569055,
+    "y": 2.356651744653698,
+    "circonference": 125,
+    "hauteur": 12,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 125,
+    "hauteur": 12,
+    "remarquable": "NON",
+    "x": 48.821788234569055,
+    "y": 2.356651744653698
+  },
+  {
+    "circonference": 125,
+    "hauteur": 12,
+    "remarquable": "OUI",
+    "x": 48.821788234569055,
+    "y": 2.356651744653698
+  },
+  {
+    "y": 2.291915920942193,
+    "circonference": 135,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.87159074975708
+  },
+  {
+    "y": 2.291915920942193,
+    "circonference": 135,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.87159074975708
+  },
+  {
+    "circonference": 135,
+    "hauteur": 10,
+    "remarquable": "OUI",
+    "x": 48.87159074975708,
+    "y": 2.291915920942193
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.866353341979675,
+    "y": 2.304865387230884,
+    "circonference": 182,
+    "hauteur": 14
+  },
+  {
+    "circonference": 182,
+    "hauteur": 14,
+    "remarquable": "NON",
+    "x": 48.866353341979675,
+    "y": 2.304865387230884
+  },
+  {
+    "x": 48.866353341979675,
+    "y": 2.304865387230884,
+    "circonference": 182,
+    "hauteur": 14,
+    "remarquable": "NON"
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8830043940544,
+    "y": 2.372573413367655
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8830043940544,
+    "y": 2.372573413367655
+  },
+  {
+    "circonference": 120,
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8830043940544,
+    "y": 2.372573413367655
+  },
+  {
+    "hauteur": 10,
+    "remarquable": "NON",
+    "x": 48.8858144156089,
+    "y": 2.398839795506048,
+    "circonference": 164
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.8858144156089,
+    "y": 2.398839795506048,
+    "circonference": 164,
+    "hauteur": 10
+  },
+  {
+    "y": 2.398839795506048,
+    "circonference": 164,
+    "hauteur": 10,
+    "remarquable": "OUI",
+    "x": 48.8858144156089
+  },
+  {
+    "hauteur": 18,
+    "remarquable": "NON",
+    "x": 48.83871415013907,
+    "y": 2.368120251004918,
+    "circonference": 164
+  },
+  {
+    "circonference": 164,
+    "hauteur": 18,
+    "remarquable": "NON",
+    "x": 48.83871415013907,
+    "y": 2.368120251004918
+  },
+  {
+    "circonference": 164,
+    "hauteur": 18,
+    "remarquable": "NON",
+    "x": 48.83871415013907,
+    "y": 2.368120251004918
+  },
+  {
+    "x": 48.8277560491104,
+    "y": 2.337965697373667,
+    "circonference": 351,
+    "hauteur": 20,
+    "remarquable": "OUI"
+  },
+  {
+    "circonference": 351,
+    "hauteur": 20,
+    "remarquable": "OUI",
+    "x": 48.8277560491104,
+    "y": 2.337965697373667
+  },
+  {
+    "remarquable": "OUI",
+    "x": 48.8277560491104,
+    "y": 2.337965697373667,
+    "circonference": 351,
+    "hauteur": 20
+  },
+  {
+    "remarquable": "NON",
+    "x": 48.83940516054917,
+    "y": 2.433374482450681,
+    "circonference": 190,
+    "hauteur": 27
+  },
+  {
+    "circonference": 190,
+    "hauteur": 27,
+    "remarquable": "NON",
+    "x": 48.83940516054917,
+    "y": 2.433374482450681
+  },
+  {
+    "circonference": 190,
+    "hauteur": 27,
+    "remarquable": "OUI",
+    "x": 48.83940516054917,
+    "y": 2.433374482450681
+  },
+  {
+    "circonference": 472,
+    "hauteur": 26,
+    "remarquable": "OUI",
+    "x": 48.84330787065609,
+    "y": 2.412797936691206
+  },
+  {
+    "circonference": 472,
+    "hauteur": 26,
+    "remarquable": "OUI",
+    "x": 48.84330787065609,
+    "y": 2.412797936691206
+  },
+  {
+    "x": 48.84330787065609,
+    "y": 2.412797936691206,
+    "circonference": 472,
+    "hauteur": 26,
+    "remarquable": "OUI"
+  },
+  {
+    "remarquable": "OUI",
+    "x": 48.88595142916128,
+    "y": 2.326331916221362,
+    "circonference": 310,
+    "hauteur": 21
+  },
+  {
+    "y": 2.326331916221362,
+    "circonference": 310,
+    "hauteur": 21,
+    "remarquable": "OUI",
+    "x": 48.88595142916128
+  },
+  {
+    "circonference": 310,
+    "hauteur": 21,
+    "remarquable": "OUI",
+    "x": 48.88595142916128,
+    "y": 2.326331916221362
+  },
+  {
+    "circonference": 511,
+    "hauteur": 30,
+    "remarquable": "OUI",
+    "x": 48.8694582820089,
+    "y": 2.252676243999831
+  },
+  {
+    "x": 48.8694582820089,
+    "y": 2.252676243999831,
+    "circonference": 511,
+    "hauteur": 30,
+    "remarquable": "OUI"
+  },
+  {
+    "x": 48.8694582820089,
+    "y": 2.252676243999831,
+    "circonference": 511,
+    "hauteur": 30,
+    "remarquable": "OUI"
+  },
+  {
+    "x": 48.883884750899156,
+    "y": 2.385519915216438,
+    "circonference": 170,
+    "hauteur": 20,
+    "remarquable": "NON"
+  },
+  {
+    "hauteur": 20,
+    "remarquable": "NON",
+    "x": 48.883884750899156,
+    "y": 2.385519915216438,
+    "circonference": 170
+  },
+  {
+    "circonference": 170,
+    "hauteur": 20,
+    "remarquable": "NON",
+    "x": 48.883884750899156,
+    "y": 2.385519915216438
+  },
+  {
+    "y": 2.385666824150552,
+    "circonference": 261,
+    "hauteur": 25,
+    "remarquable": "NON",
+    "x": 48.881624602351984
+  },
+  {
+    "circonference": 261,
+    "hauteur": 25,
+    "remarquable": "NON",
+    "x": 48.881624602351984,
+    "y": 2.385666824150552
+  },
+  {
+    "circonference": 261,
+    "hauteur": 25,
+    "remarquable": "OUI",
+    "x": 48.881624602351984,
+    "y": 2.385666824150552
+  }
+]
