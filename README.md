@@ -43,10 +43,11 @@ The `data.json` file contains the following data,
     {"x": 19, "y": 15}
 ```
 
-### Generalization
+![original](./examples/demo/original.png)
 
-- **1st step:**
-  Train the clusters without the anonymization step using the `NoAnonymizer` method and visualize them using `--cluster-info,i`.
+### **Step 1:** Generalization
+
+By using the `NoAnonymizer` method and `--cluster-info,i` we can see in which cluster the original data is located.
 
 ```console
 < data.json | jq -c '.[]' | sigo -k 6 -q x,y -i id | jq -s > clusters.json
@@ -65,8 +66,9 @@ The `data.json` file contains the following data,
   },
 ```
 
-- **2nd step:**
-  Generalize the clusters using `general` method.
+![clusters](./examples/demo/clus.png)
+
+With the generalization method (`general`) we can see the scope of each cluster.
 
 ```console
 < data.json | jq -c '.[]' | sigo -k 6 -q x,y -a general -i id | jq -s > generalization.json
@@ -85,9 +87,11 @@ The `data.json` file contains the following data,
   },
 ```
 
-![clusters](./examples/demo/clusters.png)
+![generalization](./examples/demo/clusters.png)
 
-### Aggregation
+### **Step 2:** Anonymization
+
+- Aggregation
 
 ```console
 < data.json | jq -c '.[]' | sigo -k 6 -q x,y -a meanAggregation -i id | jq -s > aggregation/meanAggregation.json
@@ -101,7 +105,7 @@ The `data.json` file contains the following data,
 
 ![medianAggregation](./examples/demo/aggregation/medianAggregation.png)
 
-### Top and Botton Codding
+- Top and Botton Codding
 
 ```console
 < data.json | jq -c '.[]' | sigo -k 6 -q x,y -a outlier -i id | jq -s > top-bottom-coding/coding.json
@@ -109,7 +113,7 @@ The `data.json` file contains the following data,
 
 ![coding](./examples/demo/top-bottom-coding/coding.png)
 
-### Random Noise
+- Random Noise
 
 ```console
 < data.json | jq -c '.[]' | sigo -k 6 -q x,y -a laplaceNoise -i id | jq -s > random-noise/laplace.json
@@ -122,6 +126,48 @@ The `data.json` file contains the following data,
 ```
 
 ![gaussian](./examples/demo/random-noise/gaussian.png)
+
+## l-diversity
+
+In the `examples/demo/l-diveristy` folder is the `data.json` file containing the following data:
+
+```json
+    {"x":15, "y":18, "z":"c"},
+    {"x":10, "y":20, "z":"b"},
+    {"x":6, "y":7, "z":"c"},
+    {"x":12, "y":20, "z":"b"},
+    {"x":2, "y":19, "z":"a"},
+    {"x":18, "y":6, "z":"c"},
+    {"x":2, "y":16, "z":"b"},
+    {"x":4, "y":9, "z":"a"},
+    {"x":18, "y":7, "z":"c"},
+    {"x":9, "y":7, "z":"a"},
+    {"x":13, "y":0, "z":"b"},
+    {"x":17, "y":2, "z":"c"},
+    {"x":8, "y":13, "z":"c"},
+    {"x":14, "y":14, "z":"c"},
+    {"x":12, "y":10, "z":"b"},
+    {"x":4, "y":9, "z":"b"},
+    {"x":7, "y":5, "z":"b"},
+    {"x":18, "y":8, "z":"a"},
+    {"x":15, "y":20, "z":"b"},
+    {"x":16, "y":3, "z":"b"},
+    {"x":10, "y":11, "z":"c"},
+    {"x":7, "y":15, "z":"a"},
+    {"x":19, "y":20, "z":"c"},
+    {"x":14, "y":9, "z":"a"}
+```
+
+![original](./examples/demo/l-diversity/original.png)
+
+Assuming attributes x and y are quasi-identifiers and attribute z is sensitive data.
+We want our dataset to respect **6-anonymity** and **3-diversity**.
+
+```console
+< data.json | jq -c '.[]' | sigo -k 6 -l 3 -q x,y -s z -i id | jq -s > diversity.json
+```
+
+![diversity](./examples/demo/l-diversity/diversity.png)
 
 ## Usage of **PIMO**
 
