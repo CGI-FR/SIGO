@@ -148,17 +148,30 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 }
 
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
 		val := rec.QuasiIdentifer()[i]
 
-		switch a.typeNoise {
-		case "laplace":
-			mask[key] = val + LaplaceNumber()
-		case "gaussian":
-			mask[key] = val + GaussianNumber(0, 1)
+		val = Scaling(val, values[key])
+
+		var randomVal float64
+
+		for {
+			switch a.typeNoise {
+			case "laplace":
+				randomVal = Rescaling(val+LaplaceNumber(), values[key])
+			case "gaussian":
+				randomVal = Rescaling(val+GaussianNumber(0, 1), values[key])
+			}
+
+			if randomVal > Min(values[key]) && randomVal < Max(values[key]) {
+				break
+			}
 		}
+
+		mask[key] = randomVal
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}

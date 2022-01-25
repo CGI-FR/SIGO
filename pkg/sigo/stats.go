@@ -24,6 +24,18 @@ import (
 	"time"
 )
 
+func Min(listValues []float64) float64 {
+	sort.Float64s(listValues)
+
+	return listValues[0]
+}
+
+func Max(listValues []float64) float64 {
+	sort.Float64s(listValues)
+
+	return listValues[len(listValues)-1]
+}
+
 func Mean(listValues []float64) (m float64) {
 	for _, val := range listValues {
 		m += val
@@ -126,4 +138,41 @@ func GaussianNumber(loc float64, scale float64) float64 {
 	rand.Seed(time.Now().UnixNano())
 
 	return rand.NormFloat64()*scale + loc
+}
+
+func GaussianSample(loc float64, scale float64, n int) (sample []float64) {
+	rand.Seed(time.Now().UnixNano())
+
+	sample = append(sample, GaussianNumber(loc, scale), GaussianNumber(loc, scale))
+
+	var tmp []float64
+
+	var noise float64
+
+	for i := 0; i < n-2; i++ {
+		for {
+			tmp = sample
+			noise = GaussianNumber(loc, scale)
+			tmp = append(tmp, noise)
+
+			cond1 := Mean(tmp) < loc+0.05 && Mean(tmp) > loc-0.05
+			cond2 := Std(tmp) < scale+0.05 && Std(tmp) > scale-0.05
+
+			if cond1 && cond2 {
+				break
+			}
+		}
+
+		sample = append(sample, noise)
+	}
+
+	return sample
+}
+
+func Scaling(value float64, listValues []float64) float64 {
+	return (value - Mean(listValues)) / Std(listValues)
+}
+
+func Rescaling(value float64, listValues []float64) float64 {
+	return value*Std(listValues) + Mean(listValues)
 }
