@@ -5,11 +5,7 @@
         "column": ["y","x","hauteur","circonference"]
     },
     "spec": {
-<<<<<<< HEAD:examples/trees/micro-aggregation/plot2.vg.json
         "data": { "url": "./treesn.json" },
-=======
-        "data": { "url": "./treesn_sigo.json" },
->>>>>>> 429a938 (feat: add random noise method):examples/trees/random-noise/plot2.vg.json
         "mark": "point",
         "params": [
             {
