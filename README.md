@@ -222,7 +222,7 @@ Dates can be easily transformed into a sequence of floats, but one can imagine c
 
 * CGI France ✉[Contact support](mailto:LINO.fr@cgi.com)
 
-## Licence
+## License
 
 Copyright (C) 2022 CGI France
 
