@@ -2,6 +2,7 @@ package sigo
 
 import (
 	"encoding/json"
+	"errors"
 )
 
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
@@ -18,6 +19,10 @@ func NewCodingAnonymizer() CodingAnonymizer {
 	return CodingAnonymizer{}
 }
 
+func NewNoiseAnonymizer(mechanism string) NoiseAnonymizer {
+	return NoiseAnonymizer{typeNoise: mechanism}
+}
+
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
@@ -27,6 +32,9 @@ type (
 		typeAggregation string
 	}
 	CodingAnonymizer struct{}
+	NoiseAnonymizer  struct {
+		typeNoise string
+	}
 	AnonymizedRecord struct {
 		original Record
 		mask     map[string]interface{}
@@ -110,7 +118,11 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		q := Quartile(vals)
 		bottom := q.Q1
 		top := q.Q3
-		val := convertToFloat64(rec.Row()[key])
+
+		val, err := convertToFloat64(rec.Row()[key])
+		if err != nil {
+			continue
+		}
 
 		switch {
 		case val < bottom:
@@ -119,6 +131,26 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 			mask[key] = top
 		default:
 			mask[key] = val
+		}
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	mask := map[string]interface{}{}
+
+	for _, key := range qi {
+		val, err := convertToFloat64(rec.Row()[key])
+		if err != nil {
+			continue
+		}
+
+		switch a.typeNoise {
+		case "laplace":
+			mask[key] = val + LaplaceNumber()
+		case "gaussian":
+			mask[key] = val + GaussianNumber(0, 1)
 		}
 	}
 
@@ -145,15 +177,23 @@ func listValues(clus Cluster) (mapValues map[string][]float64) {
 	return mapValues
 }
 
-func convertToFloat64(value interface{}) (val float64) {
+func convertToFloat64(value interface{}) (val float64, err error) {
+	if value == nil {
+		//nolint: goerr113
+		return 0, errors.New("error: in conversion to Float64")
+	}
+
 	switch v := value.(type) {
+	case string:
+		//nolint: goerr113
+		return 0, errors.New("error: in conversion to Float64")
 	case json.Number:
 		val, _ = v.Float64()
 	case int:
 		val = float64(v)
-	default:
-		return
+	case interface{}:
+		return v.(float64), nil
 	}
 
-	return val
+	return val, nil
 }

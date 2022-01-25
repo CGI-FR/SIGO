@@ -197,6 +197,10 @@ func newAnonymizer(name string) sigo.Anonymizer {
 		return sigo.NewAggregationAnonymizer("median")
 	case "outlier":
 		return sigo.NewCodingAnonymizer()
+	case "laplaceNoise":
+		return sigo.NewNoiseAnonymizer("laplace")
+	case "gaussianNoise":
+		return sigo.NewNoiseAnonymizer("gaussian")
 	default:
 		return sigo.NewNoAnonymizer()
 	}
