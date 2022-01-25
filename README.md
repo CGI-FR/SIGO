@@ -242,3 +242,24 @@ DataSet after sequencing:
 (After de-identification with **SIGO**, the operation can be undone with another call to **PIMO**. Original values will be saved, using caches for example.)
 
 Dates can be easily transformed into a sequence of floats, but one can imagine categories like colors, origin (if not a sensitive value), or even genders.
+
+## Contributors
+
+* CGI France ✉[Contact support](mailto:LINO.fr@cgi.com)
+
+## License
+
+Copyright (C) 2022 CGI France
+
+PIMO is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PIMO is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+ along with PIMO.  If not, see <http://www.gnu.org/licenses/>.
