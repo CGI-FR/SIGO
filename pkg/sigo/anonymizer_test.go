@@ -1,4 +1,4 @@
-// Copyright (C) 2021 CGI France
+// Copyright (C) 2022 CGI France
 //
 // This file is part of SIGO.
 //
