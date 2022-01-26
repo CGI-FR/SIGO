@@ -18,7 +18,10 @@
 package sigo
 
 import (
+	rd "crypto/rand"
+	"errors"
 	"math"
+	"math/big"
 	"math/rand"
 	"sort"
 	"time"
@@ -121,15 +124,30 @@ func Sum(listValues []float64) (sum float64) {
 	return sum
 }
 
-func ExpNumber(mean float64) float64 {
-	rand.Seed(time.Now().UnixNano())
-	//nolint: gosec
-	return -mean * math.Log(rand.Float64())
+func ExpNumber(mean float64) (float64, error) {
+	//nolint: gomnd
+	val, err := rd.Int(rd.Reader, big.NewInt(int64(math.Pow10(15))))
+	//nolint: goerr113
+	if err != nil {
+		return 0, errors.New("indicate the list of quasi-identifiers")
+	}
+
+	bigInt, _ := new(big.Float).SetInt(val).Float64()
+	random := bigInt * math.Pow10(-15)
+
+	return -mean * math.Log(random), nil
 }
 
 func LaplaceNumber() float64 {
-	e1 := ExpNumber(1)
-	e2 := ExpNumber(1)
+	e1, err1 := ExpNumber(1)
+	if err1 != nil {
+		return 0
+	}
+
+	e2, err2 := ExpNumber(1)
+	if err2 != nil {
+		return 0
+	}
 
 	return e1 - e2
 }
@@ -140,39 +158,30 @@ func GaussianNumber(loc float64, scale float64) float64 {
 	return rand.NormFloat64()*scale + loc
 }
 
-func GaussianSample(loc float64, scale float64, n int) (sample []float64) {
-	rand.Seed(time.Now().UnixNano())
-
-	sample = append(sample, GaussianNumber(loc, scale), GaussianNumber(loc, scale))
-
-	var tmp []float64
-
-	var noise float64
-
-	for i := 0; i < n-2; i++ {
-		for {
-			tmp = sample
-			noise = GaussianNumber(loc, scale)
-			tmp = append(tmp, noise)
-
-			cond1 := Mean(tmp) < loc+0.05 && Mean(tmp) > loc-0.05
-			cond2 := Std(tmp) < scale+0.05 && Std(tmp) > scale-0.05
-
-			if cond1 && cond2 {
-				break
-			}
-		}
-
-		sample = append(sample, noise)
+func Scaling(value float64, listValues []float64, method string) (scale float64) {
+	//nolint: gomnd
+	switch method {
+	case laplace:
+		scale = -2 + ((value-Min(listValues))*4)/(Max(listValues)-Min(listValues))
+	case gaussian:
+		scale = -1 + ((value-Min(listValues))*2)/(Max(listValues)-Min(listValues))
+	default:
+		scale = (value - Mean(listValues)) / Std(listValues)
 	}
 
-	return sample
+	return scale
 }
 
-func Scaling(value float64, listValues []float64) float64 {
-	return (value - Mean(listValues)) / Std(listValues)
-}
+func Rescaling(value float64, listValues []float64, method string) (rescale float64) {
+	//nolint: gomnd
+	switch method {
+	case laplace:
+		rescale = Min(listValues) + ((value+2)*(Max(listValues)-Min(listValues)))/4
+	case gaussian:
+		rescale = Min(listValues) + ((value+1)*(Max(listValues)-Min(listValues)))/2
+	default:
+		rescale = value*Std(listValues) + Mean(listValues)
+	}
 
-func Rescaling(value float64, listValues []float64) float64 {
-	return value*Std(listValues) + Mean(listValues)
+	return rescale
 }
