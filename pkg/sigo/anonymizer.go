@@ -172,7 +172,7 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 				randomVal = Rescaling(gaussianVal+GaussianNumber(0, 1), values[key], gaussian)
 			}
 
-			if randomVal > Min(values[key]) && randomVal < Max(values[key]) {
+			if (randomVal > Min(values[key]) && randomVal < Max(values[key])) || Min(values[key]) == Max(values[key]) {
 				break
 			}
 		}

@@ -41,15 +41,15 @@ The data is recorded in the cars2.json file, below you will find an overview of 
 ### 1- De-identified data
 
 ```console
-< cars2.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Horsepower -s Origin | jq -s > cars2_sigo.json
+< cars2.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Horsepower -s Origin -a laplaceNoise | jq -s > cars2_sigo.json
 ```
 
 ![masked](cars2-sigo.png)
 
 |                  | Miles_per_Gallon | Horsepower |
 |------------------|------------------|------------|
-| Miles_per_Gallon |     1.000000     |  -0.764425 |
-| Horsepower       |     -0.764425    |  1.000000  |
+| Miles_per_Gallon |     1.000000     |  -0.778478 |
+| Horsepower       |     -0.778478    |  1.000000  |
 
 ## n-dimension
 
@@ -95,21 +95,21 @@ The data is recorded in the carsn.json file, below you will find an overview of 
 ### 2- De-identified data
 
 ```console
-< carsn.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration -s Origin | jq -s > carsn_sigo.json
+< carsn.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration -s Origin -a laplaceNoise | jq -s > carsn_sigo.json
 ```
 
 ![masked](carsn-sigo.png)
 
 |                  | Miles_per_Gallon | Cylinders | Displacement | Horsepower | Weight_in_lbs | Acceleration |
 |------------------|:----------------:|:---------:|:------------:|:----------:|:-------------:|:------------:|
-| Miles_per_Gallon |     1.000000     | -0.618830 |   -0.797633  |  -0.768155 |   -0.822276   |   0.405036   |
-| Cylinders        |     -0.618830    |  1.000000 |   0.787183   |  0.704369  |    0.748811   |   -0.398250  |
-| Displacement     |     -0.797633    |  0.787183 |   1.000000   |  0.897594  |    0.933043   |   -0.529400  |
-| Horsepower       |     -0.768155    |  0.704369 |   0.897594   |  1.000000  |    0.864810   |   -0.653690  |
-| Weight_in_lbs    |     -0.822276    |  0.748811 |   0.933043   |  0.864810  |    1.000000   |   -0.402344  |
-| Acceleration     |     0.405036     | -0.398250 |   -0.529400  |  -0.653690 |   -0.402344   |   1.000000   |
+| Miles_per_Gallon |     1.000000     | -0.686867 |   -0.673229  |  -0.673453 |   -0.713713   |   0.355517   |
+| Cylinders        |     -0.686867    |  1.000000 |   0.629645   |  0.592229  |    0.704464   |   -0.307798  |
+| Displacement     |     -0.673229    |  0.629645 |   1.000000   |  0.627392  |    0.670037   |   -0.342196  |
+| Horsepower       |     -0.673453    |  0.592229 |   0.627392   |  1.000000  |    0.664508   |   -0.464786  |
+| Weight_in_lbs    |     -0.713713    |  0.704464 |   0.670037   |  0.664508  |    1.000000   |   -0.293661  |
+| Acceleration     |     0.355517     | -0.307798 |   -0.342196  |  -0.464786 |   -0.293661   |   1.000000   |
 
-The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200%20;%20%5Cpm%200.16%20%5Cright%20%5D)
+The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200.07%20;%20%5Cpm%200.3%20%5Cright%20%5D)
 
 ### Bibliography
 

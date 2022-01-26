@@ -158,18 +158,25 @@ func GaussianNumber(loc float64, scale float64) float64 {
 	return rand.NormFloat64()*scale + loc
 }
 
-func Scaling(value float64, listValues []float64, method string) (scale float64) {
+func Scaling(value float64, listValues []float64, method string) float64 {
+	scope := Max(listValues) - Min(listValues)
 	//nolint: gomnd
 	switch method {
 	case laplace:
-		scale = -2 + ((value-Min(listValues))*4)/(Max(listValues)-Min(listValues))
+		if scope == 0 {
+			return -2
+		}
+
+		return -2 + ((value-Min(listValues))*4)/(scope)
 	case gaussian:
-		scale = -1 + ((value-Min(listValues))*2)/(Max(listValues)-Min(listValues))
-	default:
-		scale = (value - Mean(listValues)) / Std(listValues)
+		if scope == 0 {
+			return -1
+		}
+
+		return -1 + ((value-Min(listValues))*2)/(scope)
 	}
 
-	return scale
+	return (value - Mean(listValues)) / Std(listValues)
 }
 
 func Rescaling(value float64, listValues []float64, method string) (rescale float64) {

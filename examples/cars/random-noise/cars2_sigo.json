@@ -1,1962 +1,1962 @@
 [
   {
-    "Miles_per_Gallon": 14.66708187522135,
-    "Horsepower": 71.63935954133878,
+    "Miles_per_Gallon": 15.181842480959046,
+    "Horsepower": 78.59803272913949,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 14.728876208858775,
-    "Horsepower": 71.69430123118114,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.875227832567994,
-    "Horsepower": 95.55374766428514,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.72978921162674,
-    "Horsepower": 88.603635441507,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.84816342558298,
-    "Horsepower": 74.7140175585378,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.87621251768714,
-    "Horsepower": 88.48495853987886,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.076183468263054,
-    "Horsepower": 86.39555999823352,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 90.57940124607457,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 18.387468905754965
-  },
-  {
-    "Miles_per_Gallon": 18.6443747465555,
-    "Horsepower": 95.8522902178427,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.172518150246724,
-    "Horsepower": 97.24440320550924,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.74772506222192,
-    "Horsepower": 101.19181144247634,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.24860143618163,
-    "Horsepower": 100.32466421247584,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.427317368744397,
-    "Horsepower": 100.35910809712693,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.90626130293767,
-    "Horsepower": 97.18921811021748,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 96.86766488644449,
-    "Origin": "USA",
-    "Miles_per_Gallon": 17.906481017181257
-  },
-  {
-    "Miles_per_Gallon": 17.918686608641064,
-    "Horsepower": 100.2734416492682,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.316446627624696,
-    "Horsepower": 98.63684464414384,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.158467059069988,
-    "Horsepower": 100.73491194508576,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.366793988679582,
-    "Horsepower": 85.04506314535348,
+    "Miles_per_Gallon": 15.025222862602892,
+    "Horsepower": 72.18085607031776,
     "Origin": "USA"
   },
   {
     "Origin": "USA",
-    "Miles_per_Gallon": 18.85711253748267,
-    "Horsepower": 87.31986984250825
+    "Miles_per_Gallon": 17.086041453198256,
+    "Horsepower": 93.20024036689495
   },
   {
-    "Horsepower": 87.78144323586567,
+    "Miles_per_Gallon": 16.99824188974125,
+    "Horsepower": 89.43213466657687,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 81.00924186876841,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 87.55751843442448,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 89.83111420006662,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 85.15809351463946,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 93.29732920595681,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.440161446626266,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.689388642276796,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.587837765388072,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.97075233788695,
+    "Horsepower": 100,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 98.14677763736826,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 98.11377430433943,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 99.55741497890094,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 99.78769511220713,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 18,
+    "Horsepower": 99.95188155360549
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 92.58677302433217,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 94.39182955330763,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 86.64369285527408,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 19,
+    "Horsepower": 92.08713476377164
+  },
+  {
+    "Miles_per_Gallon": 19,
+    "Horsepower": 92.62597088308519,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.500876137806227,
+    "Horsepower": 98.99596063674772,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.852174135100917,
+    "Horsepower": 98.18265713015347,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 99.10052349312353,
+    "Origin": "USA",
+    "Miles_per_Gallon": 18.994461097282333
+  },
+  {
+    "Miles_per_Gallon": 18.919003719614572,
+    "Horsepower": 99.53841582657707,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 18.896547720688204,
+    "Horsepower": 99.06037426505564
+  },
+  {
+    "Miles_per_Gallon": 18.970338840582027,
+    "Horsepower": 99.63106413876767,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.010868555093632,
+    "Horsepower": 109.83546060812974,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.980513068348472,
+    "Horsepower": 106.49887307628565,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.426622613607684,
+    "Horsepower": 105.60009310070338,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.920232436654006,
+    "Horsepower": 108.7592440814899,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.264616940376932,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.100717101450925,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.42980575573355,
+    "Horsepower": 110,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.801213597162597,
+    "Horsepower": 120.63503052113326,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.329361119677024,
+    "Horsepower": 120.67247170015294,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 16.78465294408367,
+    "Horsepower": 124.12386111963951,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105.97055574575474,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105.08839739518753,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 18,
+    "Horsepower": 105.50119364549059
+  },
+  {
+    "Horsepower": 109.97721774420987,
+    "Origin": "USA",
+    "Miles_per_Gallon": 18
+  },
+  {
+    "Miles_per_Gallon": 18.947429496943464,
+    "Horsepower": 109.0570269319822,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.677801273909687,
+    "Horsepower": 109.39067967914427,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 18.76360275095177,
+    "Horsepower": 108.29698169057414,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 18.312015314076692,
+    "Horsepower": 112.10796157039955,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 18.846076277038286,
+    "Horsepower": 112.31082203042602,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 18.081488090279503,
+    "Horsepower": 119.05414540271302,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19.558496710612772,
+    "Horsepower": 88.5765596877362,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 89.45520453056037,
+    "Origin": "USA",
+    "Miles_per_Gallon": 19.691403349868743
+  },
+  {
+    "Miles_per_Gallon": 19.73954172631159,
+    "Horsepower": 85.33588282498832,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19.64220749375671,
+    "Horsepower": 86.72128082152119,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 19.73666536951118,
+    "Horsepower": 88.10750915108493,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.28345311831269,
+    "Horsepower": 86.46717886016735,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.327234511522537,
+    "Horsepower": 87.24116261491017,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.372444954978448,
+    "Horsepower": 89.70579823823557,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.48243291276124,
+    "Horsepower": 85.44866335161704,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.085538132055483,
+    "Horsepower": 91.37973350156788,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 20.14157853568207,
+    "Horsepower": 94.47480689007064,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 94.93462799628739,
+    "Origin": "USA",
+    "Miles_per_Gallon": 20.4888767201541
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 74.40971968676403,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 84.32431925259448,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21,
+    "Horsepower": 82.87891592666178,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 75.83150618195215,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 74.47352421585536,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 22,
+    "Horsepower": 75.51792834115273,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 87.69297052979617,
     "Origin": "Europe",
-    "Miles_per_Gallon": 18.817113459965313
+    "Miles_per_Gallon": 21.006319048017822
   },
   {
-    "Miles_per_Gallon": 18.939302582356067,
-    "Horsepower": 89.6769296846983,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.86338723942825,
-    "Horsepower": 94.70361592251095,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.28643349771621,
-    "Horsepower": 97.94733808855476,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.456609980895823,
-    "Horsepower": 96.87082804369257,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 16.388253378031628,
-    "Horsepower": 100.22964294327852,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.908884415235686,
-    "Horsepower": 100.10510142477762,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.55463493442546,
-    "Horsepower": 99.93903847413573,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.928782014209304,
-    "Horsepower": 100.08332239720235,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.74949259127087,
-    "Horsepower": 107.37880451708081,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.737048167845348,
-    "Horsepower": 105.34196109652218,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.949215821097313,
-    "Horsepower": 105.11121088292295,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.746348997683093,
-    "Horsepower": 107.27829814057453,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.29036875838306,
-    "Horsepower": 106.59571935900816,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.90934953841293,
-    "Horsepower": 110.15452685717213,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.570595940236863,
-    "Horsepower": 109.91167930713291,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.552205371441037,
-    "Horsepower": 119.85950433863289,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 119.63924987869127,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 16.699668359886612
-  },
-  {
-    "Miles_per_Gallon": 14.1955967869515,
-    "Horsepower": 124.78589483514554,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 18.120822175935693,
-    "Horsepower": 104.90816598971278,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.630474249799235,
-    "Horsepower": 105.40535120398614,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 18.20565078381997,
-    "Horsepower": 104.3436696858087
-  },
-  {
-    "Miles_per_Gallon": 20.012966684578434,
-    "Horsepower": 110.05619525718707,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.603634730541852,
-    "Horsepower": 109.88148673205737,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 19.400058763579807,
-    "Horsepower": 107.63559769043967
-  },
-  {
-    "Miles_per_Gallon": 19.247294104281913,
-    "Horsepower": 107.22613499502545,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 18.138924720308534,
-    "Horsepower": 107.37271141412174,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 18.159728919431565,
-    "Horsepower": 113.54818812325259,
-    "Origin": "Europe"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 17.65772434755435,
-    "Horsepower": 119.58867676612397
-  },
-  {
-    "Miles_per_Gallon": 19.57844286436455,
-    "Horsepower": 92.99505689908602,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.732032330233242,
-    "Horsepower": 90.20851035670088,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.742468996320156,
-    "Horsepower": 85.11546779687922,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.894937760122335,
-    "Horsepower": 87.89047048716755,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 19.855044737882412,
-    "Horsepower": 89.69915752498567,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 20.123017819183726,
-    "Horsepower": 85.08483573930873,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 20.086217314983845,
-    "Horsepower": 87.82810573836828,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.973336607466443,
-    "Horsepower": 90.36203502212915,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 20.310556136205093,
-    "Horsepower": 85.0872619303113
-  },
-  {
-    "Miles_per_Gallon": 22.314688152376437,
-    "Horsepower": 90.88764277581056,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 20.10975595963347,
-    "Horsepower": 94.93041201927426,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.787508022966374,
-    "Horsepower": 94.86543932885219,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 21.08728346951422,
-    "Horsepower": 71.90392747339321,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 20.544308036145416,
-    "Horsepower": 84.90550953217173
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 20.814118796932174,
-    "Horsepower": 85.61649213857
-  },
-  {
-    "Miles_per_Gallon": 21.736060923917186,
-    "Horsepower": 68.08002672379797,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 21.821323002870002,
-    "Horsepower": 75.74914115081164
-  },
-  {
-    "Miles_per_Gallon": 22.206094232872967,
-    "Horsepower": 86.03855851639368,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 20.77884318474688,
-    "Horsepower": 87.69623143022268,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 89.89031071615948,
-    "Origin": "USA",
-    "Miles_per_Gallon": 21.376396123704136
-  },
-  {
-    "Miles_per_Gallon": 21.149884939619437,
-    "Horsepower": 95.30166268473481,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 21.94910025539608,
-    "Horsepower": 94.10296417112693,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 22.120621764001136,
-    "Horsepower": 93.74580026072071,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 21.965647968401214,
-    "Horsepower": 88.04428659270462,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 22.55099387545132,
-    "Horsepower": 90.07617420278963
-  },
-  {
-    "Miles_per_Gallon": 19.09247988292564,
-    "Horsepower": 109.26351546809285,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 20.064630051705304,
-    "Horsepower": 100.3463006199432,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.990183027426202,
-    "Horsepower": 99.93981384207231,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 19.88988027584126,
-    "Horsepower": 101.85659354638551
-  },
-  {
-    "Miles_per_Gallon": 20.381800894296518,
-    "Horsepower": 102.90370407680591,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 99.88349754567197,
-    "Origin": "USA",
-    "Miles_per_Gallon": 20.58302090469059
-  },
-  {
-    "Miles_per_Gallon": 20.370084859802258,
-    "Horsepower": 104.59305819562164,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 103.9915747793653,
-    "Origin": "USA",
-    "Miles_per_Gallon": 19.907423424065943
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 19.8131431214567,
-    "Horsepower": 109.9268968353761
-  },
-  {
-    "Miles_per_Gallon": 22.143449001814744,
-    "Horsepower": 109.91504925836118,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 20.64476389970802,
-    "Horsepower": 109.86147881094521,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.942481552772264,
-    "Horsepower": 121.87347976707214,
-    "Origin": "Japan"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 20.438392752006997,
-    "Horsepower": 124.91528820986086
-  },
-  {
-    "Horsepower": 106.91066878940107,
-    "Origin": "USA",
-    "Miles_per_Gallon": 21.54474678268581
-  },
-  {
-    "Miles_per_Gallon": 21.052157429086016,
-    "Horsepower": 109.8335106746426,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 22.221469381014444,
-    "Horsepower": 107.15759964516472,
-    "Origin": "Europe"
-  },
-  {
-    "Origin": "Japan",
-    "Miles_per_Gallon": 21.714789974703578,
-    "Horsepower": 108.87688226848003
-  },
-  {
-    "Miles_per_Gallon": 21.9345804605697,
-    "Horsepower": 96.78322570908985,
-    "Origin": "Japan"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 25.612066675367245,
-    "Horsepower": 97.65450320381588
-  },
-  {
-    "Miles_per_Gallon": 22.15848584326527,
-    "Horsepower": 99.68577861090554,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 22.700453446638054,
-    "Horsepower": 106.21462814337232
-  },
-  {
-    "Miles_per_Gallon": 22.533088209528835,
-    "Horsepower": 109.64161252172445,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 22.600729672192355,
-    "Horsepower": 112.37312136998966,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 21.390493004005062,
-    "Horsepower": 115.16857532464593,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 21.484226574102117,
-    "Horsepower": 117.36166793196624,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 150.16910200032143,
-    "Origin": "USA",
-    "Miles_per_Gallon": 10.931336503368374
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.226153263680052,
-    "Horsepower": 128.9221097788146
-  },
-  {
-    "Miles_per_Gallon": 11.74579778335903,
-    "Horsepower": 129.93049406841956,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.251820688427166,
-    "Horsepower": 131.13993190211815,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.962431016365908,
-    "Horsepower": 139.92361056166897
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 12.46208636583791,
-    "Horsepower": 142.7575310981369
-  },
-  {
-    "Miles_per_Gallon": 13.110358473918295,
-    "Horsepower": 144.85435393448125,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 149.7363041750373,
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.215638233020186
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 12.85536830762439,
-    "Horsepower": 149.7045179835745
-  },
-  {
-    "Miles_per_Gallon": 13.493593857317808,
-    "Horsepower": 149.82075861717496,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.911695665942938,
-    "Horsepower": 150.58840973137683,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.71291818393201,
-    "Horsepower": 154.86046842330384,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.206070933353862,
-    "Horsepower": 158.60784583680217,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.12839434290182,
-    "Horsepower": 159.8346854051567,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.659467514423739,
-    "Horsepower": 140.70788581919373,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.040946123705243,
-    "Horsepower": 139.90671004903956,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.885741435056472,
-    "Horsepower": 148.44253648881758,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.882978639763937,
-    "Horsepower": 150.70391293439533,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 149.82742945506382,
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.892002011373435
-  },
-  {
-    "Miles_per_Gallon": 14.040937469157916,
-    "Horsepower": 149.79436119994222,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.65548883723799,
-    "Horsepower": 148.38918226245804
-  },
-  {
-    "Miles_per_Gallon": 15.772437577441215,
-    "Horsepower": 149.8766914465112,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.686973473860093,
-    "Horsepower": 150.12252534341786,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 152.94385387689707,
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.608876665994885
-  },
-  {
-    "Miles_per_Gallon": 13.94127884620457,
-    "Horsepower": 152.80564872050388,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.752093710167676,
-    "Horsepower": 156.53418900514637,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 10.932912304368175,
-    "Horsepower": 180.19382975581237,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.055043932245752,
-    "Horsepower": 166.80178659377557,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.116121566228967,
-    "Horsepower": 179.78072331991785,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 11.850950026340366,
-    "Horsepower": 179.71414077322913,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.226651271502853,
-    "Horsepower": 164.74821560070606,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.292290986141296,
-    "Horsepower": 167.54129238154653,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.067918975876244,
-    "Horsepower": 170.07959526530146,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.778764111023541,
-    "Horsepower": 173.390286588371,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 11.502452417821962,
-    "Horsepower": 179.9100292635162,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.58712096074007,
-    "Horsepower": 174.92715872018903,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 9.260255808439606,
-    "Horsepower": 192.8935389109187,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 9.313391996515648,
-    "Horsepower": 199.86147514878755,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 10.64009161722419,
-    "Horsepower": 215.12957481079198
-  },
-  {
-    "Miles_per_Gallon": 10.872072625628121,
-    "Horsepower": 207.9003910932349,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.077754951191956,
-    "Horsepower": 209.88186875514333,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 198.08717605245386,
-    "Origin": "USA",
-    "Miles_per_Gallon": 10.39277519511666
-  },
-  {
-    "Miles_per_Gallon": 11.723257682591198,
-    "Horsepower": 224.9519021644898,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.660996237734622,
-    "Horsepower": 190.73040921769945,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 12.57693564286264,
-    "Horsepower": 215.0778931514765,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 165.20824831316762,
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.641353626379294
-  },
-  {
-    "Miles_per_Gallon": 13.85497826901085,
-    "Horsepower": 175.07177990085887,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.908754879598673,
-    "Horsepower": 175.43751571415697
-  },
-  {
-    "Miles_per_Gallon": 13.946653313531913,
-    "Horsepower": 214.93956914650994,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.851367821541457,
-    "Horsepower": 219.92735272640022,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 10.629108174622473,
-    "Horsepower": 225.21346676980536,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 228.22575975343335,
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.699722952546779
-  },
-  {
-    "Horsepower": 130.59556066742869,
-    "Origin": "USA",
-    "Miles_per_Gallon": 13.685787563152024
-  },
-  {
-    "Miles_per_Gallon": 15.293773813637944,
-    "Horsepower": 145.39258132049375,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.114455170763213,
-    "Horsepower": 144.94674032276973,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.22981454311861,
-    "Horsepower": 143.26594237740883,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.292804617666754,
-    "Horsepower": 144.780203676747,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.504017765847056,
-    "Horsepower": 140.27825157922496,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.175539197867876,
-    "Horsepower": 148.92812505620407,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.608734557238474,
-    "Horsepower": 131.23269075159183,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 14.902024564314416,
-    "Horsepower": 151.75156439978147,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.880566923268226,
-    "Horsepower": 148.61357661868027,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.4651618059692,
-    "Horsepower": 149.51120273068673,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 14.85978301866498,
-    "Horsepower": 149.38772282251176
-  },
-  {
-    "Miles_per_Gallon": 15.084162669082433,
-    "Horsepower": 149.90297340475203,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 150.5031363468585,
-    "Origin": "USA",
-    "Miles_per_Gallon": 16.081937361735843
-  },
-  {
-    "Miles_per_Gallon": 15.890855571821726,
-    "Horsepower": 149.799357443045,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.918482144062429,
-    "Horsepower": 150.14368322370913,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.43985940507789,
-    "Horsepower": 137.91525352384636,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 129.77954535525137,
-    "Origin": "USA",
-    "Miles_per_Gallon": 16.078687109021327
-  },
-  {
-    "Miles_per_Gallon": 16.915797999880816,
-    "Horsepower": 140.48457202815072,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.570235856268532,
-    "Horsepower": 139.3940177496813,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 19.026869435105333,
-    "Horsepower": 139.90741075006608
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 17.413498314540263,
-    "Horsepower": 128.93410226650136
-  },
-  {
-    "Miles_per_Gallon": 17.794050707190944,
-    "Horsepower": 126.6570633042813,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 18.02725776644725,
-    "Horsepower": 134.71317214885292,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 138.10113388123375,
-    "Origin": "USA",
-    "Miles_per_Gallon": 18.01891607012168
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 20.12416367297405,
-    "Horsepower": 138.6134932129416
-  },
-  {
-    "Miles_per_Gallon": 13.300493524176844,
-    "Horsepower": 140.0967453636585,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.636174137752203,
-    "Horsepower": 144.91158658685129,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 19.378351579409657,
-    "Horsepower": 141.67021139565756,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.7753892048163,
-    "Horsepower": 153.69377309757573,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.673813108202452,
-    "Horsepower": 150.04231956736427,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.859997793116019,
-    "Horsepower": 149.83001346688224,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.38743684312741,
-    "Horsepower": 151.87363726483358,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 13.968360670104364,
-    "Horsepower": 164.8975367082283,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.837557401906947,
-    "Horsepower": 170.45115595205635,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 14.918714958907566,
-    "Horsepower": 169.936198991742,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.038388100105845,
-    "Horsepower": 189.80556952362193,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 20.354113136118794,
-    "Horsepower": 189.87614422043217,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.04597064331343,
-    "Horsepower": 197.92664537987596,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.032008557560907,
-    "Horsepower": 156.64806734029344,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 17.863869648211367,
-    "Horsepower": 163.0663573402725,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 15.94409703046104,
-    "Horsepower": 165.46477214525606,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 16.253946178083424,
-    "Horsepower": 179.8939865730529,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 179.6212290882818,
-    "Origin": "USA",
-    "Miles_per_Gallon": 16.2933791050806
-  },
-  {
-    "Miles_per_Gallon": 16.171938116708056,
-    "Horsepower": 229.94299466538396,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 54.536694537198116,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 22.48330902299405
-  },
-  {
-    "Miles_per_Gallon": 24.305941437192242,
-    "Horsepower": 56.03146424789494,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 25.166816324252572,
-    "Horsepower": 46.07325886735165
-  },
-  {
-    "Miles_per_Gallon": 24.537626536123792,
-    "Horsepower": 45.942521992223845,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 61.11331187566831,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 26.924722110174667
-  },
-  {
-    "Miles_per_Gallon": 29.165210542312796,
-    "Horsepower": 48.694126299191936,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 26.713714640894942,
-    "Horsepower": 52.07633922729234,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 24.65986033107563,
-    "Horsepower": 64.41850364674193,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 65.17384307579292,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 29.546209445322283
-  },
-  {
-    "Miles_per_Gallon": 29.91643342517555,
-    "Horsepower": 62.25039087023171,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 29.52269132746983,
-    "Horsepower": 64.80564397614029,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 66.93838239412842,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 29.851534323782452
-  },
-  {
-    "Miles_per_Gallon": 30.253261594165163,
-    "Horsepower": 67.27186672885038,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 29.6578151247886,
-    "Horsepower": 68.08633693397131,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 31.029963968601926,
-    "Horsepower": 63.31965509115611,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 51.87517442129535,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 30.916470113727907
-  },
-  {
-    "Origin": "Japan",
-    "Miles_per_Gallon": 31.304284438582258,
-    "Horsepower": 64.94844384964655
-  },
-  {
-    "Origin": "Japan",
-    "Miles_per_Gallon": 31.673826880581466,
-    "Horsepower": 64.77630419978192
-  },
-  {
-    "Horsepower": 59.771341385301156,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 31.514323201803666
-  },
-  {
-    "Miles_per_Gallon": 31.885917042412796,
-    "Horsepower": 64.69411206914968,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 66.81527278902834,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 30.83326204379329
-  },
-  {
-    "Miles_per_Gallon": 31.40712747473754,
-    "Horsepower": 69.39473351632955,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 31.923820411181207,
-    "Horsepower": 66.87560258365838,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 30.891341907821875,
-    "Horsepower": 67.789637278409,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 33.166561948232804,
-    "Horsepower": 68.14651174427208,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 25.83917275416446,
-    "Horsepower": 69.43066273551452,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 25.900627902546347,
-    "Horsepower": 70.13622513067291,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 26.05246214764714,
-    "Horsepower": 71.18949034920156,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 27.250584731616602,
-    "Horsepower": 71.24214145393152,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 26.16141971257381,
-    "Horsepower": 72.14429297138184,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 24.05847510587923,
-    "Horsepower": 74.60689687587835,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 75.36172592859664,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 24.469407800203705
-  },
-  {
-    "Miles_per_Gallon": 24.937517653254663,
-    "Horsepower": 74.91600054194743,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 25.934495105303334,
-    "Horsepower": 74.92038489353719,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 25.876691849211646,
-    "Horsepower": 75.37657787799102,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 75.12673322028054,
-    "Origin": "USA",
-    "Miles_per_Gallon": 28.076203087706347
-  },
-  {
-    "Miles_per_Gallon": 27.929299557981302,
-    "Horsepower": 74.89871863113297,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 28.685795213875533,
-    "Horsepower": 70.08532803863604,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 28.898546050610015,
-    "Horsepower": 69.83379154432184,
-    "Origin": "Europe"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 29.38971812702777,
-    "Horsepower": 74.02923001935395
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 29.887798642380922,
-    "Horsepower": 69.88640844090213
-  },
-  {
-    "Horsepower": 71.60660353767045,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 31.292667450948894
-  },
-  {
-    "Miles_per_Gallon": 31.798094330640133,
-    "Horsepower": 71.04809499745134,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 31.142207212940775,
-    "Horsepower": 70.06005000664544,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 29.492509777043715,
-    "Horsepower": 75.452264161575,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 75.9443102493756,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 29.92551976446164
-  },
-  {
-    "Horsepower": 76.0664104850999,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 33.11524177214125
-  },
-  {
-    "Miles_per_Gallon": 27.32098588616465,
-    "Horsepower": 75.06028662823863,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 31.382959010723763,
-    "Horsepower": 74.65738841677543,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 31.498605906962386,
-    "Horsepower": 73.17169402824115,
-    "Origin": "Japan"
-  },
-  {
-    "Origin": "Japan",
-    "Miles_per_Gallon": 32.68922974784432,
-    "Horsepower": 52.52795326792523
-  },
-  {
-    "Miles_per_Gallon": 33.09958208892123,
-    "Horsepower": 52.35292120412415,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 36.34708042790984,
-    "Horsepower": 53.077706456249004,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 33.96605428281845,
-    "Horsepower": 63.09170180202715,
+    "Miles_per_Gallon": 21.07654669016502,
+    "Horsepower": 88.96865889994474,
     "Origin": "USA"
   },
   {
     "Origin": "Japan",
-    "Miles_per_Gallon": 35.28935881705628,
-    "Horsepower": 59.91271004112279
-  },
-  {
-    "Miles_per_Gallon": 36.288789259400076,
-    "Horsepower": 57.93759165190472,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 59.86927285650306,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 36.02131245795656
-  },
-  {
-    "Miles_per_Gallon": 32.16891122491968,
-    "Horsepower": 67.4532397876045,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 66.1674028710119,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 33.635372282706406
-  },
-  {
-    "Horsepower": 70.5273436193857,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 34.3746503409936
-  },
-  {
-    "Miles_per_Gallon": 34.03187050967388,
-    "Horsepower": 64.94389660749194,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 66.48113410502188,
-    "Origin": "USA",
-    "Miles_per_Gallon": 36.44495198881391
-  },
-  {
-    "Miles_per_Gallon": 35.97887810985142,
-    "Horsepower": 66.91466654311482,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 36.73611924194814,
-    "Horsepower": 63.29088130282639,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 37.810628511889696,
-    "Horsepower": 61.83851987174272,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 37.99289510392073,
-    "Horsepower": 59.09296846748706,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 38.996394362730626,
-    "Horsepower": 58.09365788507352,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 48.09364173049681,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 47.46926887420261
-  },
-  {
-    "Miles_per_Gallon": 43.66840767607441,
-    "Horsepower": 47.83608829774097,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 52.08129826984725,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 43.484084811187905
-  },
-  {
-    "Horsepower": 48.10620445912168,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 46.75979906287323
-  },
-  {
-    "Miles_per_Gallon": 37.077121739513444,
-    "Horsepower": 65.08694997147978,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 37.79566587157273,
-    "Horsepower": 63.1082724951282,
-    "Origin": "USA"
+    "Miles_per_Gallon": 21.087421024345975,
+    "Horsepower": 91.25849712500282
   },
   {
     "Origin": "Japan",
-    "Miles_per_Gallon": 38.204510131884525,
-    "Horsepower": 66.76672818046569
-  },
-  {
-    "Miles_per_Gallon": 38.04511832777001,
-    "Horsepower": 66.82603802064358,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 38.87823691681347,
-    "Horsepower": 63.850455843151906,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 40.688998668767624,
-    "Horsepower": 64.87704379588722,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 44.297274785138285,
-    "Horsepower": 66.62725314602348,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 45.52548248232304,
-    "Horsepower": 64.90850370755301,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 33.985661161003755,
-    "Horsepower": 67.81993698304328,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 31.516172616468,
-    "Horsepower": 69.9371009625499,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 33.41354144242403,
-    "Horsepower": 70.16382270737034,
-    "Origin": "Japan"
-  },
-  {
-    "Origin": "Japan",
-    "Miles_per_Gallon": 33.898784664432476,
-    "Horsepower": 70.12606777140103
-  },
-  {
-    "Horsepower": 71.94826203936864,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 32.16140822264171
-  },
-  {
-    "Miles_per_Gallon": 32.276745104498424,
-    "Horsepower": 74.22564657573118,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 32.34581506679242,
-    "Horsepower": 74.58976647556656,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 33.145694105398945,
-    "Horsepower": 75.06621057291312,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 33.6329840789328,
-    "Horsepower": 74.90722926362362,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 35.39121322627424,
-    "Horsepower": 69.89844725884531,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 34.204875091054035,
-    "Horsepower": 69.94785818268551,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 35.388888076958,
-    "Horsepower": 69.0521878283341,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 35.918209596775654,
-    "Horsepower": 70.50277449666932,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 67.9043250056059,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 37.651852131187965
-  },
-  {
-    "Miles_per_Gallon": 36.98421023072067,
-    "Horsepower": 69.334143075601,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 42.455946962355355,
-    "Horsepower": 69.88781451343266,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 73.90330662049146,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 36.173220896041464
-  },
-  {
-    "Miles_per_Gallon": 36.26954796471586,
-    "Horsepower": 74.90348091881388,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 42.5417928976007,
-    "Horsepower": 76.27988002280122,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 23.363475492632954,
-    "Horsepower": 78.13439617589877,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 83.31280851234638,
-    "Origin": "USA",
-    "Miles_per_Gallon": 23.043039996041873
-  },
-  {
-    "Miles_per_Gallon": 22.7451582115412,
-    "Horsepower": 86.08438712428621,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 87.1573421768797,
-    "Origin": "USA",
-    "Miles_per_Gallon": 23.941496899886317
-  },
-  {
-    "Miles_per_Gallon": 24.327380093430726,
-    "Horsepower": 80.93760583126489,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 25.560957761678086,
-    "Horsepower": 80.61446948358159,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 24.903666502261654,
-    "Horsepower": 81.36691778158614,
-    "Origin": "Europe"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 22.910864265833002,
-    "Horsepower": 88.1110510438102
-  },
-  {
-    "Miles_per_Gallon": 23.834435160569203,
-    "Horsepower": 90.04812800462004,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 26.862883562906102,
-    "Horsepower": 89.89437714693761,
-    "Origin": "Europe"
-  },
-  {
-    "Horsepower": 92.2754336722826,
-    "Origin": "USA",
-    "Miles_per_Gallon": 23.732850828665843
+    "Miles_per_Gallon": 22.109640868342467,
+    "Horsepower": 92.53244102082468
   },
   {
     "Origin": "USA",
-    "Miles_per_Gallon": 24.349187301724214,
-    "Horsepower": 89.84956845740969
+    "Miles_per_Gallon": 22.067349352566346,
+    "Horsepower": 94.13457135150891
   },
   {
-    "Miles_per_Gallon": 24.412897339759798,
-    "Horsepower": 87.8835893729398,
+    "Origin": "USA",
+    "Miles_per_Gallon": 22.390108824235078,
+    "Horsepower": 91.72783554058779
+  },
+  {
+    "Miles_per_Gallon": 22.47522397461941,
+    "Horsepower": 89.6312473495573,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 19.73106096650984,
+    "Horsepower": 103.1425924728275
+  },
+  {
+    "Miles_per_Gallon": 19.867526226818445,
+    "Horsepower": 103.0459023439517,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19.923922880295088,
+    "Horsepower": 103.19871671868864,
     "Origin": "USA"
   },
   {
     "Origin": "Europe",
-    "Miles_per_Gallon": 21.209552907941436,
-    "Horsepower": 86.87210946235436
+    "Miles_per_Gallon": 19.798741176916653,
+    "Horsepower": 100.0433424751907
   },
   {
-    "Miles_per_Gallon": 25.05461828488713,
-    "Horsepower": 91.83261699721609,
+    "Miles_per_Gallon": 20.458970588643055,
+    "Horsepower": 103.56990833962293,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 20.557635256728627,
+    "Horsepower": 100.75686923008904
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 20.5708117074741,
+    "Horsepower": 103.46653743829312
+  },
+  {
+    "Miles_per_Gallon": 20.58568219247972,
+    "Horsepower": 104.86697955673583,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 25.446032864747416,
-    "Horsepower": 77.18471652090308,
+    "Miles_per_Gallon": 19.438516074560486,
+    "Horsepower": 113.11075719464517,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.050599511581943,
+    "Horsepower": 114.29122967275916,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 20.57053183533354,
+    "Horsepower": 117.58479010903136,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 19.303593732419486,
+    "Horsepower": 123.69625589295698,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 19.780668845319326,
+    "Horsepower": 123.45616562096649,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21.002043085563177,
+    "Horsepower": 107.25650896606072,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21.111392250448457,
+    "Horsepower": 109.46381517733528,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 109.77150178536476,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 21.360036095351703
+  },
+  {
+    "Miles_per_Gallon": 21.355195583043738,
+    "Horsepower": 108.64971991889891,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 22.154010199819172,
+    "Horsepower": 98.37997118467257,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 22.00081344567109,
+    "Horsepower": 101.25887036825283,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 99.96977009960396,
+    "Origin": "USA",
+    "Miles_per_Gallon": 22.147799842447174
+  },
+  {
+    "Miles_per_Gallon": 22.37354808556601,
+    "Horsepower": 102.18337230476806,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 22.386355916503973,
+    "Horsepower": 103.90760075624155,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21.84375284203689,
+    "Horsepower": 112.42777915027902,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21.511234474752108,
+    "Horsepower": 114.51774243812145,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 21.817458456108895,
+    "Horsepower": 114.50087494452075,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 147.76898171325163,
+    "Origin": "USA",
+    "Miles_per_Gallon": 11.849318956952448
+  },
+  {
+    "Miles_per_Gallon": 12.665900227717877,
+    "Horsepower": 131.50278249754697,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.745145362474906,
+    "Horsepower": 132.5610163321271,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.680057376981107,
+    "Horsepower": 129.05202882760065,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.645384761478109,
+    "Horsepower": 138.53581406981345,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.607631000451898,
+    "Horsepower": 139.0556191202354,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.728397614944573,
+    "Horsepower": 143.42915172852133,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.944214787648917,
+    "Horsepower": 146.60132192441833,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.531802823357939,
+    "Horsepower": 146.18370684227986,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.428184318643757,
+    "Horsepower": 143.01122671481772,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 148.17216162023632,
+    "Origin": "USA",
+    "Miles_per_Gallon": 12.837542692463495
+  },
+  {
+    "Miles_per_Gallon": 12.19224786710751,
+    "Horsepower": 156.34926586436578,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.754174738207363,
+    "Horsepower": 158.4526088682519,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 12.33763078265401,
+    "Horsepower": 159.8955472851744
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 14,
+    "Horsepower": 141.4604039962567
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 140.53983678615404,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 142.87929705247103,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 141.82188318412022,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 149.9196691117785,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 148.45162548228794,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 149.61303893456093,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 147.61971872272548,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Horsepower": 140.13188453676466,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Horsepower": 155.86523272005184,
+    "Origin": "USA",
+    "Miles_per_Gallon": 14
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 154.44687294898256,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 14,
+    "Horsepower": 159.66847067131187
+  },
+  {
+    "Horsepower": 179.73857090082132,
+    "Origin": "USA",
+    "Miles_per_Gallon": 11.024047521156437
+  },
+  {
+    "Miles_per_Gallon": 11.989064819526668,
+    "Horsepower": 179.68908789570585,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.206145131694704,
+    "Horsepower": 178.4904674676494,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 11.604254395024455,
+    "Horsepower": 178.8866188341797,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.373137091420706,
+    "Horsepower": 165.43746419692673,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.695207788559271,
+    "Horsepower": 176.12308747342686,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.931615348140554,
+    "Horsepower": 167.81795220528213,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.997701006384307,
+    "Horsepower": 171.78051308162307,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.445558896596218,
+    "Horsepower": 166.47536242970108,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.977479292680375,
+    "Horsepower": 176.06600287079334,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 9.308346835305331,
+    "Horsepower": 205.0560911742143,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 10.17147221866697,
+    "Horsepower": 204.41733527134545,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 9.207231576429553,
+    "Horsepower": 210.881072497758
+  },
+  {
+    "Horsepower": 206.65118677897158,
+    "Origin": "USA",
+    "Miles_per_Gallon": 10.967059114383055
+  },
+  {
+    "Miles_per_Gallon": 9.461477307655922,
+    "Horsepower": 208.1493793942677,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.051374482604976,
+    "Horsepower": 191.85712672547643,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 12.023216123930977,
+    "Horsepower": 223.41644373909287,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 197.58125051313164,
+    "Origin": "USA",
+    "Miles_per_Gallon": 12.808027143942002
+  },
+  {
+    "Miles_per_Gallon": 12.760210864139665,
+    "Horsepower": 220.78751213153066,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 171.13249128764247,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 14,
+    "Horsepower": 172.3572016851921
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 174.5708433927192,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 215.6410173444992,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 220.0007381879378,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 14,
+    "Horsepower": 217.25212987967936
+  },
+  {
+    "Miles_per_Gallon": 14,
+    "Horsepower": 224.86806604770334,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.253820939303333,
+    "Horsepower": 134.8543015635989,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.072112467484022,
+    "Horsepower": 142.15446078711216,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.011992075089475,
+    "Horsepower": 143.48509276474982,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.475845754751317,
+    "Horsepower": 143.13737783785015,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.463640814533507,
+    "Horsepower": 144.27376496403355,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.09611681927206,
+    "Horsepower": 138.7801203073441,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.14241312978133,
+    "Horsepower": 148.83217554850643,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.19543834472613,
+    "Horsepower": 133.42248947964063,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16,
+    "Horsepower": 150,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 150,
+    "Origin": "USA",
+    "Miles_per_Gallon": 16
+  },
+  {
+    "Miles_per_Gallon": 16.599370436486524,
+    "Horsepower": 139.11109702902928,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.731725983358412,
+    "Horsepower": 132.57147460719574,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.990841307400085,
+    "Horsepower": 139.5027722288404,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.268749597856058,
+    "Horsepower": 135.19017551392204,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 134.42667408152428,
+    "Origin": "USA",
+    "Miles_per_Gallon": 17.261019108898275
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 17.884141303767308,
+    "Horsepower": 129.93508001618858
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 18.04563682632455,
+    "Horsepower": 131.10184754914636
+  },
+  {
+    "Horsepower": 133.87514532055806,
+    "Origin": "USA",
+    "Miles_per_Gallon": 18.17915640279209
+  },
+  {
+    "Miles_per_Gallon": 20.13602809271263,
+    "Horsepower": 139.70617379578084,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 139.14045125549686,
+    "Origin": "USA",
+    "Miles_per_Gallon": 20.018060559232744
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 19.548642017574743,
+    "Horsepower": 139.79102432817163
+  },
+  {
+    "Miles_per_Gallon": 17.886567134754735,
+    "Horsepower": 145.12858977854546,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.05955169927613,
+    "Horsepower": 145.4814443207228,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 17.123553096574625,
+    "Horsepower": 145.23226734093038
+  },
+  {
+    "Miles_per_Gallon": 18.173401066225903,
+    "Horsepower": 147.56641074614558,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.858371752692022,
+    "Horsepower": 149.54450649374326,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14.848902456238704,
+    "Horsepower": 159.73650942396387,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 15.015076011983902,
+    "Horsepower": 163.96687375021298,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 14.556791528515715,
+    "Horsepower": 165.69751433628028,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 157.75492153949403,
+    "Origin": "USA",
+    "Miles_per_Gallon": 15.324733172257474
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 15.459720210401374,
+    "Horsepower": 194.38728824128944
+  },
+  {
+    "Horsepower": 190.34438944716547,
+    "Origin": "USA",
+    "Miles_per_Gallon": 15.373313312671643
+  },
+  {
+    "Miles_per_Gallon": 15.161456695189772,
+    "Horsepower": 194.22452053062028,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.976423231995092,
+    "Horsepower": 161.23044262059787,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 17.688056623083042,
+    "Horsepower": 166.69972884244427,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.454959344906534,
+    "Horsepower": 165.8929219028043,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 16.137946088660208,
+    "Horsepower": 186.66170762341264,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 16.435820182784706,
+    "Horsepower": 181.40303169315163
+  },
+  {
+    "Miles_per_Gallon": 16.09458356255615,
+    "Horsepower": 226.0774851872145,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 49.86295657035568,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 23.637114249658136
+  },
+  {
+    "Miles_per_Gallon": 24.78149475651073,
+    "Horsepower": 54.99270912666369,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.982621599722524,
+    "Horsepower": 46.60597327178928,
     "Origin": "Europe"
   },
   {
     "Origin": "Europe",
-    "Miles_per_Gallon": 26.133441552608204,
-    "Horsepower": 78.17706235646178
+    "Miles_per_Gallon": 25.844679059738578,
+    "Horsepower": 52.244574414965264
   },
   {
-    "Horsepower": 79.21522251618711,
+    "Miles_per_Gallon": 27.234295955078135,
+    "Horsepower": 57.98436225635533,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 28.911897250363683,
+    "Horsepower": 54.573101586503384,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 28.03706931136346,
+    "Horsepower": 51.11375302155267,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 27.379070898404905,
+    "Horsepower": 67.28689697764953,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29.49246913984185,
+    "Horsepower": 67.67445780166945,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 29.47958118874329,
+    "Horsepower": 64.64595179436841,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29.90830064688378,
+    "Horsepower": 65.25544468742581,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 29.99535994356267,
+    "Horsepower": 66.78550568169373,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 29.98869846343467,
+    "Horsepower": 67.15567355680143,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29.97635184079738,
+    "Horsepower": 67.34805337619332,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 59.68130745935021,
     "Origin": "USA",
-    "Miles_per_Gallon": 25.905591090941545
+    "Miles_per_Gallon": 30.602086858897533
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 30.918770868450157,
+    "Horsepower": 53.189692906294
+  },
+  {
+    "Horsepower": 61.45803392738074,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 30.779313720938788
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31.806485511050568,
+    "Horsepower": 63.4695597301397
+  },
+  {
+    "Miles_per_Gallon": 31.97440215479409,
+    "Horsepower": 62.57972555595329,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31.99031306998378,
+    "Horsepower": 63.56860724300969
+  },
+  {
+    "Miles_per_Gallon": 31.218176355698223,
+    "Horsepower": 67.01139877335824,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 31.01869778831323,
+    "Horsepower": 67.80329131405058,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 31.8280912006149,
+    "Horsepower": 67.06279111359295,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 31.028455034026262,
+    "Horsepower": 67.96034241380714,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 31.136337255502152,
+    "Horsepower": 67.94047518426552,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 25.78651230869744,
+    "Horsepower": 69.15129051577036,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25.804757518293176,
+    "Horsepower": 69.46549529074981,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.0034572924853,
+    "Horsepower": 70.89699411327801,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 27.187514005588117,
+    "Horsepower": 71.73209396551535,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 26.81215228765447,
+    "Horsepower": 70.93459412877506,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.0028045132806,
+    "Horsepower": 73.30717574112808,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 24.919919575819737,
+    "Horsepower": 73.80677854536715,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 24.51927360368869,
+    "Horsepower": 74.29897076682504,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.061526499153356,
+    "Horsepower": 74.06486756913165,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 25.048562368075164,
+    "Horsepower": 74.30767623712356
+  },
+  {
+    "Miles_per_Gallon": 25.941613260195865,
+    "Horsepower": 69.64265029215647,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.734471983835487,
+    "Horsepower": 73.83010174363054,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 29.06993923938923,
+    "Horsepower": 70.32935231986971,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29.011044903718492,
+    "Horsepower": 70.60674107204339,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 29.440609172478926,
+    "Horsepower": 70.69048039457249,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 30.472751991806422,
+    "Horsepower": 70.37142588520096,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 30.936298841291894,
+    "Horsepower": 70.87558195850976,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 31.468101530067553,
+    "Horsepower": 70.95391551838763,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31.107734853161944,
+    "Horsepower": 70.21335775154888
+  },
+  {
+    "Miles_per_Gallon": 29.478764991944185,
+    "Horsepower": 75.26173208799422,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 29.663053571233768,
+    "Horsepower": 75.99179515048345,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 30.695614279982202,
+    "Horsepower": 75.7231954288916,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 30.920126980482767,
+    "Horsepower": 74.90377426209119,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 31.42739450020794,
+    "Horsepower": 74.85839334598694
+  },
+  {
+    "Miles_per_Gallon": 31.581158159015466,
+    "Horsepower": 74.40335914912525,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 52.296099098244866,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 32.83129548204007
+  },
+  {
+    "Miles_per_Gallon": 32.9739023464915,
+    "Horsepower": 52.92635329265507,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 52.887374140102935,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 32.96042250442005
+  },
+  {
+    "Miles_per_Gallon": 35.07061077463391,
+    "Horsepower": 61.88591869930904,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 34.91444572938883,
+    "Horsepower": 59.35907197367181,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 35.84335708291815,
+    "Horsepower": 58.345622233848566,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 35.46617438044572,
+    "Horsepower": 61.444880955458004,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32.3138506660518,
+    "Horsepower": 66.99078684068661,
+    "Origin": "Japan"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 33.227141573653235,
+    "Horsepower": 66.50603608186319
+  },
+  {
+    "Miles_per_Gallon": 33.589427367057745,
+    "Horsepower": 65.52820533575158,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 34.520552710180944,
+    "Horsepower": 65.389397243525,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 66.71377299556184,
+    "Origin": "USA",
+    "Miles_per_Gallon": 36.01263211492424
+  },
+  {
+    "Miles_per_Gallon": 36.05231760041625,
+    "Horsepower": 66.64744828332785,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 35.26232915810671,
+    "Horsepower": 65.6645165848307,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 37.85483466269307,
+    "Horsepower": 59.3499198578988,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 38.33731425744899,
+    "Horsepower": 58.5742084530312,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 39.06918422142754,
+    "Horsepower": 58.80845423088205,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 43.118376396000954,
+    "Horsepower": 48.80665323637676,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 43.43026386567126,
+    "Horsepower": 48.357698438295216,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 43.81663982624558,
+    "Horsepower": 50.512722874532585,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 44.2700070041122,
+    "Horsepower": 48.19852886682279,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 37.22270612114174,
+    "Horsepower": 65.34372907378489,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 37.94488103051686,
+    "Horsepower": 63.02337695934938,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 37.575352338586825,
+    "Horsepower": 66.62926273080058,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 37.61184397918431,
+    "Horsepower": 66.36508143191386,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 40.48831726252698,
+    "Horsepower": 64.17955704654149,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 39.29547985434357,
+    "Horsepower": 65.40318902522212,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 43.11767695738383,
+    "Horsepower": 66.42319353046756,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 46.18177015022462,
+    "Horsepower": 64.00437775593318,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 68.13983173132233,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 33.37610512592233
+  },
+  {
+    "Miles_per_Gallon": 32.199317309149954,
+    "Horsepower": 68.88092834104452,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 68.01702782187141,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 32.78168837151206
+  },
+  {
+    "Miles_per_Gallon": 32.386427276478514,
+    "Horsepower": 69.6218555117954,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32.218613643043504,
+    "Horsepower": 72.6054476619049,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33.25220842766748,
+    "Horsepower": 73.07108101206633,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 32.41987304845322,
+    "Horsepower": 74.80140254125182,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 32.56924431121387,
+    "Horsepower": 74.84733708607033,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 33.260777503409074,
+    "Horsepower": 72.97057322193993,
+    "Origin": "Japan"
   },
   {
     "Origin": "USA",
-    "Miles_per_Gallon": 26.87852989260365,
-    "Horsepower": 79.92152059572737
+    "Miles_per_Gallon": 34.66260366554628,
+    "Horsepower": 69.65993736245626
   },
   {
-    "Miles_per_Gallon": 26.462742769075632,
-    "Horsepower": 83.54995877783034,
+    "Miles_per_Gallon": 34.63620928669128,
+    "Horsepower": 69.80205666294812,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 25.002247269188505,
-    "Horsepower": 87.83311438672081,
+    "Miles_per_Gallon": 34.940338090269236,
+    "Horsepower": 69.3244861291739,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 36.58727996656628,
+    "Horsepower": 69.45937486303508,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 25.553941094279782,
-    "Horsepower": 89.26352028593026,
+    "Miles_per_Gallon": 37.93106471510632,
+    "Horsepower": 68.9364672844175,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 37.98680907569595,
+    "Horsepower": 69.89876020126196,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 38.604829335257115,
+    "Horsepower": 69.88907374010779,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 36.057816711631204,
+    "Horsepower": 74.12963717387403,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 36.91330662347922,
+    "Horsepower": 74.51203997477263,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 39.86404555694707,
+    "Horsepower": 75.42805049212487,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 23,
+    "Horsepower": 82.5061056872232,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 25.64907470045863,
-    "Horsepower": 89.66264121475585,
+    "Origin": "USA",
+    "Miles_per_Gallon": 23,
+    "Horsepower": 84.97991420136114
+  },
+  {
+    "Horsepower": 80.45394853565033,
+    "Origin": "USA",
+    "Miles_per_Gallon": 23
+  },
+  {
+    "Miles_per_Gallon": 23.883073379277025,
+    "Horsepower": 83.98984846954676,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 83.62615640481388,
+    "Origin": "USA",
+    "Miles_per_Gallon": 24.25287381822558
+  },
+  {
+    "Miles_per_Gallon": 24.119874612960455,
+    "Horsepower": 81.22460044761499,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 24.452679873115795,
+    "Horsepower": 82.29339282107141,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Europe",
+    "Miles_per_Gallon": 23.58871178966176,
+    "Horsepower": 88.9680570539226
+  },
+  {
+    "Miles_per_Gallon": 23.286934201745137,
+    "Horsepower": 89.0205915055692,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 23.702134643144213,
+    "Horsepower": 89.45538229222562,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 23.956252888542135,
+    "Horsepower": 91.39241075758578,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 24.33777284421407,
+    "Horsepower": 88.61556459692179,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 88.36622651901946,
+    "Origin": "USA",
+    "Miles_per_Gallon": 24.653177456266466
+  },
+  {
+    "Miles_per_Gallon": 24.97327098517913,
+    "Horsepower": 88.87712923346629,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 24.890101600282783,
+    "Horsepower": 90.90430786386369,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.243127190681413,
+    "Horsepower": 77.76915554658909,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 26.040627505705842,
+    "Horsepower": 78.6002370256564,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25.97408235830642,
+    "Horsepower": 79.3006382413345,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.975186347168247,
+    "Horsepower": 80.60730215839988,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.371513397319088,
+    "Horsepower": 83.42413939628602,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.144369022538292,
+    "Horsepower": 88.21526563984769,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 25.61193192833695,
+    "Horsepower": 89.58418076140721
+  },
+  {
+    "Miles_per_Gallon": 25.660172362434587,
+    "Horsepower": 91.37657743683084,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.252563378073727,
+    "Horsepower": 89.53887493607496,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 90.80854671348334,
+    "Origin": "USA",
+    "Miles_per_Gallon": 26.158048383968158
+  },
+  {
+    "Miles_per_Gallon": 26.292166950808255,
+    "Horsepower": 89.84284745164223,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 23.876890597545184,
+    "Horsepower": 95.14794739122094,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 95.06776267564348,
+    "Origin": "Europe",
+    "Miles_per_Gallon": 23.179886724429064
+  },
+  {
+    "Miles_per_Gallon": 23.172180178046247,
+    "Horsepower": 95.91221984712749,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 23.84942254128003,
+    "Horsepower": 96.4965844716189,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 95.21957131516216,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 95.07277522841237,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 96.37141174547642,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 96.54926462382792,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24,
+    "Horsepower": 96.77993853281595,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 23.76553413575558,
+    "Horsepower": 105.73450308651937,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 23.120737960542314,
+    "Horsepower": 122.07540128294102,
+    "Origin": "USA"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 23.942786614431586,
+    "Horsepower": 116.35049851384711
+  },
+  {
+    "Miles_per_Gallon": 23.734257826348188,
+    "Horsepower": 112.77190368471689,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 23.279847046256616,
+    "Horsepower": 123.88568064148325,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.384048885606358,
+    "Horsepower": 101.88096056875574,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 25.104063524821196,
+    "Horsepower": 99.54408344024242,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 25.09752776408007,
+    "Horsepower": 95.94118526885178
+  },
+  {
+    "Miles_per_Gallon": 25.19591897557364,
+    "Horsepower": 94.74957699702927,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 26.36560083984313,
+    "Horsepower": 100.8850120193503,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.32623237197365,
+    "Horsepower": 110.05856080396835,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 25.072869026741614,
+    "Horsepower": 115.70366540104723,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25.081279077640602,
+    "Horsepower": 117.97215862474135,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 25.27377631959122,
+    "Horsepower": 116.22320487967725,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 24.606067685611887,
+    "Horsepower": 117.2211645722677,
+    "Origin": "Japan"
+  },
+  {
+    "Miles_per_Gallon": 27.500875940211913,
+    "Horsepower": 82.17993976343465,
+    "Origin": "Europe"
+  },
+  {
+    "Origin": "USA",
+    "Miles_per_Gallon": 27.36020011909401,
+    "Horsepower": 82.82512123031783
+  },
+  {
+    "Miles_per_Gallon": 27.149175134143494,
+    "Horsepower": 82.40835033272764,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 27.987257241196847,
+    "Horsepower": 81.37345190074441,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 27.39506256670946,
+    "Horsepower": 80.54131984532476,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 28.69682297782652,
+    "Horsepower": 81.51064878565454,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 28.509187013065034,
+    "Horsepower": 79.64581778257956,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 28.951146580042938,
+    "Horsepower": 83.06752828458235,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 28.41993296936174,
+    "Horsepower": 82.66782580887059,
+    "Origin": "USA"
+  },
+  {
+    "Horsepower": 87.01738480766772,
+    "Origin": "USA",
+    "Miles_per_Gallon": 27.57961465917126
+  },
+  {
+    "Origin": "Japan",
+    "Miles_per_Gallon": 27.469591510954952,
+    "Horsepower": 87.01971530513684
+  },
+  {
+    "Miles_per_Gallon": 27.245129490706862,
+    "Horsepower": 87.62519691123714,
+    "Origin": "Japan"
+  },
+  {
+    "Horsepower": 86.2543516788271,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 27.121498167474304
+  },
+  {
+    "Miles_per_Gallon": 27.323696301244762,
+    "Horsepower": 87.49785527646262,
     "Origin": "USA"
   },
   {
     "Origin": "Europe",
-    "Miles_per_Gallon": 25.726146789940408,
-    "Horsepower": 90.0412080762212
+    "Miles_per_Gallon": 27.949322533494858,
+    "Horsepower": 87.94486724227984
   },
   {
-    "Miles_per_Gallon": 26.096732281448123,
-    "Horsepower": 94.64638522669135,
+    "Horsepower": 87.90614102655252,
+    "Origin": "USA",
+    "Miles_per_Gallon": 27.302021766033757
+  },
+  {
+    "Miles_per_Gallon": 30.838129413218667,
+    "Horsepower": 78.55755071660786,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 23.606841513102253,
-    "Horsepower": 88.16762786509298,
+    "Miles_per_Gallon": 30.573029966414666,
+    "Horsepower": 83.40704447320428,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 22.841588552917987,
-    "Horsepower": 95.40092598732257,
+    "Miles_per_Gallon": 30.244448387317288,
+    "Horsepower": 79.03090654544098,
+    "Origin": "Europe"
+  },
+  {
+    "Horsepower": 78.77181508326326,
+    "Origin": "USA",
+    "Miles_per_Gallon": 30.31342329969583
+  },
+  {
+    "Horsepower": 83.17390123646925,
+    "Origin": "USA",
+    "Miles_per_Gallon": 33.48561328227028
+  },
+  {
+    "Miles_per_Gallon": 33.443959851377336,
+    "Horsepower": 82.36909394479977,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 22.105136576043716,
-    "Horsepower": 95.88669966067258,
+    "Miles_per_Gallon": 33.531159057145274,
+    "Horsepower": 79.19124001701054,
+    "Origin": "Europe"
+  },
+  {
+    "Miles_per_Gallon": 35.622408949445024,
+    "Horsepower": 81.63359869868071,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 34.592776147053705,
+    "Horsepower": 82.40820433490028,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 32.52751619451724,
+    "Horsepower": 85.33166313408998,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 37.26664290303294,
+    "Horsepower": 85.67829057321961,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 35.6141817471853,
+    "Horsepower": 87.37651913663737,
+    "Origin": "USA"
+  },
+  {
+    "Miles_per_Gallon": 37.19579098627038,
+    "Horsepower": 87.7796765156731,
     "Origin": "Europe"
   },
   {
     "Origin": "Japan",
-    "Miles_per_Gallon": 22.892811048668154,
-    "Horsepower": 96.799336921149
+    "Miles_per_Gallon": 33.23923566392907,
+    "Horsepower": 87.42093768883598
   },
   {
-    "Miles_per_Gallon": 23.823782642040953,
-    "Horsepower": 96.93379718115654,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 23.761942783686038,
-    "Horsepower": 94.158529536711,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 23.77335155352039,
-    "Horsepower": 95.06820517983897,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 24.861927768706995,
-    "Horsepower": 96.08717368097014,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 22.49321388554918,
-    "Horsepower": 96.93284655697106,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 23.90594590494649,
-    "Horsepower": 97.21042077245906,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 20.99241187152932,
-    "Horsepower": 100.13442961696106,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 104.1792723515981,
+    "Horsepower": 90,
     "Origin": "USA",
-    "Miles_per_Gallon": 23.04234526705746
+    "Miles_per_Gallon": 27.023987044115593
   },
   {
-    "Miles_per_Gallon": 23.387071353473836,
-    "Horsepower": 113.14900600478833,
+    "Miles_per_Gallon": 27.24189214298891,
+    "Horsepower": 90,
     "Origin": "USA"
   },
   {
-    "Horsepower": 110.12152503318562,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 25.859586778570495
+    "Origin": "USA",
+    "Miles_per_Gallon": 27.34999723960066,
+    "Horsepower": 90
   },
   {
-    "Miles_per_Gallon": 23.205201113042442,
-    "Horsepower": 125.52117342265333,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 25.876712614490284,
-    "Horsepower": 93.38156811498517,
-    "Origin": "Japan"
-  },
-  {
-    "Horsepower": 95.24425363885379,
-    "Origin": "Europe",
-    "Miles_per_Gallon": 22.75005910086558
-  },
-  {
-    "Miles_per_Gallon": 25.31657118874398,
-    "Horsepower": 95.51631765566577,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 25.724426644178024,
-    "Horsepower": 96.66712304212687,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 26.518854569431763,
-    "Horsepower": 105.31864897392597,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 25.10482888219086,
-    "Horsepower": 109.82288404411739,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 26.233261063604893,
-    "Horsepower": 113.66856963341687,
+    "Miles_per_Gallon": 27.56101448347083,
+    "Horsepower": 90,
     "Origin": "Europe"
   },
   {
-    "Miles_per_Gallon": 24.91818236798786,
-    "Horsepower": 115.4546248507372,
-    "Origin": "Europe"
+    "Origin": "USA",
+    "Miles_per_Gallon": 27.572692571404378,
+    "Horsepower": 90
   },
   {
-    "Horsepower": 115.5602070258597,
+    "Horsepower": 93.2657727660089,
     "Origin": "Japan",
-    "Miles_per_Gallon": 25.48343275114959
-  },
-  {
-    "Miles_per_Gallon": 27.439933306560068,
-    "Horsepower": 120.5133231803649,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 26.935249641588857,
-    "Horsepower": 82.6916888795517,
-    "Origin": "Europe"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 27.296379690329786,
-    "Horsepower": 84.70751250366125
-  },
-  {
-    "Horsepower": 76.9047220966827,
-    "Origin": "USA",
-    "Miles_per_Gallon": 26.634327675288763
-  },
-  {
-    "Miles_per_Gallon": 28.218296358970424,
-    "Horsepower": 79.29698937616465,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 24.818085310064834,
-    "Horsepower": 79.92118041117897,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 27.9499296657038,
-    "Horsepower": 79.90875388156456
-  },
-  {
-    "Miles_per_Gallon": 28.246155040953944,
-    "Horsepower": 76.15133178690789,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 29.04791613872254,
-    "Horsepower": 83.07050460044998,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 29.34060856190984,
-    "Horsepower": 84.12987415691804,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 26.944059789238306,
-    "Horsepower": 85.9361394249479,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 88.2859521068589,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 27.09169763930279
+    "Miles_per_Gallon": 27.29907402531144
   },
   {
     "Origin": "Japan",
-    "Miles_per_Gallon": 27.138018328744113,
-    "Horsepower": 88.2827282362854
+    "Miles_per_Gallon": 26.901843902603872,
+    "Horsepower": 98.04710220427765
   },
   {
     "Origin": "Japan",
-    "Miles_per_Gallon": 26.876815917463947,
-    "Horsepower": 88.35478807027594
+    "Miles_per_Gallon": 27.284340666336043,
+    "Horsepower": 103.5342063382922
   },
   {
-    "Origin": "USA",
-    "Miles_per_Gallon": 26.83759443607369,
-    "Horsepower": 88.20202859142465
-  },
-  {
-    "Origin": "Europe",
-    "Miles_per_Gallon": 27.943815302694606,
-    "Horsepower": 85.91319851875849
-  },
-  {
-    "Horsepower": 90.9440721996574,
-    "Origin": "USA",
-    "Miles_per_Gallon": 28.06778451208523
-  },
-  {
-    "Horsepower": 80.54914769572889,
-    "Origin": "USA",
-    "Miles_per_Gallon": 30.102874776090154
-  },
-  {
-    "Horsepower": 86.97162673901175,
-    "Origin": "USA",
-    "Miles_per_Gallon": 30.103716155397564
-  },
-  {
-    "Miles_per_Gallon": 30.67607774081756,
-    "Horsepower": 77.90107181433463,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 31.044012862251577,
-    "Horsepower": 81.83125912965811,
+    "Miles_per_Gallon": 27.35132931198792,
+    "Horsepower": 109.5092460379319,
     "Origin": "USA"
   },
   {
-    "Origin": "USA",
-    "Miles_per_Gallon": 32.26386501490424,
-    "Horsepower": 89.1864245633191
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 33.32812492659987,
-    "Horsepower": 82.37820020638303
-  },
-  {
-    "Miles_per_Gallon": 35.47966393105202,
-    "Horsepower": 77.34017280868314,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 35.24980815502345,
-    "Horsepower": 82.95435712395175,
+    "Miles_per_Gallon": 27.098459075269748,
+    "Horsepower": 111.98252833797541,
     "Origin": "USA"
   },
   {
-    "Miles_per_Gallon": 39.431783420173474,
-    "Horsepower": 80.89029111421539,
+    "Miles_per_Gallon": 30.37687824962289,
+    "Horsepower": 90.33445834319899,
     "Origin": "USA"
   },
   {
-    "Origin": "USA",
-    "Miles_per_Gallon": 31.071468652704947,
-    "Horsepower": 84.75135401760174
+    "Horsepower": 90.00443995709223,
+    "Origin": "Japan",
+    "Miles_per_Gallon": 32.55758865638611
   },
   {
-    "Miles_per_Gallon": 37.94757502995712,
-    "Horsepower": 84.91761580444788,
+    "Miles_per_Gallon": 36.41750035120266,
+    "Horsepower": 90.05590076730331,
     "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 34.08501405548433,
-    "Horsepower": 88.58105664626618,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 35.19999605313296,
-    "Horsepower": 88.36005471458094,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 35.90758537876204,
-    "Horsepower": 88.07892170053995,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 26.905599684251815,
-    "Horsepower": 89.87183625441891,
-    "Origin": "USA"
-  },
-  {
-    "Horsepower": 97.88547961664925,
-    "Origin": "USA",
-    "Miles_per_Gallon": 26.77030671818055
-  },
-  {
-    "Miles_per_Gallon": 27.507720711515194,
-    "Horsepower": 89.94750408868131,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 27.915836557069035,
-    "Horsepower": 88.06800835086798,
-    "Origin": "Europe"
-  },
-  {
-    "Miles_per_Gallon": 28.126023820299054,
-    "Horsepower": 91.49155538617798,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 27.948405489082017,
-    "Horsepower": 91.8170486721586,
-    "Origin": "Japan"
-  },
-  {
-    "Miles_per_Gallon": 27.416305106967993,
-    "Horsepower": 94.40722305359617,
-    "Origin": "Japan"
   },
   {
     "Origin": "Japan",
-    "Miles_per_Gallon": 27.618898778830314,
-    "Horsepower": 98.10883132560197
+    "Miles_per_Gallon": 35.68319083150343,
+    "Horsepower": 91.85905842135068
   },
   {
-    "Miles_per_Gallon": 27.96081587968577,
-    "Horsepower": 104.82450048425045,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 26.888567672966012,
-    "Horsepower": 112.8634093599592,
-    "Origin": "USA"
-  },
-  {
-    "Origin": "USA",
-    "Miles_per_Gallon": 28.30367576882621,
-    "Horsepower": 90.86935636931987
-  },
-  {
-    "Horsepower": 89.93611346749141,
-    "Origin": "Japan",
-    "Miles_per_Gallon": 29.382985870006937
-  },
-  {
-    "Miles_per_Gallon": 33.24137049457365,
-    "Horsepower": 89.04660203567609,
-    "Origin": "USA"
-  },
-  {
-    "Miles_per_Gallon": 36.764661239822864,
-    "Horsepower": 91.9113208357899,
+    "Miles_per_Gallon": 30.9322844027579,
+    "Horsepower": 107.78401513713742,
     "Origin": "Japan"
   },
   {
-    "Miles_per_Gallon": 32.13220276219278,
-    "Horsepower": 95.77399502051972,
+    "Miles_per_Gallon": 32.43031653488481,
+    "Horsepower": 121.24549726537286,
     "Origin": "Japan"
   },
   {
-    "Miles_per_Gallon": 33.08309317167246,
-    "Horsepower": 99.46022851795409,
-    "Origin": "Japan"
+    "Miles_per_Gallon": 29.433396319588752,
+    "Horsepower": 121.20319264849749,
+    "Origin": "USA"
   },
   {
-    "Origin": "USA",
-    "Miles_per_Gallon": 28.8822046435808,
-    "Horsepower": 116.17036151055505
-  },
-  {
-    "Miles_per_Gallon": 34.41087091609931,
-    "Horsepower": 131.90111763079872,
+    "Miles_per_Gallon": 32.61214335567553,
+    "Horsepower": 131.38301475885214,
     "Origin": "Japan"
   }
 ]
