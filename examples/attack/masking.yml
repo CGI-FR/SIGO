@@ -1,0 +1,19 @@
+version: v1
+masking:
+  - selector:
+      jsonpath: "z"
+    mask:
+      add: "{{.x}}-{{.y}}"
+  - selector:
+      jsonpath: "z"
+    mask:
+      incremental:
+        start: 1
+        increment: 1
+    cache: "id"
+  - selector:
+      jsonpath: "id"
+    mask:
+      remove: true
+caches:
+  id: {}

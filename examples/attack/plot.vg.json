@@ -1,0 +1,283 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 200,
+    "height": 200,
+    "padding": 5,
+
+    "data":[
+        {"name":"points",
+            "values":[
+                {
+                  "y": 8.33,
+                  "x": 4.67,
+                  "z": 1
+                },
+                {
+                  "x": 9.33,
+                  "y": 7.33,
+                  "z": 2
+                },
+                {
+                  "x": 3.67,
+                  "y": 16.67,
+                  "z": 3
+                },
+                {
+                  "x": 10,
+                  "y": 16,
+                  "z": 4
+                },
+                {
+                  "x": 16.4,
+                  "y": 3.6,
+                  "z": 5
+                },
+                {
+                  "x": 15.83,
+                  "y": 14.83,
+                  "z": 6
+                }
+              ]
+
+        },
+        {
+            "name":"original",
+            "values":[
+                {
+                  "x": 5,
+                  "y": 6
+                },
+                {
+                  "x": 3,
+                  "y": 7
+                },
+                {
+                  "x": 4,
+                  "y": 4
+                },
+                {
+                  "x": 2,
+                  "y": 10
+                },
+                {
+                  "x": 8,
+                  "y": 4
+                },
+                {
+                  "x": 8,
+                  "y": 10
+                },
+                {
+                  "x": 3,
+                  "y": 16
+                },
+                {
+                  "x": 7,
+                  "y": 19
+                },
+                {
+                  "x": 6,
+                  "y": 18
+                },
+                {
+                  "x": 4,
+                  "y": 19
+                },
+                {
+                  "x": 7,
+                  "y": 14
+                },
+                {
+                  "x": 10,
+                  "y": 14
+                },
+                {
+                  "x": 15,
+                  "y": 5
+                },
+                {
+                  "x": 15,
+                  "y": 7
+                },
+                {
+                  "x": 11,
+                  "y": 9
+                },
+                {
+                  "x": 12,
+                  "y": 3
+                },
+                {
+                  "x": 18,
+                  "y": 6
+                },
+                {
+                  "x": 14,
+                  "y": 6
+                },
+                {
+                  "x": 20,
+                  "y": 20
+                },
+                {
+                  "x": 18,
+                  "y": 19
+                },
+                {
+                  "x": 20,
+                  "y": 18
+                },
+                {
+                  "x": 18,
+                  "y": 18
+                },
+                {
+                  "x": 14,
+                  "y": 18
+                },
+                {
+                  "x": 19,
+                  "y": 15
+                }
+              ]
+        }
+    ],
+    "signals": [
+        {
+            "name": "w1", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "w2", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "w3", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "w4", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "w5", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "w6", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "h1", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "h2", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "h3", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "h4", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "h5", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        },
+        {
+            "name": "h6", "value": 100,
+            "bind": {"input": "range", "min": 1, "max": 200, "step": 1}
+        }
+        ],
+    "scales": [
+        {
+            "name": "xscale",
+            "type": "linear",
+            "round": true,
+            "nice": true,
+            "zero": true,
+            "domain": {"data": "points", "field": "x"},
+            "range": "width"
+          },
+          {
+            "name": "yscale",
+            "type": "linear",
+            "round": true,
+            "nice": true,
+            "zero": true,
+            "domain": {"data": "points", "field": "y"},
+            "range": "height"
+          }
+    ],
+    "axes": [
+        {
+          "scale": "xscale",
+          "domain": false,
+          "orient": "bottom",
+          "tickCount": 5,
+          "title": "x"
+        },
+        {
+          "scale": "yscale",
+          "domain": false,
+          "orient": "left",
+          "titlePadding": 5,
+          "title": "y"
+        }
+    ],
+    "marks": [
+        {
+            "type": "rect",
+            "from": {"data":"points"},
+            "encode": {
+                "update": {
+                "xc": {"scale": "xscale", "field": "x"},
+                "yc": {"scale": "yscale", "field": "y"},
+                "fill": {"value": "steelblue"},
+                "fillOpacity":{"value":0},
+                "stroke":{"value":2},
+                "strokeOpacity":{"value":0.5},
+                "width": {"signal": "datum.z == '1' ? w1 : datum.z == '2' ? w2 : datum.z == '3' ? w3 : datum.z == '4' ? w4 : datum.z == '5' ? w5 : datum.z == '6' ? w6 : 0"},
+                "height": {"signal": "datum.z == '1' ? h1 : datum.z == '2' ? h2 : datum.z == '3' ? h3 : datum.z == '4' ? h4 : datum.z == '5' ? h5 : datum.z == '6' ? h6 : 0"}
+                },
+                "hover": {
+                "fill": {"value": "red"}
+                }
+            }
+        },
+        {
+            "name": "marks",
+            "type": "symbol",
+            "from": {"data": "points"},
+            "encode": {
+                "update": {
+                "x": {"scale": "xscale", "field": "x"},
+                "y": {"scale": "yscale", "field": "y"},
+                "shape": {"value": "diamond"},
+                "strokeWidth": {"value": 2},
+                "opacity": {"value": 0.5},
+                "stroke": {"value": "#4682b4"},
+                "fill": {"value": "transparent"}
+                }
+            }
+        },
+        {
+            "name": "originalmarks",
+            "type": "symbol",
+            "from": {"data": "original"},
+            "encode": {
+                "update": {
+                "x": {"scale": "xscale", "field": "x"},
+                "y": {"scale": "yscale", "field": "y"},
+                "shape": {"value": "circle"},
+                "strokeWidth": {"value": 2},
+                "opacity": {"value": 1},
+                "stroke": {"value": "#000000"}
+                }
+            }
+        }
+    ]
+  }
