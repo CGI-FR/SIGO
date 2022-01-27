@@ -1,0 +1,43 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width":400,
+    "height":300,
+    "data": {
+      "values": [
+        {"attributes":2, "time (sec)": 0, "method": "NoAnonymizer"},
+        {"attributes":4, "time (sec)": 0, "method": "NoAnonymizer"},
+        {"attributes":8, "time (sec)": 0, "method": "NoAnonymizer"},
+        {"attributes":16, "time (sec)": 1, "method": "NoAnonymizer"},
+        {"attributes":32, "time (sec)": 3, "method": "NoAnonymizer"},
+        {"attributes":2, "time (sec)": 0, "method": "Generalization"},
+        {"attributes":4, "time (sec)": 0, "method": "Generalization"},
+        {"attributes":8, "time (sec)": 1, "method": "Generalization"},
+        {"attributes":16, "time (sec)": 1, "method": "Generalization"},
+        {"attributes":32, "time (sec)": 3, "method": "Generalization"},
+        {"attributes":2, "time (sec)": 0, "method": "Aggregation"},
+        {"attributes":4, "time (sec)": 0, "method": "Aggregation"},
+        {"attributes":8, "time (sec)": 0, "method": "Aggregation"},
+        {"attributes":16, "time (sec)": 1, "method": "Aggregation"},
+        {"attributes":32, "time (sec)": 3, "method": "Aggregation"},
+        {"attributes":2, "time (sec)": 0, "method": "TopBottomCoding"},
+        {"attributes":4, "time (sec)": 0, "method": "TopBottomCoding"},
+        {"attributes":8, "time (sec)": 1, "method": "TopBottomCoding"},
+        {"attributes":16, "time (sec)": 0, "method": "TopBottomCoding"},
+        {"attributes":32, "time (sec)": 4, "method": "TopBottomCoding"},
+        {"attributes":2, "time (sec)": 0, "method": "RandomNoise"},
+        {"attributes":4, "time (sec)": 0, "method": "RandomNoise"},
+        {"attributes":8, "time (sec)": 0, "method": "RandomNoise"},
+        {"attributes":16, "time (sec)": 2, "method": "RandomNoise"},
+        {"attributes":32, "time (sec)": 3, "method": "RandomNoise"}
+      ]
+    },
+    "mark": "square",
+    "encoding": {
+      "x": {"field": "attributes"},
+      "y": {"field": "time (sec)", "type": "quantitative"},
+      "xOffset": {"field": "method"},
+      "color": {"field": "method"},
+      "size": {"value":150},
+      "opacity": {"value":1}
+    }
+  }

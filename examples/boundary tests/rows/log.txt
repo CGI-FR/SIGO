@@ -1,0 +1,39 @@
+NOANONYMIZER
+--------------------------------------------------------------------------------------------------------------
+Test1_1: (n=100, x=2, method=NoAnomymizer) Execution time was 0 seconds.
+Test1_2: (n=1000, x=2, method=NoAnomymizer) Execution time was 0 seconds.
+Test1_3: (n=10000, x=2, method=NoAnomymizer) Execution time was 1 seconds.
+Test1_4: (n=100000, x=2, method=NoAnomymizer) Execution time was 17 seconds.
+Test1_5: (n=1000000, x=2, method=NoAnomymizer) Execution time was 331 seconds.
+
+GENERALIZATION
+--------------------------------------------------------------------------------------------------------------
+Test1_1: (n=100, x=2, method=Generalization) Execution time was 0 seconds.
+Test1_2: (n=1000, x=2, method=Generalization) Execution time was 0 seconds.
+Test1_3: (n=10000, x=2, method=Generalization) Execution time was 1 seconds.
+Test1_4: (n=100000, x=2, method=Generalization) Execution time was 23 seconds.
+Test1_5: (n=1000000, x=2, method=Generalization) Execution time was 342 seconds.
+
+AGGREGATION
+--------------------------------------------------------------------------------------------------------------
+Test1_1: (n=100, x=2, method=Aggregation) Execution time was 0 seconds.
+Test1_2: (n=1000, x=2, method=Aggregation) Execution time was 0 seconds.
+Test1_3: (n=10000, x=2, method=Aggregation) Execution time was 2 seconds.
+Test1_4: (n=100000, x=2, method=Aggregation) Execution time was 20 seconds.
+Test1_5: (n=1000000, x=2, method=Aggregation) Execution time was 332 seconds.
+
+TOPBOTTOMCODING
+--------------------------------------------------------------------------------------------------------------
+Test1_1: (n=100, x=2, method=TopBottomCoding) Execution time was 1 seconds.
+Test1_2: (n=1000, x=2, method=TopBottomCoding) Execution time was 0 seconds.
+Test1_3: (n=10000, x=2, method=TopBottomCoding) Execution time was 1 seconds.
+Test1_4: (n=100000, x=2, method=TopBottomCoding) Execution time was 21 seconds.
+Test1_5: (n=1000000, x=2, method=TopBottomCoding) Execution time was 358 seconds.
+
+RANDOMNOISE
+--------------------------------------------------------------------------------------------------------------
+Test1_1: (n=100, x=2, method=RandomNoise) Execution time was 0 seconds.
+Test1_2: (n=1000, x=2, method=RandomNoise) Execution time was 0 seconds.
+Test1_3: (n=10000, x=2, method=RandomNoise) Execution time was 2 seconds.
+Test1_4: (n=100000, x=2, method=RandomNoise) Execution time was 26 seconds.
+Test1_5: (n=1000000, x=2, method=RandomNoise) Execution time was 374 seconds.

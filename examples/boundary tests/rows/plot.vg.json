@@ -1,0 +1,41 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width":600,
+    "height":300,
+    "data": {"values":[
+      {"rows":100, "time": "27 Janv 2022 16:00:00", "method": "NoAnonymizer"},
+      {"rows":1000, "time": "27 Janv 2022 16:00:00", "method": "NoAnonymizer"},
+      {"rows":10000, "time": "27 Janv 2022 16:00:01", "method": "NoAnonymizer"},
+      {"rows":100000, "time": "27 Janv 2022 16:00:17", "method": "NoAnonymizer"},
+      {"rows":1000000, "time": "27 Janv 2022 16:05:31", "method": "NoAnonymizer"},
+      {"rows":100, "time": "27 Janv 2022 16:00:00", "method": "Generalization"},
+      {"rows":1000, "time": "27 Janv 2022 16:00:00", "method": "Generalization"},
+      {"rows":10000, "time": "27 Janv 2022 16:00:01", "method": "Generalization"},
+      {"rows":100000, "time": "27 Janv 2022 16:00:23", "method": "Generalization"},
+      {"rows":1000000, "time": "27 Janv 2022 16:05:42", "method": "Generalization"},
+      {"rows":100, "time": "27 Janv 2022 16:00:00", "method": "Aggregation"},
+      {"rows":1000, "time": "27 Janv 2022 16:00:00", "method": "Aggregation"},
+      {"rows":10000, "time": "27 Janv 2022 16:00:02", "method": "Aggregation"},
+      {"rows":100000, "time": "27 Janv 2022 16:00:20", "method": "Aggregation"},
+      {"rows":1000000, "time": "27 Janv 2022 16:05:32", "method": "Aggregation"},
+      {"rows":100, "time": "27 Janv 2022 16:00:01", "method": "TopBottomCoding"},
+      {"rows":1000, "time": "27 Janv 2022 16:00:00", "method": "TopBottomCoding"},
+      {"rows":10000, "time": "27 Janv 2022 16:00:01", "method": "TopBottomCoding"},
+      {"rows":100000, "time": "27 Janv 2022 16:00:21", "method": "TopBottomCoding"},
+      {"rows":1000000, "time": "27 Janv 2022 16:05:58", "method": "TopBottomCoding"},
+      {"rows":100, "time": "27 Janv 2022 16:00:00", "method": "RandomNoise"},
+      {"rows":1000, "time": "27 Janv 2022 16:00:00", "method": "RandomNoise"},
+      {"rows":10000, "time": "27 Janv 2022 16:00:02", "method": "RandomNoise"},
+      {"rows":100000, "time": "27 Janv 2022 16:00:26", "method": "RandomNoise"},
+      {"rows":1000000, "time": "27 Janv 2022 16:06:14", "method": "RandomNoise"}
+    ]},
+    "mark": {
+      "type": "line",
+      "point": true
+    },
+    "encoding": {
+      "x": {"field": "time", "timeUnit":"minutesseconds"},
+      "y": {"field": "rows", "type": "quantitative"},
+      "color": {"field": "method", "type": "nominal"}
+    }
+  }
