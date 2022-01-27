@@ -124,38 +124,32 @@ func Sum(listValues []float64) (sum float64) {
 	return sum
 }
 
-func ExpNumber(mean float64) (float64, error) {
-	//nolint: gomnd
-	val, err := rd.Int(rd.Reader, big.NewInt(int64(math.Pow10(15))))
-	//nolint: goerr113
+func ExpNumber(mean float64) float64 {
+	random, err := RandFloat()
 	if err != nil {
-		return 0, errors.New("indicate the list of quasi-identifiers")
+		return 0
 	}
 
-	bigInt, _ := new(big.Float).SetInt(val).Float64()
-	random := bigInt * math.Pow10(-15)
-
-	return -mean * math.Log(random), nil
+	return -mean * math.Log(random)
 }
 
 func LaplaceNumber() float64 {
-	e1, err1 := ExpNumber(1)
-	if err1 != nil {
-		return 0
-	}
-
-	e2, err2 := ExpNumber(1)
-	if err2 != nil {
-		return 0
-	}
+	e1 := ExpNumber(1)
+	e2 := ExpNumber(1)
 
 	return e1 - e2
 }
 
 func GaussianNumber(loc float64, scale float64) float64 {
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().Unix())
 
-	return rand.NormFloat64()*scale + loc
+	z1, z2 := BoxMuller()
+	numbers := []float64{z1, z2}
+	//nolint: gomnd
+	idx, _ := rd.Int(rd.Reader, big.NewInt(2))
+	random := numbers[idx.Int64()]
+
+	return random*scale + loc
 }
 
 func Scaling(value float64, listValues []float64, method string) float64 {
@@ -191,4 +185,28 @@ func Rescaling(value float64, listValues []float64, method string) (rescale floa
 	}
 
 	return rescale
+}
+
+func RandFloat() (float64, error) {
+	//nolint: gomnd
+	val, err := rd.Int(rd.Reader, big.NewInt(int64(math.Pow10(15))))
+	//nolint: goerr113
+	if err != nil {
+		return 0, errors.New("cannot generate random value")
+	}
+
+	bigInt, _ := new(big.Float).SetInt(val).Float64()
+	random := bigInt * math.Pow10(-15)
+
+	return random, nil
+}
+
+func BoxMuller() (float64, float64) {
+	x, _ := RandFloat()
+	y, _ := RandFloat()
+
+	z1 := math.Sqrt(-2.0*math.Log(x)) * math.Cos(2.0*math.Pi*y)
+	z2 := math.Sqrt(-2.0*math.Log(x)) * math.Sin(2.0*math.Pi*y)
+
+	return z1, z2
 }
