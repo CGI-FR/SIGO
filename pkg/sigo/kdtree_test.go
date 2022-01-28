@@ -22,6 +22,7 @@ import (
 	"math/rand"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
@@ -198,5 +199,41 @@ func TestAddClusterInfos(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+func BenchmarkClustering(b *testing.B) {
+	N := []int{1000, 10000, 25000, 50000, 100000}
+
+	for _, n := range N {
+		b.Run(fmt.Sprintf("input_size_%d", n), func(b *testing.B) {
+			rand.Seed(time.Now().UnixNano())
+
+			kdtree := sigo.NewKDTreeFactory().New(3, 1, 1)
+			rows := []jsonline.Row{}
+
+			for i := 0; i < n; i++ {
+				row := jsonline.NewRow()
+				// nolint: gosec
+				x := rand.Intn(n)
+				row.Set("x", x)
+				// nolint: gosec
+				y := rand.Intn(n)
+				row.Set("y", y)
+				rows = append(rows, row)
+			}
+
+			for j := 0; j < n; j++ {
+				record := infra.NewJSONLineRecord(&rows[j], &[]string{"x", "y"}, &[]string{})
+
+				kdtree.Add(record)
+			}
+
+			b.ResetTimer()
+
+			for i := 0; i < b.N; i++ {
+				kdtree.Build()
+			}
+		})
 	}
 }

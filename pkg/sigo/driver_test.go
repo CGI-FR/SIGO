@@ -19,6 +19,9 @@ package sigo_test
 
 import (
 	"encoding/json"
+	"fmt"
+	"math/rand"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -88,4 +91,56 @@ func TestGeneralizedClustering(t *testing.T) {
 	assert.Equal(t, 2, result[3]["clusterID"])
 	assert.Equal(t, 2, result[4]["clusterID"])
 	assert.Equal(t, 2, result[5]["clusterID"])
+}
+
+//nolint: gochecknoglobals
+var tests = []struct {
+	n int
+	a sigo.Anonymizer
+	s string
+}{
+	{n: 1000, a: sigo.NewNoAnonymizer(), s: "NoAnonymizer"},
+	{n: 1000, a: sigo.NewGeneralAnonymizer(), s: "Generalization"},
+	{n: 1000, a: sigo.NewAggregationAnonymizer("mean"), s: "MeanAggregation"},
+	{n: 1000, a: sigo.NewCodingAnonymizer(), s: "TopBottomCoding"},
+	{n: 1000, a: sigo.NewNoiseAnonymizer("gaussian"), s: "GaussianNoise"},
+	{n: 100000, a: sigo.NewNoAnonymizer(), s: "NoAnonymizer"},
+	{n: 100000, a: sigo.NewGeneralAnonymizer(), s: "Generalization"},
+	{n: 100000, a: sigo.NewAggregationAnonymizer("mean"), s: "MeanAggregation"},
+	{n: 100000, a: sigo.NewCodingAnonymizer(), s: "TopBottomCoding"},
+	{n: 100000, a: sigo.NewNoiseAnonymizer("gaussian"), s: "GaussianNoise"},
+	{n: 1000000, a: sigo.NewNoAnonymizer(), s: "NoAnonymizer"},
+	{n: 1000000, a: sigo.NewGeneralAnonymizer(), s: "Generalization"},
+	{n: 1000000, a: sigo.NewAggregationAnonymizer("mean"), s: "MeanAggregation"},
+	{n: 1000000, a: sigo.NewCodingAnonymizer(), s: "TopBottomCoding"},
+	{n: 1000000, a: sigo.NewNoiseAnonymizer("gaussian"), s: "GaussianNoise"},
+}
+
+func BenchmarkAnonymize(b *testing.B) {
+	for _, test := range tests {
+		b.Run(fmt.Sprintf("input_size_%d, anonymizer_%s", test.n, test.s), func(b *testing.B) {
+			sourceText := []string{}
+
+			for i := 0; i < test.n; i++ {
+				// nolint: gosec
+				x := rand.Intn(test.n)
+				// nolint: gosec
+				y := rand.Intn(test.n)
+				sourceText = append(sourceText, `{"x:"`+strconv.Itoa(x)+`, "y":`+strconv.Itoa(y)+`}`)
+			}
+
+			data := strings.Join(sourceText, "\n")
+
+			source, _ := infra.NewJSONLineSource(strings.NewReader(data), []string{"x", "y"}, []string{"foo"})
+
+			result := []map[string]interface{}{}
+			sink := infra.NewSliceDictionariesSink(&result)
+
+			b.ResetTimer()
+
+			for i := 0; i < b.N; i++ {
+				_ = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 3, 1, 2, test.a, sink, sigo.NewNoDebugger())
+			}
+		})
+	}
 }
