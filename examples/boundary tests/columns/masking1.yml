@@ -1,0 +1,17 @@
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "A"
+    mask:
+      randomDecimal:
+        min: 0
+        max: 100.00
+        precision: 2
+  - selector:
+      jsonpath: "B"
+    mask:
+      randomDecimal:
+        min: 0
+        max: 100.00
+        precision: 2
