@@ -9,11 +9,14 @@ echo "--------------------------------------------------------------------------
 
 for i in 1 2 3 4 5
 do
+    pimo < test.json -c masking.yml -r ${size_array[$i]} > test${i}_1.json
     START=$(date +%s)
-    < test${i}_1.json | jq -c '.[]' | sigo -q A,B | jq -s > output.json
+    sigo -q A,B < test${i}_1.json > output.json
     END=$(date +%s)
     DIFF=$(( $END - $START ))
     echo "Test1_$i: (n=${size_array[$i]}, x=2, method=NoAnomymizer) Execution time was $DIFF seconds." >> log.txt
+    rm -f test${i}_1.json
+    rm -f output.json
 done
 
 echo "" >> log.txt
@@ -22,11 +25,14 @@ echo "--------------------------------------------------------------------------
 
 for i in 1 2 3 4 5
 do
+    pimo < test.json -c masking.yml -r ${size_array[$i]} > test${i}_1.json
     START=$(date +%s)
-    < test${i}_1.json | jq -c '.[]' | sigo -q A,B -a general | jq -s > output.json
+    sigo -q A,B -a general < test${i}_1.json > output.json
     END=$(date +%s)
     DIFF=$(( $END - $START ))
     echo "Test1_$i: (n=${size_array[$i]}, x=2, method=Generalization) Execution time was $DIFF seconds." >> log.txt
+    rm -f test${i}_1.json
+    rm -f output.json
 done
 
 echo "" >> log.txt
@@ -35,11 +41,14 @@ echo "--------------------------------------------------------------------------
 
 for i in 1 2 3 4 5
 do
+    pimo < test.json -c masking.yml -r ${size_array[$i]} > test${i}_1.json
     START=$(date +%s)
-    < test${i}_1.json | jq -c '.[]' | sigo -q A,B -a meanAggregation | jq -s > output.json
+    sigo -q A,B -a meanAggregation < test${i}_1.json > output.json
     END=$(date +%s)
     DIFF=$(( $END - $START ))
     echo "Test1_$i: (n=${size_array[$i]}, x=2, method=Aggregation) Execution time was $DIFF seconds." >> log.txt
+    rm -f test${i}_1.json
+    rm -f output.json
 done
 
 echo "" >> log.txt
@@ -48,11 +57,14 @@ echo "--------------------------------------------------------------------------
 
 for i in 1 2 3 4 5
 do
+    pimo < test.json -c masking.yml -r ${size_array[$i]} > test${i}_1.json
     START=$(date +%s)
-    < test${i}_1.json | jq -c '.[]' | sigo -q A,B -a outlier | jq -s > output.json
+    sigo -q A,B -a outlier < test${i}_1.json > output.json
     END=$(date +%s)
     DIFF=$(( $END - $START ))
     echo "Test1_$i: (n=${size_array[$i]}, x=2, method=TopBottomCoding) Execution time was $DIFF seconds." >> log.txt
+    rm -f test${i}_1.json
+    rm -f output.json
 done
 
 echo "" >> log.txt
@@ -61,11 +73,13 @@ echo "--------------------------------------------------------------------------
 
 for i in 1 2 3 4 5
 do
+    pimo < test.json -c masking.yml -r ${size_array[$i]} > test${i}_1.json
     START=$(date +%s)
-    < test${i}_1.json | jq -c '.[]' | sigo -q A,B -a laplaceNoise | jq -s > output.json
+    sigo -q A,B -a laplaceNoise < test${i}_1.json > output.json
     END=$(date +%s)
     DIFF=$(( $END - $START ))
     echo "Test1_$i: (n=${size_array[$i]}, x=2, method=RandomNoise) Execution time was $DIFF seconds." >> log.txt
+    rm -f test${i}_1.json
+    rm -f output.json
 done
 
-rm -f output.json

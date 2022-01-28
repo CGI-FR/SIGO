@@ -1,0 +1,23 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width":600,
+    "height":300,
+    "data": {"values":[
+        {"rows":1000000, "time": "27 Janv 2022 00:05:31", "method": "NoAnonymizer"},
+        {"rows":2000000, "time": "27 Janv 2022 00:15:27", "method": "NoAnonymizer"},
+        {"rows":3000000, "time": "27 Janv 2022 00:21:40", "method": "NoAnonymizer"},
+        {"rows":4000000, "time": "27 Janv 2022 00:34:24", "method": "NoAnonymizer"},
+        {"rows":5000000, "time": "27 Janv 2022 01:11:33", "method": "NoAnonymizer"}
+    ]},
+    "mark": {
+      "type": "line",
+      "point": true
+    },
+    "encoding": {
+      "y": {"field": "time", "timeUnit":"hoursminutesseconds"},
+      "x": {"field": "rows", "type": "quantitative"},
+      "color": {"field": "method", "type": "nominal"}
+    }
+  }
+
+

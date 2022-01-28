@@ -1,0 +1,4 @@
+Test: (n=2000000000, x=2, method=NoAnomymizer) Execution time was 928 seconds.
+Test: (n=3000000000, x=2, method=NoAnomymizer) Execution time was 1300 seconds.
+Test: (n=4000000000, x=2, method=NoAnomymizer) Execution time was 2064 seconds.
+Test: (n=5000000000, x=2, method=NoAnomymizer) Execution time was 4294 seconds.
