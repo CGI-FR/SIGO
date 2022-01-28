@@ -76,3 +76,45 @@ Now, we don't know the anonymisation methode used. Could be meanAggregation, med
 The first step is to find clusters. It might be easier for some anonymisation methodes: meanAggregation, medianAggregation or Generalizer display visible cluster in the anonymized dataSet. Might be trickier with randomNoise or topBottom coding for which the clusters are not clearly visible in the output dataset.
 
 @[vega](plot.vg.json)
+
+# Situation example:
+
+Anonymized DataSet:
+
+```json
+{"firstname":"Marie-Élise","city":"Lyon","age":40,"salary":1700}
+{"firstname":"Wilson","city":"Nantes","age":30,"salary":1200}
+{"firstname":"Romane","city":"Paris","age":22,"salary":1100}
+{"firstname":"Laurent","city":"Lyon","age":40,"salary":1700}
+```
+
+Data retrieved with other sources by attackers:
+
+```json
+{"firstname":"Laura","city":"Lyon","age":40}
+{"firstname":"Arlette","city":"Nantes","age":30}
+{"firstname":"Joseph","city":"Paris","age":22}
+{"firstname":"Gaëtan","city":"Lyon","age":40}
+```
+
+Supposing we know that only the firstName is anonymized (with **PIMO** for instance), as it is an identifier. (the tuple [city,age] is a quasi-identifier). The objective is to associate each individual to their salary.
+
+With only 4 records, besides ordonned, it's easy to identifie individuals without programs.
+However, with thousands of records, not even ordored, it would ask for a lot of time to do it manually.
+
+Let's find out how SIGO would be able to identify a portion of the individuals.
+
+## K-Anonymity
+
+First thing to observe is that the tuple [city,age] is a quasi-identifier, and if k-anonymity is not preserved, some individuals can be easily identified.
+In the example above, the individuals with pseudonyme `Wilson` and `Romane` are unique for their set of quasi-identifier. As we can intersect with our data found with other sources, we now know the salary of `Arlette` and `Joseph`.
+
+## L-Diversity
+
+Some individuals will share the same tuple of quasi-identifiers. For instance, we see that the real `Gaëtan` and `Laura` are 40yo and live in Lyon. We say that this pair of records (aka cluster) respects the 2-Anonymity. We imagine that we won't be able to find their salary. Luckily for us, attackers, the data does not respects l-diversity: the two individuals share the same salary. We know that `Gaëtan` and `Laura` have a salary of `1700(ua)`.
+
+## Using SIGO:
+
+In the example above, we were able to identify each indivudal with a confidence of 100%. We can imagine a solution using SIGO that will propose an identification for each records, with the level of confidence.
+
+The objective of this demo is to show that pseudo-anonymisation of data cannot entirely protect your data. Attributes and tables association
