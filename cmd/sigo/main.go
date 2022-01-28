@@ -24,6 +24,7 @@ import (
 	"strings"
 
 	over "github.com/Trendyol/overlog"
+	"github.com/cgi-fr/sigo/internal/attack"
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/mattn/go-isatty"
@@ -97,6 +98,9 @@ func main() {
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
+
+	rootCmd.AddCommand(attack.NewCommand("sigo", os.Stderr, os.Stdout, os.Stdin))
+	attack.Inject(qi, sensitive, info)
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
