@@ -13,3 +13,11 @@ Types of changes
 - `Removed` for now removed features.
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
+
+## [0.1.1]
+
+- `Fixed` KDTree doesn't stop splitting along 1 dimension
+
+## [0.1.0]
+
+- `Added` First public version released
