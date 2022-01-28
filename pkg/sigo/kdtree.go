@@ -118,6 +118,8 @@ func (n *node) build() {
 			lower, upper, valide = n.split()
 			if !valide {
 				n.incRot()
+			} else {
+				break
 			}
 		}
 
