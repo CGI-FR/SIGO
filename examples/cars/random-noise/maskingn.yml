@@ -1,0 +1,32 @@
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Cylinders"
+    mask:
+      template: "{{round (toString .Cylinders) 0 }}"
+
+  - selector:
+      jsonpath: "Cylinders"
+    mask:
+      fromjson: "Cylinders"
+
+  - selector:
+      jsonpath: "Horsepower"
+    mask:
+      template: "{{round (toString .Horsepower) 0 }}"
+
+  - selector:
+      jsonpath: "Horsepower"
+    mask:
+      fromjson: "Horsepower"
+
+  - selector:
+      jsonpath: "Weight_in_lbs"
+    mask:
+      template: "{{round (toString .Weight_in_lbs) 0 }}"
+
+  - selector:
+      jsonpath: "Weight_in_lbs"
+    mask:
+      fromjson: "Weight_in_lbs"

@@ -44,12 +44,37 @@ The data is recorded in the cars2.json file, below you will find an overview of 
 < cars2.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Horsepower -s Origin -a laplaceNoise | jq -s > cars2_sigo.json
 ```
 
+#### Use PIMO with 2-dimension
+
+The ***Horsepower*** attribute is a discrete attribute so to keep the dataset consistent we use `pimo` to not change the type of this variable after anonymization.
+
+```console
+< cars2_sigo.json | jq -c '.[]' | pimo -c masking2.yml > cars2_sigo_pimo.json
+```
+
+We use the following `masking2.yml` file,
+
+``` yaml
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Horsepower"
+    mask:
+      template: "{{round (toString .Horsepower) 0 }}"
+
+  - selector:
+      jsonpath: "Horsepower"
+    mask:
+      fromjson: "Horsepower"
+```
+
 ![masked](cars2-sigo.png)
 
 |                  | Miles_per_Gallon | Horsepower |
 |------------------|------------------|------------|
-| Miles_per_Gallon |     1.000000     |  -0.778478 |
-| Horsepower       |     -0.778478    |  1.000000  |
+| Miles_per_Gallon |     1.000000     | -0.778628  |
+| Horsepower       |    -0.778628     |  1.000000  |
 
 ## n-dimension
 
@@ -98,18 +123,45 @@ The data is recorded in the carsn.json file, below you will find an overview of 
 < carsn.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration -s Origin -a laplaceNoise | jq -s > carsn_sigo.json
 ```
 
+#### Use PIMO with n-dimension
+
+The ***Cylinders***,  ***Horsepower*** and ***Weight_in_lbs*** attributes are discrete attributes so to keep the dataset consistent we use `pimo` to not change the type of these variables after anonymization.
+
+```console
+< carsn_sigo.json | jq -c '.[]' | pimo -c maskingn.yml > carsn_sigo_pimo.json
+```
+
+We use the following `maskingn.yml` file,
+
+``` yaml
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Cylinders"
+    mask:
+      template: "{{round (toString .Cylinders) 0 }}"
+
+  - selector:
+      jsonpath: "Cylinders"
+    mask:
+      fromjson: "Cylinders"
+
+  ...
+```
+
 ![masked](carsn-sigo.png)
 
 |                  | Miles_per_Gallon | Cylinders | Displacement | Horsepower | Weight_in_lbs | Acceleration |
 |------------------|:----------------:|:---------:|:------------:|:----------:|:-------------:|:------------:|
-| Miles_per_Gallon |     1.000000     | -0.686867 |   -0.673229  |  -0.673453 |   -0.713713   |   0.355517   |
-| Cylinders        |     -0.686867    |  1.000000 |   0.629645   |  0.592229  |    0.704464   |   -0.307798  |
-| Displacement     |     -0.673229    |  0.629645 |   1.000000   |  0.627392  |    0.670037   |   -0.342196  |
-| Horsepower       |     -0.673453    |  0.592229 |   0.627392   |  1.000000  |    0.664508   |   -0.464786  |
-| Weight_in_lbs    |     -0.713713    |  0.704464 |   0.670037   |  0.664508  |    1.000000   |   -0.293661  |
-| Acceleration     |     0.355517     | -0.307798 |   -0.342196  |  -0.464786 |   -0.293661   |   1.000000   |
+| Miles_per_Gallon |     1.000000     | -0.636459 |   -0.648962  |  -0.700922 |   -0.711799   |   0.269291   |
+| Cylinders        |     -0.636459    |  1.000000 |   0.657736   |  0.610500  |    0.665301   |   -0.175330  |
+| Displacement     |     -0.648962    |  0.657736 |   1.000000   |  0.577905  |    0.672666   |   -0.239672  |
+| Horsepower       |     -0.700922    |  0.610500 |   0.577905   |  1.000000  |    0.638299   |   -0.332941  |
+| Weight_in_lbs    |     -0.711799    |  0.665301 |   0.672666   |  0.638299  |    1.000000   |   -0.170356  |
+| Acceleration     |     0.269291     | -0.175330 |   -0.239672  |  -0.332941 |   -0.170356   |   1.000000   |
 
-The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200.07%20;%20%5Cpm%200.3%20%5Cright%20%5D)
+The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cleft%20%5B%20%5Cpm%200.08%20;%20%5Cpm%200.36%20%5Cright%20%5D)
 
 ### Bibliography
 
