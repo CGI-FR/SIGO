@@ -1,0 +1,16 @@
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "id"
+    mask:
+      remove: true
+  - selector:
+      jsonpath: "location"
+    mask:
+      fromCache: "cacheLocation"
+
+caches:
+  cacheLocation:
+    unique: true
+    reverse: false

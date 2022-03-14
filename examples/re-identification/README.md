@@ -98,3 +98,34 @@ This shows the importance of **k-anonymity** and **l-diversity** but also of the
 - Choose the most appropriate distance/similarity metric
 - Define similarity in README
 - Add notebook
+
+# TEST
+
+```console
+pimo -c simu.yml -r 10 < input.json > output.json
+```
+
+```console
+pimo -c cache.yml --dump-cache cacheLocation=locationCache.jsonl <<EOF
+{ "location": "city" }
+{ "location": "countryside" }
+{ "location": "mountains" }
+{ "location": "seaside" }
+EOF
+{"location":1}
+{"location":2}
+{"location":3}
+{"location":4}
+```
+
+```console
+pimo --load-cache cacheLocation=locationCache.jsonl -c transpose.yml < output.json > output2.json
+```
+
+```console
+sigo -q age,location,weight,height -s sickness -k 3 -l 2 -a meanAggregation < output2.json > output2-sigo.json
+```
+
+```console
+pimo --load-cache cacheLocation=locationCache.jsonl -c reverse.yml < output2-sigo.json > output-sigo.json
+```

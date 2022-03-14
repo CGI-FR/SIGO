@@ -1,0 +1,10 @@
+{"location":2.4,"weight":76.2,"height":1.72,"sickness":"cancer","age":33.2}
+{"location":2.4,"weight":76.2,"height":1.72,"sickness":"cancer","age":33.2}
+{"height":1.72,"sickness":"heart disease","age":33.2,"location":2.4,"weight":76.2}
+{"weight":76.2,"height":1.72,"sickness":"flu","age":33.2,"location":2.4}
+{"age":33.2,"location":2.4,"weight":76.2,"height":1.72,"sickness":"cancer"}
+{"age":74.6,"location":1.4,"weight":79.6,"height":1.93,"sickness":"heart disease"}
+{"age":74.6,"location":1.4,"weight":79.6,"height":1.93,"sickness":"cancer"}
+{"age":74.6,"location":1.4,"weight":79.6,"height":1.93,"sickness":"flu"}
+{"sickness":"flu","age":74.6,"location":1.4,"weight":79.6,"height":1.93}
+{"weight":79.6,"height":1.93,"sickness":"cancer","age":74.6,"location":1.4}
