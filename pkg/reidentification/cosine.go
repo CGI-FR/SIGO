@@ -7,21 +7,23 @@ import (
 	"strconv"
 )
 
-func CosineSimilarity(x, y []float64) float64 {
+func CosineSimilarity(x, y map[string]float64) float64 {
 	var dotProduct, X, Y float64
 
 	//nolint: gomnd
-	for i := range x {
-		dotProduct += x[i] * y[i]
-		X += math.Pow(x[i], 2)
-		Y += math.Pow(y[i], 2)
+	for key := range x {
+		dotProduct += x[key] * y[key]
+		X += math.Pow(x[key], 2)
+		Y += math.Pow(y[key], 2)
 	}
 
 	return dotProduct / (math.Sqrt(X) * math.Sqrt(Y))
 }
 
-func MapToSlice(m map[string]interface{}) (values []float64) {
-	for _, value := range m {
+func MapItoMapF(m map[string]interface{}) map[string]float64 {
+	mFloat := make(map[string]float64)
+
+	for key, value := range m {
 		var val float64
 		switch t := value.(type) {
 		case int:
@@ -35,15 +37,15 @@ func MapToSlice(m map[string]interface{}) (values []float64) {
 			val, _ = t.Float64()
 		}
 
-		values = append(values, val)
+		mFloat[key] = val
 	}
 
-	return values
+	return mFloat
 }
 
 func TopSimilarity(sims []Similarity, n int) (res []Similarity) {
 	type tmp struct {
-		individu  []float64
+		individu  map[string]interface{}
 		score     float64
 		sensitive string
 	}
@@ -57,7 +59,7 @@ func TopSimilarity(sims []Similarity, n int) (res []Similarity) {
 
 		scores = append(scores, sim.score)
 		m[sim.score] = append(m[sim.score], sim.id)
-		t.individu = sim.individu
+		t.individu = sim.qi
 		t.score = sim.score
 		t.sensitive = sim.sensitive
 		mapTmp[sim.id] = t
@@ -70,10 +72,14 @@ func TopSimilarity(sims []Similarity, n int) (res []Similarity) {
 
 	for _, k := range scores {
 		for _, i := range m[k] {
-			ind := Similarity{id: i, individu: mapTmp[i].individu, score: k, sensitive: mapTmp[i].sensitive}
+			ind := Similarity{id: i, qi: mapTmp[i].individu, score: k, sensitive: mapTmp[i].sensitive}
 			count++
 
 			res = append(res, ind)
+
+			if count == n {
+				break
+			}
 		}
 
 		if count == n {

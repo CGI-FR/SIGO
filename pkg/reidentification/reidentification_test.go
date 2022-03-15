@@ -10,6 +10,43 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestCountValues(t *testing.T) {
+	t.Parallel()
+
+	values := []string{"a", "a", "b", "a", "c", "c", "a", "b"}
+	count := reidentification.CountValues(values)
+
+	assert.Equal(t, 4, count["a"])
+	assert.Equal(t, 2, count["b"])
+	assert.Equal(t, 2, count["c"])
+}
+
+func TestRisk(t *testing.T) {
+	t.Parallel()
+
+	val := map[string]interface{}{"x": 19.67, "y": 17.67}
+	sim1 := reidentification.NewSimilarity(1, val, 0.9999995697145913, "b")
+	sim2 := reidentification.NewSimilarity(2, val, 0.9999995697145913, "b")
+	sim3 := reidentification.NewSimilarity(3, val, 0.9999995697145913, "b")
+
+	test := []reidentification.Similarity{sim1, sim2, sim3}
+	risk := reidentification.Risk(test)
+
+	assert.Equal(t, float64(1), risk)
+
+	val2 := map[string]interface{}{"x": 19.67, "y": 17.67}
+
+	sim11 := reidentification.NewSimilarity(1, val2, 0.99, "a")
+	sim22 := reidentification.NewSimilarity(2, val2, 0.99, "b")
+	sim33 := reidentification.NewSimilarity(3, val2, 0.99, "b")
+	sim44 := reidentification.NewSimilarity(3, val2, 0.99, "b")
+
+	test2 := []reidentification.Similarity{sim11, sim22, sim33, sim44}
+	risk2 := reidentification.Risk(test2)
+
+	assert.Equal(t, float64(0.5), risk2)
+}
+
 func TestReidentification(t *testing.T) {
 	t.Parallel()
 
@@ -67,44 +104,51 @@ func TestReidentification(t *testing.T) {
 	assert.Nil(t, err)
 
 	var res []reidentification.Individu
+	i := 0
 
 	for original.Next() {
-		data := make(map[string]interface{})
+		qi := make(map[string]interface{})
 
 		for _, q := range original.QuasiIdentifer() {
-			data[q] = original.Value().Row()[q]
+			qi[q] = original.Value().Row()[q]
 		}
 
-		individu := reidentification.MapToSlice(data)
+		individu := reidentification.MapItoMapF(qi)
 
 		var sliceSim []reidentification.Similarity
 
 		sigo, err := infra.NewJSONLineSource(strings.NewReader(sigoData), []string{"x", "y"}, []string{"z"})
 		assert.Nil(t, err)
 
+		j := 0
+
 		for sigo.Next() {
-			i := 0
-			dataSigo := make(map[string]interface{})
+			qiSigo := make(map[string]interface{})
 
 			for _, q := range sigo.QuasiIdentifer() {
-				dataSigo[q] = sigo.Value().Row()[q]
+				qiSigo[q] = sigo.Value().Row()[q]
 			}
 
-			individuSigo := reidentification.MapToSlice(dataSigo)
+			individuSigo := reidentification.MapItoMapF(qiSigo)
 			score := reidentification.CosineSimilarity(individu, individuSigo)
 			sensitive := sigo.Value().Row()[sigo.Sensitive()[0]]
-			sim := reidentification.NewSimilarity(i, individuSigo, score, sensitive.(string))
+			sim := reidentification.NewSimilarity(j, qiSigo, score, sensitive.(string))
 
 			sliceSim = append(sliceSim, sim)
-			i++
+			j++
 		}
 
-		ind := reidentification.NewIndividu(individu, sliceSim)
+		ind := reidentification.NewIndividu(i, qi, sliceSim)
+		i++
+
 		res = append(res, ind)
 	}
 
-	log.Println(res[20].Values())
-	log.Println(reidentification.TopSimilarity(res[20].Similarities(), 5))
+	log.Println("values", res[20].Values())
+	top := reidentification.TopSimilarity(res[20].Similarities(), 3)
+	log.Println("top", top)
+	log.Println(reidentification.Risk(top))
+	log.Println(res[20].Reidenfication(3))
 
 	// assert.Equal(t, 19.00, q.Q1)
 }
