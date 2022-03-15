@@ -1,14 +1,11 @@
 package reidentification
 
-type Similarity struct {
-	id        int
-	qi        map[string]interface{}
-	score     float64
-	sensitive string
+type Original struct {
+	data []Individu
 }
 
-func NewSimilarity(id int, data map[string]interface{}, sc float64, s string) Similarity {
-	return Similarity{id: id, qi: data, score: sc, sensitive: s}
+func NewOriginal() Original {
+	return Original{data: []Individu{}}
 }
 
 type Individu struct {
@@ -21,27 +18,32 @@ func NewIndividu(id int, data map[string]interface{}, sim []Similarity) Individu
 	return Individu{id: id, qi: data, sim: sim}
 }
 
-func (ind Individu) Values() map[string]interface{} {
-	return ind.qi
+func (or Original) Values(i int) map[string]interface{} {
+	return or.data[i].qi
 }
 
-func (ind Individu) Similarities() []Similarity {
-	return ind.sim
+func (or Original) Similarities(i int) []Similarity {
+	return or.data[i].sim
 }
 
-func (ind Individu) Reidenfication(k int) map[string]interface{} {
-	res := make(map[string]interface{})
+func (or *Original) Add(ind Individu) {
+	or.data = append(or.data, ind)
+}
 
-	slice := TopSimilarity(ind.sim, k)
+func (or Original) Reidenfication(k int) (res []map[string]interface{}) {
+	for i := range or.data {
+		m := make(map[string]interface{})
+		slice := TopSimilarity(or.data[i].sim, k)
+		sensitive, risk := Recover(slice)
 
-	if Risk(slice) == 1 {
-		sensitive := Recover(slice)
+		if risk {
+			for key, val := range or.data[i].qi {
+				m[key] = val
+			}
 
-		for key, val := range ind.qi {
-			res[key] = val
+			m["sensitive"] = sensitive
+			res = append(res, m)
 		}
-
-		res["sensitive"] = sensitive
 	}
 
 	return res
@@ -51,12 +53,17 @@ func Risk(slice []Similarity) float64 {
 	sensitives := []string{}
 
 	for _, sim := range slice {
-		sensitives = append(sensitives, sim.sensitive)
+		sensitives = append(sensitives, sim.sensitive...)
 	}
 
 	count := CountValues(sensitives)
+
 	if len(count) == 1 {
 		return 1
+	}
+
+	if len(count) == len(sensitives) {
+		return 1 / float64(len(sensitives))
 	}
 
 	return float64(len(count)) / float64(len(sensitives))
@@ -71,6 +78,10 @@ func CountValues(sensitives []string) map[string]int {
 	return count
 }
 
-func Recover(slice []Similarity) string {
-	return slice[0].sensitive
+func Recover(slice []Similarity) ([]string, bool) {
+	if Risk(slice) == 1 {
+		return slice[0].sensitive, true
+	}
+
+	return []string{""}, false
 }

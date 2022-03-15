@@ -25,41 +25,18 @@ func TestCosineSimilarity(t *testing.T) {
 	assert.InDelta(t, 0.7622963735959798, cosine, math.Pow10(-15))
 }
 
-func TestMapInterfaceToFloat(t *testing.T) {
-	t.Parallel()
+// func TestCountVectorizer(t *testing.T) {
+// 	t.Parallel()
 
-	m1 := make(map[string]interface{})
-	m1["x"] = 14
-	m1["y"] = 6
+// 	X := map[string]interface{}{"x": 14, "y": 18, "z": "ville"}
+// 	Y := map[string]interface{}{"x": 7, "y": 2, "z": "ville"}
+// 	Z := map[string]interface{}{"x": 3, "y": 15, "z": "mer"}
+// 	U := map[string]interface{}{"x": 16, "y": 2, "z": "mer"}
+// 	V := map[string]interface{}{"x": 11, "y": 9, "z": "ville"}
+// 	W := map[string]interface{}{"x": 7, "y": 18, "z": "campagne"}
 
-	m2 := make(map[string]interface{})
-	m2["x"] = 1
-	m2["y"] = 15
+// 	// cosine(X,Y)
 
-	s1 := reidentification.MapItoMapF(m1)
-	s2 := reidentification.MapItoMapF(m2)
-
-	cosine := reidentification.CosineSimilarity(s1, s2)
-
-	assert.InDelta(t, 0.45418744744022516, cosine, math.Pow10(-15))
-}
-
-func TestTopSimilarity(t *testing.T) {
-	t.Parallel()
-
-	val1 := map[string]interface{}{"x": 3, "y": 7}
-	sim1 := reidentification.NewSimilarity(1, val1, 0.89, "a")
-	val2 := map[string]interface{}{"x": 7, "y": 3}
-	sim2 := reidentification.NewSimilarity(2, val2, 0.95, "a")
-	val3 := map[string]interface{}{"x": 16.67, "y": 18.33}
-	sim3 := reidentification.NewSimilarity(3, val3, 0.99, "b")
-	val4 := map[string]interface{}{"x": 4.33, "y": 17.67}
-	sim4 := reidentification.NewSimilarity(4, val4, 0.80, "c")
-	val5 := map[string]interface{}{"x": 16.67, "y": 18.33}
-	sim5 := reidentification.NewSimilarity(5, val5, 0.99, "a")
-
-	test := []reidentification.Similarity{sim1, sim2, sim3, sim4, sim5}
-	res := reidentification.TopSimilarity(test, 3)
-	expected := []reidentification.Similarity{sim3, sim5, sim2}
-	assert.Equal(t, expected, res)
-}
+// 	vectorX := map[interface{}]int{14: 1, 18: 1, "ville": 1, 7: 0, 2: 0}
+// 	vectorY := map[interface{}]int{14: 0, 18: 0, "ville": 1, 7: 1, 2: 1}
+// }
