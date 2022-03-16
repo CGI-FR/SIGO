@@ -35,3 +35,47 @@ func TestEuclideanDistance(t *testing.T) {
 
 	assert.Equal(t, 2.00, dist.Compute(X, Y))
 }
+
+func TestManhattanDistance(t *testing.T) {
+	t.Parallel()
+
+	X := map[string]float64{"q1": 2, "q2": 2}
+	Y := map[string]float64{"q1": 9, "q2": 5}
+
+	dist := reidentification.NewManhattanDistance()
+
+	assert.Equal(t, 10.00, dist.Compute(X, Y))
+}
+
+func TestCanberraDistance(t *testing.T) {
+	t.Parallel()
+
+	X := map[string]float64{"q1": 2, "q2": 2}
+	Y := map[string]float64{"q1": 4, "q2": 4}
+
+	dist := reidentification.NewCanberraDistance()
+
+	assert.Equal(t, float64(2)/float64(3), dist.Compute(X, Y))
+}
+
+func TestChebyshevDistance(t *testing.T) {
+	t.Parallel()
+
+	X := map[string]float64{"q1": 2, "q2": 2}
+	Y := map[string]float64{"q1": 9, "q2": 5}
+
+	dist := reidentification.NewChebyshevDistance()
+
+	assert.Equal(t, 7.00, dist.Compute(X, Y))
+}
+
+func TestMinkowskiDistance(t *testing.T) {
+	t.Parallel()
+
+	X := map[string]float64{"q1": 2, "q2": 2}
+	Y := map[string]float64{"q1": 4, "q2": 4}
+
+	dist := reidentification.NewMinkowskiDistance(6)
+
+	assert.Equal(t, math.Pow(128, 1.00/6.00), dist.Compute(X, Y))
+}

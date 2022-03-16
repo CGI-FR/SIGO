@@ -59,7 +59,7 @@ func (s Similarities) TopSimilarity(n int) (res Similarities) {
 	switch reflect.TypeOf(s.metric).String() {
 	case "reidentification.Cosine":
 		sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
-	case "reidentification.Euclidean":
+	default:
 		sort.Sort(sort.Float64Slice(scores))
 	}
 

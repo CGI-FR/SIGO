@@ -2,7 +2,6 @@ package reidentification_test
 
 import (
 	"bufio"
-	"encoding/json"
 	"log"
 	"os"
 	"testing"
@@ -99,7 +98,63 @@ func TestRisk(t *testing.T) {
 	assert.Equal(t, float64(0.5), risk2)
 }
 
-//nolint: funlen
+func TestReidentificationDataset(t *testing.T) {
+	t.Parallel()
+
+	originalFile, err := os.Open("../../examples/re-identification/data.json")
+	assert.Nil(t, err)
+
+	original, err := infra.NewJSONLineSource(bufio.NewReader(originalFile),
+		[]string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
+
+	var res reidentification.Original
+
+	i := 0
+
+	for original.Next() {
+		qi := make(map[string]interface{})
+
+		for _, q := range original.QuasiIdentifer() {
+			qi[q] = original.Value().Row()[q]
+		}
+
+		// cosine := reidentification.NewCosineSimilarity()
+		// euclidean := reidentification.NewEuclideanDistance()
+		manhattan := reidentification.NewManhattanDistance()
+		// canberra := reidentification.NewCanberraDistance()
+		// chebyshev := reidentification.NewChebyshevDistance()
+		// minkowski := reidentification.NewMinkowskiDistance(3)
+		sims := reidentification.NewSimilarities(manhattan)
+
+		sigoFile, err := os.Open("../../examples/re-identification/data2-sigo.json")
+		assert.Nil(t, err)
+
+		sigo, err := infra.NewJSONLineSource(bufio.NewReader(sigoFile),
+			[]string{"x", "y"}, []string{"z"})
+		assert.Nil(t, err)
+
+		j := 0
+
+		for sigo.Next() {
+			sim := reidentification.NewSimilarity(j, sigo.Value(), sigo.QuasiIdentifer(), sigo.Sensitive())
+			sim.ComputeSimilarity(original.Value(), original.QuasiIdentifer(), sims.Metric())
+
+			sims.Add(sim)
+			j++
+		}
+
+		ind := reidentification.NewIndividu(i, qi, sims)
+		i++
+
+		res.Add(ind)
+	}
+
+	riskInd := res.Identification(3)
+
+	log.Println(riskInd)
+}
+
 func TestReidentification(t *testing.T) {
 	t.Parallel()
 
@@ -110,58 +165,19 @@ func TestReidentification(t *testing.T) {
 	original, err := infra.NewJSONLineSource(bufio.NewReader(originalFile), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
-	// Liste des invidus du dataset original avec liste de similarités
-	var res reidentification.Original
+	// Importation dataset Anonymisé
+	sigoFile, err := os.Open("../../examples/re-identification/data2-sigo.json")
+	assert.Nil(t, err)
 
-	i := 0
+	sigo, err := infra.NewJSONLineSource(bufio.NewReader(sigoFile), []string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
 
-	// Pour chaque indivu du dataset original
-	for original.Next() {
-		qi := make(map[string]interface{})
+	risk := reidentification.Reidenfication(original, &sigo, "cosine", 3)
 
-		// On récupère les valeurs QI
-		for _, q := range original.QuasiIdentifer() {
-			qi[q] = original.Value().Row()[q]
-		}
+	// expected := map[string]interface{}{
+	// 	"x": json.Number("20"), "y": json.Number("18"), "sensitive": []string{"b"},
+	// }
+	// assert.Contains(t, riskInd, expected)
 
-		// On créé un objet Similarities qui contient la liste des similarités avec les données anonymisées
-		cosine := reidentification.NewCosineSimilarity()
-		// euclidean := reidentification.NewEuclideanDistance()
-		sims := reidentification.NewSimilarities(cosine)
-
-		// Importation dataset Anonymisé
-		sigoFile, err := os.Open("../../examples/re-identification/data2-sigo.json")
-		assert.Nil(t, err)
-
-		sigo, err := infra.NewJSONLineSource(bufio.NewReader(sigoFile), []string{"x", "y"}, []string{"z"})
-		assert.Nil(t, err)
-
-		j := 0
-
-		// Pour chaque individu du dataset anonymisé
-		for sigo.Next() {
-			// Calcul la similarité avec l'individu original
-			sim := reidentification.NewSimilarity(j, sigo.Value(), sigo.QuasiIdentifer(), sigo.Sensitive())
-			sim.ComputeSimilarity(original.Value(), original.QuasiIdentifer(), sims.Metric())
-
-			// Ajout à la liste des Similarités
-			sims.Add(sim)
-			j++
-		}
-
-		ind := reidentification.NewIndividu(i, qi, sims)
-		i++
-
-		// Ajout de l'individu original
-		res.Add(ind)
-	}
-
-	// Calcul ré-identification sur les individu du dataset original avec en paramètre k
-	riskInd := res.Reidenfication(3)
-	expected := map[string]interface{}{
-		"x": json.Number("20"), "y": json.Number("18"), "sensitive": []string{"b"},
-	}
-	assert.Contains(t, riskInd, expected)
-
-	log.Println(riskInd)
+	log.Println(risk)
 }

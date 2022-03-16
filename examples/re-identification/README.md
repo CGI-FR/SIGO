@@ -97,9 +97,8 @@ This shows the importance of **k-anonymity** and **l-diversity** but also of the
 
 - Choose the most appropriate distance/similarity metric
 - Define similarity in README
-- Add notebook
 
-# TEST
+## TEST
 
 ```console
 pimo -c simu.yml -r 10 < input.json > output.json
@@ -123,7 +122,7 @@ pimo --load-cache cacheLocation=locationCache.jsonl -c transpose.yml < output.js
 ```
 
 ```console
-sigo -q age,location,weight,height -s sickness -k 3 -l 2 -a meanAggregation < output2.json > output2-sigo.json
+sigo -q age,location,weight,height -s sickness -k 3 -l 1 -a meanAggregation < output2.json > output2-sigo.json
 ```
 
 ```console
