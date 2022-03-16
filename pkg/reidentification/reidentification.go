@@ -11,10 +11,10 @@ func NewOriginal() Original {
 type Individu struct {
 	id  int
 	qi  map[string]interface{}
-	sim []Similarity
+	sim Similarities
 }
 
-func NewIndividu(id int, data map[string]interface{}, sim []Similarity) Individu {
+func NewIndividu(id int, data map[string]interface{}, sim Similarities) Individu {
 	return Individu{id: id, qi: data, sim: sim}
 }
 
@@ -23,7 +23,7 @@ func (or Original) Values(i int) map[string]interface{} {
 }
 
 func (or Original) Similarities(i int) []Similarity {
-	return or.data[i].sim
+	return or.data[i].sim.slice
 }
 
 func (or *Original) Add(ind Individu) {
@@ -33,8 +33,8 @@ func (or *Original) Add(ind Individu) {
 func (or Original) Reidenfication(k int) (res []map[string]interface{}) {
 	for i := range or.data {
 		m := make(map[string]interface{})
-		slice := TopSimilarity(or.data[i].sim, k)
-		sensitive, risk := Recover(slice)
+		top := or.data[i].sim.TopSimilarity(k)
+		sensitive, risk := Recover(top.Slice())
 
 		if risk {
 			for key, val := range or.data[i].qi {

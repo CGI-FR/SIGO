@@ -29,9 +29,8 @@ func TestRecover(t *testing.T) {
 		row1.Set("z", "c")
 
 		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
-		sim := reidentification.NewSimilarity(i)
-		sim.AddSimilarity(record1, []string{"x", "y"}, []string{"z"})
-		sim.Compute(record, []string{"x", "y"})
+		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
+		sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
 
 		test = append(test, sim)
 	}
@@ -69,9 +68,8 @@ func TestRisk(t *testing.T) {
 		row1.Set("z", "b")
 
 		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
-		sim := reidentification.NewSimilarity(i)
-		sim.AddSimilarity(record1, []string{"x", "y"}, []string{"z"})
-		sim.Compute(record, []string{"x", "y"})
+		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
+		sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
 
 		test = append(test, sim)
 	}
@@ -90,9 +88,8 @@ func TestRisk(t *testing.T) {
 		row1.Set("z", z[i])
 
 		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
-		sim := reidentification.NewSimilarity(i)
-		sim.AddSimilarity(record1, []string{"x", "y"}, []string{"z"})
-		sim.Compute(record, []string{"x", "y"})
+		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
+		sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
 
 		test2 = append(test2, sim)
 	}
@@ -102,28 +99,37 @@ func TestRisk(t *testing.T) {
 	assert.Equal(t, float64(0.5), risk2)
 }
 
+//nolint: funlen
 func TestReidentification(t *testing.T) {
 	t.Parallel()
 
+	// Importation dataset original
 	originalFile, err := os.Open("../../examples/re-identification/data.json")
 	assert.Nil(t, err)
 
 	original, err := infra.NewJSONLineSource(bufio.NewReader(originalFile), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
+	// Liste des invidus du dataset original avec liste de similarités
 	var res reidentification.Original
 
 	i := 0
 
+	// Pour chaque indivu du dataset original
 	for original.Next() {
 		qi := make(map[string]interface{})
 
+		// On récupère les valeurs QI
 		for _, q := range original.QuasiIdentifer() {
 			qi[q] = original.Value().Row()[q]
 		}
 
-		var sims reidentification.Similarities
+		// On créé un objet Similarities qui contient la liste des similarités avec les données anonymisées
+		cosine := reidentification.NewCosineSimilarity()
+		// euclidean := reidentification.NewEuclideanDistance()
+		sims := reidentification.NewSimilarities(cosine)
 
+		// Importation dataset Anonymisé
 		sigoFile, err := os.Open("../../examples/re-identification/data2-sigo.json")
 		assert.Nil(t, err)
 
@@ -132,26 +138,29 @@ func TestReidentification(t *testing.T) {
 
 		j := 0
 
+		// Pour chaque individu du dataset anonymisé
 		for sigo.Next() {
-			sim := reidentification.NewSimilarity(j)
-			sim.AddSimilarity(sigo.Value(), sigo.QuasiIdentifer(), sigo.Sensitive())
-			sim.Compute(original.Value(), original.QuasiIdentifer())
+			// Calcul la similarité avec l'individu original
+			sim := reidentification.NewSimilarity(j, sigo.Value(), sigo.QuasiIdentifer(), sigo.Sensitive())
+			sim.ComputeSimilarity(original.Value(), original.QuasiIdentifer(), sims.Metric())
 
+			// Ajout à la liste des Similarités
 			sims.Add(sim)
 			j++
 		}
 
-		ind := reidentification.NewIndividu(i, qi, sims.Slice())
+		ind := reidentification.NewIndividu(i, qi, sims)
 		i++
 
+		// Ajout de l'individu original
 		res.Add(ind)
 	}
 
+	// Calcul ré-identification sur les individu du dataset original avec en paramètre k
 	riskInd := res.Reidenfication(3)
 	expected := map[string]interface{}{
 		"x": json.Number("20"), "y": json.Number("18"), "sensitive": []string{"b"},
 	}
-	// assert.Nil(t, riskInd)
 	assert.Contains(t, riskInd, expected)
 
 	log.Println(riskInd)

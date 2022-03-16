@@ -2,60 +2,89 @@ package reidentification
 
 import (
 	"encoding/json"
+	"reflect"
 	"sort"
 	"strconv"
-
-	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
-type Similarities struct {
-	sims []Similarity
+type Metric interface {
+	Compute(map[string]float64, map[string]float64) float64
 }
 
-func NewSimilarities() Similarities {
-	return Similarities{sims: []Similarity{}}
+type Similarities struct {
+	slice  []Similarity
+	metric Metric
+}
+
+func NewSimilarities(m Metric) Similarities {
+	return Similarities{slice: []Similarity{}, metric: m}
 }
 
 func (s *Similarities) Add(sim Similarity) {
-	s.sims = append(s.sims, sim)
+	s.slice = append(s.slice, sim)
 }
 
 func (s Similarities) Slice() []Similarity {
-	return s.sims
+	return s.slice
 }
 
-type Similarity struct {
-	id        int
-	qi        map[string]interface{}
-	score     float64
-	sensitive []string
+func (s Similarities) Metric() Metric {
+	return s.metric
 }
 
-func NewSimilarity(id int) Similarity {
-	return Similarity{id: id, qi: make(map[string]interface{}), score: 0, sensitive: []string{}}
-}
-
-func (sim *Similarity) AddSimilarity(ind sigo.Record, qid []string, s []string) {
-	for _, q := range qid {
-		sim.qi[q] = ind.Row()[q]
+func (s Similarities) TopSimilarity(n int) (res Similarities) {
+	type tmp struct {
+		individu  map[string]interface{}
+		score     float64
+		sensitive []string
 	}
 
-	for i := range s {
-		sim.sensitive = append(sim.sensitive, ind.Row()[s[i]].(string))
+	m := make(map[float64][]int)
+	scores := []float64{}
+	mapTmp := make(map[int]tmp)
+
+	for _, sim := range s.slice {
+		var t tmp
+
+		scores = append(scores, sim.score)
+		m[sim.score] = append(m[sim.score], sim.id)
+		t.individu = sim.qi
+		t.score = sim.score
+		t.sensitive = sim.sensitive
+		mapTmp[sim.id] = t
 	}
-}
 
-func (sim *Similarity) Compute(ind sigo.Record, qid []string) {
-	x := make(map[string]interface{})
+	scores = removeDuplicate(scores)
 
-	for _, q := range qid {
-		x[q] = ind.Row()[q]
+	switch reflect.TypeOf(s.metric).String() {
+	case "reidentification.Cosine":
+		sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
+	case "reidentification.Euclidean":
+		sort.Sort(sort.Float64Slice(scores))
 	}
 
-	X := MapItoMapF(x)
-	Y := MapItoMapF(sim.qi)
+	count := 0
 
-	sim.score = CosineSimilarity(X, Y)
+	for _, k := range scores {
+		for _, i := range m[k] {
+			ind := Similarity{id: i, qi: mapTmp[i].individu, score: k, sensitive: mapTmp[i].sensitive}
+			count++
+
+			res.slice = append(res.slice, ind)
+
+			if count == n {
+				break
+			}
+		}
+
+		if count == n {
+			break
+		}
+	}
+
+	res.metric = s.metric
+
+	return res
 }
 
 func MapItoMapF(m map[string]interface{}) map[string]float64 {
@@ -81,53 +110,6 @@ func MapItoMapF(m map[string]interface{}) map[string]float64 {
 	}
 
 	return mFloat
-}
-
-func TopSimilarity(sims []Similarity, n int) (res []Similarity) {
-	type tmp struct {
-		individu  map[string]interface{}
-		score     float64
-		sensitive []string
-	}
-
-	m := make(map[float64][]int)
-	scores := []float64{}
-	mapTmp := make(map[int]tmp)
-
-	for _, sim := range sims {
-		var t tmp
-
-		scores = append(scores, sim.score)
-		m[sim.score] = append(m[sim.score], sim.id)
-		t.individu = sim.qi
-		t.score = sim.score
-		t.sensitive = sim.sensitive
-		mapTmp[sim.id] = t
-	}
-
-	scores = removeDuplicate(scores)
-	sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
-
-	count := 0
-
-	for _, k := range scores {
-		for _, i := range m[k] {
-			ind := Similarity{id: i, qi: mapTmp[i].individu, score: k, sensitive: mapTmp[i].sensitive}
-			count++
-
-			res = append(res, ind)
-
-			if count == n {
-				break
-			}
-		}
-
-		if count == n {
-			break
-		}
-	}
-
-	return res
 }
 
 func removeDuplicate(floatSlice []float64) []float64 {

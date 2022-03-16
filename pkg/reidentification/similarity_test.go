@@ -24,9 +24,9 @@ func TestMapInterfaceToFloat(t *testing.T) {
 	s1 := reidentification.MapItoMapF(m1)
 	s2 := reidentification.MapItoMapF(m2)
 
-	cosine := reidentification.CosineSimilarity(s1, s2)
+	cosine := reidentification.NewCosineSimilarity()
 
-	assert.InDelta(t, 0.45418744744022516, cosine, math.Pow10(-15))
+	assert.InDelta(t, 0.45418744744022516, cosine.Compute(s1, s2), math.Pow10(-15))
 }
 
 func TestTopSimilarity(t *testing.T) {
@@ -40,7 +40,7 @@ func TestTopSimilarity(t *testing.T) {
 	x := []float64{3, 7, 16.67, 4.33, 16.67}
 	y := []float64{7, 3, 18.33, 17.67, 16}
 	z := []string{"a", "a", "b", "c", "a"}
-	test := []reidentification.Similarity{}
+	test := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
 
 	for i := range x {
 		row1 := jsonline.NewRow()
@@ -49,20 +49,19 @@ func TestTopSimilarity(t *testing.T) {
 		row1.Set("z", z[i])
 
 		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
-		sim := reidentification.NewSimilarity(i)
-		sim.AddSimilarity(record1, []string{"x", "y"}, []string{"z"})
-		sim.Compute(record, []string{"x", "y"})
+		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
+		sim.ComputeSimilarity(record, []string{"x", "y"}, test.Metric())
 
-		test = append(test, sim)
+		test.Add(sim)
 	}
 
-	res := reidentification.TopSimilarity(test, 2)
+	res := test.TopSimilarity(2)
 
 	idE := []int{4, 2}
 	xE := []float64{16.67, 16.67}
 	yE := []float64{16, 18.33}
 	zE := []string{"a", "b"}
-	expected := []reidentification.Similarity{}
+	expected := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
 
 	for i := range xE {
 		rowE := jsonline.NewRow()
@@ -70,10 +69,9 @@ func TestTopSimilarity(t *testing.T) {
 		rowE.Set("y", yE[i])
 		rowE.Set("z", zE[i])
 		recordE := infra.NewJSONLineRecord(&rowE, &[]string{"x", "y"}, &[]string{"z"})
-		simE := reidentification.NewSimilarity(idE[i])
-		simE.AddSimilarity(recordE, []string{"x", "y"}, []string{"z"})
-		simE.Compute(record, []string{"x", "y"})
-		expected = append(expected, simE)
+		simE := reidentification.NewSimilarity(idE[i], recordE, []string{"x", "y"}, []string{"z"})
+		simE.ComputeSimilarity(record, []string{"x", "y"}, expected.Metric())
+		expected.Add(simE)
 	}
 
 	assert.Equal(t, expected, res)
