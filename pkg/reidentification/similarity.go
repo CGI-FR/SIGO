@@ -1,22 +1,61 @@
+// Copyright (C) 2022 CGI France
+//
+// This file is part of SIGO.
+//
+// SIGO is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// SIGO is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with SIGO.  If not, see <http://www.gnu.org/licenses/>.
+
 package reidentification
 
 import (
-	"encoding/json"
 	"reflect"
 	"sort"
-	"strconv"
+
+	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
-type Metric interface {
-	Compute(map[string]float64, map[string]float64) float64
+type Similarity struct {
+	id        int
+	qi        map[string]interface{}
+	score     float64
+	sensitive []string
+}
+
+func NewSimilarity(id int, ind sigo.Record, qid []string, s []string) Similarity {
+	x := make(map[string]interface{})
+	list := []string{}
+
+	for _, q := range qid {
+		x[q] = ind.Row()[q]
+	}
+
+	for i := range s {
+		list = append(list, ind.Row()[s[i]].(string))
+	}
+
+	return Similarity{id: id, qi: x, score: 0, sensitive: list}
+}
+
+func (sim *Similarity) AddScore(score float64) {
+	sim.score = score
 }
 
 type Similarities struct {
 	slice  []Similarity
-	metric Metric
+	metric Distance
 }
 
-func NewSimilarities(m Metric) Similarities {
+func NewSimilarities(m Distance) Similarities {
 	return Similarities{slice: []Similarity{}, metric: m}
 }
 
@@ -28,7 +67,7 @@ func (s Similarities) Slice() []Similarity {
 	return s.slice
 }
 
-func (s Similarities) Metric() Metric {
+func (s Similarities) Metric() Distance {
 	return s.metric
 }
 
@@ -54,7 +93,7 @@ func (s Similarities) TopSimilarity(n int) (res Similarities) {
 		mapTmp[sim.id] = t
 	}
 
-	scores = removeDuplicate(scores)
+	scores = RemoveDuplicate(scores)
 
 	switch reflect.TypeOf(s.metric).String() {
 	case "reidentification.Cosine":
@@ -85,44 +124,4 @@ func (s Similarities) TopSimilarity(n int) (res Similarities) {
 	res.metric = s.metric
 
 	return res
-}
-
-func MapItoMapF(m map[string]interface{}) map[string]float64 {
-	mFloat := make(map[string]float64)
-
-	for key, value := range m {
-		var val float64
-		switch t := value.(type) {
-		case int:
-			val = float64(t)
-		case string:
-			//nolint: gomnd
-			val, _ = strconv.ParseFloat(t, 64)
-		case float32:
-			val = float64(t)
-		case json.Number:
-			val, _ = t.Float64()
-		case float64:
-			val = t
-		}
-
-		mFloat[key] = val
-	}
-
-	return mFloat
-}
-
-func removeDuplicate(floatSlice []float64) []float64 {
-	keys := make(map[float64]bool)
-	list := []float64{}
-
-	for _, val := range floatSlice {
-		if _, value := keys[val]; !value {
-			keys[val] = true
-
-			list = append(list, val)
-		}
-	}
-
-	return list
 }

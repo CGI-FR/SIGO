@@ -1,7 +1,23 @@
+// Copyright (C) 2022 CGI France
+//
+// This file is part of SIGO.
+//
+// SIGO is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// SIGO is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with SIGO.  If not, see <http://www.gnu.org/licenses/>.
+
 package reidentification_test
 
 import (
-	"math"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -10,57 +26,35 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestMapInterfaceToFloat(t *testing.T) {
-	t.Parallel()
-
-	m1 := make(map[string]interface{})
-	m1["x"] = 14
-	m1["y"] = 6
-
-	m2 := make(map[string]interface{})
-	m2["x"] = 1
-	m2["y"] = 15
-
-	s1 := reidentification.MapItoMapF(m1)
-	s2 := reidentification.MapItoMapF(m2)
-
-	cosine := reidentification.NewCosineSimilarity()
-
-	assert.InDelta(t, 0.45418744744022516, cosine.Compute(s1, s2), math.Pow10(-15))
-}
-
 func TestTopSimilarity(t *testing.T) {
 	t.Parallel()
-
-	row := jsonline.NewRow()
-	row.Set("x", 4)
-	row.Set("y", 4)
-	record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{})
 
 	x := []float64{3, 7, 16.67, 4.33, 16.67}
 	y := []float64{7, 3, 18.33, 17.67, 16}
 	z := []string{"a", "a", "b", "c", "a"}
+	scores := []float64{0.8, 0.5, 0.9, 0.6, 0.9}
 	test := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
 
 	for i := range x {
-		row1 := jsonline.NewRow()
-		row1.Set("x", x[i])
-		row1.Set("y", y[i])
-		row1.Set("z", z[i])
+		row := jsonline.NewRow()
+		row.Set("x", x[i])
+		row.Set("y", y[i])
+		row.Set("z", z[i])
 
-		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
-		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
-		sim.ComputeSimilarity(record, []string{"x", "y"}, test.Metric())
+		record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{"z"})
+		sim := reidentification.NewSimilarity(i, record, []string{"x", "y"}, []string{"z"})
+		sim.AddScore(scores[i])
 
 		test.Add(sim)
 	}
 
 	res := test.TopSimilarity(2)
 
-	idE := []int{4, 2}
+	idE := []int{2, 4}
 	xE := []float64{16.67, 16.67}
-	yE := []float64{16, 18.33}
-	zE := []string{"a", "b"}
+	yE := []float64{18.33, 16}
+	zE := []string{"b", "a"}
+	scoresE := []float64{0.9, 0.9}
 	expected := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
 
 	for i := range xE {
@@ -70,7 +64,7 @@ func TestTopSimilarity(t *testing.T) {
 		rowE.Set("z", zE[i])
 		recordE := infra.NewJSONLineRecord(&rowE, &[]string{"x", "y"}, &[]string{"z"})
 		simE := reidentification.NewSimilarity(idE[i], recordE, []string{"x", "y"}, []string{"z"})
-		simE.ComputeSimilarity(record, []string{"x", "y"}, expected.Metric())
+		simE.AddScore(scoresE[i])
 		expected.Add(simE)
 	}
 

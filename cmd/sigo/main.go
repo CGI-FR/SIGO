@@ -18,6 +18,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"runtime"
@@ -25,6 +26,7 @@ import (
 
 	over "github.com/Trendyol/overlog"
 	"github.com/cgi-fr/sigo/internal/infra"
+	"github.com/cgi-fr/sigo/pkg/reidentification"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/mattn/go-isatty"
 	"github.com/pkg/profile"
@@ -58,6 +60,10 @@ type pdef struct {
 	method    string
 	cmdLine   []string
 	config    string
+}
+
+type reid struct {
+	originalFile string
 }
 
 func main() {
@@ -116,6 +122,8 @@ func main() {
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
+	rootCmd.PersistentFlags().StringVar(&reid.originalFile, "load-original", "",
+		"name and location of the original dataset file")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -162,20 +170,42 @@ func run(info infos, definition pdef, logs logs) {
 		debugger = sigo.NewNoDebugger()
 	}
 
-	var cpuProfiler interface{ Stop() }
+	switch {
+	case reid.originalFile != "":
+		originalData, err := os.Open(reid.originalFile)
+		if err != nil {
+			log.Err(err).Msg("Cannot open original dataset")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
 
-	if logs.profiling {
-		cpuProfiler = profile.Start(profile.ProfilePath("."))
-	}
+		original, err := infra.NewJSONLineSource(bufio.NewReader(originalData), definition.qi, definition.sensitive)
+		if err != nil {
+			log.Err(err).Msg("Cannot load jsonline original dataset")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
 
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
-		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
-	if err != nil {
-		panic(err)
-	}
+		err = reidentification.ReIdentify(original, source, reidentification.NewIdentifier("canberra", k), sink)
+		if err != nil {
+			panic(err)
+		}
+	default:
+		var cpuProfiler interface{ Stop() }
 
-	if logs.profiling {
-		cpuProfiler.Stop()
+		if logs.profiling {
+			cpuProfiler = profile.Start(profile.ProfilePath("."))
+		}
+
+		err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
+			len(definition.qi), newAnonymizer(definition.method), sink, debugger)
+		if err != nil {
+			panic(err)
+		}
+
+		if logs.profiling {
+			cpuProfiler.Stop()
+		}
 	}
 }
 

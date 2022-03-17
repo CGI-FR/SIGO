@@ -1,5 +1,9 @@
 # Tests
 
+```console
+sigo -q x,y -s z --load-original "examples/re-identification/data.json" < examples/re-identification/data2-sigo.json
+```
+
 ## Test1
 
 ### Dataset original
@@ -86,9 +90,9 @@ map[sensitive:[b] x:19 y:15]] VP
 ```
 
 - VP = 2
-- FN = 4
+- FP = 4
 
-Dans les FN :
+Dans les FP :
 
     - 2 individus qui ne peuvent pas être identifié avec une valeur de donnée sensible fausse
     - 1 individus est bien identifié mais mauvaise valeur donnée sensible
@@ -107,7 +111,7 @@ map[sensitive:[b] x:20 y:18]
 map[sensitive:[b] x:19 y:15]]
 ```
 
-- VP = 8
+- VP = 6
 
 ## Test2
 
@@ -640,4 +644,4 @@ map[age:84 height:2.05 location:3 sensitive:[cancer] weight:83]]
 | Chebyshev         |    5/6    |    3/9    |
 | Minkowski (p=3)   |    6/6    |    3/9    |
 
-<https://medium.com/bag-of-words/what-similarity-metric-should-you-use-for-your-recommendation-system-b45eb7e6ebd0>
+<https://towardsdatascience.com/17-types-of-similarity-and-dissimilarity-measures-used-in-data-science-3eb914d2681>

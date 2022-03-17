@@ -3,31 +3,7 @@ package reidentification
 import (
 	"math"
 	"sort"
-
-	"github.com/cgi-fr/sigo/pkg/sigo"
 )
-
-type Similarity struct {
-	id        int
-	qi        map[string]interface{}
-	score     float64
-	sensitive []string
-}
-
-func NewSimilarity(id int, ind sigo.Record, qid []string, s []string) Similarity {
-	x := make(map[string]interface{})
-	list := []string{}
-
-	for _, q := range qid {
-		x[q] = ind.Row()[q]
-	}
-
-	for i := range s {
-		list = append(list, ind.Row()[s[i]].(string))
-	}
-
-	return Similarity{id: id, qi: x, score: 0, sensitive: list}
-}
 
 type Cosine struct{}
 
@@ -120,17 +96,4 @@ func (min Minkowski) Compute(x, y map[string]float64) float64 {
 	}
 
 	return math.Pow(sum, 1/min.p)
-}
-
-func (sim *Similarity) ComputeSimilarity(ind sigo.Record, qid []string, metric Metric) {
-	x := make(map[string]interface{})
-
-	for _, q := range qid {
-		x[q] = ind.Row()[q]
-	}
-
-	X := MapItoMapF(x)
-	Y := MapItoMapF(sim.qi)
-
-	sim.score = metric.Compute(X, Y)
 }
