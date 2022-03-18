@@ -13,6 +13,7 @@ The following flags can be used:
 - `--anonymizer,-a <string>`, allows to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`, `"swapping"`].
 - `--cluster-info,-i <string>`, allows to display information about cluster.
 - `--entropy <bool>`, allows to choose if entropy model for l-diversity used.
+- `--load-original=data.json`, allows to re-identify individuals from an anonymized dataset using the original dataset `data.json`.
 
 ## DEMO
 
@@ -252,6 +253,25 @@ DataSet after sequencing:
 (After de-identification with **SIGO**, the operation can be undone with another call to **PIMO**. Original values will be saved, using caches for example.)
 
 Dates can be easily transformed into a sequence of floats, but one can imagine categories like colors, origin (if not a sensitive value), or even genders.
+
+## Re-identification
+
+- `data2-sigo.json` : the anonymized dataset.
+- `data.json` : the original dataset.
+
+```console
+sigo -q x,y -s z --k 3 --load-original=examples/re-identification/data.json < examples/re-identification/data2-sigo.json
+```
+
+`sigo` returns a list of re-identified individuals with their sensitive data :
+
+```console
+{"sensitive":["a"],"y":6,"x":5}
+{"x":8,"y":4,"sensitive":["a"]}
+{"x":20,"y":20,"sensitive":["b"]}
+{"sensitive":["b"],"x":20,"y":18}
+{"x":19,"y":15,"sensitive":["b"]}
+```
 
 ## Contributors
 

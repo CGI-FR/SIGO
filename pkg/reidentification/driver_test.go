@@ -20,6 +20,7 @@ package reidentification_test
 import (
 	"bufio"
 	"encoding/json"
+	"log"
 	"os"
 	"testing"
 
@@ -48,6 +49,8 @@ func TestReIdentify(t *testing.T) {
 
 	err = reidentification.ReIdentify(original, masked, reidentification.NewIdentifier("canberra", 3), sink)
 	assert.Nil(t, err)
+
+	log.Println(result)
 
 	assert.Equal(t, json.Number("5"), result[0]["x"])
 	assert.Equal(t, json.Number("6"), result[0]["y"])

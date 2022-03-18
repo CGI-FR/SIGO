@@ -22,7 +22,6 @@ import (
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
-	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/reidentification"
 	"github.com/stretchr/testify/assert"
 )
@@ -56,12 +55,11 @@ func TestRecover(t *testing.T) {
 	test := []reidentification.Similarity{}
 
 	for i := 0; i < 3; i++ {
-		row1 := jsonline.NewRow()
-		row1.Set("x", 3)
-		row1.Set("y", 7)
-		row1.Set("z", "c")
+		record1 := make(map[string]interface{})
+		record1["x"] = 3
+		record1["y"] = 7
+		record1["z"] = "c"
 
-		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
 		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
 		// sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
 
@@ -95,15 +93,12 @@ func TestRisk(t *testing.T) {
 	test := []reidentification.Similarity{}
 
 	for i := 0; i < 3; i++ {
-		row1 := jsonline.NewRow()
-		row1.Set("x", 19.67)
-		row1.Set("y", 17.67)
-		row1.Set("z", "b")
+		record1 := make(map[string]interface{})
+		record1["x"] = 19.67
+		record1["y"] = 17.67
+		record1["z"] = "b"
 
-		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
 		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
-		// sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
-
 		test = append(test, sim)
 	}
 
@@ -115,15 +110,12 @@ func TestRisk(t *testing.T) {
 	z := []string{"a", "b", "b", "b"}
 
 	for i := range z {
-		row1 := jsonline.NewRow()
-		row1.Set("x", 19.67)
-		row1.Set("y", 17.67)
-		row1.Set("z", z[i])
+		record1 := make(map[string]interface{})
+		record1["x"] = 19.67
+		record1["y"] = 17.67
+		record1["z"] = z[i]
 
-		record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
 		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
-		// sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
-
 		test2 = append(test2, sim)
 	}
 

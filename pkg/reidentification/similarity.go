@@ -20,8 +20,6 @@ package reidentification
 import (
 	"reflect"
 	"sort"
-
-	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
 type Similarity struct {
@@ -31,19 +29,14 @@ type Similarity struct {
 	sensitive []string
 }
 
-func NewSimilarity(id int, ind sigo.Record, qid []string, s []string) Similarity {
-	x := make(map[string]interface{})
+func NewSimilarity(id int, ind map[string]interface{}, qid []string, s []string) Similarity {
 	list := []string{}
 
-	for _, q := range qid {
-		x[q] = ind.Row()[q]
+	for _, i := range s {
+		list = append(list, ind[i].(string))
 	}
 
-	for i := range s {
-		list = append(list, ind.Row()[s[i]].(string))
-	}
-
-	return Similarity{id: id, qi: x, score: 0, sensitive: list}
+	return Similarity{id: id, qi: ind, score: 0, sensitive: list}
 }
 
 func (sim *Similarity) AddScore(score float64) {

@@ -20,8 +20,6 @@ package reidentification_test
 import (
 	"testing"
 
-	"github.com/cgi-fr/jsonline/pkg/jsonline"
-	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/reidentification"
 	"github.com/stretchr/testify/assert"
 )
@@ -36,12 +34,11 @@ func TestTopSimilarity(t *testing.T) {
 	test := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
 
 	for i := range x {
-		row := jsonline.NewRow()
-		row.Set("x", x[i])
-		row.Set("y", y[i])
-		row.Set("z", z[i])
+		record := make(map[string]interface{})
+		record["x"] = x[i]
+		record["y"] = y[i]
+		record["z"] = z[i]
 
-		record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{"z"})
 		sim := reidentification.NewSimilarity(i, record, []string{"x", "y"}, []string{"z"})
 		sim.AddScore(scores[i])
 
@@ -58,11 +55,11 @@ func TestTopSimilarity(t *testing.T) {
 	expected := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
 
 	for i := range xE {
-		rowE := jsonline.NewRow()
-		rowE.Set("x", xE[i])
-		rowE.Set("y", yE[i])
-		rowE.Set("z", zE[i])
-		recordE := infra.NewJSONLineRecord(&rowE, &[]string{"x", "y"}, &[]string{"z"})
+		recordE := make(map[string]interface{})
+		recordE["x"] = xE[i]
+		recordE["y"] = yE[i]
+		recordE["z"] = zE[i]
+
 		simE := reidentification.NewSimilarity(idE[i], recordE, []string{"x", "y"}, []string{"z"})
 		simE.AddScore(scoresE[i])
 		expected.Add(simE)

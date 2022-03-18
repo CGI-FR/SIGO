@@ -144,6 +144,7 @@ func run(info infos, definition pdef, logs logs) {
 	}
 
 	log.Info().
+<<<<<<< HEAD
 		Str("configuration", definition.config).
 		Int("k-anonymity", definition.k).
 		Int("l-diversity", definition.l).
@@ -151,6 +152,15 @@ func run(info infos, definition pdef, logs logs) {
 		Strs("Sensitive", definition.sensitive).
 		Str("Method", definition.method).
 		Str("Cluster-Info", logs.info).
+=======
+		Int("k-anonymity", k).
+		Int("l-diversity", l).
+		Strs("Quasi-Identifiers", qi).
+		Strs("Sensitive", sensitive).
+		Str("Method", method).
+		Str("Cluster-Info", info).
+		Bool("Re-identification", originalFile != "").
+>>>>>>> d1160c1 (feat: add reidentification in sigo)
 		Msg("Start SIGO")
 
 	source, err := infra.NewJSONLineSource(os.Stdin, definition.qi, definition.sensitive)

@@ -18,6 +18,8 @@
 package reidentification
 
 import (
+	"fmt"
+
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
@@ -26,6 +28,7 @@ import (
 type Identifier struct {
 	metric Distance
 	k      int
+	masked *[]map[string]interface{}
 }
 
 func NewIdentifier(name string, k int) Identifier {
@@ -47,7 +50,7 @@ func NewIdentifier(name string, k int) Identifier {
 		metric = NewEuclideanDistance()
 	}
 
-	return Identifier{metric: metric, k: k}
+	return Identifier{metric: metric, k: k, masked: &[]map[string]interface{}{}}
 }
 
 type IdentifiedRecord struct {
@@ -73,6 +76,17 @@ func (ir IdentifiedRecord) IsEmpty() bool {
 	return len(ir.sensitive) == 0
 }
 
+func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
+	sink := infra.NewSliceDictionariesSink(id.masked)
+
+	for maskedDataset.Next() {
+		err := sink.Collect(maskedDataset.Value())
+		if err != nil {
+			fmt.Println("Cannot collect data")
+		}
+	}
+}
+
 func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.RecordSource,
 	qi, s []string) IdentifiedRecord {
 	x := make(map[string]interface{})
@@ -84,9 +98,8 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 	sims := NewSimilarities(id.metric)
 	i := 0
 
-	for maskedDataset.Next() {
-		sim := NewSimilarity(i, maskedDataset.Value(), maskedDataset.QuasiIdentifer(), maskedDataset.Sensitive())
-
+	for _, record := range *id.masked {
+		sim := NewSimilarity(i, record, qi, s)
 		X := MapItoMapF(x)
 		Y := MapItoMapF(sim.qi)
 		score := id.metric.Compute(X, Y)

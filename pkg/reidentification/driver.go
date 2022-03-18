@@ -24,6 +24,8 @@ import (
 )
 
 func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink sigo.RecordSink) error {
+	identifier.SaveMasked(masked)
+
 	for original.Next() {
 		identified := identifier.Identify(original.Value(), masked, masked.QuasiIdentifer(), masked.Sensitive())
 
