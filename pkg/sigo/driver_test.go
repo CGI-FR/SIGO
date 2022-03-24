@@ -19,6 +19,9 @@ package sigo_test
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
+	"os"
 	"strings"
 	"testing"
 
@@ -32,9 +35,6 @@ import (
 
 func TestSimpleClustering(t *testing.T) {
 	t.Parallel()
-
-	row := jsonline.NewRow()
-	row.Set("ID", "1")
 
 	sourceText := `{"x":0, "y":0, "foo":"bar"}
 				   {"x":1, "y":1, "foo":"bar"}
@@ -88,4 +88,80 @@ func TestGeneralizedClustering(t *testing.T) {
 	assert.Equal(t, 2, result[3]["clusterID"])
 	assert.Equal(t, 2, result[4]["clusterID"])
 	assert.Equal(t, 2, result[5]["clusterID"])
+}
+
+type LoopReader struct {
+	template string
+	n        int
+}
+
+func (lr *LoopReader) Read(b []byte) (int, error) {
+	n, err := strings.NewReader(lr.template).Read(b)
+	fmt.Println(len(b))
+	// fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
+	fmt.Printf("b[:n] = %q\n", b[:n])
+
+	if err == io.EOF {
+		if lr.n == 0 {
+			return n, io.EOF
+		}
+
+		fmt.Println(lr.n)
+
+		lr.n--
+
+		return n, nil
+	}
+
+	return n, err
+}
+
+func BenchmarkSimpleClustering(b *testing.B) {
+	iter := `{"x":0, "y":0, "foo":"bar"}
+				   {"x":1, "y":1, "foo":"bar"}
+				   {"x":0, "y":1, "foo":"bar"}
+				   {"x":2, "y":1, "foo":"baz"}
+				   {"x":3, "y":2, "foo":"baz"}
+				   {"x":2, "y":3, "foo":"baz"}`
+
+	for i := 0; i < b.N; i++ {
+		source, err := infra.NewJSONLineSource(strings.NewReader(iter), []string{"x", "y"}, []string{"foo"})
+		assert.Nil(b, err)
+		b.StartTimer()
+
+		err = sigo.Anonymize(
+			source, sigo.NewKDTreeFactory(),
+			2, 1, 2,
+			sigo.NewAggregationAnonymizer("mean"),
+			infra.NewJSONLineSink(io.Discard), sigo.NewNoDebugger(),
+		)
+
+		assert.Nil(b, err)
+		b.StopTimer()
+	}
+}
+
+func BenchmarkLongClustering(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		jsonBytes, err := os.Open("testdata/tree.json")
+
+		assert.Nil(b, err)
+
+		source, err := infra.NewJSONLineSource(jsonBytes, []string{"x", "y"}, []string{})
+		assert.Nil(b, err)
+		b.StartTimer()
+
+		err = sigo.Anonymize(
+			source,
+			sigo.NewKDTreeFactory(),
+			10, 1, 2,
+			sigo.NewAggregationAnonymizer("mean"),
+			infra.NewJSONLineSink(io.Discard), sigo.NewNoDebugger(),
+		)
+
+		assert.Nil(b, err)
+		b.StopTimer()
+
+		jsonBytes.Close()
+	}
 }

@@ -228,6 +228,12 @@ targets:
     steps:
       - $: go test -coverprofile=./={BUILD_DIR}/coverage.txt -covermode=atomic ./...
 
+  bench:
+    doc: "Run all bench"
+    depends: ["info", "refresh"]
+    steps:
+      - $: go test -bench=. -benchmem ./... -run=^# -benchtime=10s | tee ./={BUILD_DIR}/benchstats.txt
+
   # run "neon -props '{buildpaths: ["path/to/main/package1","path/to/main/package2"]}' release" to release specific targets
   # example : neon -props '{buildpaths: ["cmd/cli"]}' release
   release:
@@ -239,7 +245,7 @@ targets:
 
   test-int:
     doc: "Run all integration tests"
-    depends: ["info", "refresh", "lint", "test", "release"]
+    depends: ["info", "refresh", "lint", "test", "release", "bench"]
     steps:
       - $: venom run test/suites/*
 
