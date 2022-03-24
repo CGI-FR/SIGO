@@ -29,7 +29,7 @@ func NewGeneralAnonymizer() GeneralAnonymizer {
 }
 
 func NewAggregationAnonymizer(typeAgg string) AggregationAnonymizer {
-	return AggregationAnonymizer{typeAggregation: typeAgg}
+	return AggregationAnonymizer{typeAggregation: typeAgg, values: make(map[string]map[string]float64)}
 }
 
 func NewCodingAnonymizer() CodingAnonymizer {
@@ -47,6 +47,7 @@ type (
 	}
 	AggregationAnonymizer struct {
 		typeAggregation string
+		values          map[string]map[string]float64
 	}
 	CodingAnonymizer struct{}
 	NoiseAnonymizer  struct {
@@ -96,6 +97,20 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 }
 
 func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	mask := map[string]interface{}{}
+
+	if a.values[clus.ID()] == nil {
+		a.ComputeAggregation(clus, qi)
+	}
+
+	for _, key := range qi {
+		mask[key] = a.values[clus.ID()][key]
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 	values := make(map[string][]float64)
 
 	for _, record := range clus.Records() {
@@ -112,18 +127,18 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 		}
 	}
 
-	mask := map[string]interface{}{}
+	valAggregation := make(map[string]float64)
 
 	for _, key := range qi {
 		switch a.typeAggregation {
 		case "mean":
-			mask[key] = Mean(values[key])
+			valAggregation[key] = Mean(values[key])
 		case "median":
-			mask[key] = Median(values[key])
+			valAggregation[key] = Median(values[key])
 		}
 	}
 
-	return AnonymizedRecord{original: rec, mask: mask}
+	a.values[clus.ID()] = valAggregation
 }
 
 func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
