@@ -27,6 +27,7 @@ import (
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/mattn/go-isatty"
+	"github.com/pkg/profile"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
@@ -51,6 +52,7 @@ var (
 	sensitive []string
 	method    string
 	info      string
+	profiling bool
 )
 
 func main() {
@@ -95,6 +97,8 @@ func main() {
 				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
+	rootCmd.PersistentFlags().BoolVarP(&profiling, "profiling", "p", false,
+		"start sigo with profiling and generate a cpu.pprof file (debug)")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
 
@@ -133,9 +137,19 @@ func run() {
 		debugger = sigo.NewNoDebugger()
 	}
 
+	var cpuProfiler interface{ Stop() }
+
+	if profiling {
+		cpuProfiler = profile.Start(profile.ProfilePath("."))
+	}
+
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), newAnonymizer(method), sink, debugger)
 	if err != nil {
 		panic(err)
+	}
+
+	if profiling {
+		cpuProfiler.Stop()
 	}
 }
 
