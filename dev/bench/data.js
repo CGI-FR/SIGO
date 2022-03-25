@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1648212610226,
+  "lastUpdate": 1648213098373,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -71,6 +71,42 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 59336403592,
             "unit": "ns/op\t6372753504 B/op\t476856764 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "youen.peron@cgi.com",
+            "name": "Linux User",
+            "username": "youen"
+          },
+          "committer": {
+            "email": "youen.peron@cgi.com",
+            "name": "Linux User",
+            "username": "youen"
+          },
+          "distinct": true,
+          "id": "a83ea480d94ea8dce067b24bdc30480e15b6c871",
+          "message": "fix: remove cpu.pprof file",
+          "timestamp": "2022-03-25T12:55:02Z",
+          "tree_id": "b025fbea3d9cc86a7f4c2c78f7dac7a5f452c3a9",
+          "url": "https://github.com/CGI-FR/SIGO/commit/a83ea480d94ea8dce067b24bdc30480e15b6c871"
+        },
+        "date": 1648213097794,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSimpleClustering",
+            "value": 150703,
+            "unit": "ns/op\t   39461 B/op\t    1041 allocs/op",
+            "extra": "80522 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 73928063994,
+            "unit": "ns/op\t6372753408 B/op\t476856760 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
