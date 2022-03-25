@@ -36,7 +36,7 @@ type KDTreeFactory struct{}
 func (f KDTreeFactory) New(k int, l int, dim int, qi []string) Generalizer {
 	// nolint: exhaustivestruct
 	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi}
-	root := newNode(&tree, "root", 0)
+	root := NewNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
 
@@ -52,8 +52,13 @@ type KDTree struct {
 	qi        []string
 }
 
+func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
+	//nolint: exhaustivestruct
+	return KDTree{k: k, l: l, dim: dim, clusterID: clusterID}
+}
+
 func (t KDTree) Add(r Record) {
-	t.root.add(r)
+	t.root.Add(r)
 }
 
 func (t KDTree) Build() {
@@ -61,14 +66,15 @@ func (t KDTree) Build() {
 }
 
 func (t KDTree) Clusters() []Cluster {
-	return t.root.clusters()
+	return t.root.Clusters()
 }
 
 func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
-func newNode(tree *KDTree, path string, rot int) node {
+//nolint: revive, golint
+func NewNode(tree *KDTree, path string, rot int) node {
 	return node{
 		tree:        tree,
 		cluster:     []Record{},
@@ -96,7 +102,7 @@ type node struct {
 	rot         int
 }
 
-func (n *node) add(r Record) {
+func (n *node) Add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
@@ -173,9 +179,9 @@ func (n *node) split() (node, node, bool) {
 	})
 
 	n.pivot = nil
-	lower := newNode(n.tree, n.clusterPath+"-l", n.rot+1)
+	lower := NewNode(n.tree, n.clusterPath+"-l", n.rot+1)
 	copy(lower.bounds, n.bounds)
-	upper := newNode(n.tree, n.clusterPath+"-u", n.rot+1)
+	upper := NewNode(n.tree, n.clusterPath+"-u", n.rot+1)
 	copy(upper.bounds, n.bounds)
 
 	lowerSize := 0
@@ -184,7 +190,7 @@ func (n *node) split() (node, node, bool) {
 
 	for _, row := range n.cluster {
 		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
-			lower.add(row)
+			lower.Add(row)
 			previous = row
 			lowerSize++
 		} else {
@@ -193,7 +199,7 @@ func (n *node) split() (node, node, bool) {
 				lower.bounds[n.rot].up = previous.QuasiIdentifer()[n.rot]
 				upper.bounds[n.rot].down = n.pivot[n.rot]
 			}
-			upper.add(row)
+			upper.Add(row)
 			upperSize++
 		}
 	}
@@ -213,12 +219,12 @@ func (n *node) ID() string {
 	return n.clusterPath
 }
 
-func (n *node) clusters() []Cluster {
+func (n *node) Clusters() []Cluster {
 	if n.cluster != nil {
 		return []Cluster{n}
 	}
 
-	return append(n.subNodes[0].clusters(), n.subNodes[1].clusters()...)
+	return append(n.subNodes[0].Clusters(), n.subNodes[1].Clusters()...)
 }
 
 func (n *node) string(offset int) string {
