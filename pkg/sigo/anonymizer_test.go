@@ -18,6 +18,7 @@
 package sigo_test
 
 import (
+	"log"
 	"strings"
 	"testing"
 
@@ -65,6 +66,41 @@ func TestAggregationAnonymizer(t *testing.T) {
 	expected = map[string]interface{}{"x": 1.00, "y": 8.00, "z": "a"}
 
 	assert.Equal(t, expected, anonymizedRecord.Row())
+}
+
+func BenchmarkAggregationAnonymizer(b *testing.B) {
+	row1 := jsonline.NewRow()
+	row1.Set("x", 0)
+	row1.Set("y", 9)
+	row1.Set("z", "a")
+	record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
+
+	tree := sigo.NewKDTree(2, 3, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	node.Add(record1)
+
+	row2 := jsonline.NewRow()
+	row2.Set("x", 1)
+	row2.Set("y", 3)
+	row2.Set("z", "b")
+	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{"z"})
+	node.Add(record2)
+
+	row3 := jsonline.NewRow()
+	row3.Set("x", 4)
+	row3.Set("y", 8)
+	row3.Set("z", "c")
+	record3 := infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{"z"})
+	node.Add(record3)
+
+	anonymizer := sigo.NewAggregationAnonymizer("mean")
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		log.Println(i)
+		anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"z"})
+	}
 }
 
 //nolint: funlen
@@ -129,7 +165,62 @@ func TestTopBottomCodingAnonymizer(t *testing.T) {
 	assert.Equal(t, expected, anonymizedRecord.Row())
 }
 
-func TestRandomNoiseAnonymizer(t *testing.T) {
+func BenchmarkTopBottomCodingAnonymizer(b *testing.B) {
+	tree := sigo.NewKDTree(7, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+
+	row1 := jsonline.NewRow()
+	row1.Set("x", 3)
+	row1.Set("y", 5)
+	node.Add(infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{}))
+
+	row2 := jsonline.NewRow()
+	row2.Set("x", 5)
+	row2.Set("y", 3)
+	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{})
+	node.Add(record2)
+
+	row3 := jsonline.NewRow()
+	row3.Set("x", 6)
+	row3.Set("y", 5)
+	node.Add(infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{}))
+
+	row4 := jsonline.NewRow()
+	row4.Set("x", 9)
+	row4.Set("y", 10)
+	node.Add(infra.NewJSONLineRecord(&row4, &[]string{"x", "y"}, &[]string{}))
+
+	row5 := jsonline.NewRow()
+	row5.Set("x", 10)
+	row5.Set("y", 30)
+	node.Add(infra.NewJSONLineRecord(&row5, &[]string{"x", "y"}, &[]string{}))
+
+	row6 := jsonline.NewRow()
+	row6.Set("x", 11)
+	row6.Set("y", 11)
+	node.Add(infra.NewJSONLineRecord(&row6, &[]string{"x", "y"}, &[]string{}))
+
+	row7 := jsonline.NewRow()
+	row7.Set("x", 12)
+	row7.Set("y", 11)
+	node.Add(infra.NewJSONLineRecord(&row7, &[]string{"x", "y"}, &[]string{}))
+
+	row8 := jsonline.NewRow()
+	row8.Set("x", 48)
+	row8.Set("y", 12)
+	record8 := infra.NewJSONLineRecord(&row8, &[]string{"x", "y"}, &[]string{})
+	node.Add(record8)
+
+	anonymizer := sigo.NewCodingAnonymizer()
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		anonymizer.Anonymize(record2, node.Clusters()[0], []string{"x", "y"}, []string{})
+	}
+}
+
+func TestRandomAnonymizer(t *testing.T) {
 	t.Parallel()
 
 	sourceText := `{"x": 0, "y": 0}
