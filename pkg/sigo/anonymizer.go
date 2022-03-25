@@ -17,11 +17,6 @@
 
 package sigo
 
-import (
-	"encoding/json"
-	"errors"
-)
-
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 func NewGeneralAnonymizer() GeneralAnonymizer {
@@ -59,7 +54,7 @@ type (
 	}
 )
 
-func (ar AnonymizedRecord) QuasiIdentifer() []float32 {
+func (ar AnonymizedRecord) QuasiIdentifer() []float64 {
 	return ar.original.QuasiIdentifer()
 }
 
@@ -90,7 +85,7 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 
 	mask := map[string]interface{}{}
 	for i, q := range qi {
-		mask[q] = []float32{b[i].down, b[i].up}
+		mask[q] = []float64{b[i].down, b[i].up}
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
@@ -111,21 +106,7 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 }
 
 func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
-	values := make(map[string][]float64)
-
-	for _, record := range clus.Records() {
-		for key, value := range record.Row() {
-			switch v := value.(type) {
-			case json.Number:
-				val, _ := v.Float64()
-				values[key] = append(values[key], val)
-			case int:
-				values[key] = append(values[key], float64(v))
-			default:
-				continue
-			}
-		}
-	}
+	values := listValues(clus, qi)
 
 	valAggregation := make(map[string]float64)
 
@@ -142,19 +123,16 @@ func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 }
 
 func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	values := listValues(clus)
+	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
-	for _, key := range qi {
+	for i, key := range qi {
 		vals := values[key]
 		q := Quartile(vals)
 		bottom := q.Q1
 		top := q.Q3
 
-		val, err := convertToFloat64(rec.Row()[key])
-		if err != nil {
-			continue
-		}
+		val := rec.QuasiIdentifer()[i]
 
 		switch {
 		case val < bottom:
@@ -172,11 +150,8 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 
-	for _, key := range qi {
-		val, err := convertToFloat64(rec.Row()[key])
-		if err != nil {
-			continue
-		}
+	for i, key := range qi {
+		val := rec.QuasiIdentifer()[i]
 
 		switch a.typeNoise {
 		case "laplace":
@@ -189,43 +164,14 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
-func listValues(clus Cluster) (mapValues map[string][]float64) {
+func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 	mapValues = make(map[string][]float64)
 
 	for _, record := range clus.Records() {
-		for key, value := range record.Row() {
-			switch v := value.(type) {
-			case json.Number:
-				val, _ := v.Float64()
-				mapValues[key] = append(mapValues[key], val)
-			case int:
-				mapValues[key] = append(mapValues[key], float64(v))
-			default:
-				continue
-			}
+		for i, key := range qi {
+			mapValues[key] = append(mapValues[key], record.QuasiIdentifer()[i])
 		}
 	}
 
 	return mapValues
-}
-
-func convertToFloat64(value interface{}) (val float64, err error) {
-	if value == nil {
-		//nolint: goerr113
-		return 0, errors.New("error: in conversion to Float64")
-	}
-
-	switch v := value.(type) {
-	case string:
-		//nolint: goerr113
-		return 0, errors.New("error: in conversion to Float64")
-	case json.Number:
-		val, _ = v.Float64()
-	case int:
-		val = float64(v)
-	case interface{}:
-		return v.(float64), nil
-	}
-
-	return val, nil
 }
