@@ -35,11 +35,11 @@ type JSONLineRecord struct {
 	sensitives      *[]string
 }
 
-func (jlr JSONLineRecord) QuasiIdentifer() []float32 {
-	result := []float32{}
+func (jlr JSONLineRecord) QuasiIdentifer() []float64 {
+	result := []float64{}
 
 	for _, key := range *jlr.quasiIdentifers {
-		result = append(result, (*jlr.row).GetFloat32(key))
+		result = append(result, (*jlr.row).GetFloat64(key))
 	}
 
 	return result

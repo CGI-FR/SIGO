@@ -72,7 +72,7 @@ func newNode(tree *KDTree, path string, rot int) node {
 		cluster:     []Record{},
 		clusterPath: path,
 		subNodes:    []node{},
-		pivot:       []float32{},
+		pivot:       []float64{},
 		valid:       false,
 		rot:         rot % tree.dim,
 		bounds:      make([]bounds, tree.dim),
@@ -80,7 +80,7 @@ func newNode(tree *KDTree, path string, rot int) node {
 }
 
 type bounds struct {
-	down, up float32
+	down, up float64
 }
 
 type node struct {
@@ -89,7 +89,7 @@ type node struct {
 	clusterPath string
 	subNodes    []node
 	bounds      []bounds
-	pivot       []float32
+	pivot       []float64
 	valid       bool
 	rot         int
 }
