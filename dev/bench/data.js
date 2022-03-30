@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1648213098373,
+  "lastUpdate": 1648655375253,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -107,6 +107,42 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 73928063994,
             "unit": "ns/op\t6372753408 B/op\t476856760 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "df07f110474fe48f2d34bf04ba8d2c047a310e02",
+          "message": "perf: optimize AggregationAnonymizer (#24)\n\n* perf: optimize AggregationAnonymizer\r\n\r\n* perf(bench): add bench test\r\n\r\n* feat: add option profiling (#26)\r\n\r\n* fix: remove cpu.pprof file\r\n\r\n* perf: optimize AggregationAnonymizer\r\n\r\nCo-authored-by: Linux User <youen.peron@cgi.com>",
+          "timestamp": "2022-03-30T17:46:30+02:00",
+          "tree_id": "25d428e7b5204bf0408a12de560d649207cf79c1",
+          "url": "https://github.com/CGI-FR/SIGO/commit/df07f110474fe48f2d34bf04ba8d2c047a310e02"
+        },
+        "date": 1648655374380,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSimpleClustering",
+            "value": 130451,
+            "unit": "ns/op\t   35900 B/op\t    1071 allocs/op",
+            "extra": "93972 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 66191881184,
+            "unit": "ns/op\t7606252592 B/op\t562667752 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
