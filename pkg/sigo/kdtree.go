@@ -24,6 +24,7 @@ import (
 	"strings"
 
 	over "github.com/Trendyol/overlog"
+	"github.com/rs/zerolog/log"
 )
 
 func NewKDTreeFactory() KDTreeFactory {
@@ -66,6 +67,10 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
+// func (t KDTree) Plot(level int) {
+// 	t.root.plot(level)
+// }
+
 func newNode(tree *KDTree, path string, rot int) node {
 	return node{
 		tree:        tree,
@@ -103,6 +108,11 @@ func (n *node) incRot() {
 }
 
 func (n *node) build() {
+	// Debug, Trace ?
+	log.Debug().Msgf("Dimension: %v", n.rot)
+	log.Debug().Msgf("Cluster Path: %v", n.clusterPath)
+	log.Debug().Msgf("Size: %v", len(n.cluster))
+
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		if n == n.tree.root {
 			n.initiateBounds()
@@ -126,10 +136,6 @@ func (n *node) build() {
 		if !valide {
 			return
 		}
-
-		// log.Info().Msgf("new pivot: %v", n.pivot)
-		// log.Info().Str("node", lower.string(0)).Msg("new node")
-		// log.Info().Str("node", upper.string(0)).Msg("new node")
 
 		lower.validate()
 		upper.validate()
@@ -242,6 +248,24 @@ func (n *node) string(offset int) string {
 		strings.Repeat(" ", offset),
 	)
 }
+
+// func (n *node) plot(level int) {
+// 	format := ""
+// 	for i := 0; i < level; i++ {
+// 		format += "		"
+// 	}
+
+// 	format += "---["
+
+// 	if len(n.subNodes) != 0 {
+// 		level++
+// 		n.subNodes[0].plot(level)
+// 		log.Trace().Msgf("%v %v\n", format, n.clusterPath)
+// 		n.subNodes[1].plot(level)
+// 	} else {
+// 		log.Trace().Msgf("%v %v\n", format, n.clusterPath)
+// 	}
+// }
 
 func (n *node) validate() {
 	n.valid = true

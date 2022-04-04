@@ -46,6 +46,7 @@ type Generalizer interface {
 	Clusters() []Cluster
 	String() string
 	Build()
+	// Plot(int)
 }
 
 type GeneralizerFactory interface {
