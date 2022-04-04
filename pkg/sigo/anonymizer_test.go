@@ -18,11 +18,8 @@
 package sigo_test
 
 import (
-	"fmt"
-	"math/rand"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/internal/infra"
@@ -120,33 +117,56 @@ func TestTopBottomCodingAnonymizer(t *testing.T) {
 func TestRandomNoiseAnonymizer(t *testing.T) {
 	t.Parallel()
 
-	tests := []int{10, 20, 50, 100, 200, 500, 1000}
+	sourceText := `{"x": 0, "y": 0}
+				   {"x": 0, "y": 1}
+				   {"x": 0, "y": 12}
+				   {"x": 1, "y": 1}
+				   {"x": 1, "y": 2}
+				   {"x": 1, "y": 20}
+				   {"x": 2, "y": 1}
+				   {"x": 3, "y": 5}
+				   {"x": 5, "y": 3}
+				   {"x": 6, "y": 5}
+				   {"x": 9, "y": 10}
+				   {"x": 10, "y": 30}
+				   {"x": 11, "y": 11}
+				   {"x": 12, "y": 11}
+				   {"x": 48, "y": 12}`
 
-	// nolint: paralleltest
-	for i, N := range tests {
-		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
-			t.Parallel()
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
+	assert.Nil(t, err)
 
-			rand.Seed(time.Now().UnixNano())
+	result := []map[string]interface{}{}
+	sink := infra.NewSliceDictionariesSink(&result)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 3, 1, 2, sigo.NewNoiseAnonymizer("gaussian"),
+		sink, sigo.NewNoDebugger())
+	assert.Nil(t, err)
 
-			kdtree := sigo.NewKDTreeFactory().New(3, 1, 1)
-			rows := []jsonline.Row{}
+	for i := 0; i < 4; i++ {
+		assert.GreaterOrEqual(t, result[i]["x"], 0.00)
+		assert.LessOrEqual(t, result[i]["x"], 2.00)
+		assert.GreaterOrEqual(t, result[i]["y"], 0.00)
+		assert.LessOrEqual(t, result[i]["y"], 1.00)
+	}
 
-			for i := 0; i < N; i++ {
-				row := jsonline.NewRow()
-				//nolint: gosec
-				x := float64(rand.Intn(N)) + rand.Float64()
-				row.Set("x", x)
-				rows = append(rows, row)
-			}
+	for i := 4; i < 7; i++ {
+		assert.GreaterOrEqual(t, result[i]["x"], 0.00)
+		assert.LessOrEqual(t, result[i]["x"], 1.00)
+		assert.GreaterOrEqual(t, result[i]["y"], 2.00)
+		assert.LessOrEqual(t, result[i]["y"], 20.00)
+	}
 
-			for i := 0; i < N; i++ {
-				record := infra.NewJSONLineRecord(&rows[i], &[]string{"x"}, &[]string{})
+	for i := 7; i < 11; i++ {
+		assert.GreaterOrEqual(t, result[i]["x"], 3.00)
+		assert.LessOrEqual(t, result[i]["x"], 9.00)
+		assert.GreaterOrEqual(t, result[i]["y"], 3.00)
+		assert.LessOrEqual(t, result[i]["y"], 10.00)
+	}
 
-				kdtree.Add(record)
-			}
-
-			kdtree.Build()
-		})
+	for i := 11; i < 15; i++ {
+		assert.GreaterOrEqual(t, result[i]["x"], 10.00)
+		assert.LessOrEqual(t, result[i]["x"], 48.00)
+		assert.GreaterOrEqual(t, result[i]["y"], 11.00)
+		assert.LessOrEqual(t, result[i]["y"], 30.00)
 	}
 }
