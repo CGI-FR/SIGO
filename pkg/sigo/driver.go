@@ -28,6 +28,8 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 	generalizer := factory.New(k, l, dim)
 	count := 0
 
+	var bar Bar
+
 	log.Info().Msg("Reading source")
 
 	for source.Next() {
@@ -44,12 +46,13 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 
 	generalizer.Build()
 
-	// generalizer.Plot(0)
+	bar.NewOption(0, int64(count))
 
 	log.Info().Msg("Cluster Anonymization")
 
+	var i int64
+
 	for _, cluster := range generalizer.Clusters() {
-		// Debug, Trace ?
 		log.Debug().Msgf("Cluster: %v", cluster.ID())
 
 		for _, record := range cluster.Records() {
@@ -61,8 +64,13 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 			if err != nil {
 				return fmt.Errorf("%w", err)
 			}
+
+			i++
+			bar.Play(i)
 		}
 	}
+
+	bar.Finish()
 
 	return nil
 }
