@@ -117,6 +117,10 @@ func (s *JSONLineSource) QuasiIdentifer() []string {
 	return s.quasiIdentifers
 }
 
+func (s *JSONLineSource) UpdateQI(newQI []string) {
+	s.quasiIdentifers = newQI
+}
+
 func (s *JSONLineSource) Sensitive() []string {
 	return s.sensitives
 }

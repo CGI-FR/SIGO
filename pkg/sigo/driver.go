@@ -26,6 +26,7 @@ import (
 func Anonymize(source RecordSource, factory GeneralizerFactory,
 	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
 	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
+	analyzer := New(source)
 	count := 0
 
 	log.Info().Msg("Reading source")
@@ -35,12 +36,16 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 			return fmt.Errorf("%w", source.Err())
 		}
 
+		analyzer.Add(source.Value())
 		generalizer.Add(source.Value())
 		count++
 	}
 
 	log.Info().Msgf("%v individuals to anonymize", count)
 	log.Info().Msg("Tree building")
+
+	orderedQI := order(analyzer.CountUniqueValues())
+	source.UpdateQI(orderedQI)
 
 	generalizer.Build()
 

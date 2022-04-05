@@ -22,6 +22,7 @@ type RecordSource interface {
 	Err() error
 	Value() Record
 	QuasiIdentifer() []string
+	UpdateQI([]string)
 	Sensitive() []string
 }
 
@@ -58,4 +59,9 @@ type Anonymizer interface {
 
 type Debugger interface {
 	Information(Record, Cluster) Record
+}
+
+type Analyzer interface {
+	Add(Record)
+	CountUniqueValues() map[string]int
 }
