@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649166126103,
+  "lastUpdate": 1649166554749,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -179,6 +179,42 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 84976173214,
             "unit": "ns/op\t7606252312 B/op\t562667765 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "57703518+Baguettte@users.noreply.github.com",
+            "name": "P0la__brD",
+            "username": "Baguettte"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "c5fefa9b7441084a850c6871b8983b6ad79f999a",
+          "message": "fix(kdtree): change dimension until cluster splittable, modulo n.dim (#19)\n\n* fix(kdtree): change dimension until cluster splittable, modulo n.dim\r\n\r\n* docs: update CHANGELOG\r\n\r\n* fix(kdtree): fix loop break condition for splitting",
+          "timestamp": "2022-04-05T15:45:44+02:00",
+          "tree_id": "462ab65b0810d46deebb1d674a422a21e3c2733c",
+          "url": "https://github.com/CGI-FR/SIGO/commit/c5fefa9b7441084a850c6871b8983b6ad79f999a"
+        },
+        "date": 1649166553762,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSimpleClustering",
+            "value": 146414,
+            "unit": "ns/op\t   35900 B/op\t    1073 allocs/op",
+            "extra": "82453 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 73783858042,
+            "unit": "ns/op\t7606249840 B/op\t562700511 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
