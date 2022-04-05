@@ -18,7 +18,6 @@ package sigo_test
 
 import (
 	"log"
-	"strings"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -102,53 +101,22 @@ func BenchmarkAggregationAnonymizer(b *testing.B) {
 	}
 }
 
-//nolint: funlen
 func TestTopBottomCodingAnonymizer(t *testing.T) {
 	t.Parallel()
 
 	tree := sigo.NewKDTree(7, 1, 2, make(map[string]int))
 	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
 
-	row1 := jsonline.NewRow()
-	row1.Set("x", 3)
-	row1.Set("y", 5)
-	node.Add(infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{}))
-
-	row2 := jsonline.NewRow()
-	row2.Set("x", 5)
-	row2.Set("y", 3)
-	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{})
+	node.Add(createRow(3, 5, qi))
+	record2 := createRow(5, 3, qi)
 	node.Add(record2)
-
-	row3 := jsonline.NewRow()
-	row3.Set("x", 6)
-	row3.Set("y", 5)
-	node.Add(infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{}))
-
-	row4 := jsonline.NewRow()
-	row4.Set("x", 9)
-	row4.Set("y", 10)
-	node.Add(infra.NewJSONLineRecord(&row4, &[]string{"x", "y"}, &[]string{}))
-
-	row5 := jsonline.NewRow()
-	row5.Set("x", 10)
-	row5.Set("y", 30)
-	node.Add(infra.NewJSONLineRecord(&row5, &[]string{"x", "y"}, &[]string{}))
-
-	row6 := jsonline.NewRow()
-	row6.Set("x", 11)
-	row6.Set("y", 11)
-	node.Add(infra.NewJSONLineRecord(&row6, &[]string{"x", "y"}, &[]string{}))
-
-	row7 := jsonline.NewRow()
-	row7.Set("x", 12)
-	row7.Set("y", 11)
-	node.Add(infra.NewJSONLineRecord(&row7, &[]string{"x", "y"}, &[]string{}))
-
-	row8 := jsonline.NewRow()
-	row8.Set("x", 48)
-	row8.Set("y", 12)
-	record8 := infra.NewJSONLineRecord(&row8, &[]string{"x", "y"}, &[]string{})
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
+	node.Add(createRow(10, 30, qi))
+	node.Add(createRow(11, 11, qi))
+	node.Add(createRow(12, 11, qi))
+	record8 := createRow(48, 12, qi)
 	node.Add(record8)
 
 	anonymizer := sigo.NewCodingAnonymizer()
@@ -167,47 +135,17 @@ func TestTopBottomCodingAnonymizer(t *testing.T) {
 func BenchmarkTopBottomCodingAnonymizer(b *testing.B) {
 	tree := sigo.NewKDTree(7, 1, 2, make(map[string]int))
 	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
 
-	row1 := jsonline.NewRow()
-	row1.Set("x", 3)
-	row1.Set("y", 5)
-	node.Add(infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{}))
-
-	row2 := jsonline.NewRow()
-	row2.Set("x", 5)
-	row2.Set("y", 3)
-	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{})
+	node.Add(createRow(3, 5, qi))
+	record2 := createRow(5, 3, qi)
 	node.Add(record2)
-
-	row3 := jsonline.NewRow()
-	row3.Set("x", 6)
-	row3.Set("y", 5)
-	node.Add(infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{}))
-
-	row4 := jsonline.NewRow()
-	row4.Set("x", 9)
-	row4.Set("y", 10)
-	node.Add(infra.NewJSONLineRecord(&row4, &[]string{"x", "y"}, &[]string{}))
-
-	row5 := jsonline.NewRow()
-	row5.Set("x", 10)
-	row5.Set("y", 30)
-	node.Add(infra.NewJSONLineRecord(&row5, &[]string{"x", "y"}, &[]string{}))
-
-	row6 := jsonline.NewRow()
-	row6.Set("x", 11)
-	row6.Set("y", 11)
-	node.Add(infra.NewJSONLineRecord(&row6, &[]string{"x", "y"}, &[]string{}))
-
-	row7 := jsonline.NewRow()
-	row7.Set("x", 12)
-	row7.Set("y", 11)
-	node.Add(infra.NewJSONLineRecord(&row7, &[]string{"x", "y"}, &[]string{}))
-
-	row8 := jsonline.NewRow()
-	row8.Set("x", 48)
-	row8.Set("y", 12)
-	record8 := infra.NewJSONLineRecord(&row8, &[]string{"x", "y"}, &[]string{})
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
+	node.Add(createRow(10, 30, qi))
+	node.Add(createRow(11, 11, qi))
+	node.Add(createRow(12, 11, qi))
+	record8 := createRow(48, 12, qi)
 	node.Add(record8)
 
 	anonymizer := sigo.NewCodingAnonymizer()
@@ -219,59 +157,53 @@ func BenchmarkTopBottomCodingAnonymizer(b *testing.B) {
 	}
 }
 
-func TestRandomAnonymizer(t *testing.T) {
+func TestRandomNoiseAnonymizer(t *testing.T) {
 	t.Parallel()
 
-	sourceText := `{"x": 0, "y": 0}
-				   {"x": 0, "y": 1}
-				   {"x": 0, "y": 12}
-				   {"x": 1, "y": 1}
-				   {"x": 1, "y": 2}
-				   {"x": 1, "y": 20}
-				   {"x": 2, "y": 1}
-				   {"x": 3, "y": 5}
-				   {"x": 5, "y": 3}
-				   {"x": 6, "y": 5}
-				   {"x": 9, "y": 10}
-				   {"x": 10, "y": 30}
-				   {"x": 11, "y": 11}
-				   {"x": 12, "y": 11}
-				   {"x": 48, "y": 12}`
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
 
-	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
-	assert.Nil(t, err)
+	record := createRow(3, 5, qi)
+	node.Add(record)
+	node.Add(createRow(5, 3, qi))
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
 
-	result := []map[string]interface{}{}
-	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 3, 1, 2, sigo.NewNoiseAnonymizer("gaussian"),
-		sink, sigo.NewNoDebugger())
-	assert.Nil(t, err)
+	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
 
-	for i := 0; i < 4; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 0.00)
-		assert.LessOrEqual(t, result[i]["x"], 2.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 0.00)
-		assert.LessOrEqual(t, result[i]["y"], 1.00)
+	anonymizedRecord := anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
+
+	assert.GreaterOrEqual(t, anonymizedRecord.Row()["x"], 3.00)
+	assert.LessOrEqual(t, anonymizedRecord.Row()["x"], 9.00)
+	assert.GreaterOrEqual(t, anonymizedRecord.Row()["y"], 3.00)
+	assert.LessOrEqual(t, anonymizedRecord.Row()["y"], 10.00)
+}
+
+func BenchmarkRandomNoiseAnonymizer(b *testing.B) {
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+
+	record := createRow(3, 5, qi)
+	node.Add(record)
+	node.Add(createRow(5, 3, qi))
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
+
+	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
 	}
+}
 
-	for i := 4; i < 7; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 0.00)
-		assert.LessOrEqual(t, result[i]["x"], 1.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 2.00)
-		assert.LessOrEqual(t, result[i]["y"], 20.00)
-	}
+func createRow(x, y float64, qi []string) infra.JSONLineRecord {
+	row := jsonline.NewRow()
+	row.Set("x", x)
+	row.Set("y", y)
 
-	for i := 7; i < 11; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 3.00)
-		assert.LessOrEqual(t, result[i]["x"], 9.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 3.00)
-		assert.LessOrEqual(t, result[i]["y"], 10.00)
-	}
-
-	for i := 11; i < 15; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 10.00)
-		assert.LessOrEqual(t, result[i]["x"], 48.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 11.00)
-		assert.LessOrEqual(t, result[i]["y"], 30.00)
-	}
+	return infra.NewJSONLineRecord(&row, &qi, &[]string{})
 }
