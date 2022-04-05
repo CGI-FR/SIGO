@@ -98,6 +98,10 @@ func (n *node) add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
+func (n *node) incRot() {
+	n.rot = (n.rot + 1) % n.tree.dim
+}
+
 func (n *node) build() {
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		if n == n.tree.root {
@@ -105,7 +109,20 @@ func (n *node) build() {
 		}
 
 		// rollback to simple node
-		lower, upper, valide := n.split()
+		var (
+			lower, upper node
+			valide       bool
+		)
+
+		for i := 1; i <= n.tree.dim; i++ {
+			lower, upper, valide = n.split()
+			if !valide {
+				n.incRot()
+			} else {
+				break
+			}
+		}
+
 		if !valide {
 			return
 		}
