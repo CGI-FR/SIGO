@@ -25,10 +25,8 @@ import (
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
 	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
-	generalizer := factory.New(k, l, dim)
+	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
 	count := 0
-
-	var bar Bar
 
 	log.Info().Msg("Reading source")
 
@@ -45,8 +43,6 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 	log.Info().Msg("Tree building")
 
 	generalizer.Build()
-
-	bar.NewOption(0, int64(count))
 
 	log.Info().Msg("Cluster Anonymization")
 
@@ -66,11 +62,8 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 			}
 
 			i++
-			bar.Play(i)
 		}
 	}
-
-	bar.Finish()
 
 	return nil
 }

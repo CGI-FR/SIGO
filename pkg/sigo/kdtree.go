@@ -33,9 +33,9 @@ func NewKDTreeFactory() KDTreeFactory {
 
 type KDTreeFactory struct{}
 
-func (f KDTreeFactory) New(k int, l int, dim int) Generalizer {
+func (f KDTreeFactory) New(k int, l int, dim int, qi []string) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int)}
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi}
 	root := newNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
@@ -49,6 +49,7 @@ type KDTree struct {
 	root      *node
 	dim       int
 	clusterID map[string]int
+	qi        []string
 }
 
 func (t KDTree) Add(r Record) {
@@ -105,7 +106,7 @@ func (n *node) incRot() {
 
 func (n *node) build() {
 	log.Debug().
-		Int("Dimension", n.rot).
+		Str("Dimension", n.tree.qi[n.rot]).
 		Str("Path", n.clusterPath).
 		Int("Size", len(n.cluster)).
 		Msg("Cluster:")
