@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1648655375253,
+  "lastUpdate": 1649166126103,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -143,6 +143,42 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 66191881184,
             "unit": "ns/op\t7606252592 B/op\t562667752 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "4283fd05de1ab9aae68dbe3574ebc8467e67aaa1",
+          "message": "feat: Update random noise (#16)\n\n* feat: scale data before add noise\r\n\r\n* feat: add secure random and update scaling\r\n\r\n* docs: update demo\r\n\r\n* feat: gaussian random number using crypto random\r\n\r\n* fix: update unit tets RandomNoiseAnonymizer\r\n\r\n* docs: use PIMO to round values\r\n\r\n* feat: update test random anonymizer",
+          "timestamp": "2022-04-05T15:38:31+02:00",
+          "tree_id": "38aa3fd1ccef5db0a7b3f3836c929a7226a5af53",
+          "url": "https://github.com/CGI-FR/SIGO/commit/4283fd05de1ab9aae68dbe3574ebc8467e67aaa1"
+        },
+        "date": 1649166125462,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkSimpleClustering",
+            "value": 186315,
+            "unit": "ns/op\t   35902 B/op\t    1073 allocs/op",
+            "extra": "66538 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 84976173214,
+            "unit": "ns/op\t7606252312 B/op\t562667765 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
