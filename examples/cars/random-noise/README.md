@@ -41,15 +41,40 @@ The data is recorded in the cars2.json file, below you will find an overview of 
 ### 1- De-identified data
 
 ```console
-< cars2.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Horsepower -s Origin | jq -s > cars2_sigo.json
+< cars2.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Horsepower -s Origin -a laplaceNoise | jq -s > cars2_sigo.json
+```
+
+#### Use PIMO with 2-dimension
+
+The ***Horsepower*** attribute is a discrete attribute so to keep the dataset consistent we use `pimo` to not change the type of this variable after anonymization.
+
+```console
+< cars2_sigo.json | jq -c '.[]' | pimo -c masking2.yml > cars2_sigo_pimo.json
+```
+
+We use the following `masking2.yml` file,
+
+``` yaml
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Horsepower"
+    mask:
+      template: "{{round (toString .Horsepower) 0 }}"
+
+  - selector:
+      jsonpath: "Horsepower"
+    mask:
+      fromjson: "Horsepower"
 ```
 
 ![masked](cars2-sigo.png)
 
 |                  | Miles_per_Gallon | Horsepower |
 |------------------|------------------|------------|
-| Miles_per_Gallon |     1.000000     |  -0.764425 |
-| Horsepower       |     -0.764425    |  1.000000  |
+| Miles_per_Gallon |     1.000000     | -0.778628  |
+| Horsepower       |    -0.778628     |  1.000000  |
 
 ## n-dimension
 
@@ -95,21 +120,48 @@ The data is recorded in the carsn.json file, below you will find an overview of 
 ### 2- De-identified data
 
 ```console
-< carsn.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration -s Origin | jq -s > carsn_sigo.json
+< carsn.json | jq -c '.[]' | sigo -q Miles_per_Gallon,Cylinders,Displacement,Horsepower,Weight_in_lbs,Acceleration -s Origin -a laplaceNoise | jq -s > carsn_sigo.json
+```
+
+#### Use PIMO with n-dimension
+
+The ***Cylinders***,  ***Horsepower*** and ***Weight_in_lbs*** attributes are discrete attributes so to keep the dataset consistent we use `pimo` to not change the type of these variables after anonymization.
+
+```console
+< carsn_sigo.json | jq -c '.[]' | pimo -c maskingn.yml > carsn_sigo_pimo.json
+```
+
+We use the following `maskingn.yml` file,
+
+``` yaml
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "Cylinders"
+    mask:
+      template: "{{round (toString .Cylinders) 0 }}"
+
+  - selector:
+      jsonpath: "Cylinders"
+    mask:
+      fromjson: "Cylinders"
+
+  ...
 ```
 
 ![masked](carsn-sigo.png)
 
 |                  | Miles_per_Gallon | Cylinders | Displacement | Horsepower | Weight_in_lbs | Acceleration |
 |------------------|:----------------:|:---------:|:------------:|:----------:|:-------------:|:------------:|
-| Miles_per_Gallon |     1.000000     | -0.618830 |   -0.797633  |  -0.768155 |   -0.822276   |   0.405036   |
-| Cylinders        |     -0.618830    |  1.000000 |   0.787183   |  0.704369  |    0.748811   |   -0.398250  |
-| Displacement     |     -0.797633    |  0.787183 |   1.000000   |  0.897594  |    0.933043   |   -0.529400  |
-| Horsepower       |     -0.768155    |  0.704369 |   0.897594   |  1.000000  |    0.864810   |   -0.653690  |
-| Weight_in_lbs    |     -0.822276    |  0.748811 |   0.933043   |  0.864810  |    1.000000   |   -0.402344  |
-| Acceleration     |     0.405036     | -0.398250 |   -0.529400  |  -0.653690 |   -0.402344   |   1.000000   |
+| Miles_per_Gallon |     1.000000     | -0.636459 |   -0.648962  |  -0.700922 |   -0.711799   |   0.269291   |
+| Cylinders        |     -0.636459    |  1.000000 |   0.657736   |  0.610500  |    0.665301   |   -0.175330  |
+| Displacement     |     -0.648962    |  0.657736 |   1.000000   |  0.577905  |    0.672666   |   -0.239672  |
+| Horsepower       |     -0.700922    |  0.610500 |   0.577905   |  1.000000  |    0.638299   |   -0.332941  |
+| Weight_in_lbs    |     -0.711799    |  0.665301 |   0.672666   |  0.638299  |    1.000000   |   -0.170356  |
+| Acceleration     |     0.269291     | -0.175330 |   -0.239672  |  -0.332941 |   -0.170356   |   1.000000   |
 
-The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200%20;%20%5Cpm%200.16%20%5Cright%20%5D)
+The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cleft%20%5B%20%5Cpm%200.08%20;%20%5Cpm%200.36%20%5Cright%20%5D)
 
 ### Bibliography
 

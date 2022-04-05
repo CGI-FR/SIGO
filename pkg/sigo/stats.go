@@ -18,11 +18,26 @@
 package sigo
 
 import (
+	rd "crypto/rand"
+	"errors"
 	"math"
+	"math/big"
 	"math/rand"
 	"sort"
 	"time"
 )
+
+func Min(listValues []float64) float64 {
+	sort.Float64s(listValues)
+
+	return listValues[0]
+}
+
+func Max(listValues []float64) float64 {
+	sort.Float64s(listValues)
+
+	return listValues[len(listValues)-1]
+}
 
 func Mean(listValues []float64) (m float64) {
 	for _, val := range listValues {
@@ -110,9 +125,12 @@ func Sum(listValues []float64) (sum float64) {
 }
 
 func ExpNumber(mean float64) float64 {
-	rand.Seed(time.Now().UnixNano())
-	//nolint: gosec
-	return -mean * math.Log(rand.Float64())
+	random, err := RandFloat()
+	if err != nil {
+		return 0
+	}
+
+	return -mean * math.Log(random)
 }
 
 func LaplaceNumber() float64 {
@@ -123,7 +141,72 @@ func LaplaceNumber() float64 {
 }
 
 func GaussianNumber(loc float64, scale float64) float64 {
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().Unix())
 
-	return rand.NormFloat64()*scale + loc
+	z1, z2 := BoxMuller()
+	numbers := []float64{z1, z2}
+	//nolint: gomnd
+	idx, _ := rd.Int(rd.Reader, big.NewInt(2))
+	random := numbers[idx.Int64()]
+
+	return random*scale + loc
+}
+
+func Scaling(value float64, listValues []float64, method string) float64 {
+	scope := Max(listValues) - Min(listValues)
+	//nolint: gomnd
+	switch method {
+	case laplace:
+		if scope == 0 {
+			return -2
+		}
+
+		return -2 + ((value-Min(listValues))*4)/(scope)
+	case gaussian:
+		if scope == 0 {
+			return -1
+		}
+
+		return -1 + ((value-Min(listValues))*2)/(scope)
+	}
+
+	return (value - Mean(listValues)) / Std(listValues)
+}
+
+func Rescaling(value float64, listValues []float64, method string) (rescale float64) {
+	//nolint: gomnd
+	switch method {
+	case laplace:
+		rescale = Min(listValues) + ((value+2)*(Max(listValues)-Min(listValues)))/4
+	case gaussian:
+		rescale = Min(listValues) + ((value+1)*(Max(listValues)-Min(listValues)))/2
+	default:
+		rescale = value*Std(listValues) + Mean(listValues)
+	}
+
+	return rescale
+}
+
+func RandFloat() (float64, error) {
+	//nolint: gomnd
+	val, err := rd.Int(rd.Reader, big.NewInt(int64(math.Pow10(15))))
+	//nolint: goerr113
+	if err != nil {
+		return 0, errors.New("cannot generate random value")
+	}
+
+	bigInt, _ := new(big.Float).SetInt(val).Float64()
+	random := bigInt * math.Pow10(-15)
+
+	return random, nil
+}
+
+func BoxMuller() (float64, float64) {
+	x, _ := RandFloat()
+	y, _ := RandFloat()
+
+	z1 := math.Sqrt(-2.0*math.Log(x)) * math.Cos(2.0*math.Pi*y)
+	z2 := math.Sqrt(-2.0*math.Log(x)) * math.Sin(2.0*math.Pi*y)
+
+	return z1, z2
 }

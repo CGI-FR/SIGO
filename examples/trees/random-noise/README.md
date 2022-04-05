@@ -41,15 +41,15 @@ The data is recorded in the trees2.json file, below you will find an overview of
 ### 1- De-identified data
 
 ```console
-< trees2.json | jq -c '.[]' | sigo -q x,y -s remarquable | jq -s > trees2_sigo.json
+< trees2.json | jq -c '.[]' | sigo -q x,y -s remarquable -a laplaceNoise | jq -s > trees2_sigo.json
 ```
 
 ![masked](trees2-sigo.png)
 
 |   |     x     |     y     |
 |---|:---------:|:---------:|
-| x |  0.000000 |  0.011627 |
-| y |  0.011627 |  0.000000 |
+| x |  0.000000 |  0.001138 |
+| y |  0.001138 |  0.000000 |
 
 ## n-dimension
 
@@ -89,19 +89,19 @@ The data is recorded in the treesn.json file, below you will find an overview of
 ### 2- De-identified data
 
 ```console
-< treesn.json | jq -c '.[]' | sigo -q circonference,hauteur,x,y -s remarquable | jq -s > treesn_sigo.json
+< treesn.json | jq -c '.[]' | sigo -q circonference,hauteur,x,y -s remarquable -a laplaceNoise | jq -s > treesn_sigo.json
 ```
 
 ![masked](treesn-sigo.png)
 
 |               | circonference |  hauteur  |     x     |     y    |
 |---------------|:-------------:|:---------:|:---------:|:--------:|
-| circonference |    1.000000   |  0.842503 | -0.006850 | 0.015129 |
-| hauteur       |    0.842503   |  1.000000 | -0.039346 | 0.049648 |
-| x             |   -0.006850   | -0.039346 |  1.000000 | 0.054952 |
-| y             |    0.015129   |  0.049648 |  0.054952 | 1.000000 |
+| circonference |    1.000000   |  0.865131 | -0.080272 | 0.061114 |
+| hauteur       |    0.865131   |  1.000000 | -0.021962 | 0.160181 |
+| x             |   -0.080272   | -0.021962 |  1.000000 |-0.020916 |
+| y             |    0.061114   |  0.160181 | -0.020916 | 1.000000 |
 
-The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200.002%20;%20%5Cpm%200.05%20%5Cright%20%5D)
+The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200.01%20;%20%5Cpm%200.04%20%5Cright%20%5D)
 
 ### Bibliography
 

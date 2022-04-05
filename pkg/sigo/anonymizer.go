@@ -17,6 +17,11 @@
 
 package sigo
 
+const (
+	laplace  = "laplace"
+	gaussian = "gaussian"
+)
+
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 func NewGeneralAnonymizer() GeneralAnonymizer {
@@ -148,17 +153,31 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 }
 
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
 		val := rec.QuasiIdentifer()[i]
 
-		switch a.typeNoise {
-		case "laplace":
-			mask[key] = val + LaplaceNumber()
-		case "gaussian":
-			mask[key] = val + GaussianNumber(0, 1)
+		laplaceVal := Scaling(val, values[key], laplace)
+		gaussianVal := Scaling(val, values[key], gaussian)
+
+		var randomVal float64
+
+		for {
+			switch a.typeNoise {
+			case laplace:
+				randomVal = Rescaling(laplaceVal+LaplaceNumber(), values[key], laplace)
+			case gaussian:
+				randomVal = Rescaling(gaussianVal+GaussianNumber(0, 1), values[key], gaussian)
+			}
+
+			if (randomVal > Min(values[key]) && randomVal < Max(values[key])) || Min(values[key]) == Max(values[key]) {
+				break
+			}
 		}
+
+		mask[key] = randomVal
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}

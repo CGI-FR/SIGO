@@ -113,6 +113,7 @@ func (lr *LoopReader) Read(b []byte) (int, error) {
 		return n, nil
 	}
 
+	//nolint: wrapcheck
 	return n, err
 }
 
