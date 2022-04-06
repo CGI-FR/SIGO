@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649166554749,
+  "lastUpdate": 1649244159820,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -215,6 +215,36 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 73783858042,
             "unit": "ns/op\t7606249840 B/op\t562700511 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d3d5fd6f0d3bd972c9bcd3711bb80cb4735a2493",
+          "message": "feat: add logs (#30)\n\n* feat: add logs info\r\n\r\n* feat: update logs and add progress bar\r\n\r\n* feat: remove progress bar and update dimension log",
+          "timestamp": "2022-04-06T13:19:29+02:00",
+          "tree_id": "7ef247586e4456048226d6edac4362477992ceca",
+          "url": "https://github.com/CGI-FR/SIGO/commit/d3d5fd6f0d3bd972c9bcd3711bb80cb4735a2493"
+        },
+        "date": 1649244159402,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 75259409894,
+            "unit": "ns/op\t7607312376 B/op\t562700611 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
