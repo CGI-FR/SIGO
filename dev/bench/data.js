@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649244159820,
+  "lastUpdate": 1649249185417,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -245,6 +245,48 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 75259409894,
             "unit": "ns/op\t7607312376 B/op\t562700611 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "cccc64fdd8cdddaa92333823f335498d5d5f6517",
+          "message": "test: add unit tests for anonymizers (#27)\n\n* test: add unit tests for Aggregation and TopBottomCoding\r\n\r\n* test: add benchmark test\r\n\r\n* test: add unit and benchmark tests for RandomNoisAnonymizer\r\n\r\n* test: add createRow function",
+          "timestamp": "2022-04-06T14:42:40+02:00",
+          "tree_id": "1382acad92c55825dd54422b3678e8ac58d1d00a",
+          "url": "https://github.com/CGI-FR/SIGO/commit/cccc64fdd8cdddaa92333823f335498d5d5f6517"
+        },
+        "date": 1649249184874,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer",
+            "value": 5489,
+            "unit": "ns/op\t    1968 B/op\t      97 allocs/op",
+            "extra": "1963189 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer",
+            "value": 57473,
+            "unit": "ns/op\t    2830 B/op\t     145 allocs/op",
+            "extra": "199180 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 67825079406,
+            "unit": "ns/op\t7607310856 B/op\t562733363 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
