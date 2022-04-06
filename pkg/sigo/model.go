@@ -49,7 +49,7 @@ type Generalizer interface {
 }
 
 type GeneralizerFactory interface {
-	New(k int, l int, dim int) Generalizer
+	New(k int, l int, dim int, qi []string) Generalizer
 }
 
 type Anonymizer interface {

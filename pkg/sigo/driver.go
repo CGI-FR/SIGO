@@ -19,11 +19,16 @@ package sigo
 
 import (
 	"fmt"
+
+	"github.com/rs/zerolog/log"
 )
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
 	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
-	generalizer := factory.New(k, l, dim)
+	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
+	count := 0
+
+	log.Info().Msg("Reading source")
 
 	for source.Next() {
 		if source.Err() != nil {
@@ -31,11 +36,21 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 		}
 
 		generalizer.Add(source.Value())
+		count++
 	}
+
+	log.Info().Msgf("%v individuals to anonymize", count)
+	log.Info().Msg("Tree building")
 
 	generalizer.Build()
 
+	log.Info().Msg("Cluster Anonymization")
+
+	var i int64
+
 	for _, cluster := range generalizer.Clusters() {
+		log.Debug().Msgf("Cluster: %v", cluster.ID())
+
 		for _, record := range cluster.Records() {
 			anonymizedRecord := anonymyzer.Anonymize(record, cluster, source.QuasiIdentifer(), source.Sensitive())
 
@@ -45,6 +60,8 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 			if err != nil {
 				return fmt.Errorf("%w", err)
 			}
+
+			i++
 		}
 	}
 

@@ -34,7 +34,7 @@ import (
 func TestAddRecord(t *testing.T) {
 	t.Parallel()
 
-	kdtree := sigo.NewKDTreeFactory().New(1, 1, 1)
+	kdtree := sigo.NewKDTreeFactory().New(1, 1, 1, []string{"x"})
 
 	row := jsonline.NewRow()
 	row.Set("x", 0)
@@ -123,7 +123,7 @@ func TestAddNRecords(t *testing.T) {
 
 			rand.Seed(tc.s)
 
-			kdtree := sigo.NewKDTreeFactory().New(k, 1, 1)
+			kdtree := sigo.NewKDTreeFactory().New(k, 1, 1, []string{"x"})
 			rows := []jsonline.Row{}
 
 			for i := 0; i < N; i++ {
@@ -161,7 +161,7 @@ func TestAddNRecords(t *testing.T) {
 func TestAddClusterInfos(t *testing.T) {
 	t.Parallel()
 
-	kdtree := sigo.NewKDTreeFactory().New(3, 1, 2)
+	kdtree := sigo.NewKDTreeFactory().New(3, 1, 2, []string{"x", "y"})
 	rows := []jsonline.Row{}
 	x := []int{20, 10, 12, 24, 8, 16, 15, 27, 25, 11, 49, 2, 35, 34, 21}
 	y := []int{10, 12, 4, 21, 38, 16, 26, 18, 30, 19, 21, 12, 14, 7, 5}
