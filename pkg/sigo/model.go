@@ -63,5 +63,6 @@ type Debugger interface {
 
 type Analyzer interface {
 	Add(Record)
+	Values(string) []float64
 	CountUniqueValues() map[string]int
 }
