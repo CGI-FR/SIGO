@@ -14,11 +14,10 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with SIGO.  If not, see <http://www.gnu.org/licenses/>.
-
 package sigo_test
 
 import (
-	"strings"
+	"log"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -27,146 +26,184 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestMicroAggregationAnonymizer(t *testing.T) {
+func TestAggregationAnonymizer(t *testing.T) {
 	t.Parallel()
 
-	row := jsonline.NewRow()
-	row.Set("ID", "1")
+	row1 := jsonline.NewRow()
+	row1.Set("x", 0)
+	row1.Set("y", 9)
+	row1.Set("z", "a")
+	record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
 
-	//nolint: goconst
-	sourceText := `{"x":0, "y":0, "foo":"bar"}
-				   {"x":1, "y":1, "foo":"bar"}
-				   {"x":0, "y":1, "foo":"bar"}
-				   {"x":2, "y":1, "foo":"baz"}
-				   {"x":3, "y":2, "foo":"baz"}
-				   {"x":2, "y":3, "foo":"baz"}`
+	tree := sigo.NewKDTree(2, 3, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	node.Add(record1)
 
-	source1, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
-	assert.Nil(t, err)
+	row2 := jsonline.NewRow()
+	row2.Set("x", 1)
+	row2.Set("y", 3)
+	row2.Set("z", "b")
+	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{"z"})
+	node.Add(record2)
 
-	resultMean := []map[string]interface{}{}
-	sink1 := infra.NewSliceDictionariesSink(&resultMean)
-	err = sigo.Anonymize(source1, sigo.NewKDTreeFactory(), 2, 1, 2,
-		sigo.NewAggregationAnonymizer("mean"), sink1, sigo.NewNoDebugger())
-	assert.Nil(t, err)
+	row3 := jsonline.NewRow()
+	row3.Set("x", 4)
+	row3.Set("y", 8)
+	row3.Set("z", "c")
+	record3 := infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{"z"})
+	node.Add(record3)
 
-	assert.Equal(t, 0.33, resultMean[0]["x"])
-	assert.Equal(t, 0.67, resultMean[0]["y"])
-	assert.Equal(t, 2.33, resultMean[3]["x"])
-	assert.Equal(t, 2.00, resultMean[3]["y"])
-	assert.Equal(t, "bar", resultMean[0]["foo"])
-	assert.Equal(t, "baz", resultMean[3]["foo"])
+	anonymizer := sigo.NewAggregationAnonymizer("mean")
+	anonymizedRecord := anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"z"})
+	expected := map[string]interface{}{"x": 1.67, "y": 6.67, "z": "a"}
 
-	source2, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
-	assert.Nil(t, err)
+	assert.Equal(t, expected, anonymizedRecord.Row())
 
-	resultMedian := []map[string]interface{}{}
-	sink2 := infra.NewSliceDictionariesSink(&resultMedian)
-	err = sigo.Anonymize(source2, sigo.NewKDTreeFactory(), 2, 1, 2,
-		sigo.NewAggregationAnonymizer("median"), sink2, sigo.NewNoDebugger())
-	assert.Nil(t, err)
+	anonymizer = sigo.NewAggregationAnonymizer("median")
+	anonymizedRecord = anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"z"})
+	expected = map[string]interface{}{"x": 1.00, "y": 8.00, "z": "a"}
 
-	assert.Equal(t, float64(0), resultMedian[0]["x"])
-	assert.Equal(t, float64(1), resultMedian[0]["y"])
-	assert.Equal(t, float64(2), resultMedian[3]["x"])
-	assert.Equal(t, float64(2), resultMedian[3]["y"])
-	assert.Equal(t, "bar", resultMedian[0]["foo"])
-	assert.Equal(t, "baz", resultMedian[3]["foo"])
+	assert.Equal(t, expected, anonymizedRecord.Row())
+}
+
+func BenchmarkAggregationAnonymizer(b *testing.B) {
+	row1 := jsonline.NewRow()
+	row1.Set("x", 0)
+	row1.Set("y", 9)
+	row1.Set("z", "a")
+	record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
+
+	tree := sigo.NewKDTree(2, 3, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	node.Add(record1)
+
+	row2 := jsonline.NewRow()
+	row2.Set("x", 1)
+	row2.Set("y", 3)
+	row2.Set("z", "b")
+	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{"z"})
+	node.Add(record2)
+
+	row3 := jsonline.NewRow()
+	row3.Set("x", 4)
+	row3.Set("y", 8)
+	row3.Set("z", "c")
+	record3 := infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{"z"})
+	node.Add(record3)
+
+	anonymizer := sigo.NewAggregationAnonymizer("mean")
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		log.Println(i)
+		anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"z"})
+	}
 }
 
 func TestTopBottomCodingAnonymizer(t *testing.T) {
 	t.Parallel()
 
-	sourceText := `{"x": 0, "y": 0}
-				   {"x": 0, "y": 1}
-				   {"x": 0, "y": 12}
-				   {"x": 1, "y": 1}
-				   {"x": 1, "y": 2}
-				   {"x": 1, "y": 20}
-				   {"x": 2, "y": 1}
-				   {"x": 3, "y": 5}
-				   {"x": 5, "y": 3}
-				   {"x": 6, "y": 5}
-				   {"x": 9, "y": 10}
-				   {"x": 10, "y": 30}
-				   {"x": 11, "y": 11}
-				   {"x": 12, "y": 11}
-				   {"x": 48, "y": 12}`
+	tree := sigo.NewKDTree(7, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
 
-	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
-	assert.Nil(t, err)
+	node.Add(createRow(3, 5, qi))
+	record2 := createRow(5, 3, qi)
+	node.Add(record2)
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
+	node.Add(createRow(10, 30, qi))
+	node.Add(createRow(11, 11, qi))
+	node.Add(createRow(12, 11, qi))
+	record8 := createRow(48, 12, qi)
+	node.Add(record8)
 
-	result := []map[string]interface{}{}
-	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 7, 1, 2, sigo.NewCodingAnonymizer(),
-		sink, sigo.NewNoDebugger())
-	assert.Nil(t, err)
+	anonymizer := sigo.NewCodingAnonymizer()
 
-	assert.Equal(t, 1.00, result[0]["y"])
-	assert.Equal(t, 1.00, result[6]["x"])
-	assert.Equal(t, 12.00, result[5]["y"])
-	assert.Equal(t, 5.50, result[7]["x"])
-	assert.Equal(t, 5.50, result[8]["x"])
-	assert.Equal(t, 5.00, result[8]["y"])
-	assert.Equal(t, 11.50, result[11]["y"])
-	assert.Equal(t, 11.50, result[14]["y"])
-	assert.Equal(t, 11.50, result[14]["x"])
-	assert.Equal(t, 11.50, result[13]["x"])
+	anonymizedRecord := anonymizer.Anonymize(record2, node.Clusters()[0], []string{"x", "y"}, []string{})
+	expected := map[string]interface{}{"x": 5.50, "y": 5.00}
+
+	assert.Equal(t, expected, anonymizedRecord.Row())
+
+	anonymizedRecord = anonymizer.Anonymize(record8, node.Clusters()[0], []string{"x", "y"}, []string{})
+	expected = map[string]interface{}{"x": 11.50, "y": 11.50}
+
+	assert.Equal(t, expected, anonymizedRecord.Row())
+}
+
+func BenchmarkTopBottomCodingAnonymizer(b *testing.B) {
+	tree := sigo.NewKDTree(7, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+
+	node.Add(createRow(3, 5, qi))
+	record2 := createRow(5, 3, qi)
+	node.Add(record2)
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
+	node.Add(createRow(10, 30, qi))
+	node.Add(createRow(11, 11, qi))
+	node.Add(createRow(12, 11, qi))
+	record8 := createRow(48, 12, qi)
+	node.Add(record8)
+
+	anonymizer := sigo.NewCodingAnonymizer()
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		anonymizer.Anonymize(record2, node.Clusters()[0], []string{"x", "y"}, []string{})
+	}
 }
 
 func TestRandomNoiseAnonymizer(t *testing.T) {
 	t.Parallel()
 
-	sourceText := `{"x": 0, "y": 0}
-				   {"x": 0, "y": 1}
-				   {"x": 0, "y": 12}
-				   {"x": 1, "y": 1}
-				   {"x": 1, "y": 2}
-				   {"x": 1, "y": 20}
-				   {"x": 2, "y": 1}
-				   {"x": 3, "y": 5}
-				   {"x": 5, "y": 3}
-				   {"x": 6, "y": 5}
-				   {"x": 9, "y": 10}
-				   {"x": 10, "y": 30}
-				   {"x": 11, "y": 11}
-				   {"x": 12, "y": 11}
-				   {"x": 48, "y": 12}`
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
 
-	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{})
-	assert.Nil(t, err)
+	record := createRow(3, 5, qi)
+	node.Add(record)
+	node.Add(createRow(5, 3, qi))
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
 
-	result := []map[string]interface{}{}
-	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 3, 1, 2, sigo.NewNoiseAnonymizer("gaussian"),
-		sink, sigo.NewNoDebugger())
-	assert.Nil(t, err)
+	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
 
-	for i := 0; i < 4; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 0.00)
-		assert.LessOrEqual(t, result[i]["x"], 2.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 0.00)
-		assert.LessOrEqual(t, result[i]["y"], 1.00)
+	anonymizedRecord := anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
+
+	assert.GreaterOrEqual(t, anonymizedRecord.Row()["x"], 3.00)
+	assert.LessOrEqual(t, anonymizedRecord.Row()["x"], 9.00)
+	assert.GreaterOrEqual(t, anonymizedRecord.Row()["y"], 3.00)
+	assert.LessOrEqual(t, anonymizedRecord.Row()["y"], 10.00)
+}
+
+func BenchmarkRandomNoiseAnonymizer(b *testing.B) {
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+
+	record := createRow(3, 5, qi)
+	node.Add(record)
+	node.Add(createRow(5, 3, qi))
+	node.Add(createRow(6, 5, qi))
+	node.Add(createRow(9, 10, qi))
+
+	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
 	}
+}
 
-	for i := 4; i < 7; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 0.00)
-		assert.LessOrEqual(t, result[i]["x"], 1.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 2.00)
-		assert.LessOrEqual(t, result[i]["y"], 20.00)
-	}
+func createRow(x, y float64, qi []string) infra.JSONLineRecord {
+	row := jsonline.NewRow()
+	row.Set("x", x)
+	row.Set("y", y)
 
-	for i := 7; i < 11; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 3.00)
-		assert.LessOrEqual(t, result[i]["x"], 9.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 3.00)
-		assert.LessOrEqual(t, result[i]["y"], 10.00)
-	}
-
-	for i := 11; i < 15; i++ {
-		assert.GreaterOrEqual(t, result[i]["x"], 10.00)
-		assert.LessOrEqual(t, result[i]["x"], 48.00)
-		assert.GreaterOrEqual(t, result[i]["y"], 11.00)
-		assert.LessOrEqual(t, result[i]["y"], 30.00)
-	}
+	return infra.NewJSONLineRecord(&row, &qi, &[]string{})
 }
