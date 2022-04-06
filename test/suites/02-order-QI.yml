@@ -1,0 +1,22 @@
+# Venom Test Suite definition
+# Check Venom documentation for more information : https://github.com/ovh/venom
+
+# name: sigo odrer qi
+# testcases:
+#   - name: sort qi
+#     steps:
+#       - script: |-
+#           sigo -q x,y -i id <<EOF
+#           {"x":4, "y":1}
+#           {"x":4, "y":2}
+#           {"x":4, "y":3}
+#           {"x":3, "y":4}
+#           {"x":3, "y":5}
+#           {"x":3, "y":6}
+#           {"x":3, "y":7}
+#           {"x":4, "y":8}
+#           {"x":4, "y":9}
+#           EOF
+#         assertions:
+#           - result.systemoutjson ShouldContainSubstring '{"x":4, "y":1, "id":1}'
+#           - result.code ShouldEqual 0

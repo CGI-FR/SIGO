@@ -220,3 +220,23 @@ func Unique(values []float64) int {
 
 	return len(tmp)
 }
+
+func Order(countUnique map[string]int) (ordered []string) {
+	switched := make(map[int][]string)
+	slice := []int{}
+
+	for key, count := range countUnique {
+		switched[count] = append(switched[count], key)
+
+		slice = append(slice, count)
+	}
+
+	sort.Sort(sort.Reverse(sort.IntSlice(slice)))
+
+	for _, val := range slice {
+		ordered = append(ordered, switched[val]...)
+		delete(switched, val)
+	}
+
+	return ordered
+}

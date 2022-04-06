@@ -35,12 +35,12 @@ type KDTreeFactory struct{}
 
 func (f KDTreeFactory) New(k int, l int, dim int, qi []string) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi}
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi, values: make(map[string][]float64)}
 	root := NewNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
 
-	return tree
+	return &tree
 }
 
 type KDTree struct {
@@ -50,6 +50,7 @@ type KDTree struct {
 	dim       int
 	clusterID map[string]int
 	qi        []string
+	values    map[string][]float64
 }
 
 func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
@@ -59,6 +60,22 @@ func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
 
 func (t KDTree) Add(r Record) {
 	t.root.Add(r)
+}
+
+func (t *KDTree) AddValues(r Record) {
+	for i, key := range t.qi {
+		t.values[key] = append(t.values[key], r.QuasiIdentifer()[i])
+	}
+}
+
+func (t KDTree) CountUniqueValues() map[string]int {
+	uniques := make(map[string]int)
+
+	for _, key := range t.qi {
+		uniques[key] = Unique(t.values[key])
+	}
+
+	return uniques
 }
 
 func (t KDTree) Build() {

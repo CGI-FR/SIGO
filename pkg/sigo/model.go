@@ -44,9 +44,11 @@ type Cluster interface {
 
 type Generalizer interface {
 	Add(Record)
+	AddValues(Record)
 	Clusters() []Cluster
 	String() string
 	Build()
+	CountUniqueValues() map[string]int
 }
 
 type GeneralizerFactory interface {
