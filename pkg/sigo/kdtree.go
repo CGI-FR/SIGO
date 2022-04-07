@@ -191,7 +191,7 @@ func (n *node) split() (node, node, bool) {
 	previous := n.cluster[0]
 
 	for _, row := range n.cluster {
-		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
+		if lowerSize < len(n.cluster)/2 { // || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
 			lower.Add(row)
 			previous = row
 			lowerSize++
