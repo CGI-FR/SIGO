@@ -35,12 +35,12 @@ type KDTreeFactory struct{}
 
 func (f KDTreeFactory) New(k int, l int, dim int, qi []string) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi, values: make(map[string][]float64)}
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), analyzer: NewAnalyzer(qi)}
 	root := NewNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
 
-	return &tree
+	return tree
 }
 
 type KDTree struct {
@@ -49,8 +49,7 @@ type KDTree struct {
 	root      *node
 	dim       int
 	clusterID map[string]int
-	qi        []string
-	values    map[string][]float64
+	analyzer  Analyzer
 }
 
 func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
@@ -60,22 +59,7 @@ func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
 
 func (t KDTree) Add(r Record) {
 	t.root.Add(r)
-}
-
-func (t *KDTree) AddValues(r Record) {
-	for i, key := range t.qi {
-		t.values[key] = append(t.values[key], r.QuasiIdentifer()[i])
-	}
-}
-
-func (t KDTree) CountUniqueValues() map[string]int {
-	uniques := make(map[string]int)
-
-	for _, key := range t.qi {
-		uniques[key] = Unique(t.values[key])
-	}
-
-	return uniques
+	t.analyzer.Add(r)
 }
 
 func (t KDTree) Build() {
@@ -123,13 +107,18 @@ func (n *node) Add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
+func (n *node) initiateRot() {
+	n.rot = n.tree.analyzer.Dimension(0)
+}
+
 func (n *node) incRot() {
-	n.rot = (n.rot + 1) % n.tree.dim
+	dim := (n.rot + 1) % n.tree.dim
+	n.rot = n.tree.analyzer.Dimension(dim)
 }
 
 func (n *node) build() {
 	log.Debug().
-		Str("Dimension", n.tree.qi[n.rot]).
+		Str("Dimension", n.tree.analyzer.QI(n.rot)).
 		Str("Path", n.clusterPath).
 		Int("Size", len(n.cluster)).
 		Msg("Cluster:")
@@ -146,6 +135,8 @@ func (n *node) build() {
 		)
 
 		for i := 1; i <= n.tree.dim; i++ {
+			n.initiateRot()
+
 			lower, upper, valide = n.split()
 			if !valide {
 				n.incRot()
@@ -196,9 +187,10 @@ func (n *node) split() (node, node, bool) {
 	})
 
 	n.pivot = nil
-	lower := NewNode(n.tree, n.clusterPath+"-l", n.rot+1)
+	dim := (n.rot + 1) % n.tree.dim
+	lower := NewNode(n.tree, n.clusterPath+"-l", n.tree.analyzer.Dimension(dim+1)) // n.rot+1
 	copy(lower.bounds, n.bounds)
-	upper := NewNode(n.tree, n.clusterPath+"-u", n.rot+1)
+	upper := NewNode(n.tree, n.clusterPath+"-u", n.tree.analyzer.Dimension(dim+1)) // n.rot+1
 	copy(upper.bounds, n.bounds)
 
 	lowerSize := 0

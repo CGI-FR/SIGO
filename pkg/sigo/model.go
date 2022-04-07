@@ -22,7 +22,6 @@ type RecordSource interface {
 	Err() error
 	Value() Record
 	QuasiIdentifer() []string
-	UpdateQI([]string)
 	Sensitive() []string
 }
 
@@ -44,11 +43,9 @@ type Cluster interface {
 
 type Generalizer interface {
 	Add(Record)
-	AddValues(Record)
 	Clusters() []Cluster
 	String() string
 	Build()
-	CountUniqueValues() map[string]int
 }
 
 type GeneralizerFactory interface {
@@ -65,6 +62,8 @@ type Debugger interface {
 
 type Analyzer interface {
 	Add(Record)
-	Values(string) []float64
+	QI(i int) string
 	CountUniqueValues() map[string]int
+	Order() map[int]string
+	Dimension(int) int
 }

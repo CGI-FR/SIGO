@@ -45,13 +45,3 @@ func TestUnique(t *testing.T) {
 	assert.Equal(t, 7, res1)
 	assert.Equal(t, 12, res2)
 }
-
-func TestOrderMap(t *testing.T) {
-	t.Parallel()
-
-	values := map[string]int{"x": 2, "y": 3}
-
-	res := sigo.Order(values)
-
-	assert.Equal(t, []string{"y", "x"}, res)
-}

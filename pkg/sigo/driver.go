@@ -36,15 +36,11 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 		}
 
 		generalizer.Add(source.Value())
-		generalizer.AddValues(source.Value())
 		count++
 	}
 
 	log.Info().Msgf("%v individuals to anonymize", count)
 	log.Info().Msg("Tree building")
-
-	orderedQI := Order(generalizer.CountUniqueValues())
-	source.UpdateQI(orderedQI)
 
 	generalizer.Build()
 
