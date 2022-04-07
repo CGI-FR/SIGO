@@ -32,3 +32,16 @@ func TestQuartiles(t *testing.T) {
 	assert.Equal(t, q.Q2, sigo.Median(values))
 	assert.Equal(t, 5.00, sigo.IQR(values))
 }
+
+func TestUnique(t *testing.T) {
+	t.Parallel()
+
+	values1 := []float64{12, 10, 5, 6, 9, 10, 4, 5, 10, 12, 9, 6, 4, 3, 9, 10}
+	values2 := []float64{1, 9, 8, 5, 2, 6, 7, 10, 3, 12, 4, 11}
+
+	res1 := sigo.Unique(values1)
+	res2 := sigo.Unique(values2)
+
+	assert.Equal(t, 7, res1)
+	assert.Equal(t, 12, res2)
+}

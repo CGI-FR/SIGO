@@ -210,3 +210,13 @@ func BoxMuller() (float64, float64) {
 
 	return z1, z2
 }
+
+func Unique(values []float64) int {
+	tmp := make(map[float64]int)
+
+	for _, val := range values {
+		tmp[val]++
+	}
+
+	return len(tmp)
+}

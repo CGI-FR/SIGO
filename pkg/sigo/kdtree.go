@@ -35,7 +35,7 @@ type KDTreeFactory struct{}
 
 func (f KDTreeFactory) New(k int, l int, dim int, qi []string) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi}
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), analyzer: NewAnalyzer(qi)}
 	root := NewNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
@@ -49,7 +49,7 @@ type KDTree struct {
 	root      *node
 	dim       int
 	clusterID map[string]int
-	qi        []string
+	analyzer  Analyzer
 }
 
 func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
@@ -59,6 +59,7 @@ func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
 
 func (t KDTree) Add(r Record) {
 	t.root.Add(r)
+	t.analyzer.Add(r)
 }
 
 func (t KDTree) Build() {
@@ -112,7 +113,7 @@ func (n *node) incRot() {
 
 func (n *node) build() {
 	log.Debug().
-		Str("Dimension", n.tree.qi[n.rot]).
+		Str("Dimension", n.tree.analyzer.QI(n.rot)).
 		Str("Path", n.clusterPath).
 		Int("Size", len(n.cluster)).
 		Msg("Cluster:")
@@ -174,8 +175,9 @@ func (n *node) Bounds() []bounds {
 }
 
 func (n *node) split() (node, node, bool) {
+	dim := n.tree.analyzer.Dimension(n.rot)
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
-		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
+		return n.cluster[i].QuasiIdentifer()[dim] < n.cluster[j].QuasiIdentifer()[dim]
 	})
 
 	n.pivot = nil
@@ -189,7 +191,7 @@ func (n *node) split() (node, node, bool) {
 	previous := n.cluster[0]
 
 	for _, row := range n.cluster {
-		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
+		if lowerSize < len(n.cluster)/2 { // || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
 			lower.Add(row)
 			previous = row
 			lowerSize++
