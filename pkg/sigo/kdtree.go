@@ -107,13 +107,8 @@ func (n *node) Add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
-func (n *node) initiateRot() {
-	n.rot = n.tree.analyzer.Dimension(0)
-}
-
 func (n *node) incRot() {
-	dim := (n.rot + 1) % n.tree.dim
-	n.rot = n.tree.analyzer.Dimension(dim)
+	n.rot = (n.rot + 1) % n.tree.dim
 }
 
 func (n *node) build() {
@@ -135,8 +130,6 @@ func (n *node) build() {
 		)
 
 		for i := 1; i <= n.tree.dim; i++ {
-			n.initiateRot()
-
 			lower, upper, valide = n.split()
 			if !valide {
 				n.incRot()
@@ -182,15 +175,15 @@ func (n *node) Bounds() []bounds {
 }
 
 func (n *node) split() (node, node, bool) {
+	dim := n.tree.analyzer.Dimension(n.rot)
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
-		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
+		return n.cluster[i].QuasiIdentifer()[dim] < n.cluster[j].QuasiIdentifer()[dim]
 	})
 
 	n.pivot = nil
-	dim := (n.rot + 1) % n.tree.dim
-	lower := NewNode(n.tree, n.clusterPath+"-l", n.tree.analyzer.Dimension(dim+1)) // n.rot+1
+	lower := NewNode(n.tree, n.clusterPath+"-l", n.rot+1)
 	copy(lower.bounds, n.bounds)
-	upper := NewNode(n.tree, n.clusterPath+"-u", n.tree.analyzer.Dimension(dim+1)) // n.rot+1
+	upper := NewNode(n.tree, n.clusterPath+"-u", n.rot+1)
 	copy(upper.bounds, n.bounds)
 
 	lowerSize := 0
