@@ -53,6 +53,7 @@ var (
 	method    string
 	info      string
 	profiling bool
+	config    string
 )
 
 func main() {
@@ -101,6 +102,8 @@ func main() {
 		"start sigo with profiling and generate a cpu.pprof file (debug)")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
+	rootCmd.PersistentFlags().
+		StringVarP(&config, "configuration", "c", "", "name and location of the configuration file")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -111,7 +114,23 @@ func main() {
 func run() {
 	initLog()
 
+	pdef, err := sigo.LoadConfigurationFromYAML(config)
+	if err != nil {
+		log.Err(err).Msg("Cannot load configuration definition from file")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
+	if config != "" {
+		k = pdef.K
+		l = pdef.L
+		qi = pdef.QI
+		sensitive = pdef.Sensitive
+		method = pdef.Aggregation
+	}
+
 	log.Info().
+		Str("configuration", config).
 		Int("k-anonymity", k).
 		Int("l-diversity", l).
 		Strs("Quasi-Identifiers", qi).

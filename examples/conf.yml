@@ -1,0 +1,11 @@
+version: "1"
+
+kAnonymity: 5
+lDiversity: 1
+quasiIdentifiers:
+  - x
+  - y
+aggregation: meanAggregation
+rules:
+  - name: x
+  - name: y
