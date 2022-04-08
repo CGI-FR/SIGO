@@ -1,0 +1,21 @@
+# Venom Test Suite definition
+# Check Venom documentation for more information : https://github.com/ovh/venom
+
+name: run configuration
+testcases:
+  - name: --configuration
+    steps:
+      - script: |-
+          sigo -c config.yml <<EOF
+          { "x":1, "y":7, "z":"a" }
+          { "x":2, "y":8, "z":"b" }
+          { "x":3, "y":9, "z":"a" }
+          { "x":4, "y":10, "z":"a" }
+          { "x":5, "y":11, "z":"c" }
+          { "x":6, "y":12, "z":"c" }
+          EOF
+        assertions:
+          - result.systemoutjson.x ShouldEqual 2
+          - result.systemoutjson.y ShouldEqual 7
+          - result.systemoutjson.z ShouldEqual "a"
+          - result.code ShouldEqual 0

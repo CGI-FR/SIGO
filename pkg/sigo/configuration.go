@@ -25,7 +25,7 @@ import (
 )
 
 type Rules struct {
-	Name string `yaml:"aggregation"`
+	Name string `yaml:"name"`
 }
 
 type Definition struct {

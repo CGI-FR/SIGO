@@ -1,14 +1,12 @@
 version: "1"
 
-kAnonymity: 4
-lDiversity: 3
+kAnonymity: 3
+lDiversity: 1
 quasiIdentifiers:
   - x
   - y
-  - z
 sensitives:
-  - s
+  - z
 aggregation: meanAggregation
 rules:
-  - name: y
   - name: x

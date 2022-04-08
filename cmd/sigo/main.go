@@ -114,19 +114,11 @@ func main() {
 func run() {
 	initLog()
 
-	pdef, err := sigo.LoadConfigurationFromYAML(config)
+	pdef, rules, err := initConfig()
 	if err != nil {
 		log.Err(err).Msg("Cannot load configuration definition from file")
 		log.Warn().Int("return", 1).Msg("End SIGO")
 		os.Exit(1)
-	}
-
-	if config != "" {
-		k = pdef.K
-		l = pdef.L
-		qi = pdef.QI
-		sensitive = pdef.Sensitive
-		method = pdef.Aggregation
 	}
 
 	log.Info().
@@ -138,6 +130,16 @@ func run() {
 		Str("Method", method).
 		Str("Cluster-Info", info).
 		Msg("Start SIGO")
+
+	if rules {
+		newqi := []string{}
+
+		for _, r := range pdef.Rules {
+			newqi = append(newqi, r.Name)
+		}
+
+		qi = newqi
+	}
 
 	source, err := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
 	if err != nil {
@@ -239,4 +241,19 @@ func newAnonymizer(name string) sigo.Anonymizer {
 	default:
 		return sigo.NewNoAnonymizer()
 	}
+}
+
+func initConfig() (pdef sigo.Definition, rules bool, err error) {
+	if config != "" {
+		pdef, err = sigo.LoadConfigurationFromYAML(config)
+
+		k = pdef.K
+		l = pdef.L
+		qi = pdef.QI
+		sensitive = pdef.Sensitive
+		method = pdef.Aggregation
+		rules = true
+	}
+
+	return pdef, rules, err
 }
