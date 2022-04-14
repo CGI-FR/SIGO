@@ -17,6 +17,7 @@
 package sigo_test
 
 import (
+	"log"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -190,6 +191,57 @@ func BenchmarkRandomNoiseAnonymizer(b *testing.B) {
 	node.Add(createRow(9, 10, qi))
 
 	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
+	}
+}
+
+func TestSwapAnonymizer(t *testing.T) {
+	t.Parallel()
+
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+
+	record := createRow(1, 4, qi)
+	node.Add(record)
+	node.Add(createRow(2, 5, qi))
+	node.Add(createRow(3, 6, qi))
+
+	anonymizer := sigo.NewSwapAnonymizer()
+
+	anonymizedRecord := anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
+
+	log.Println(anonymizedRecord.Row()["x"])
+	log.Println(anonymizedRecord.Row()["y"])
+
+	if anonymizedRecord.Row()["x"] == float64(1) {
+		assert.Contains(t, []float64{5, 6}, anonymizedRecord.Row()["y"])
+	} else {
+		assert.Contains(t, []float64{2, 3}, anonymizedRecord.Row()["x"])
+	}
+
+	if anonymizedRecord.Row()["y"] == float64(4) {
+		assert.Contains(t, []float64{2, 3}, anonymizedRecord.Row()["x"])
+	} else {
+		assert.Contains(t, []float64{5, 6}, anonymizedRecord.Row()["y"])
+	}
+}
+
+func BenchmarkSwapAnonymizer(b *testing.B) {
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+
+	record := createRow(1, 4, qi)
+	node.Add(record)
+	node.Add(createRow(2, 5, qi))
+	node.Add(createRow(3, 6, qi))
+
+	anonymizer := sigo.NewSwapAnonymizer()
 
 	b.ResetTimer()
 

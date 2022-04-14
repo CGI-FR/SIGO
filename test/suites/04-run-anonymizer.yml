@@ -9,8 +9,8 @@ testcases:
           { "x":2, "y":9, "z":1, "s":"malade" }
           EOF
         assertions:
-          - result.systemoutjson.x ShouldBeIn 9 2
-          - result.systemoutjson.y ShouldBeIn 2 9
+          - result.systemoutjson.x ShouldBeIn 4 9 2
+          - result.systemoutjson.y ShouldBeIn 3 2 9
           - result.systemoutjson.z ShouldBeIn 0 1
           - result.systemoutjson.s ShouldEqual "malade"
           - result.code ShouldEqual 0

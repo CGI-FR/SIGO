@@ -17,6 +17,12 @@
 
 package sigo
 
+import (
+	"math/rand"
+	"reflect"
+	"time"
+)
+
 const (
 	laplace  = "laplace"
 	gaussian = "gaussian"
@@ -40,6 +46,10 @@ func NewNoiseAnonymizer(mechanism string) NoiseAnonymizer {
 	return NoiseAnonymizer{typeNoise: mechanism}
 }
 
+func NewSwapAnonymizer() SwapAnonymizer {
+	return SwapAnonymizer{swapValues: make(map[string][]float64)}
+}
+
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
@@ -52,6 +62,9 @@ type (
 	CodingAnonymizer struct{}
 	NoiseAnonymizer  struct {
 		typeNoise string
+	}
+	SwapAnonymizer struct {
+		swapValues map[string][]float64
 	}
 	AnonymizedRecord struct {
 		original Record
@@ -181,6 +194,48 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	mask := map[string]interface{}{}
+
+	if len(a.swapValues) == 0 {
+		a.Swap(clus, qi)
+	}
+
+	var idx int
+
+	for i, r := range clus.Records() {
+		if rec == r {
+			idx = i
+		}
+	}
+
+	for _, key := range qi {
+		mask[key] = a.swapValues[key][idx]
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
+	values := listValues(clus, qi)
+	swapVal := listValues(clus, qi)
+
+	for _, key := range qi {
+		for {
+			rand.Seed(time.Now().UnixNano())
+			rand.Shuffle(len(swapVal[key]), func(i, j int) {
+				swapVal[key][i], swapVal[key][j] = swapVal[key][j], swapVal[key][i]
+			})
+
+			if !reflect.DeepEqual(values[key], swapVal[key]) {
+				break
+			}
+		}
+
+		a.swapValues[key] = swapVal[key]
+	}
 }
 
 func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
