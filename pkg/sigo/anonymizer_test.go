@@ -17,7 +17,6 @@
 package sigo_test
 
 import (
-	"log"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -96,7 +95,6 @@ func BenchmarkAggregationAnonymizer(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		log.Println(i)
 		anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"z"})
 	}
 }
