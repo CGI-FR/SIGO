@@ -47,7 +47,7 @@ func NewNoiseAnonymizer(mechanism string) NoiseAnonymizer {
 }
 
 func NewSwapAnonymizer() SwapAnonymizer {
-	return SwapAnonymizer{swapValues: make(map[string][]float64)}
+	return SwapAnonymizer{swapValues: make(map[string]map[string][]float64)}
 }
 
 type (
@@ -64,7 +64,7 @@ type (
 		typeNoise string
 	}
 	SwapAnonymizer struct {
-		swapValues map[string][]float64
+		swapValues map[string]map[string][]float64
 	}
 	AnonymizedRecord struct {
 		original Record
@@ -199,7 +199,7 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 
-	if len(a.swapValues) == 0 {
+	if a.swapValues[clus.ID()] == nil {
 		a.Swap(clus, qi)
 	}
 
@@ -212,7 +212,7 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 	}
 
 	for _, key := range qi {
-		mask[key] = a.swapValues[key][idx]
+		mask[key] = a.swapValues[clus.ID()][key][idx]
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
@@ -221,6 +221,7 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	values := listValues(clus, qi)
 	swapVal := listValues(clus, qi)
+	res := make(map[string][]float64)
 
 	for _, key := range qi {
 		for {
@@ -234,8 +235,10 @@ func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 			}
 		}
 
-		a.swapValues[key] = swapVal[key]
+		res[key] = swapVal[key]
 	}
+
+	a.swapValues[clus.ID()] = res
 }
 
 func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {

@@ -3,14 +3,12 @@ testcases:
   - name: swapping
     steps:
       - script: |-
-          sigo -q x,y,z -s s -a swapping <<EOF
-          { "x":4, "y":3, "z":0, "s":"malade" }
-          { "x":9, "y":2, "z":0, "s":"non malade" }
-          { "x":2, "y":9, "z":1, "s":"malade" }
+          sigo -q x -s s -a swapping <<EOF
+          { "x":4, "s":"malade" }
+          { "x":9, "s":"non malade" }
+          { "x":2, "s":"malade" }
           EOF
         assertions:
-          - result.systemoutjson.x ShouldBeIn 4 9 2
-          - result.systemoutjson.y ShouldBeIn 3 2 9
-          - result.systemoutjson.z ShouldBeIn 0 1
+          - result.systemoutjson.x ShouldBeIn 9 2
           - result.systemoutjson.s ShouldEqual "malade"
           - result.code ShouldEqual 0
