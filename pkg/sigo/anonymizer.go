@@ -17,12 +17,6 @@
 
 package sigo
 
-import (
-	"math/rand"
-	"reflect"
-	"time"
-)
-
 const (
 	laplace  = "laplace"
 	gaussian = "gaussian"
@@ -220,25 +214,13 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 
 func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	values := listValues(clus, qi)
-	swapVal := listValues(clus, qi)
-	res := make(map[string][]float64)
+	swapVal := make(map[string][]float64)
 
 	for _, key := range qi {
-		for {
-			rand.Seed(time.Now().UnixNano())
-			rand.Shuffle(len(swapVal[key]), func(i, j int) {
-				swapVal[key][i], swapVal[key][j] = swapVal[key][j], swapVal[key][i]
-			})
-
-			if !reflect.DeepEqual(values[key], swapVal[key]) {
-				break
-			}
-		}
-
-		res[key] = swapVal[key]
+		swapVal[key] = Shuffle(values[key])
 	}
 
-	a.swapValues[clus.ID()] = res
+	a.swapValues[clus.ID()] = swapVal
 }
 
 func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
