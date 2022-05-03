@@ -33,6 +33,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type pdef struct {
+	k         int
+	l         int
+	qi        []string
+	sensitive []string
+	method    string
+	cmdLine   []string
+}
+
 // Provisioned by ldflags
 // nolint: gochecknoglobals
 var (
@@ -42,18 +51,14 @@ var (
 	buildDate string
 	builtBy   string
 
-	verbosity string
-	debug     bool
-	jsonlog   bool
-	colormode string
-	k         int
-	l         int
-	qi        []string
-	sensitive []string
-	method    string
-	info      string
-	profiling bool
-	config    string
+	verbosity  string
+	debug      bool
+	jsonlog    bool
+	colormode  string
+	definition pdef
+	info       string
+	profiling  bool
+	config     string
 )
 
 func main() {
@@ -68,6 +73,8 @@ func main() {
 		Run: func(cmd *cobra.Command, args []string) {
 			// nolint: exhaustivestruct
 			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
+			definition.flagIsSet(*cmd)
 
 			run()
 		},
@@ -85,15 +92,15 @@ func main() {
 	rootCmd.PersistentFlags().StringVar(&colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
 	rootCmd.PersistentFlags().
-		IntVarP(&k, "k-value", "k", 3, "k-value for k-anonymization")
+		IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().
-		IntVarP(&l, "l-value", "l", 1, "l-value for l-diversity")
+		IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
-		StringSliceVarP(&qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
+		StringSliceVarP(&definition.qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
-		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
+		StringSliceVarP(&definition.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&method, "anonymizer", "a", "",
+		StringVarP(&definition.method, "anonymizer", "a", "",
 			"anonymization method used. Select one from this list "+
 				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
 	rootCmd.PersistentFlags().
@@ -114,9 +121,9 @@ func main() {
 func run() {
 	initLog()
 
+	// if the configuration file is present in the current directory
 	if sigo.Exist(config) {
-		_, err := initConfig()
-		if err != nil {
+		if err := definition.initConfig(); err != nil {
 			log.Err(err).Msg("Cannot load configuration definition from file")
 			log.Warn().Int("return", 1).Msg("End SIGO")
 			os.Exit(1)
@@ -125,15 +132,15 @@ func run() {
 
 	log.Info().
 		Str("configuration", config).
-		Int("k-anonymity", k).
-		Int("l-diversity", l).
-		Strs("Quasi-Identifiers", qi).
-		Strs("Sensitive", sensitive).
-		Str("Method", method).
+		Int("k-anonymity", definition.k).
+		Int("l-diversity", definition.l).
+		Strs("Quasi-Identifiers", definition.qi).
+		Strs("Sensitive", definition.sensitive).
+		Str("Method", definition.method).
 		Str("Cluster-Info", info).
 		Msg("Start SIGO")
 
-	source, err := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
+	source, err := infra.NewJSONLineSource(os.Stdin, definition.qi, definition.sensitive)
 	if err != nil {
 		log.Err(err).Msg("Cannot load jsonline source")
 		log.Warn().Int("return", 1).Msg("End SIGO")
@@ -156,7 +163,8 @@ func run() {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}
 
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), newAnonymizer(method), sink, debugger)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
+		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
@@ -235,20 +243,62 @@ func newAnonymizer(name string) sigo.Anonymizer {
 	}
 }
 
-func initConfig() (pdef sigo.Definition, err error) {
-	pdef, err = sigo.LoadConfigurationFromYAML(config)
+// Initialize sigo configuration with config file.
+func (def pdef) initConfig() (err error) {
+	pdf, err := sigo.LoadConfigurationFromYAML(config)
 	if err != nil {
-		return sigo.Definition{}, fmt.Errorf("%w", err)
+		return fmt.Errorf("%w", err)
 	}
 
-	k = pdef.K
-	l = pdef.L
-	sensitive = pdef.Sensitive
-	method = pdef.Aggregation
-
-	for _, attributes := range pdef.Rules {
-		qi = append(qi, attributes.Name)
+	// if cmdLine not contains "k"
+	// then we take the value in the configuration file
+	// else we take the value put in command line
+	if !sigo.Contains(def.cmdLine, "k") {
+		definition.k = pdf.K
 	}
 
-	return pdef, nil
+	if !sigo.Contains(def.cmdLine, "l") {
+		definition.l = pdf.L
+	}
+
+	if !sigo.Contains(def.cmdLine, "sensitive") {
+		definition.sensitive = pdf.Sensitive
+	}
+
+	if !sigo.Contains(def.cmdLine, "method") {
+		definition.method = pdf.Aggregation
+	}
+
+	if !sigo.Contains(def.cmdLine, "qi") {
+		for _, attributes := range pdf.Rules {
+			definition.qi = append(definition.qi, attributes.Name)
+		}
+	}
+
+	return nil
+}
+
+// Adds to cmdLine the flags set on the command line.
+func (def pdef) flagIsSet(cmd cobra.Command) {
+	// if k is given as parameter to sigo
+	// then k is appended to cmdLine
+	if cmd.Root().Flag("k-value").Changed {
+		definition.cmdLine = append(definition.cmdLine, "k")
+	}
+
+	if cmd.Root().Flag("l-value").Changed {
+		definition.cmdLine = append(definition.cmdLine, "l")
+	}
+
+	if cmd.Root().Flag("quasi-identifier").Changed {
+		definition.cmdLine = append(definition.cmdLine, "qi")
+	}
+
+	if cmd.Root().Flag("sensitive").Changed {
+		definition.cmdLine = append(definition.cmdLine, "sensitive")
+	}
+
+	if cmd.Root().Flag("anonymizer").Changed {
+		definition.cmdLine = append(definition.cmdLine, "method")
+	}
 }

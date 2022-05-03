@@ -31,7 +31,6 @@ testcases:
           - result.systemoutjson.y ShouldEqual 7
           - result.systemoutjson.z ShouldEqual "a"
           - result.code ShouldEqual 0
-      - script: rm -f sigo.yml
 
   - name: with flag --configuration
     steps:
@@ -61,4 +60,39 @@ testcases:
           - result.systemoutjson.y ShouldEqual 8
           - result.systemoutjson.z ShouldEqual "a"
           - result.code ShouldEqual 0
+
+  - name: with flag --configuration and command line
+    steps:
+      - script: |-
+          sigo -a gaussianNoise -c config.yml <<EOF
+          { "x":1, "y":7, "z":"a" }
+          { "x":2, "y":8, "z":"b" }
+          { "x":3, "y":9, "z":"a" }
+          { "x":4, "y":10, "z":"a" }
+          { "x":5, "y":11, "z":"c" }
+          { "x":6, "y":12, "z":"c" }
+          EOF
+        assertions:
+          - result.systemoutjson.x ShouldNotEqual 2
+          - result.systemoutjson.y ShouldNotEqual 8
+          - result.systemoutjson.z ShouldEqual "a"
+          - result.code ShouldEqual 0
+      - script: rm -f sigo.yml
       - script: rm -f config.yml
+
+  - name: without flag --configuration and without the file sigo.yml in the current directory
+    steps:
+      - script: |-
+          sigo -k 2 -q x,y -s z <<EOF
+          { "x":1, "y":7, "z":"a" }
+          { "x":2, "y":8, "z":"b" }
+          { "x":3, "y":9, "z":"a" }
+          { "x":4, "y":10, "z":"a" }
+          { "x":5, "y":11, "z":"c" }
+          { "x":6, "y":12, "z":"c" }
+          EOF
+        assertions:
+          - result.systemoutjson.x ShouldEqual 1
+          - result.systemoutjson.y ShouldEqual 7
+          - result.systemoutjson.z ShouldEqual "a"
+          - result.code ShouldEqual 0

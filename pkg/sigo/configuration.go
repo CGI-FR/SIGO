@@ -68,3 +68,14 @@ func Exist(filename string) bool {
 
 	return true
 }
+
+// Return true if str is in slice.
+func Contains(slice []string, str string) bool {
+	for i := range slice {
+		if slice[i] == str {
+			return true
+		}
+	}
+
+	return false
+}
