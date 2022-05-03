@@ -193,12 +193,14 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 
+	// cluster value swapping
 	if a.swapValues[clus.ID()] == nil {
 		a.Swap(clus, qi)
 	}
 
 	var idx int
 
+	// retrieve the position (idx) of the record in the cluster
 	for i, r := range clus.Records() {
 		if rec == r {
 			idx = i
@@ -206,6 +208,7 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 	}
 
 	for _, key := range qi {
+		// retrieve the swapped value
 		mask[key] = a.swapValues[clus.ID()][key][idx]
 	}
 
@@ -213,16 +216,19 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 }
 
 func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
+	// retrieve the cluster values for each qi
 	values := listValues(clus, qi)
 	swapVal := make(map[string][]float64)
 
 	for _, key := range qi {
+		// values permutation
 		swapVal[key] = Shuffle(values[key])
 	}
 
 	a.swapValues[clus.ID()] = swapVal
 }
 
+// Returns the list of values present in the cluster for each qi
 func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 	mapValues = make(map[string][]float64)
 
