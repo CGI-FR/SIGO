@@ -1,10 +1,10 @@
 version: "1"
 
-kAnonymity: 4
-lDiversity: 3
+kAnonymity: 5
+lDiversity: 2
 sensitives:
   - s
-aggregation: meanAggregation
+aggregation: medianAggregation
 rules:
   - name: y
   - name: x

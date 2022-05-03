@@ -103,7 +103,7 @@ func main() {
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
-		StringVarP(&config, "configuration", "c", "", "name and location of the configuration file")
+		StringVarP(&config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -114,11 +114,13 @@ func main() {
 func run() {
 	initLog()
 
-	pdef, rules, err := initConfig()
-	if err != nil {
-		log.Err(err).Msg("Cannot load configuration definition from file")
-		log.Warn().Int("return", 1).Msg("End SIGO")
-		os.Exit(1)
+	if sigo.Exist(config) {
+		_, err := initConfig()
+		if err != nil {
+			log.Err(err).Msg("Cannot load configuration definition from file")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
 	}
 
 	log.Info().
@@ -130,16 +132,6 @@ func run() {
 		Str("Method", method).
 		Str("Cluster-Info", info).
 		Msg("Start SIGO")
-
-	if rules {
-		newqi := []string{}
-
-		for _, r := range pdef.Rules {
-			newqi = append(newqi, r.Name)
-		}
-
-		qi = newqi
-	}
 
 	source, err := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
 	if err != nil {
@@ -243,17 +235,20 @@ func newAnonymizer(name string) sigo.Anonymizer {
 	}
 }
 
-func initConfig() (pdef sigo.Definition, rules bool, err error) {
-	if config != "" {
-		pdef, err = sigo.LoadConfigurationFromYAML(config)
-
-		k = pdef.K
-		l = pdef.L
-		qi = pdef.QI
-		sensitive = pdef.Sensitive
-		method = pdef.Aggregation
-		rules = true
+func initConfig() (pdef sigo.Definition, err error) {
+	pdef, err = sigo.LoadConfigurationFromYAML(config)
+	if err != nil {
+		return sigo.Definition{}, fmt.Errorf("%w", err)
 	}
 
-	return pdef, rules, err
+	k = pdef.K
+	l = pdef.L
+	sensitive = pdef.Sensitive
+	method = pdef.Aggregation
+
+	for _, attributes := range pdef.Rules {
+		qi = append(qi, attributes.Name)
+	}
+
+	return pdef, nil
 }

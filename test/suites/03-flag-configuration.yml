@@ -3,8 +3,50 @@
 
 name: run configuration
 testcases:
-  - name: --configuration
+  - name: without flag --configuration but with the file sigo.yml in the current directory
     steps:
+      - script: |-
+          cat > sigo.yml <<EOF
+          version: "1"
+          kAnonymity: 1
+          lDiversity: 1
+          sensitives:
+            - z
+          aggregation: meanAggregation
+          rules:
+            - name: x
+            - name: y
+          EOF
+      - script: |-
+          sigo <<EOF
+          { "x":1, "y":7, "z":"a" }
+          { "x":2, "y":8, "z":"b" }
+          { "x":3, "y":9, "z":"a" }
+          { "x":4, "y":10, "z":"a" }
+          { "x":5, "y":11, "z":"c" }
+          { "x":6, "y":12, "z":"c" }
+          EOF
+        assertions:
+          - result.systemoutjson.x ShouldEqual 1
+          - result.systemoutjson.y ShouldEqual 7
+          - result.systemoutjson.z ShouldEqual "a"
+          - result.code ShouldEqual 0
+      - script: rm -f sigo.yml
+
+  - name: with flag --configuration
+    steps:
+      - script: |-
+          cat > config.yml <<EOF
+          version: "1"
+          kAnonymity: 3
+          lDiversity: 1
+          sensitives:
+            - z
+          aggregation: meanAggregation
+          rules:
+            - name: x
+            - name: y
+          EOF
       - script: |-
           sigo -c config.yml <<EOF
           { "x":1, "y":7, "z":"a" }
@@ -16,6 +58,7 @@ testcases:
           EOF
         assertions:
           - result.systemoutjson.x ShouldEqual 2
-          - result.systemoutjson.y ShouldEqual 7
+          - result.systemoutjson.y ShouldEqual 8
           - result.systemoutjson.z ShouldEqual "a"
           - result.code ShouldEqual 0
+      - script: rm -f config.yml

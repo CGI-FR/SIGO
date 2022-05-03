@@ -20,6 +20,7 @@ package sigo
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -32,12 +33,12 @@ type Definition struct {
 	Version     string   `yaml:"version"`
 	K           int      `yaml:"kAnonymity"`
 	L           int      `yaml:"lDiversity"`
-	QI          []string `yaml:"quasiIdentifiers"`
 	Sensitive   []string `yaml:"sensitives"`
 	Aggregation string   `yaml:"aggregation"`
 	Rules       []Rules  `yaml:"rules"`
 }
 
+// Returns the configuration of the yaml file in a Definition object.
 func LoadConfigurationFromYAML(filename string) (Definition, error) {
 	source, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -53,4 +54,17 @@ func LoadConfigurationFromYAML(filename string) (Definition, error) {
 	}
 
 	return conf, nil
+}
+
+// Return true if the file is present in the current directory.
+func Exist(filename string) bool {
+	_, err := os.Stat(filename)
+	if err != nil {
+		// Checking if the given file exists or not
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+
+	return true
 }
