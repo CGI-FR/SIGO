@@ -228,7 +228,7 @@ func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	a.swapValues[clus.ID()] = swapVal
 }
 
-// Returns the list of values present in the cluster for each qi
+// Returns the list of values present in the cluster for each qi.
 func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 	mapValues = make(map[string][]float64)
 
