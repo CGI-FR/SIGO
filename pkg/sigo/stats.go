@@ -27,18 +27,21 @@ import (
 	"time"
 )
 
+// Returns the min value of listValues.
 func Min(listValues []float64) float64 {
 	sort.Float64s(listValues)
 
 	return listValues[0]
 }
 
+// Returns the max value of listValues.
 func Max(listValues []float64) float64 {
 	sort.Float64s(listValues)
 
 	return listValues[len(listValues)-1]
 }
 
+// Returns the mean value of listValues.
 func Mean(listValues []float64) (m float64) {
 	for _, val := range listValues {
 		m += val
@@ -50,6 +53,7 @@ func Mean(listValues []float64) (m float64) {
 	return math.Round(m*100) / 100
 }
 
+// Returns the median value of listValues.
 func Median(listValues []float64) (m float64) {
 	sort.Float64s(listValues)
 	lenList := len(listValues)
@@ -68,6 +72,7 @@ type Quartiles struct {
 	Q3 float64
 }
 
+// Returns the 1st quartile, 2nd quartile (median) and 3rd quartile of values.
 func Quartile(values []float64) Quartiles {
 	lenValues := len(values)
 	if lenValues == 0 {
@@ -96,6 +101,7 @@ func Quartile(values []float64) Quartiles {
 	return Quartiles{Q1, Q2, Q3}
 }
 
+// Returns the interquartile range of values (Q3-Q1).
 func IQR(values []float64) float64 {
 	if len(values) == 0 {
 		return math.NaN()
@@ -107,6 +113,7 @@ func IQR(values []float64) float64 {
 	return iqr
 }
 
+// Returns the standard deviation of listValues (https://fr.wikipedia.org/wiki/%C3%89cart_type).
 func Std(listValues []float64) (s float64) {
 	for _, val := range listValues {
 		//nolint: gomnd
@@ -116,6 +123,7 @@ func Std(listValues []float64) (s float64) {
 	return math.Sqrt(s / float64(len(listValues)-1))
 }
 
+// Returns the sum of the elements of listValues.
 func Sum(listValues []float64) (sum float64) {
 	for _, val := range listValues {
 		sum += val
@@ -124,7 +132,9 @@ func Sum(listValues []float64) (sum float64) {
 	return sum
 }
 
+// Generates safe exponential random values (https://dzone.com/articles/generating-laplace-distributed-random-values).
 func ExpNumber(mean float64) float64 {
+	// Returns a secure random float in [0,1).
 	random, err := RandFloat()
 	if err != nil {
 		return 0
@@ -133,6 +143,7 @@ func ExpNumber(mean float64) float64 {
 	return -mean * math.Log(random)
 }
 
+// Generates Laplace values (https://dzone.com/articles/generating-laplace-distributed-random-values).
 func LaplaceNumber() float64 {
 	e1 := ExpNumber(1)
 	e2 := ExpNumber(1)
@@ -140,15 +151,19 @@ func LaplaceNumber() float64 {
 	return e1 - e2
 }
 
+// Generates safe Gaussian values.
 func GaussianNumber(loc float64, scale float64) float64 {
 	rand.Seed(time.Now().Unix())
 
+	// Returns 2 normal values
 	z1, z2 := BoxMuller()
 	numbers := []float64{z1, z2}
 	//nolint: gomnd
 	idx, _ := rd.Int(rd.Reader, big.NewInt(2))
+	// Choose randomly one of the 2 numbers with a safe draw.
 	random := numbers[idx.Int64()]
 
+	// if normal values (scale = 1, loc = 0)
 	return random*scale + loc
 }
 
@@ -212,6 +227,8 @@ func RandFloat() (float64, error) {
 	return random, nil
 }
 
+// Generates pairs of independent random numbers following a normal distribution.
+// (https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform).
 func BoxMuller() (float64, float64) {
 	x, _ := RandFloat()
 	y, _ := RandFloat()
