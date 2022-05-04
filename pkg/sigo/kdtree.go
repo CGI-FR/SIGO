@@ -57,18 +57,22 @@ func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
 	return KDTree{k: k, l: l, dim: dim, clusterID: clusterID}
 }
 
+// Add add a record to the tree (root node).
 func (t KDTree) Add(r Record) {
 	t.root.Add(r)
 }
 
+// Build starts building the tree.
 func (t KDTree) Build() {
 	t.root.build()
 }
 
+// Clusters returns the list of clusters in the tree.
 func (t KDTree) Clusters() []Cluster {
 	return t.root.Clusters()
 }
 
+// String returns the tree in a literary way.
 func (t KDTree) String() string {
 	return t.root.string(0)
 }
@@ -102,14 +106,17 @@ type node struct {
 	rot         int
 }
 
+// Add add a record to the node.
 func (n *node) Add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
+// incRot increments the value of rot which refers to the dimension on which we build our nodes.
 func (n *node) incRot() {
 	n.rot = (n.rot + 1) % n.tree.dim
 }
 
+// build creates nodes.
 func (n *node) build() {
 	log.Debug().
 		Str("Dimension", n.tree.qi[n.rot]).
@@ -156,6 +163,7 @@ func (n *node) build() {
 	}
 }
 
+// initiateBounds() initializes the node bounds with the min and max values.
 func (n *node) initiateBounds() {
 	for rot := 0; rot < n.tree.dim; rot++ {
 		sort.SliceStable(n.cluster, func(i int, j int) bool {
@@ -169,10 +177,13 @@ func (n *node) initiateBounds() {
 	}
 }
 
+// Bounds returns the node bounds.
 func (n *node) Bounds() []bounds {
 	return n.bounds
 }
 
+// split creates 2 subnodes by ordering the node and splitting in order to have 2 equal parts
+// and all elements having the same value in the same subnode.
 func (n *node) split() (node, node, bool) {
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
 		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
@@ -189,6 +200,7 @@ func (n *node) split() (node, node, bool) {
 	previous := n.cluster[0]
 
 	for _, row := range n.cluster {
+		// equal subnodes and all elements having the same value in the same subnode
 		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
 			lower.Add(row)
 			previous = row
@@ -207,6 +219,7 @@ func (n *node) split() (node, node, bool) {
 	return lower, upper, upperSize >= n.tree.k && lower.wellLDiv() && upper.wellLDiv()
 }
 
+// Records returns the list of records in the node.
 func (n *node) Records() []Record {
 	if n.cluster != nil {
 		return n.cluster
@@ -215,10 +228,12 @@ func (n *node) Records() []Record {
 	return []Record{}
 }
 
+// ID return the path of the node.
 func (n *node) ID() string {
 	return n.clusterPath
 }
 
+// Clusters returns the list of clusters in the node.
 func (n *node) Clusters() []Cluster {
 	if n.cluster != nil {
 		return []Cluster{n}
@@ -227,6 +242,7 @@ func (n *node) Clusters() []Cluster {
 	return append(n.subNodes[0].Clusters(), n.subNodes[1].Clusters()...)
 }
 
+// string retunrs the node information (pivot, dimension, subnodes).
 func (n *node) string(offset int) string {
 	if n.cluster != nil {
 		result := "["
@@ -253,19 +269,25 @@ func (n *node) string(offset int) string {
 	)
 }
 
+// validate validates the node.
 func (n *node) validate() {
 	n.valid = true
 }
 
+// isValid returns if the node is valid or not.
 func (n *node) isValid() bool {
 	return n.valid
 }
 
+// weelDiv returns if the node respects the l-diversity (https://en.wikipedia.org/wiki/L-diversity).
+// (https://tel.archives-ouvertes.fr/tel-01783967/document p.29/30).
 func (n node) wellLDiv() bool {
 	var f func([]Record, int) float64
 	if b, ok := over.MDC().Get("entropy"); !ok || !b.(bool) {
+		// Distinct l-diversity
 		f = logQ
 	} else {
+		// Entropy l-diversity
 		f = entropy
 	}
 
@@ -280,6 +302,8 @@ func (n node) wellLDiv() bool {
 	return true
 }
 
+// entropy returns the value of the entropy for the cluster clus and the sensible attribute sens.
+// (https://tel.archives-ouvertes.fr/tel-01783967/document p.30).
 func entropy(clus []Record, sens int) float64 {
 	frequency := make(map[interface{}]int)
 
@@ -296,6 +320,8 @@ func entropy(clus []Record, sens int) float64 {
 	return e
 }
 
+// logQ returns the number of represented values in the cluster clus for the sensible attribute sens.
+// (https://tel.archives-ouvertes.fr/tel-01783967/document p.29).
 func logQ(clus []Record, sens int) float64 {
 	frequency := make(map[interface{}]int)
 

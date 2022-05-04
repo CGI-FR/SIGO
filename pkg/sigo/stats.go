@@ -27,21 +27,21 @@ import (
 	"time"
 )
 
-// Returns the min value of listValues.
+// Min returns the min value of listValues.
 func Min(listValues []float64) float64 {
 	sort.Float64s(listValues)
 
 	return listValues[0]
 }
 
-// Returns the max value of listValues.
+// Max returns the max value of listValues.
 func Max(listValues []float64) float64 {
 	sort.Float64s(listValues)
 
 	return listValues[len(listValues)-1]
 }
 
-// Returns the mean value of listValues.
+// Mean returns the mean value of listValues.
 func Mean(listValues []float64) (m float64) {
 	for _, val := range listValues {
 		m += val
@@ -53,7 +53,7 @@ func Mean(listValues []float64) (m float64) {
 	return math.Round(m*100) / 100
 }
 
-// Returns the median value of listValues.
+// Median returns the median value of listValues.
 func Median(listValues []float64) (m float64) {
 	sort.Float64s(listValues)
 	lenList := len(listValues)
@@ -72,7 +72,7 @@ type Quartiles struct {
 	Q3 float64
 }
 
-// Returns the 1st quartile, 2nd quartile (median) and 3rd quartile of values.
+// Quartile returns the 1st quartile, 2nd quartile (median) and 3rd quartile of values.
 func Quartile(values []float64) Quartiles {
 	lenValues := len(values)
 	if lenValues == 0 {
@@ -101,7 +101,7 @@ func Quartile(values []float64) Quartiles {
 	return Quartiles{Q1, Q2, Q3}
 }
 
-// Returns the interquartile range of values (Q3-Q1).
+// IQR returns the interquartile range of values (Q3-Q1).
 func IQR(values []float64) float64 {
 	if len(values) == 0 {
 		return math.NaN()
@@ -113,7 +113,8 @@ func IQR(values []float64) float64 {
 	return iqr
 }
 
-// Returns the standard deviation of listValues (https://fr.wikipedia.org/wiki/%C3%89cart_type).
+// Std returns the standard deviation of listValues.
+// (https://fr.wikipedia.org/wiki/%C3%89cart_type).
 func Std(listValues []float64) (s float64) {
 	for _, val := range listValues {
 		//nolint: gomnd
@@ -123,7 +124,7 @@ func Std(listValues []float64) (s float64) {
 	return math.Sqrt(s / float64(len(listValues)-1))
 }
 
-// Returns the sum of the elements of listValues.
+// Sum returns the sum of the elements of listValues.
 func Sum(listValues []float64) (sum float64) {
 	for _, val := range listValues {
 		sum += val
@@ -132,7 +133,8 @@ func Sum(listValues []float64) (sum float64) {
 	return sum
 }
 
-// Generates safe exponential random values (https://dzone.com/articles/generating-laplace-distributed-random-values).
+// ExpNumber generates safe exponential random value.
+// (https://dzone.com/articles/generating-laplace-distributed-random-values).
 func ExpNumber(mean float64) float64 {
 	// Returns a secure random float in [0,1).
 	random, err := RandFloat()
@@ -143,7 +145,8 @@ func ExpNumber(mean float64) float64 {
 	return -mean * math.Log(random)
 }
 
-// Generates Laplace values (https://dzone.com/articles/generating-laplace-distributed-random-values).
+// LaplaceNumber generates Laplace value.
+// (https://dzone.com/articles/generating-laplace-distributed-random-values).
 func LaplaceNumber() float64 {
 	e1 := ExpNumber(1)
 	e2 := ExpNumber(1)
@@ -151,7 +154,7 @@ func LaplaceNumber() float64 {
 	return e1 - e2
 }
 
-// Generates safe Gaussian values.
+// GaussianNumber generates safe Gaussian value.
 func GaussianNumber(loc float64, scale float64) float64 {
 	rand.Seed(time.Now().Unix())
 
@@ -167,6 +170,9 @@ func GaussianNumber(loc float64, scale float64) float64 {
 	return random*scale + loc
 }
 
+// Scaling returns the scaled value to range [-2;2] for Laplace number and [-1;1] for Gaussian Number.
+// (https://en.wikipedia.org/wiki/Normalization_(statistics)).
+// If no method is mentioned, standardization is used.
 func Scaling(value float64, listValues []float64, method string) float64 {
 	scope := Max(listValues) - Min(listValues)
 	//nolint: gomnd
@@ -175,19 +181,21 @@ func Scaling(value float64, listValues []float64, method string) float64 {
 		if scope == 0 {
 			return -2
 		}
-
+		// Normalization Min-Max
 		return -2 + ((value-Min(listValues))*4)/(scope)
 	case gaussian:
 		if scope == 0 {
 			return -1
 		}
-
+		// Normalization Min-Max
 		return -1 + ((value-Min(listValues))*2)/(scope)
 	}
 
+	// Standardization
 	return (value - Mean(listValues)) / Std(listValues)
 }
 
+// Rescaling returns the resize value.
 func Rescaling(value float64, listValues []float64, method string) (rescale float64) {
 	//nolint: gomnd
 	switch method {
@@ -227,7 +235,7 @@ func RandFloat() (float64, error) {
 	return random, nil
 }
 
-// Generates pairs of independent random numbers following a normal distribution.
+// BoxMuller generates pairs of independent random numbers following a normal distribution.
 // (https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform).
 func BoxMuller() (float64, float64) {
 	x, _ := RandFloat()
