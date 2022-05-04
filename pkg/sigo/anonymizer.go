@@ -83,6 +83,7 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	return original
 }
 
+// Anonymize returns the original record, there is no anonymization.
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 	for _, q := range qi {
@@ -92,6 +93,8 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// Anonymize returns the record anonymize with the method general
+// the record takes the bounds of the cluster.
 func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	b := clus.Bounds()
 
@@ -103,6 +106,8 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// Anonymize returns the record anonymized with the method meanAggregarion or medianAggregation
+// the record takes the aggregated values of the cluster.
 func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 
@@ -117,6 +122,8 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// ComputeAggregation calculates the mean (method meanAggreagtion)
+// or median (method medianAggregation) value of the cluster for each qi.
 func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 	values := listValues(clus, qi)
 
@@ -134,6 +141,10 @@ func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 	a.values[clus.ID()] = valAggregation
 }
 
+// Anonymize returns the record anonymized with the method outlier
+// if the record is in the interval [Q1;Q3] then we don't change its value
+// if the record is > Q3 then it takes the Q3 value
+// if the record is < Q1 then it takes the Q1 value.
 func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
@@ -159,6 +170,9 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// Anonymize returns the record anonymized with the method laplaceNoise or gaussianNoise
+// the record takes as value the original value added to a Laplacian or Gaussian noise
+// the anonymized value stays within the bounds of the cluster.
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
