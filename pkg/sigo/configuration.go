@@ -38,12 +38,11 @@ type Definition struct {
 	Rules       []Rules  `yaml:"rules"`
 }
 
-// Returns the configuration of the yaml file in a Definition object.
+// LoadConfigurationFromYAML returns the configuration of the yaml file in a Definition object.
 func LoadConfigurationFromYAML(filename string) (Definition, error) {
 	source, err := ioutil.ReadFile(filename)
 	if err != nil {
-		//nolint: wrapcheck
-		return Definition{}, err
+		return Definition{}, fmt.Errorf("%w", err)
 	}
 
 	var conf Definition
@@ -56,7 +55,7 @@ func LoadConfigurationFromYAML(filename string) (Definition, error) {
 	return conf, nil
 }
 
-// Return true if the file is present in the current directory.
+// Exist return true if the file is present in the current directory.
 func Exist(filename string) bool {
 	_, err := os.Stat(filename)
 	if err != nil {
@@ -69,7 +68,7 @@ func Exist(filename string) bool {
 	return true
 }
 
-// Return true if str is in slice.
+// Contains return true if str is in slice.
 func Contains(slice []string, str string) bool {
 	for i := range slice {
 		if slice[i] == str {
