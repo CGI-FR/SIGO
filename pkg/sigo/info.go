@@ -46,6 +46,7 @@ func (ir InfosRecord) Row() map[string]interface{} {
 	return original
 }
 
+// id returns the path of cluster c coverts to integer.
 func (d SequenceDebugger) id(c Cluster) int {
 	count := len(d.cache)
 	if d.cache[c.ID()] == 0 {
@@ -55,6 +56,8 @@ func (d SequenceDebugger) id(c Cluster) int {
 	return d.cache[c.ID()]
 }
 
+// Information returns an InfosRecord which is a record
+// with the identifier of the cluster in which the record rec is located.
 func (d SequenceDebugger) Information(rec Record, cluster Cluster) Record {
 	infos := make(map[string]interface{})
 
