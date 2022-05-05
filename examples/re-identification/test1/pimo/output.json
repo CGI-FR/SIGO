@@ -1,0 +1,100 @@
+{"id":1,"age":19,"location":"countryside","weight":87,"height":1.67,"sickness":"cancer"}
+{"id":2,"age":56,"location":"city","weight":60,"height":2.01,"sickness":"heart disease"}
+{"id":3,"age":31,"location":"city","weight":77,"height":1.47,"sickness":"heart disease"}
+{"id":4,"age":98,"location":"city","weight":100,"height":1.98,"sickness":"cancer"}
+{"id":5,"age":56,"location":"mountains","weight":55,"height":2.04,"sickness":"cancer"}
+{"id":6,"age":46,"location":"countryside","weight":42,"height":1.87,"sickness":"cancer"}
+{"id":7,"age":93,"location":"city","weight":79,"height":1.81,"sickness":"flu"}
+{"id":8,"age":44,"location":"seaside","weight":94,"height":1.57,"sickness":"flu"}
+{"id":9,"age":26,"location":"mountains","weight":81,"height":2.01,"sickness":"cancer"}
+{"id":10,"age":70,"location":"city","weight":104,"height":1.82,"sickness":"flu"}
+{"id":11,"age":48,"location":"countryside","weight":50,"height":1.9,"sickness":"heart disease"}
+{"id":12,"age":65,"location":"mountains","weight":104,"height":1.62,"sickness":"cancer"}
+{"id":13,"age":42,"location":"city","weight":102,"height":1.62,"sickness":"flu"}
+{"id":14,"age":81,"location":"countryside","weight":108,"height":1.65,"sickness":"cancer"}
+{"id":15,"age":98,"location":"city","weight":59,"height":1.46,"sickness":"heart disease"}
+{"id":16,"age":54,"location":"city","weight":105,"height":2.08,"sickness":"heart disease"}
+{"id":17,"age":39,"location":"city","weight":62,"height":1.59,"sickness":"flu"}
+{"id":18,"age":42,"location":"city","weight":41,"height":1.96,"sickness":"flu"}
+{"id":19,"age":84,"location":"countryside","weight":61,"height":1.77,"sickness":"heart disease"}
+{"id":20,"age":60,"location":"city","weight":40,"height":1.99,"sickness":"heart disease"}
+{"id":21,"age":48,"location":"city","weight":90,"height":1.86,"sickness":"cancer"}
+{"id":22,"age":19,"location":"city","weight":107,"height":2,"sickness":"heart disease"}
+{"id":23,"age":87,"location":"city","weight":71,"height":1.57,"sickness":"heart disease"}
+{"id":24,"age":42,"location":"city","weight":85,"height":1.75,"sickness":"flu"}
+{"id":25,"age":65,"location":"city","weight":73,"height":1.66,"sickness":"heart disease"}
+{"id":26,"age":68,"location":"seaside","weight":53,"height":2,"sickness":"heart disease"}
+{"id":27,"age":81,"location":"countryside","weight":89,"height":1.54,"sickness":"heart disease"}
+{"id":28,"age":38,"location":"mountains","weight":104,"height":1.88,"sickness":"flu"}
+{"id":29,"age":23,"location":"countryside","weight":79,"height":1.67,"sickness":"heart disease"}
+{"id":30,"age":97,"location":"mountains","weight":73,"height":1.6,"sickness":"flu"}
+{"id":31,"age":20,"location":"countryside","weight":102,"height":1.87,"sickness":"flu"}
+{"id":32,"age":19,"location":"city","weight":46,"height":1.95,"sickness":"flu"}
+{"id":33,"age":22,"location":"city","weight":104,"height":2.09,"sickness":"cancer"}
+{"id":34,"age":22,"location":"mountains","weight":90,"height":1.87,"sickness":"flu"}
+{"id":35,"age":92,"location":"city","weight":79,"height":1.75,"sickness":"heart disease"}
+{"id":36,"age":90,"location":"city","weight":97,"height":2.07,"sickness":"heart disease"}
+{"id":37,"age":19,"location":"city","weight":56,"height":2.03,"sickness":"cancer"}
+{"id":38,"age":88,"location":"countryside","weight":46,"height":1.75,"sickness":"flu"}
+{"id":39,"age":67,"location":"seaside","weight":84,"height":1.84,"sickness":"cancer"}
+{"id":40,"age":53,"location":"seaside","weight":90,"height":2.06,"sickness":"flu"}
+{"id":41,"age":93,"location":"countryside","weight":62,"height":1.73,"sickness":"cancer"}
+{"id":42,"age":53,"location":"city","weight":70,"height":1.71,"sickness":"cancer"}
+{"id":43,"age":51,"location":"countryside","weight":62,"height":1.89,"sickness":"flu"}
+{"id":44,"age":26,"location":"city","weight":110,"height":1.97,"sickness":"cancer"}
+{"id":45,"age":64,"location":"countryside","weight":53,"height":1.85,"sickness":"flu"}
+{"id":46,"age":47,"location":"city","weight":103,"height":1.56,"sickness":"heart disease"}
+{"id":47,"age":52,"location":"city","weight":40,"height":1.99,"sickness":"flu"}
+{"id":48,"age":88,"location":"city","weight":67,"height":1.9,"sickness":"heart disease"}
+{"id":49,"age":31,"location":"countryside","weight":42,"height":1.46,"sickness":"heart disease"}
+{"id":50,"age":62,"location":"city","weight":86,"height":1.6,"sickness":"cancer"}
+{"id":51,"age":58,"location":"countryside","weight":107,"height":1.85,"sickness":"flu"}
+{"id":52,"age":90,"location":"city","weight":103,"height":1.96,"sickness":"heart disease"}
+{"id":53,"age":64,"location":"city","weight":83,"height":1.59,"sickness":"heart disease"}
+{"id":54,"age":56,"location":"mountains","weight":90,"height":1.64,"sickness":"heart disease"}
+{"id":55,"age":43,"location":"seaside","weight":80,"height":1.88,"sickness":"flu"}
+{"id":56,"age":85,"location":"seaside","weight":49,"height":2.08,"sickness":"cancer"}
+{"id":57,"age":51,"location":"city","weight":100,"height":1.97,"sickness":"cancer"}
+{"id":58,"age":97,"location":"mountains","weight":92,"height":1.95,"sickness":"cancer"}
+{"id":59,"age":81,"location":"city","weight":50,"height":1.73,"sickness":"flu"}
+{"id":60,"age":26,"location":"mountains","weight":99,"height":1.53,"sickness":"cancer"}
+{"id":61,"age":52,"location":"countryside","weight":84,"height":1.82,"sickness":"heart disease"}
+{"id":62,"age":99,"location":"city","weight":49,"height":1.87,"sickness":"cancer"}
+{"id":63,"age":62,"location":"city","weight":106,"height":1.86,"sickness":"cancer"}
+{"id":64,"age":64,"location":"countryside","weight":82,"height":1.48,"sickness":"flu"}
+{"id":65,"age":62,"location":"mountains","weight":53,"height":1.95,"sickness":"heart disease"}
+{"id":66,"age":25,"location":"city","weight":77,"height":2.03,"sickness":"flu"}
+{"id":67,"age":21,"location":"seaside","weight":77,"height":1.46,"sickness":"cancer"}
+{"id":68,"age":50,"location":"countryside","weight":109,"height":1.8,"sickness":"flu"}
+{"id":69,"age":61,"location":"seaside","weight":80,"height":1.67,"sickness":"heart disease"}
+{"id":70,"age":92,"location":"mountains","weight":101,"height":1.88,"sickness":"cancer"}
+{"id":71,"age":20,"location":"city","weight":41,"height":1.58,"sickness":"cancer"}
+{"id":72,"age":27,"location":"seaside","weight":99,"height":1.97,"sickness":"flu"}
+{"id":73,"age":94,"location":"countryside","weight":109,"height":2.02,"sickness":"cancer"}
+{"id":74,"age":98,"location":"countryside","weight":94,"height":1.8,"sickness":"flu"}
+{"id":75,"age":74,"location":"city","weight":76,"height":2.08,"sickness":"cancer"}
+{"id":76,"age":88,"location":"seaside","weight":65,"height":1.83,"sickness":"flu"}
+{"id":77,"age":77,"location":"mountains","weight":86,"height":1.5,"sickness":"heart disease"}
+{"id":78,"age":61,"location":"city","weight":53,"height":1.74,"sickness":"cancer"}
+{"id":79,"age":52,"location":"city","weight":81,"height":1.85,"sickness":"cancer"}
+{"id":80,"age":94,"location":"countryside","weight":62,"height":1.47,"sickness":"heart disease"}
+{"id":81,"age":43,"location":"city","weight":58,"height":1.72,"sickness":"cancer"}
+{"id":82,"age":76,"location":"mountains","weight":94,"height":1.57,"sickness":"cancer"}
+{"id":83,"age":84,"location":"mountains","weight":83,"height":2.05,"sickness":"heart disease"}
+{"id":84,"age":43,"location":"seaside","weight":46,"height":2.04,"sickness":"cancer"}
+{"id":85,"age":98,"location":"countryside","weight":87,"height":1.48,"sickness":"flu"}
+{"id":86,"age":50,"location":"city","weight":80,"height":1.99,"sickness":"cancer"}
+{"id":87,"age":64,"location":"countryside","weight":95,"height":2.03,"sickness":"heart disease"}
+{"id":88,"age":80,"location":"city","weight":70,"height":1.94,"sickness":"cancer"}
+{"id":89,"age":78,"location":"city","weight":57,"height":2.02,"sickness":"heart disease"}
+{"id":90,"age":69,"location":"countryside","weight":83,"height":1.92,"sickness":"heart disease"}
+{"id":91,"age":41,"location":"countryside","weight":55,"height":1.69,"sickness":"cancer"}
+{"id":92,"age":84,"location":"countryside","weight":106,"height":1.93,"sickness":"cancer"}
+{"id":93,"age":52,"location":"city","weight":52,"height":1.47,"sickness":"cancer"}
+{"id":94,"age":98,"location":"city","weight":91,"height":1.48,"sickness":"heart disease"}
+{"id":95,"age":67,"location":"city","weight":102,"height":1.88,"sickness":"flu"}
+{"id":96,"age":77,"location":"countryside","weight":43,"height":1.62,"sickness":"cancer"}
+{"id":97,"age":75,"location":"countryside","weight":60,"height":1.46,"sickness":"heart disease"}
+{"id":98,"age":18,"location":"city","weight":56,"height":1.59,"sickness":"flu"}
+{"id":99,"age":36,"location":"city","weight":69,"height":1.48,"sickness":"heart disease"}
+{"id":100,"age":78,"location":"countryside","weight":55,"height":1.82,"sickness":"flu"}

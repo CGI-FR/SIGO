@@ -1,0 +1,83 @@
+# Re-identification test
+
+## Datasets
+
+There are 2 files:
+
+- `arbres.json` : the file on the trees of Paris to be anonymized containing the sensitive data **remarquable**.
+- `arbres_openData.json` : a file containing information on the trees of Paris that can be found on the open data.
+
+> arbres.json
+
+|   genre  | circonference | hauteur | remarquable |     x     |     y    |
+|:--------:|:-------------:|:-------:|:-----------:|:---------:|:--------:|
+|  Prunus  |       76      |    5    |     NON     | 48.889788 | 2.319906 |
+|   Tilia  |      111      |    12   |     NON     | 48.894999 | 2.363968 |
+| Carpinus |       28      |    7    |     NON     | 48.879623 | 2.363230 |
+| Platanus |      110      |    10   |     NON     | 48.839062 | 2.391879 |
+|   Tilia  |      105      |    10   |     NON     | 48.832918 | 2.446663 |
+
+> arbres_openData.json
+
+|   genre  | circonference | hauteur |     x     |     y    |
+|:--------:|:-------------:|:-------:|:---------:|:--------:|
+|  Prunus  |       76      |    5    | 48.889788 | 2.319906 |
+|   Tilia  |      111      |    12   | 48.894999 | 2.363968 |
+| Carpinus |       28      |    7    | 48.879623 | 2.363230 |
+| Platanus |      110      |    10   | 48.839062 | 2.391879 |
+|   Tilia  |      105      |    10   | 48.832918 | 2.446663 |
+
+## 1st "bad anonymization"
+
+Forgot to anonymize the **genre** column and use the method `meanAggregation`.
+
+```console
+sigo -q x,y,circonference,hauteur -s remarquable -a meanAggregation < arbres.json > arbres-sigo.json
+```
+
+> arbres-sigo.json
+
+|        |  genre | circonference | hauteur | remarquable |   x   |  y  |
+|--------|:------:|:-------------:|:-------:|:-----------:|:-----:|:---:|
+| 322004 | Prunus |      0.0      |   0.0   |     NON     | 48.82 | 2.3 |
+| 322003 | Prunus |      0.0      |   0.0   |     NON     | 48.82 | 2.3 |
+| 322002 | Prunus |      0.0      |   0.0   |     NON     | 48.82 | 2.3 |
+| 322001 | Prunus |      0.0      |   0.0   |     NON     | 48.83 | 2.3 |
+| 201022 | Prunus |      0.0      |   0.0   |     NON     | 48.83 | 2.3 |
+
+By grouping data with the same values for the attributes **circonference**, **hauteur**, **x** and **y**, we can re-identify some individuals by linking to the attribute **gender**.
+
+Take for example the cluster formed by the 3 individuals below, the *Punica* is a tree noted as *remarquable*.
+
+|        |     genre    | circonference |   hauteur  | remarquable |      x      |      y     |
+|--------|:------------:|:-------------:|:----------:|:-----------:|:-----------:|:----------:|
+| 501004 |    Prunus    |     30.67     |    4.33    |     NON     |    48.89    |    2.35    |
+| 701006 |    Ostrya    |     30.67     |    4.33    |     NON     |    48.89    |    2.35    |
+| 404003 | **_Punica_** |  **_30.67_**  | **_4.33_** |  **_OUI_**  | **_48.89_** | **_2.35_** |
+
+If we look at the data collected from the open data, there are only 3 trees in Paris that are *Punicas*.
+
+|         |     genre    | circonference | hauteur |        x        |        y       |
+|---------|:------------:|:-------------:|:-------:|:---------------:|:--------------:|
+| 404003  | **_Punica_** |    **_30_**   | **_3_** | **_48.885642_** | **_2.343820_** |
+| 250012  | Punica |       0       |    0    | 48.835915 | 2.446839 |
+| 101010  | Punica |       5       |    1    | 48.871901 | 2.275000 |
+
+We can easily make the link that the tree `{genre:Punica, circonference:30, hauteur:3, x:48.885642, y:2.343820`} is notes as `remarquable`, so find its sensitive data.
+
+Another example with another group of subjects.
+
+|       |      genre     | circonference |   hauteur  | remarquable |      x      |      y     |
+|-------|:--------------:|:-------------:|:----------:|:-----------:|:-----------:|:----------:|
+| 60050 | **_Pistacia_** |  **_189.67_** | **_10.0_** |  **_OUI_**  | **_48.85_** | **_2.25_** |
+| 30027 |     Quercus    |     189.67    |    10.0    |     NON     |    48.85    |    2.25    |
+| 40020 |    Magnolia    |     189.67    |    10.0    |     NON     |    48.85    |    2.25    |
+
+|        |      genre     | circonference |  hauteur |        x        |        y       |
+|--------|:--------------:|:-------------:|:--------:|:---------------:|:--------------:|
+| 60050  | **_Pistacia_** |   **_171_**   | **_10_** | **_48.845904_** | **_2.253027_** |
+| 104001 |    Pistacia    |       50      |     6    |    48.841918    |    2.297990    |
+
+We can easily make the link that the tree `{genre:Pistacia, circonference:171, hauteur:10, x:48.845904, y:2.253027`} is notes as `remarquable`.
+
+## 2nde "bad anonymization"

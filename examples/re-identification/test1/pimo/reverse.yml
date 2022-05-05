@@ -1,0 +1,20 @@
+version: "1"
+seed: 42
+masking:
+  - selector:
+      jsonpath: "location"
+    mask:
+      template: "{{round (toString .location) 0 }}"
+  - selector:
+      jsonpath: "location"
+    mask:
+      fromjson: "location"
+  - selector:
+      jsonpath: "location"
+    mask:
+      fromCache: "cacheLocation"
+
+caches:
+  cacheLocation:
+    unique: true
+    reverse: true
