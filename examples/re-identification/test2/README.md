@@ -1,6 +1,7 @@
 # Re-identification test
 
-## Datasets
+## 1st example
+### Datasets
 
 There are 2 files:
 
@@ -27,7 +28,7 @@ There are 2 files:
 | Platanus |      110      |    10   | 48.839062 | 2.391879 |
 |   Tilia  |      105      |    10   | 48.832918 | 2.446663 |
 
-## 1st "bad anonymization"
+### 1st "bad anonymization"
 
 Forgot to anonymize the **genre** column and use the method `meanAggregation`.
 
@@ -80,12 +81,38 @@ Another example with another group of subjects.
 
 We can easily make the link that the tree `{genre:Pistacia, circonference:171, hauteur:10, x:48.845904, y:2.253027`} is notes as `remarquable`.
 
-## 2nd "bad anonymization"
+## 2nd example
+
+### Datasets
 
 This time we use a sample of Paris trees:
 
 - `trees.json` : the file on the sample of trees in Paris to be anonymized containing the sensitive data **remarquable**.
 - `trees-paris.json` : a file containing information on the trees of Paris that can be found on the open data.
+
+> trees.json
+
+| id |  hauteur  | circonference | arrondissement | remarquable |
+|----|:---------:|:-------------:|:--------------:|:-----------:|
+| 1  | 48.850732 |      2.406460 |        1       |     OUI     |
+| 2  | 48.863923 |      2.338329 |        1       |     NON     |
+| 3  | 48.830706 |      2.356600 |        3       |     NON     |
+| 4  | 48.837150 |      2.436883 |        2       |     OUI     |
+| 5  | 48.873035 |      2.274325 |        2       |     NON     |
+
+> trees-paris.json
+
+| id |  hauteur  | arrondissement |
+|----|:---------:|:--------------:|
+| 1  | 48.850732 |        1       |
+| 2  | 48.863923 |        1       |
+| 3  | 48.830706 |        3       |
+| 4  | 48.837150 |        2       |
+| 5  | 48.873035 |        2       |
+
+### 2nd "bad anonymization"
+
+We use the `outlier` method to anonymize the dataset.
 
 ```console
 sigo -q circonference,hauteur,arrondissement -s remarquable -a outlier < trees.json > trees-sigo.json
@@ -93,14 +120,36 @@ sigo -q circonference,hauteur,arrondissement -s remarquable -a outlier < trees.j
 
 > trees-sigo.json
 
-|   |  hauteur  | circonference | arrondissement | remarquable |
-|---|:---------:|:-------------:|:--------------:|:-----------:|
-| 0 | 48.801988 |    2.307882   |        1       |     OUI     |
-| 1 | 48.808755 |    2.306808   |        2       |     OUI     |
-| 2 | 48.868977 |    2.285416   |        2       |     OUI     |
-| 3 | 48.847782 |    2.275808   |        3       |     OUI     |
-| 4 | 48.858214 |    2.321236   |        3       |     NON     |
+| id |  hauteur  | circonference | arrondissement | remarquable |
+|----|:---------:|:-------------:|:--------------:|:-----------:|
+| 11 | 48.801988 |    2.307882   |        1       |     OUI     |
+| 16 | 48.808755 |    2.306808   |        2       |     OUI     |
+| 6  | 48.868977 |    2.285416   |        2       |     OUI     |
+| 23 | 48.847782 |    2.275808   |        3       |     OUI     |
+| 28 | 48.858214 |    2.321236   |        3       |     NON     |
 
-If we compare the anonymized data of **circonference**, **hauteur** and **arrondissement** with the data of **circonference**, **hauteur** and **arrondissement** from the open data, we can make the link with 17 trees (more than half: 17/30).
+If we compare the anonymized data of **circonference**, **hauteur** and **arrondissement** with the data of **hauteur** and **arrondissement** from the open data, we can make the link with 17 trees (more than half: 17/30).
 
-> This anonymization method is to be used with another method or on only a few columns and not on the full dataset.
+Here is an example with 3 trees that can be easily identified.
+
+The trees with identifiers ***2***, ***11*** and ***30***, which can be found in the open data, have values of **hauteur** and **arrondissement** identical to the anonymized data.
+
+> open data
+
+| id |  hauteur  | arrondissement |
+|----|:---------:|:--------------:|
+| 2  | 48.863923 |        1       |
+| 11 | 48.801988 |        1       |
+| 30 | 48.887968 |        4       |
+
+> anonymized data
+
+| id |  hauteur  | circonference | arrondissement | remarquable |
+|----|:---------:|:-------------:|:--------------:|:-----------:|
+| 2  | 48.863923 |    2.345846   |        1       |     NON     |
+| 11 | 48.801988 |    2.307882   |        1       |     OUI     |
+| 30 | 48.887968 |    2.367091   |        4       |     OUI     |
+
+We can therefore deduce that tree ***2*** is not "remarquable" and that trees ***11*** and ***30*** are.
+
+> This anonymization method should be used with care. It is to be used with another method or on only a few columns and not on the full dataset.
