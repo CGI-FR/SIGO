@@ -218,17 +218,8 @@ func TestSwapAnonymizer(t *testing.T) {
 	log.Println(anonymizedRecord.Row()["x"])
 	log.Println(anonymizedRecord.Row()["y"])
 
-	if anonymizedRecord.Row()["x"] == float64(1) {
-		assert.Contains(t, []float64{5, 6}, anonymizedRecord.Row()["y"])
-	} else {
-		assert.Contains(t, []float64{2, 3}, anonymizedRecord.Row()["x"])
-	}
-
-	if anonymizedRecord.Row()["y"] == float64(4) {
-		assert.Contains(t, []float64{2, 3}, anonymizedRecord.Row()["x"])
-	} else {
-		assert.Contains(t, []float64{5, 6}, anonymizedRecord.Row()["y"])
-	}
+	assert.Contains(t, []float64{1, 2, 3}, anonymizedRecord.Row()["x"])
+	assert.Contains(t, []float64{4, 5, 6}, anonymizedRecord.Row()["y"])
 }
 
 func BenchmarkSwapAnonymizer(b *testing.B) {
