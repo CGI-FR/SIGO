@@ -197,16 +197,26 @@ If the attacker finds the method with which we anonymized the data and with the 
 - Pay attention to the k-anonymity and l-diversity settings, `k` must be at least equal to *3* and `l` must be at least equal to the *cardinality of the sensitive data*.
 - Do not leave any attribute not anonymized, delete this attribute or anonymize it.
 
+![image](reidentification.png)
 
 ```console
-sigo -q hauteur,arrondissement -s remarquable --load-openData trees-paris.json  < trees-sigo.json
+sigo -q x,y,hauteur,circonference -s malade --load-openData openData.json  < data-sigo.json
 
-> {"hauteur": 48.863923, "circonference":"2.345846", "arrondissement":1, "remarquable":"NON", "probability":1}
-> {"hauteur": 48.830706, "circonference":"2.3566", "arrondissement":3, "remarquable":"NON", "probability":1}
-> {"hauteur": 48.83715, "circonference":"2.421671", "arrondissement":2, "remarquable":"OUI", "probability":1}
+> {"x": 27.313086, "y":"16.987789", "hauteur":47, "circonference":12, "malade":"NON", "probability":1}
+> {"x": 6.985036, "y":"2.984577", "hauteur":18, "circonference":10, "malade":"OUI", "probability":0.88}
+> {"x": 10.259978, "y":"15.995632", "hauteur":34, "circonference":9, "malade":"OUI", "probability":0.92}
+> {"x": 12.854123, "y":"18.125828", "hauteur":33, "circonference":7, "malade":"OUI", "probability":0.89}
 > ...
 ```
 
-For each individual of the anonymized dataset (`trees-sigo.json`), we calculate the distance with the individuals collected  from the open data (`trees-paris.json`) for the attributes **hauteur** and **arrondissement**.
+For each individual of the anonymized dataset, we calculate the distance with the individuals collected  from the open data for the attributes **hauteur** and **arrondissement**.
 
 - if we find distances equal to 0 then we are sure to be able to re-identify the individual with a probability equal to 1.
+
+![image](reid1.png)
+
+In the anonymized dataset we group the subjects with the same features, and we count the number of unique values of the sensitive attribute.
+
+- if we find a cluster with the same values for the sensitive attribute and that similarities are found between these data and the open data then the risk of re-identification is very likely.
+
+![image](reid2.png)
