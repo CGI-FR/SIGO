@@ -1,7 +1,7 @@
 # Re-identification test
 
 ## 1st example
-### Datasets
+### Datasets 1
 
 There are 2 files:
 
@@ -83,7 +83,7 @@ We can easily make the link that the tree `{genre:Pistacia, circonference:171, h
 
 ## 2nd example
 
-### Datasets
+### Datasets 2
 
 This time we use a sample of Paris trees:
 
@@ -153,3 +153,46 @@ The trees with identifiers ***2***, ***11*** and ***30***, which can be found in
 We can therefore deduce that tree ***2*** is not "remarquable" and that trees ***11*** and ***30*** are.
 
 > This anonymization method should be used with care. It is to be used with another method or on only a few columns and not on the full dataset.
+
+## 3rd example
+
+### Datasets 3
+
+We use again the datasets with a sample of the trees of Paris.
+
+- `trees.json`
+- `trees-paris.json`
+
+### 3rd "bad anonymization"
+
+We use the `medianAggregation` method leaving the `l-diversity` parameter by default (set to 1).
+
+```console
+sigo -q circonference,hauteur,arrondissement -s remarquable -a medianAggregation < trees.json > trees-sigo-l.json
+```
+
+> trees-sigo-l.json
+
+| id |  hauteur  | circonference | arrondissement | remarquable |
+|----|:---------:|:-------------:|:--------------:|:-----------:|
+| 11 | 48.808755 |    2.306808   |        2       |     OUI     |
+| 16 | 48.808755 |    2.306808   |        2       |     OUI     |
+| 6  | 48.808755 |    2.306808   |        2       |     OUI     |
+| 23 | 48.852998 |    2.300695   |        3       |     OUI     |
+| 28 | 48.852998 |    2.300695   |        3       |     NON     |
+
+With an aggregation method we can easily find the data clusters. For example by grouping the data with identical **hauteur**, **circonference** and **arrondissement** we can form the following cluster:
+
+| id |     hauteur     |  circonference | arrondissement | remarquable |
+|----|:---------------:|:--------------:|:--------------:|:-----------:|
+| 11 |    48.808755    |    2.306808    |        2       |     OUI     |
+| 16 | **_48.808755_** | **_2.306808_** |     **_2_**    |  **_OUI_**  |
+| 6  |    48.808755    |    2.306808    |        2       |     OUI     |
+
+If the attacker finds the method with which we anonymized the data and with the help of the open data he can re-identify the tree 16 : `{hauteur: 48.808755363797516, arrondissement:2, genre:saule, remarquable:OUI}`.
+
+## To prevent re-identification
+
+- Pay attention to the anonymization method used, use different anonymization methods for each quasi-identifier.
+- Pay attention to the k-anonymity and l-diversity settings, `k` must be at least equal to *3* and `l` must be at least equal to the *cardinality of the sensitive data*.
+- Do not leave any attribute not anonymized, delete this attribute or anonymize it.
