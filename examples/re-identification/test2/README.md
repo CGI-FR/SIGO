@@ -1,6 +1,7 @@
 # Re-identification test
 
 ## 1st example
+
 ### Datasets 1
 
 There are 2 files:
@@ -54,13 +55,13 @@ Take for example the cluster formed by the 3 individuals below, the *Punica* is 
 |--------|:------------:|:-------------:|:----------:|:-----------:|:-----------:|:----------:|
 | 501004 |    Prunus    |     30.67     |    4.33    |     NON     |    48.89    |    2.35    |
 | 701006 |    Ostrya    |     30.67     |    4.33    |     NON     |    48.89    |    2.35    |
-| 404003 | **_Punica_** |  **_30.67_**  | **_4.33_** |  **_OUI_**  | **_48.89_** | **_2.35_** |
+| 404003 | ***Punica*** |  ***30.67***  | ***4.33*** |  ***OUI***  | ***48.89*** | ***2.35*** |
 
 If we look at the data collected from the open data, there are only 3 trees in Paris that are *Punicas*.
 
 |         |     genre    | circonference | hauteur |        x        |        y       |
 |---------|:------------:|:-------------:|:-------:|:---------------:|:--------------:|
-| 404003  | **_Punica_** |    **_30_**   | **_3_** | **_48.885642_** | **_2.343820_** |
+| 404003  | ***Punica*** |    ***30***   | ***3*** | ***48.885642*** | ***2.343820*** |
 | 250012  | Punica |       0       |    0    | 48.835915 | 2.446839 |
 | 101010  | Punica |       5       |    1    | 48.871901 | 2.275000 |
 
@@ -70,13 +71,13 @@ Another example with another group of subjects.
 
 |       |      genre     | circonference |   hauteur  | remarquable |      x      |      y     |
 |-------|:--------------:|:-------------:|:----------:|:-----------:|:-----------:|:----------:|
-| 60050 | **_Pistacia_** |  **_189.67_** | **_10.0_** |  **_OUI_**  | **_48.85_** | **_2.25_** |
+| 60050 | ***Pistacia*** |  ***189.67*** | ***10.0*** |  ***OUI***  | ***48.85*** | ***2.25*** |
 | 30027 |     Quercus    |     189.67    |    10.0    |     NON     |    48.85    |    2.25    |
 | 40020 |    Magnolia    |     189.67    |    10.0    |     NON     |    48.85    |    2.25    |
 
 |        |      genre     | circonference |  hauteur |        x        |        y       |
 |--------|:--------------:|:-------------:|:--------:|:---------------:|:--------------:|
-| 60050  | **_Pistacia_** |   **_171_**   | **_10_** | **_48.845904_** | **_2.253027_** |
+| 60050  | ***Pistacia*** |   ***171***   | ***10*** | ***48.845904*** | ***2.253027*** |
 | 104001 |    Pistacia    |       50      |     6    |    48.841918    |    2.297990    |
 
 We can easily make the link that the tree `{genre:Pistacia, circonference:171, hauteur:10, x:48.845904, y:2.253027`} is notes as `remarquable`.
@@ -186,7 +187,7 @@ With an aggregation method we can easily find the data clusters. For example by 
 | id |     hauteur     |  circonference | arrondissement | remarquable |
 |----|:---------------:|:--------------:|:--------------:|:-----------:|
 | 11 |    48.808755    |    2.306808    |        2       |     OUI     |
-| 16 | **_48.808755_** | **_2.306808_** |     **_2_**    |  **_OUI_**  |
+| 16 | ***48.808755*** | ***2.306808*** |     ***2***    |  ***OUI***  |
 | 6  |    48.808755    |    2.306808    |        2       |     OUI     |
 
 If the attacker finds the method with which we anonymized the data and with the help of the open data he can re-identify the tree 16 : `{hauteur: 48.808755363797516, arrondissement:2, genre:saule, remarquable:OUI}`.
@@ -199,6 +200,8 @@ If the attacker finds the method with which we anonymized the data and with the 
 
 ![image](reidentification.png)
 
+<sup><sub>*(attribute **id** and **genre** are not use in this example).*</sub></sup>
+
 ```console
 sigo -q x,y,hauteur,circonference -s malade --load-openData openData.json  < data-sigo.json
 
@@ -209,13 +212,13 @@ sigo -q x,y,hauteur,circonference -s malade --load-openData openData.json  < dat
 > ...
 ```
 
-For each individual of the anonymized dataset, we calculate the distance with the individuals collected  from the open data for the attributes **hauteur** and **arrondissement**.
+For each individual of the anonymized dataset, we calculate the distance with the individuals collected  from the open data for the attributes **x**, **y**, **hauteur** and **circonference**.
 
 - if we find distances equal to 0 then we are sure to be able to re-identify the individual with a probability equal to 1.
 
 ![image](reid1.png)
 
-In the anonymized dataset we group the subjects with the same features, and we count the number of unique values of the sensitive attribute.
+In the anonymized dataset we group the subjects with the same features **x**, **y**, **hauteur** and **circonference**, and we count the number of unique values of the sensitive attribute.
 
 - if we find a cluster with the same values for the sensitive attribute and that similarities are found between these data and the open data then the risk of re-identification is very likely.
 
