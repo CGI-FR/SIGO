@@ -196,3 +196,17 @@ If the attacker finds the method with which we anonymized the data and with the 
 - Pay attention to the anonymization method used, use different anonymization methods for each quasi-identifier.
 - Pay attention to the k-anonymity and l-diversity settings, `k` must be at least equal to *3* and `l` must be at least equal to the *cardinality of the sensitive data*.
 - Do not leave any attribute not anonymized, delete this attribute or anonymize it.
+
+
+```console
+sigo -q hauteur,arrondissement -s remarquable --load-openData trees-paris.json  < trees-sigo.json
+
+> {"hauteur": 48.863923, "circonference":"2.345846", "arrondissement":1, "remarquable":"NON", "probability":1}
+> {"hauteur": 48.830706, "circonference":"2.3566", "arrondissement":3, "remarquable":"NON", "probability":1}
+> {"hauteur": 48.83715, "circonference":"2.421671", "arrondissement":2, "remarquable":"OUI", "probability":1}
+> ...
+```
+
+For each individual of the anonymized dataset (`trees-sigo.json`), we calculate the distance with the individuals collected  from the open data (`trees-paris.json`) for the attributes **hauteur** and **arrondissement**.
+
+- if we find distances equal to 0 then we are sure to be able to re-identify the individual with a probability equal to 1.
