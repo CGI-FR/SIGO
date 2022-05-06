@@ -10,7 +10,7 @@ The following flags can be used:
 - `--l-value,-l <int>`, allows to choose the value of l for **l-diversity** (default value is `1`).
 - `--quasi-identifier,-q <strings>`, this flag lists the quasi-identifiers of the dataset.
 - `--sensitive,-s <strings>`, this flag lists the sensitive attributes of the dataset.
-- `--anonymizer,-a <string>`, allows to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`].
+- `--anonymizer,-a <string>`, allows to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`, `"swapping"`].
 - `--cluster-info,-i <string>`, allows to display information about cluster.
 - `--entropy <bool>`, allows to choose if entropy model for l-diversity used.
 
@@ -136,6 +136,16 @@ With the generalization method (`general`) we can see the scope of each cluster.
 ```
 
 | ![generalization](./examples/demo/clusters.png) | ![gaussian](./examples/demo/random-noise/gaussian.png) |
+|:---:|:---:|
+| Original Data | Anonymized data |
+
+- Swapping
+
+```console
+< data2.json | sigo -k 6 -l 4 -q x,y -s z -a swapping -i id > swapping/swapping.json
+```
+
+| ![generalization](./examples/demo/swapping/original.png) | ![gaussian](./examples/demo/swapping/swapping.png) |
 |:---:|:---:|
 | Original Data | Anonymized data |
 

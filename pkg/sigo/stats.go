@@ -187,16 +187,27 @@ func Rescaling(value float64, listValues []float64, method string) (rescale floa
 	return rescale
 }
 
-func RandFloat() (float64, error) {
-	//nolint: gomnd
-	val, err := rd.Int(rd.Reader, big.NewInt(int64(math.Pow10(15))))
+// Returns a secure random integer in [0,max).
+func RandInt(max int64) (int, error) {
+	// Int (crypto/rand) returns a uniform random value in [0, max)
+	val, err := rd.Int(rd.Reader, big.NewInt(max))
 	//nolint: goerr113
 	if err != nil {
 		return 0, errors.New("cannot generate random value")
 	}
 
-	bigInt, _ := new(big.Float).SetInt(val).Float64()
-	random := bigInt * math.Pow10(-15)
+	return int(val.Uint64()), nil
+}
+
+// Returns a secure random float in [0,1).
+func RandFloat() (float64, error) {
+	//nolint: gomnd
+	val, err := RandInt(int64(math.Pow10(15)))
+	if err != nil {
+		return 0, err
+	}
+
+	random := float64(val) * math.Pow10(-15)
 
 	return random, nil
 }
@@ -209,4 +220,20 @@ func BoxMuller() (float64, float64) {
 	z2 := math.Sqrt(-2.0*math.Log(x)) * math.Sin(2.0*math.Pi*y)
 
 	return z1, z2
+}
+
+// Secure shuffle of the order of the elements.
+func Shuffle(s []float64) []float64 {
+	slice := s
+	for i := range slice {
+		j, err := RandInt(int64(i + 1))
+		if err != nil {
+			return nil
+		}
+
+		// swaps the elements with indexes i and j
+		slice[i], slice[j] = slice[j], slice[i]
+	}
+
+	return slice
 }

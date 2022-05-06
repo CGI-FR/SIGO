@@ -94,7 +94,7 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringVarP(&method, "anonymizer", "a", "",
 			"anonymization method used. Select one from this list "+
-				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise']")
+				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
 	rootCmd.PersistentFlags().
 		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVarP(&profiling, "profiling", "p", false,
@@ -215,6 +215,8 @@ func newAnonymizer(name string) sigo.Anonymizer {
 		return sigo.NewNoiseAnonymizer("laplace")
 	case "gaussianNoise":
 		return sigo.NewNoiseAnonymizer("gaussian")
+	case "swapping":
+		return sigo.NewSwapAnonymizer()
 	default:
 		return sigo.NewNoAnonymizer()
 	}
