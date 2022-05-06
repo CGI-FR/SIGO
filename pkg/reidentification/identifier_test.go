@@ -19,7 +19,6 @@ package reidentification_test
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"testing"
 
@@ -40,7 +39,7 @@ func TestIdentify(t *testing.T) {
 	row.Set("z", "b")
 	record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{"z"})
 
-	maskedDataset, err := os.Open("../../examples/re-identification/data2-sigo.json")
+	maskedDataset, err := os.Open("../../examples/re-identification/test1/data2-sigo.json")
 	assert.Nil(t, err)
 
 	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedDataset), []string{"x", "y"}, []string{"z"})
@@ -55,9 +54,6 @@ func TestIdentify(t *testing.T) {
 	expected.Set("y", 18)
 	expected.Set("sensitive", []string{"b"})
 	recordExpected := infra.NewJSONLineRecord(&expected, &[]string{"x", "y"}, &[]string{"sensitive"})
-
-	log.Println(identified.Record().Row())
-	log.Println(recordExpected.Row())
 
 	assert.Equal(t, recordExpected.Row(), identified.Record().Row())
 }

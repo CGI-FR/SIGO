@@ -1,7 +1,7 @@
 # Tests
 
 ```console
-sigo -q x,y -s z --load-original "examples/re-identification/data.json" < examples/re-identification/data2-sigo.json
+sigo -q x,y -s z --load-original "examples/re-identification/test1/data.json" < examples/re-identification/test1/data2-sigo.json
 ```
 
 ## Test1

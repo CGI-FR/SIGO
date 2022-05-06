@@ -6,7 +6,7 @@ testcases:
   - name: --load-original flag with reidentification
     steps:
       - script: |-
-          sigo -q x,y -s z --load-original=../../examples/re-identification/data.json <<EOF
+          sigo -q x,y -s z --load-original=../../examples/re-identification/test1/data.json <<EOF
           {"x":3,"y":7,"z":"b"}
           {"x":3,"y":7,"z":"a"}
           {"x":3,"y":7,"z":"c"}
@@ -39,7 +39,7 @@ testcases:
   - name: --load-original flag without reidentification
     steps:
       - script: |-
-          sigo -q x,y -s z --load-original=../../examples/re-identification/data.json <<EOF
+          sigo -q x,y -s z --load-original=../../examples/re-identification/test1/data.json <<EOF
           {"x":5,"y":6.83,"z":"c"}
           {"x":5,"y":6.83,"z":"a"}
           {"x":5,"y":6.83,"z":"a"}

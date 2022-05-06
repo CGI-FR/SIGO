@@ -20,7 +20,6 @@ package reidentification_test
 import (
 	"bufio"
 	"encoding/json"
-	"log"
 	"os"
 	"testing"
 
@@ -32,13 +31,13 @@ import (
 func TestReIdentify(t *testing.T) {
 	t.Parallel()
 
-	originalFile, err := os.Open("../../examples/re-identification/data.json")
+	originalFile, err := os.Open("../../examples/re-identification/test1/data.json")
 	assert.Nil(t, err)
 
 	original, err := infra.NewJSONLineSource(bufio.NewReader(originalFile), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
-	maskedFile, err := os.Open("../../examples/re-identification/data2-sigo.json")
+	maskedFile, err := os.Open("../../examples/re-identification/test1/data2-sigo.json")
 	assert.Nil(t, err)
 
 	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedFile), []string{"x", "y"}, []string{"z"})
@@ -49,8 +48,6 @@ func TestReIdentify(t *testing.T) {
 
 	err = reidentification.ReIdentify(original, masked, reidentification.NewIdentifier("canberra", 3), sink)
 	assert.Nil(t, err)
-
-	log.Println(result)
 
 	assert.Equal(t, json.Number("5"), result[0]["x"])
 	assert.Equal(t, json.Number("6"), result[0]["y"])

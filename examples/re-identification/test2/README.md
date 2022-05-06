@@ -80,4 +80,27 @@ Another example with another group of subjects.
 
 We can easily make the link that the tree `{genre:Pistacia, circonference:171, hauteur:10, x:48.845904, y:2.253027`} is notes as `remarquable`.
 
-## 2nde "bad anonymization"
+## 2nd "bad anonymization"
+
+This time we use a sample of Paris trees:
+
+- `trees.json` : the file on the sample of trees in Paris to be anonymized containing the sensitive data **remarquable**.
+- `trees-paris.json` : a file containing information on the trees of Paris that can be found on the open data.
+
+```console
+sigo -q circonference,hauteur,arrondissement -s remarquable -a outlier < trees.json > trees-sigo.json
+```
+
+> trees-sigo.json
+
+|   |  hauteur  | circonference | arrondissement | remarquable |
+|---|:---------:|:-------------:|:--------------:|:-----------:|
+| 0 | 48.801988 |    2.307882   |        1       |     OUI     |
+| 1 | 48.808755 |    2.306808   |        2       |     OUI     |
+| 2 | 48.868977 |    2.285416   |        2       |     OUI     |
+| 3 | 48.847782 |    2.275808   |        3       |     OUI     |
+| 4 | 48.858214 |    2.321236   |        3       |     NON     |
+
+If we compare the anonymized data of **circonference**, **hauteur** and **arrondissement** with the data of **circonference**, **hauteur** and **arrondissement** from the open data, we can make the link with 17 trees (more than half: 17/30).
+
+> This anonymization method is to be used with another method or on only a few columns and not on the full dataset.
