@@ -34,7 +34,7 @@ testcases:
           EOF
       - script: |-
           sigo reidentification -q x,y -s z --load-original=../../examples/re-identification/test1/data.json --load-anonymized=anonymized.json
-      - script: rm -f anonymized.json
         assertions:
           - result.systemoutjson ShouldContainKey sensitive
           - result.code ShouldEqual 0
+      - script: rm -f anonymized.json
