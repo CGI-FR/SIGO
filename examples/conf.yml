@@ -1,0 +1,11 @@
+version: "1"
+
+kAnonymity: 4
+lDiversity: 3
+sensitives:
+  - s
+aggregation: meanAggregation
+rules:
+  - name: y
+  - name: x
+  - name: z

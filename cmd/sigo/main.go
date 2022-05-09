@@ -33,74 +33,89 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Provisioned by ldflags
-// nolint: gochecknoglobals
-var (
+type infos struct {
 	name      string
 	version   string
 	commit    string
 	buildDate string
 	builtBy   string
+}
 
+type logs struct {
 	verbosity string
 	debug     bool
 	jsonlog   bool
 	colormode string
+	info      string
+	profiling bool
+}
+
+type pdef struct {
 	k         int
 	l         int
 	qi        []string
 	sensitive []string
 	method    string
-	info      string
-	profiling bool
-)
+	cmdLine   []string
+	config    string
+}
 
 func main() {
+	var info infos
+
+	var logs logs
+
+	var definition pdef
+
 	//nolint: exhaustivestruct
 	rootCmd := &cobra.Command{
-		Use:   name,
+		Use:   info.name,
 		Short: "Command line to generalize and anonymize the content of a jsonline flow set",
 		Version: fmt.Sprintf(`%v (commit=%v date=%v by=%v)
 	Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
 	This is free software: you are free to change and redistribute it.
-	There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
+	There is NO WARRANTY, to the extent permitted by law.`, info.version, info.commit, info.buildDate, info.builtBy),
 		Run: func(cmd *cobra.Command, args []string) {
 			// nolint: exhaustivestruct
 			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
-			run()
+			definition.flagIsSet(*cmd)
+
+			run(info, definition, logs)
 		},
 	}
 
 	var entropy bool
 
 	rootCmd.PersistentFlags().
-		StringVarP(&verbosity, "verbosity", "v", "info",
+		StringVarP(&logs.verbosity, "verbosity", "v", "info",
 			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
 	rootCmd.PersistentFlags().
-		BoolVar(&debug, "debug", false, "add debug information to logs (very slow)")
+		BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
 	rootCmd.PersistentFlags().
-		BoolVar(&jsonlog, "log-json", false, "output logs in JSON format")
-	rootCmd.PersistentFlags().StringVar(&colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
+		BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
+	rootCmd.PersistentFlags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
 	rootCmd.PersistentFlags().
-		IntVarP(&k, "k-value", "k", 3, "k-value for k-anonymization")
+		IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().
-		IntVarP(&l, "l-value", "l", 1, "l-value for l-diversity")
+		IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
-		StringSliceVarP(&qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
+		StringSliceVarP(&definition.qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
-		StringSliceVarP(&sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
+		StringSliceVarP(&definition.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&method, "anonymizer", "a", "",
+		StringVarP(&definition.method, "anonymizer", "a", "",
 			"anonymization method used. Select one from this list "+
 				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
 	rootCmd.PersistentFlags().
-		StringVarP(&info, "cluster-info", "i", "", "display cluster for each jsonline flow")
-	rootCmd.PersistentFlags().BoolVarP(&profiling, "profiling", "p", false,
+		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
+	rootCmd.PersistentFlags().BoolVarP(&logs.profiling, "profiling", "p", false,
 		"start sigo with profiling and generate a cpu.pprof file (debug)")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
+	rootCmd.PersistentFlags().
+		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -108,19 +123,29 @@ func main() {
 	}
 }
 
-func run() {
-	initLog()
+func run(info infos, definition pdef, logs logs) {
+	initLog(logs, info)
+
+	// if the configuration file is present in the current directory
+	if sigo.Exist(definition.config) {
+		if err := definition.initConfig(); err != nil {
+			log.Err(err).Msg("Cannot load configuration definition from file")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
+	}
 
 	log.Info().
-		Int("k-anonymity", k).
-		Int("l-diversity", l).
-		Strs("Quasi-Identifiers", qi).
-		Strs("Sensitive", sensitive).
-		Str("Method", method).
-		Str("Cluster-Info", info).
+		Str("configuration", definition.config).
+		Int("k-anonymity", definition.k).
+		Int("l-diversity", definition.l).
+		Strs("Quasi-Identifiers", definition.qi).
+		Strs("Sensitive", definition.sensitive).
+		Str("Method", definition.method).
+		Str("Cluster-Info", logs.info).
 		Msg("Start SIGO")
 
-	source, err := infra.NewJSONLineSource(os.Stdin, qi, sensitive)
+	source, err := infra.NewJSONLineSource(os.Stdin, definition.qi, definition.sensitive)
 	if err != nil {
 		log.Err(err).Msg("Cannot load jsonline source")
 		log.Warn().Int("return", 1).Msg("End SIGO")
@@ -131,33 +156,34 @@ func run() {
 
 	var debugger sigo.Debugger
 
-	if info != "" {
-		debugger = sigo.NewSequenceDebugger(info)
+	if logs.info != "" {
+		debugger = sigo.NewSequenceDebugger(logs.info)
 	} else {
 		debugger = sigo.NewNoDebugger()
 	}
 
 	var cpuProfiler interface{ Stop() }
 
-	if profiling {
+	if logs.profiling {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}
 
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), k, l, len(qi), newAnonymizer(method), sink, debugger)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
+		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
 
-	if profiling {
+	if logs.profiling {
 		cpuProfiler.Stop()
 	}
 }
 
 // nolint: cyclop
-func initLog() {
+func initLog(logs logs, info infos) {
 	color := false
 
-	switch strings.ToLower(colormode) {
+	switch strings.ToLower(logs.colormode) {
 	case "auto":
 		if isatty.IsTerminal(os.Stdout.Fd()) && runtime.GOOS != "windows" {
 			color = true
@@ -167,20 +193,20 @@ func initLog() {
 	}
 
 	var logger zerolog.Logger
-	if jsonlog {
+	if logs.jsonlog {
 		logger = zerolog.New(os.Stderr)
 	} else {
 		// nolint: exhaustivestruct
 		logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, NoColor: !color})
 	}
 
-	if debug {
+	if logs.debug {
 		logger = logger.With().Caller().Logger()
 	}
 
 	over.New(logger)
 
-	switch verbosity {
+	switch logs.verbosity {
 	case "trace", "5":
 		zerolog.SetGlobalLevel(zerolog.TraceLevel)
 		log.Info().Msg("Logger level set to trace")
@@ -198,7 +224,7 @@ func initLog() {
 		zerolog.SetGlobalLevel(zerolog.Disabled)
 	}
 
-	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
+	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
 }
 
 func newAnonymizer(name string) sigo.Anonymizer {
@@ -219,5 +245,65 @@ func newAnonymizer(name string) sigo.Anonymizer {
 		return sigo.NewSwapAnonymizer()
 	default:
 		return sigo.NewNoAnonymizer()
+	}
+}
+
+// initConfig initialize sigo configuration with config file.
+func (def *pdef) initConfig() (err error) {
+	pdf, err := sigo.LoadConfigurationFromYAML(def.config)
+	if err != nil {
+		return fmt.Errorf("%w", err)
+	}
+
+	// if cmdLine not contains "k"
+	// then we take the value in the configuration file
+	// else we take the value put in command line
+	if !sigo.Contains(def.cmdLine, "k") {
+		def.k = pdf.K
+	}
+
+	if !sigo.Contains(def.cmdLine, "l") {
+		def.l = pdf.L
+	}
+
+	if !sigo.Contains(def.cmdLine, "sensitive") {
+		def.sensitive = pdf.Sensitive
+	}
+
+	if !sigo.Contains(def.cmdLine, "method") {
+		def.method = pdf.Aggregation
+	}
+
+	if !sigo.Contains(def.cmdLine, "qi") {
+		for _, attributes := range pdf.Rules {
+			def.qi = append(def.qi, attributes.Name)
+		}
+	}
+
+	return nil
+}
+
+// flagIsSet adds to cmdLine the flags set on the command line.
+func (def *pdef) flagIsSet(cmd cobra.Command) {
+	// if k is given as parameter to sigo
+	// then k is appended to cmdLine
+	if cmd.Root().Flag("k-value").Changed {
+		def.cmdLine = append(def.cmdLine, "k")
+	}
+
+	if cmd.Root().Flag("l-value").Changed {
+		def.cmdLine = append(def.cmdLine, "l")
+	}
+
+	if cmd.Root().Flag("quasi-identifier").Changed {
+		def.cmdLine = append(def.cmdLine, "qi")
+	}
+
+	if cmd.Root().Flag("sensitive").Changed {
+		def.cmdLine = append(def.cmdLine, "sensitive")
+	}
+
+	if cmd.Root().Flag("anonymizer").Changed {
+		def.cmdLine = append(def.cmdLine, "method")
 	}
 }
