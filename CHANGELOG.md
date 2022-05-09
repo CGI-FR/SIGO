@@ -14,11 +14,16 @@ Types of changes
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
-## [0.2.0]
+## [0.3.0]
 
 - `Added`export configuration in yaml file (#32)
 - `Added` New swapping method (#34)
 
+## [0.2.0]
+
+- `Added` add logs (#30)
+- `Fixed` kdtree : change dimension until cluster splittable, modulo n.dim (#19)
+- `Added` Update random noise (#16)
 
 ## [0.1.1]
 
