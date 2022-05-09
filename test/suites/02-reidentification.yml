@@ -1,12 +1,12 @@
 # Venom Test Suite definition
 # Check Venom documentation for more information : https://github.com/ovh/venom
 
-name: run reidentification sigo
+name: run sigo reidentification
 testcases:
-  - name: --load-original flag with reidentification
+  - name: reidentification
     steps:
       - script: |-
-          sigo -q x,y -s z --load-original=../../examples/re-identification/test1/data.json <<EOF
+          cat > anonymized.json <<EOF
           {"x":3,"y":7,"z":"b"}
           {"x":3,"y":7,"z":"a"}
           {"x":3,"y":7,"z":"c"}
@@ -32,39 +32,9 @@ testcases:
           {"y":17.67,"z":"b","x":19.67}
           {"x":19.67,"y":17.67,"z":"b"}
           EOF
+      - script: |-
+          sigo reidentification -q x,y -s z --load-original=../../examples/re-identification/test1/data.json --load-anonymized=anonymized.json
+      - script: rm -f anonymized.json
         assertions:
           - result.systemoutjson ShouldContainKey sensitive
-          - result.code ShouldEqual 0
-
-  - name: --load-original flag without reidentification
-    steps:
-      - script: |-
-          sigo -q x,y -s z --load-original=../../examples/re-identification/test1/data.json <<EOF
-          {"x":5,"y":6.83,"z":"c"}
-          {"x":5,"y":6.83,"z":"a"}
-          {"x":5,"y":6.83,"z":"a"}
-          {"x":5,"y":6.83,"z":"a"}
-          {"x":5,"y":6.83,"z":"b"}
-          {"y":6.83,"z":"a","x":5}
-          {"z":"c","x":6.17,"y":16.67}
-          {"y":16.67,"z":"c","x":6.17}
-          {"x":6.17,"y":16.67,"z":"a"}
-          {"x":6.17,"y":16.67,"z":"a"}
-          {"x":6.17,"y":16.67,"z":"b"}
-          {"x":6.17,"y":16.67,"z":"a"}
-          {"z":"a","x":14.17,"y":6}
-          {"y":6,"z":"c","x":14.17}
-          {"x":14.17,"y":6,"z":"c"}
-          {"x":14.17,"y":6,"z":"c"}
-          {"y":6,"z":"b","x":14.17}
-          {"y":6,"z":"b","x":14.17}
-          {"x":18.17,"y":18,"z":"b"}
-          {"x":18.17,"y":18,"z":"b"}
-          {"z":"c","x":18.17,"y":18}
-          {"x":18.17,"y":18,"z":"b"}
-          {"x":18.17,"y":18,"z":"c"}
-          {"x":18.17,"y":18,"z":"b"}
-          EOF
-        assertions:
-          - result.systemoutjson ShouldBeEmpty
           - result.code ShouldEqual 0

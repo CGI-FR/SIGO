@@ -18,7 +18,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"runtime"
@@ -62,16 +61,20 @@ type pdef struct {
 	config    string
 }
 
-type reid struct {
-	originalFile string
+type data struct {
+	original   string
+	anonymized string
 }
 
+//nolint: funlen
 func main() {
 	var info infos
 
 	var logs logs
 
 	var definition pdef
+
+	var data data
 
 	//nolint: exhaustivestruct
 	rootCmd := &cobra.Command{
@@ -93,37 +96,52 @@ func main() {
 
 	var entropy bool
 
-	rootCmd.PersistentFlags().
-		StringVarP(&logs.verbosity, "verbosity", "v", "info",
-			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
-	rootCmd.PersistentFlags().
-		BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
-	rootCmd.PersistentFlags().
-		BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
+	rootCmd.PersistentFlags().StringVarP(&logs.verbosity, "verbosity", "v", "info",
+		"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
+	rootCmd.PersistentFlags().BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
+	rootCmd.PersistentFlags().BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
 	rootCmd.PersistentFlags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
-	rootCmd.PersistentFlags().
-		IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
-	rootCmd.PersistentFlags().
-		IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
+	rootCmd.PersistentFlags().IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
+	rootCmd.PersistentFlags().IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&definition.qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&definition.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&definition.method, "anonymizer", "a", "",
-			"anonymization method used. Select one from this list "+
-				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
+		StringVarP(&definition.method, "anonymizer", "a", "", "anonymization method used. Select one from this list "+
+			"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
 	rootCmd.PersistentFlags().
 		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
-	rootCmd.PersistentFlags().BoolVarP(&logs.profiling, "profiling", "p", false,
-		"start sigo with profiling and generate a cpu.pprof file (debug)")
+	rootCmd.PersistentFlags().
+		BoolVarP(&logs.profiling, "profiling", "p", false, "start sigo with profiling and generate a cpu.pprof file (debug)")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
-	rootCmd.PersistentFlags().StringVar(&reid.originalFile, "load-original", "",
-		"name and location of the original dataset file")
+	rootCmd.PersistentFlags().
+		StringVar(&data.original, "load-original", "", "name and location of the original dataset file")
+	rootCmd.PersistentFlags().
+		StringVar(&data.anonymized, "load-anonymized", "", "name and location of the anonymized dataset file")
+
+	//nolint: exhaustivestruct
+	rootCmd.AddCommand(&cobra.Command{
+		Use:   "reidentification",
+		Short: "Re-identify anonymized data from an original dataset",
+		Run: func(cmd *cobra.Command, args []string) {
+			sink := infra.NewJSONLineSink(os.Stdout)
+			original, anonymized := reidentification.LoadFiles(data.original, data.anonymized,
+				definition.qi, definition.sensitive)
+
+			err := reidentification.ReIdentify(original, anonymized,
+				reidentification.NewIdentifier("canberra", definition.k), sink)
+			if err != nil {
+				log.Err(err).Msg("Cannot reidentify data")
+				log.Warn().Int("return", 1).Msg("End SIGO")
+				os.Exit(1)
+			}
+		},
+	})
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -151,7 +169,6 @@ func run(info infos, definition pdef, logs logs) {
 		Strs("Sensitive", definition.sensitive).
 		Str("Method", definition.method).
 		Str("Cluster-Info", logs.info).
-		Bool("Re-identification", reid.originalFile != "").
 		Msg("Start SIGO")
 
 	source, err := infra.NewJSONLineSource(os.Stdin, definition.qi, definition.sensitive)
@@ -171,42 +188,20 @@ func run(info infos, definition pdef, logs logs) {
 		debugger = sigo.NewNoDebugger()
 	}
 
-	switch {
-	case reid.originalFile != "":
-		originalData, err := os.Open(reid.originalFile)
-		if err != nil {
-			log.Err(err).Msg("Cannot open original dataset")
-			log.Warn().Int("return", 1).Msg("End SIGO")
-			os.Exit(1)
-		}
+	var cpuProfiler interface{ Stop() }
 
-		original, err := infra.NewJSONLineSource(bufio.NewReader(originalData), definition.qi, definition.sensitive)
-		if err != nil {
-			log.Err(err).Msg("Cannot load jsonline original dataset")
-			log.Warn().Int("return", 1).Msg("End SIGO")
-			os.Exit(1)
-		}
+	if logs.profiling {
+		cpuProfiler = profile.Start(profile.ProfilePath("."))
+	}
 
-		err = reidentification.ReIdentify(original, source, reidentification.NewIdentifier("canberra", k), sink)
-		if err != nil {
-			panic(err)
-		}
-	default:
-		var cpuProfiler interface{ Stop() }
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
+		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
+	if err != nil {
+		panic(err)
+	}
 
-		if logs.profiling {
-			cpuProfiler = profile.Start(profile.ProfilePath("."))
-		}
-
-		err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
-			len(definition.qi), newAnonymizer(definition.method), sink, debugger)
-		if err != nil {
-			panic(err)
-		}
-
-		if logs.profiling {
-			cpuProfiler.Stop()
-		}
+	if logs.profiling {
+		cpuProfiler.Stop()
 	}
 }
 

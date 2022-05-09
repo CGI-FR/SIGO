@@ -36,7 +36,6 @@ func TestIdentify(t *testing.T) {
 	row := jsonline.NewRow()
 	row.Set("x", 20)
 	row.Set("y", 18)
-	row.Set("z", "b")
 	record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{"z"})
 
 	maskedDataset, err := os.Open("../../examples/re-identification/test1/data2-sigo.json")
