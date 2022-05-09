@@ -22,6 +22,7 @@ import (
 	"strconv"
 )
 
+// MapItoMapF convert a map[string]interface{} to a map[string]float64.
 func MapItoMapF(m map[string]interface{}) map[string]float64 {
 	mFloat := make(map[string]float64)
 
@@ -47,6 +48,7 @@ func MapItoMapF(m map[string]interface{}) map[string]float64 {
 	return mFloat
 }
 
+// RemoveDuplicate removes duplicate elements from the float slice.
 func RemoveDuplicate(floatSlice []float64) []float64 {
 	keys := make(map[float64]bool)
 	list := []float64{}
@@ -62,6 +64,7 @@ func RemoveDuplicate(floatSlice []float64) []float64 {
 	return list
 }
 
+// Risk returns the probability of re-identification.
 func Risk(slice []Similarity) float64 {
 	sensitives := []string{}
 
@@ -82,6 +85,7 @@ func Risk(slice []Similarity) float64 {
 	return float64(len(count)) / float64(len(sensitives))
 }
 
+// CountValues returns a map with the number of occurrences for each sensitive data value.
 func CountValues(sensitives []string) map[string]int {
 	count := make(map[string]int)
 	for _, val := range sensitives {
@@ -91,6 +95,7 @@ func CountValues(sensitives []string) map[string]int {
 	return count
 }
 
+// Recover returns the sensitive data if the risk of re-identification is equal to 1.
 func Recover(slice []Similarity) ([]string, bool) {
 	if Risk(slice) == 1 {
 		return slice[0].sensitive, true

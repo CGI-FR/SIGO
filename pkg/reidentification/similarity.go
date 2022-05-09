@@ -29,6 +29,8 @@ type Similarity struct {
 	sensitive []string
 }
 
+// NewSimilarities instantiates a Similarity object, which associates a score with anonymized data.
+// This score represents the distance between anonymized data and original data.
 func NewSimilarity(id int, ind map[string]interface{}, qid []string, s []string) Similarity {
 	list := []string{}
 
@@ -39,6 +41,7 @@ func NewSimilarity(id int, ind map[string]interface{}, qid []string, s []string)
 	return Similarity{id: id, qi: ind, score: 0, sensitive: list}
 }
 
+// AddScore adds score to similarity.
 func (sim *Similarity) AddScore(score float64) {
 	sim.score = score
 }
@@ -48,22 +51,29 @@ type Similarities struct {
 	metric Distance
 }
 
+// NewSimilarities instantiates a Similarities object.
 func NewSimilarities(m Distance) Similarities {
 	return Similarities{slice: []Similarity{}, metric: m}
 }
 
+// Add adds a similarity to Similarities slice.
 func (s *Similarities) Add(sim Similarity) {
 	s.slice = append(s.slice, sim)
 }
 
+// Slice returns the Similarities slice.
 func (s Similarities) Slice() []Similarity {
 	return s.slice
 }
 
+// Metric returns the metric use to calculate the similarities.
 func (s Similarities) Metric() Distance {
 	return s.metric
 }
 
+// TopSimilarity returns the n best scores.
+// Scores closest to 0 for the euclidean distance, ...
+// And score closest to 1 for the cosine distance.
 func (s Similarities) TopSimilarity(n int) (res Similarities) {
 	type tmp struct {
 		individu  map[string]interface{}

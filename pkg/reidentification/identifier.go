@@ -58,6 +58,7 @@ type IdentifiedRecord struct {
 	sensitive []string
 }
 
+// Record returns the original sigo.Record of IdentifiedRecord.
 func (ir IdentifiedRecord) Record() sigo.Record {
 	record := jsonline.NewRow()
 	qi := []string{}
@@ -72,10 +73,12 @@ func (ir IdentifiedRecord) Record() sigo.Record {
 	return infra.NewJSONLineRecord(&record, &qi, &[]string{"sensitive"})
 }
 
+// IsEmpty check if IdentifiedRecord is empty.
 func (ir IdentifiedRecord) IsEmpty() bool {
 	return len(ir.sensitive) == 0
 }
 
+// SaveMasked saves anonymized data in memory.
 func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
 	sink := infra.NewSliceDictionariesSink(id.masked)
 
@@ -87,8 +90,10 @@ func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
 	}
 }
 
+// Identify returns an IdentifiedRecord if an anonymized record matches the original record.
 func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.RecordSource,
 	qi, s []string) IdentifiedRecord {
+	// map containing the original sigo.record
 	x := make(map[string]interface{})
 
 	for _, q := range qi {
@@ -98,10 +103,12 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 	sims := NewSimilarities(id.metric)
 	i := 0
 
+	// for each anonymized data
 	for _, record := range *id.masked {
 		sim := NewSimilarity(i, record, qi, s)
 		X := MapItoMapF(x)
 		Y := MapItoMapF(sim.qi)
+		// we calculate the distance with the original data
 		score := id.metric.Compute(X, Y)
 		sim.AddScore(score)
 
@@ -109,9 +116,12 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 		i++
 	}
 
+	// we collect the n most similar data to the original data
 	top := sims.TopSimilarity(id.k)
+	// if the n most similar data have the same value of sensitive data
 	sensitive, risk := Recover(top.Slice())
 
+	// then we can reassociate the anonymized data with its sensitive data
 	if risk {
 		return IdentifiedRecord{original: x, sensitive: sensitive}
 	}

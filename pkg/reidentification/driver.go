@@ -27,6 +27,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// ReIdentify returns the list of reidentified data into sigo.RecordSink.
 func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink sigo.RecordSink) error {
 	identifier.SaveMasked(masked)
 
@@ -44,6 +45,7 @@ func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink 
 	return nil
 }
 
+// LoadFiles loads the original and anonymized data into a sigo.RecordSource.
 func LoadFiles(originalFile, anonymizedFile string, qi, s []string) (original, anonymized sigo.RecordSource) {
 	originalData, err := os.Open(originalFile)
 	if err != nil {
