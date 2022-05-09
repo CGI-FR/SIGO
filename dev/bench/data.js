@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652087034061,
+  "lastUpdate": 1652087231809,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -341,6 +341,60 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 74723723598,
             "unit": "ns/op\t7607308616 B/op\t562733355 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "324cb9a89d3b88df4d53892313c4c945131f30c9",
+          "message": "Feat: export configuration in yaml file (#32)\n\n* feat: add flag configuration\r\n\r\n* test: add test venom\r\n\r\n* feat: update configuration file\r\n\r\n* feat: update config sigo\r\n\r\n* feat(main): change global variable to local\r\n\r\n* feat: manage conflict and change test",
+          "timestamp": "2022-05-09T11:02:39+02:00",
+          "tree_id": "f39e22807c68dc26f526c627a387be47ec51cbb5",
+          "url": "https://github.com/CGI-FR/SIGO/commit/324cb9a89d3b88df4d53892313c4c945131f30c9"
+        },
+        "date": 1652087230554,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkAggregationAnonymizer",
+            "value": 480.5,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "24878545 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer",
+            "value": 5605,
+            "unit": "ns/op\t    1968 B/op\t      97 allocs/op",
+            "extra": "2137814 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer",
+            "value": 68652,
+            "unit": "ns/op\t    2714 B/op\t     131 allocs/op",
+            "extra": "178832 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer",
+            "value": 513.6,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "22851601 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 82614855447,
+            "unit": "ns/op\t7607312896 B/op\t562733382 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
