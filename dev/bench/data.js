@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1652087262868,
+  "lastUpdate": 1652087485555,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -449,6 +449,60 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 68429844993,
             "unit": "ns/op\t7607306496 B/op\t562733335 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "youen.peron@cgi.com",
+            "name": "Youen Péron",
+            "username": "youen"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "bf03043e5181114fb59ebfa2ef3303dacb8cdad9",
+          "message": "Update CHANGELOG.md",
+          "timestamp": "2022-05-09T11:06:52+02:00",
+          "tree_id": "ed79a77c43bcaf150a5746b195e60bd227cfae25",
+          "url": "https://github.com/CGI-FR/SIGO/commit/bf03043e5181114fb59ebfa2ef3303dacb8cdad9"
+        },
+        "date": 1652087484251,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkAggregationAnonymizer",
+            "value": 514.1,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "23325891 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer",
+            "value": 6033,
+            "unit": "ns/op\t    1968 B/op\t      97 allocs/op",
+            "extra": "2080321 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer",
+            "value": 68208,
+            "unit": "ns/op\t    2712 B/op\t     130 allocs/op",
+            "extra": "171855 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer",
+            "value": 553.2,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "20937819 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 86202180588,
+            "unit": "ns/op\t7607299512 B/op\t562733308 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
