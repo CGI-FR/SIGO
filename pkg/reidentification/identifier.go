@@ -18,7 +18,9 @@
 package reidentification
 
 import (
+	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/internal/infra"
@@ -26,9 +28,10 @@ import (
 )
 
 type Identifier struct {
-	metric Distance
-	k      int
-	masked *[]map[string]interface{}
+	metric        Distance
+	k             int
+	masked        *[]map[string]interface{}
+	groupedMasked *[]map[string]interface{}
 }
 
 func NewIdentifier(name string, k int) Identifier {
@@ -50,7 +53,10 @@ func NewIdentifier(name string, k int) Identifier {
 		metric = NewEuclideanDistance()
 	}
 
-	return Identifier{metric: metric, k: k, masked: &[]map[string]interface{}{}}
+	return Identifier{
+		metric: metric, k: k, masked: &[]map[string]interface{}{},
+		groupedMasked: &[]map[string]interface{}{},
+	}
 }
 
 type IdentifiedRecord struct {
@@ -90,6 +96,55 @@ func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
 	}
 }
 
+// GroupMasked groups anonymized data of the same value.
+func (id Identifier) GroupMasked(maskedDataset sigo.RecordSource, qi, s []string) {
+	sink := infra.NewSliceDictionariesSink(id.groupedMasked)
+	tmp := make(map[string][]string)
+
+	for maskedDataset.Next() {
+		record := maskedDataset.Value()
+		val := ""
+
+		for i, q := range qi {
+			if i == 0 {
+				val += string(record.Row()[q].(json.Number))
+			} else {
+				val += "-" + string(record.Row()[q].(json.Number))
+			}
+		}
+
+		for _, sens := range s {
+			tmp[val] = append(tmp[val], record.Row()[sens].(string))
+		}
+	}
+
+	for val, sensitives := range tmp {
+		vals := strings.Split(val, "-")
+		row := jsonline.NewRow()
+
+		for i, q := range qi {
+			row.Set(q, vals[i])
+		}
+
+		if IsUnique(sensitives) {
+			row.Set(s[0], sensitives[0])
+		} else {
+			row.Set(s[0], nil)
+		}
+
+		record := infra.NewJSONLineRecord(&row, &qi, &s)
+
+		err := sink.Collect(record)
+		if err != nil {
+			fmt.Println("Cannot collect data")
+		}
+	}
+}
+
+func (id Identifier) ReturnsGroup() *[]map[string]interface{} {
+	return id.groupedMasked
+}
+
 // Identify returns an IdentifiedRecord if an anonymized record matches the original record.
 func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.RecordSource,
 	qi, s []string) IdentifiedRecord {
@@ -116,7 +171,7 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 		i++
 	}
 
-	// we collect the n most similar data to the original data
+	// we collect the k most similar data to the original data
 	top := sims.TopSimilarity(id.k)
 	// if the n most similar data have the same value of sensitive data
 	sensitive, risk := Recover(top.Slice())

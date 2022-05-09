@@ -103,3 +103,10 @@ func Recover(slice []Similarity) ([]string, bool) {
 
 	return []string{""}, false
 }
+
+// IsUnique returns if the string slice contains unique values or not.
+func IsUnique(sensitives []string) bool {
+	count := CountValues(sensitives)
+
+	return len(count) == 1
+}

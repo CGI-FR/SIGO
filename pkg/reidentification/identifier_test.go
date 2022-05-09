@@ -19,6 +19,7 @@ package reidentification_test
 
 import (
 	"bufio"
+	"log"
 	"os"
 	"testing"
 
@@ -55,4 +56,20 @@ func TestIdentify(t *testing.T) {
 	recordExpected := infra.NewJSONLineRecord(&expected, &[]string{"x", "y"}, &[]string{"sensitive"})
 
 	assert.Equal(t, recordExpected.Row(), identified.Record().Row())
+}
+
+func TestGroup(t *testing.T) {
+	t.Parallel()
+
+	id := reidentification.NewIdentifier("cosine", 3)
+
+	maskedDataset, err := os.Open("../../examples/re-identification/anonymized.json")
+	assert.Nil(t, err)
+
+	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedDataset), []string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
+
+	id.GroupMasked(masked, []string{"x", "y"}, []string{"z"})
+
+	log.Println(id.ReturnsGroup())
 }
