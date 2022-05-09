@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1649249185417,
+  "lastUpdate": 1652087034061,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -287,6 +287,60 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 67825079406,
             "unit": "ns/op\t7607310856 B/op\t562733363 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7f994492e4ac6809830e17efd5e7b07ad86d46cc",
+          "message": "Docs functions (#35)\n\n* docs: add comments to stats functions\r\n\r\n* docs: add comments to kdtree and stats\r\n\r\n* docs: add comments to info\r\n\r\n* docs: add comments to anonymizer",
+          "timestamp": "2022-05-09T10:59:45+02:00",
+          "tree_id": "bd6eaab0cc66ccadb3c247608c8d30229c2c0f38",
+          "url": "https://github.com/CGI-FR/SIGO/commit/7f994492e4ac6809830e17efd5e7b07ad86d46cc"
+        },
+        "date": 1652087033502,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkAggregationAnonymizer",
+            "value": 444,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "27902032 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer",
+            "value": 4896,
+            "unit": "ns/op\t    1968 B/op\t      97 allocs/op",
+            "extra": "2423402 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer",
+            "value": 61276,
+            "unit": "ns/op\t    2712 B/op\t     130 allocs/op",
+            "extra": "208286 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer",
+            "value": 462.7,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "26779431 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 74723723598,
+            "unit": "ns/op\t7607308616 B/op\t562733355 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
