@@ -89,6 +89,7 @@ func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
 // returns {"x":3,"y":7,"z":""}.
 func (id Identifier) GroupMasked(qi, s []string) {
 	sink := infra.NewSliceDictionariesSink(id.groupedMasked)
+	// map containing for each tuple of quasi-identifier the list of sensitive data
 	tmp := make(map[string][]string)
 
 	for _, record := range *id.masked {

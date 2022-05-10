@@ -20,6 +20,8 @@ package reidentification
 import (
 	"encoding/json"
 	"strconv"
+
+	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
 // MapItoMapF convert a map[string]interface{} to a map[string]float64.
@@ -63,4 +65,51 @@ func IsUnique(sensitives []string) bool {
 	count := CountValues(sensitives)
 
 	return len(count) == 1
+}
+
+// Returns the list of values present in the cluster for each qi.
+func ListValues(data []map[string]interface{}, s []string) (mapValues map[string][]float64) {
+	mapValues = make(map[string][]float64)
+
+	for _, mapData := range data {
+		for key, val := range mapData {
+			for _, sens := range s {
+				if key != sens {
+					mapValues[key] = append(mapValues[key], val.(float64))
+				}
+			}
+		}
+	}
+
+	return mapValues
+}
+
+// ScaleData returns the all scaled data.
+func ScaleData(data []map[string]interface{}, s []string) (scaledData []map[string]interface{}) {
+	listValues := ListValues(data, s)
+
+	for _, originalMap := range data {
+		scaledMap := make(map[string]interface{})
+
+		for key, val := range originalMap {
+			for _, sens := range s {
+				if key != sens {
+					scaledMap[key] = Scaling(val.(float64), listValues[key])
+				} else {
+					// nolint: forcetypeassert
+					scaledMap[key] = val.(string)
+				}
+			}
+		}
+
+		scaledData = append(scaledData, scaledMap)
+	}
+
+	return scaledData
+}
+
+// Scaling returns the scaled value to ensure the mean and the standard deviation to be 0 and 1, respectively.
+func Scaling(value float64, listValues []float64) float64 {
+	// Standardization
+	return (value - sigo.Mean(listValues)) / sigo.Std(listValues)
 }

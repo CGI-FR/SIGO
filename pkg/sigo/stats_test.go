@@ -16,7 +16,7 @@ func TestStats(t *testing.T) {
 	assert.Equal(t, 25.00, sigo.Max(values))
 	assert.Equal(t, 378.00, sigo.Sum(values))
 	assert.Equal(t, 19.89, sigo.Mean(values))
-	assert.Equal(t, 6.0726614154476515, sigo.Std(values))
+	assert.Equal(t, 5.9106945891591955, sigo.Std(values))
 }
 
 func TestQuartiles(t *testing.T) {

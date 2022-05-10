@@ -121,7 +121,7 @@ func Std(listValues []float64) (s float64) {
 		s += math.Pow((val - Mean(listValues)), 2)
 	}
 
-	return math.Sqrt(s / float64(len(listValues)-1))
+	return math.Sqrt(s / float64(len(listValues)))
 }
 
 // Sum returns the sum of the elements of listValues.
