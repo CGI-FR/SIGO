@@ -5,33 +5,11 @@ import (
 	"sort"
 )
 
-type Cosine struct{}
+// https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa
+// https://towardsdatascience.com/how-to-decide-the-perfect-distance-metric-for-your-machine-learning-model-2fa6e5810f11
 
-type Euclidean struct{}
-
-type Manhattan struct{}
-
-type Canberra struct{}
-
-type Chebyshev struct{}
-
-type Minkowski struct {
-	p float64
-}
-
-func NewCosineSimilarity() Cosine { return Cosine{} }
-
-func NewEuclideanDistance() Euclidean { return Euclidean{} }
-
-func NewManhattanDistance() Manhattan { return Manhattan{} }
-
-func NewCanberraDistance() Canberra { return Canberra{} }
-
-func NewChebyshevDistance() Chebyshev { return Chebyshev{} }
-
-func NewMinkowskiDistance(p float64) Minkowski { return Minkowski{p: p} }
-
-func (cos Cosine) Compute(x, y map[string]float64) float64 {
+// Cosine compute the cosine distance.
+func Cosine(x, y map[string]float64) float64 {
 	var dotProduct, X, Y float64
 
 	//nolint: gomnd
@@ -44,7 +22,8 @@ func (cos Cosine) Compute(x, y map[string]float64) float64 {
 	return dotProduct / (math.Sqrt(X) * math.Sqrt(Y))
 }
 
-func (eu Euclidean) Compute(x, y map[string]float64) float64 {
+// Euclidean compute the euclidean distance.
+func Euclidean(x, y map[string]float64) float64 {
 	var sum float64
 
 	for key := range x {
@@ -55,7 +34,8 @@ func (eu Euclidean) Compute(x, y map[string]float64) float64 {
 	return math.Sqrt(sum)
 }
 
-func (man Manhattan) Compute(x, y map[string]float64) float64 {
+// Manhattan compute the manhatan distance.
+func Manhattan(x, y map[string]float64) float64 {
 	var sum float64
 
 	for key := range x {
@@ -65,7 +45,8 @@ func (man Manhattan) Compute(x, y map[string]float64) float64 {
 	return sum
 }
 
-func (ca Canberra) Compute(x, y map[string]float64) float64 {
+// Camberra compute the camberra distance.
+func Camberra(x, y map[string]float64) float64 {
 	var sum float64
 
 	for key := range x {
@@ -75,7 +56,8 @@ func (ca Canberra) Compute(x, y map[string]float64) float64 {
 	return sum
 }
 
-func (che Chebyshev) Compute(x, y map[string]float64) float64 {
+// Chebyshev compute the chebyshev distance.
+func Chebyshev(x, y map[string]float64) float64 {
 	res := make([]float64, 0, len(x))
 
 	for key := range x {
@@ -87,13 +69,32 @@ func (che Chebyshev) Compute(x, y map[string]float64) float64 {
 	return res[len(res)-1]
 }
 
-func (min Minkowski) Compute(x, y map[string]float64) float64 {
+// Minkowski compute the minkowski distance.
+func Minkowski(x, y map[string]float64, p float64) float64 {
 	var sum float64
 
 	for key := range x {
 		abs := math.Abs(x[key] - y[key])
-		sum += math.Pow(abs, min.p)
+		sum += math.Pow(abs, p)
 	}
 
-	return math.Pow(sum, 1/min.p)
+	return math.Pow(sum, 1/p)
+}
+
+func ComputeDistance(name string, x, y map[string]float64) float64 {
+	switch name {
+	case "cosine":
+		return Cosine(x, y)
+	case "manhattan":
+		return Manhattan(x, y)
+	case "canberra":
+		return Camberra(x, y)
+	case "chebyshev":
+		return Chebyshev(x, y)
+	case "minkowski":
+		//nolint: gomnd
+		return Minkowski(x, y, 6)
+	default:
+		return Euclidean(x, y)
+	}
 }

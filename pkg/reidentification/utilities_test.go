@@ -40,9 +40,9 @@ func TestMapInterfaceToFloat(t *testing.T) {
 	s1 := reidentification.MapItoMapF(m1)
 	s2 := reidentification.MapItoMapF(m2)
 
-	cosine := reidentification.NewCosineSimilarity()
+	dist := reidentification.Cosine(s1, s2)
 
-	assert.InDelta(t, 0.45418744744022516, cosine.Compute(s1, s2), math.Pow10(-15))
+	assert.InDelta(t, 0.45418744744022516, dist, math.Pow10(-15))
 }
 
 func TestRecover(t *testing.T) {

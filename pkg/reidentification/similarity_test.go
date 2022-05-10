@@ -31,7 +31,7 @@ func TestTopSimilarity(t *testing.T) {
 	y := []float64{7, 3, 18.33, 17.67, 16}
 	z := []string{"a", "a", "b", "c", "a"}
 	scores := []float64{0.8, 0.5, 0.9, 0.6, 0.9}
-	test := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
+	test := reidentification.NewSimilarities("cosine")
 
 	for i := range x {
 		record := make(map[string]interface{})
@@ -52,7 +52,7 @@ func TestTopSimilarity(t *testing.T) {
 	yE := []float64{18.33, 16}
 	zE := []string{"b", "a"}
 	scoresE := []float64{0.9, 0.9}
-	expected := reidentification.NewSimilarities(reidentification.NewCosineSimilarity())
+	expected := reidentification.NewSimilarities("cosine")
 
 	for i := range xE {
 		recordE := make(map[string]interface{})

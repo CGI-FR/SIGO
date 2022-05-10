@@ -18,7 +18,6 @@
 package reidentification
 
 import (
-	"reflect"
 	"sort"
 )
 
@@ -48,11 +47,11 @@ func (sim *Similarity) AddScore(score float64) {
 
 type Similarities struct {
 	slice  []Similarity
-	metric Distance
+	metric string
 }
 
 // NewSimilarities instantiates a Similarities object.
-func NewSimilarities(m Distance) Similarities {
+func NewSimilarities(m string) Similarities {
 	return Similarities{slice: []Similarity{}, metric: m}
 }
 
@@ -67,7 +66,7 @@ func (s Similarities) Slice() []Similarity {
 }
 
 // Metric returns the metric use to calculate the similarities.
-func (s Similarities) Metric() Distance {
+func (s Similarities) Metric() string {
 	return s.metric
 }
 
@@ -98,8 +97,8 @@ func (s Similarities) TopSimilarity(n int) (res Similarities) {
 
 	scores = RemoveDuplicate(scores)
 
-	switch reflect.TypeOf(s.metric).String() {
-	case "reidentification.Cosine":
+	switch s.metric {
+	case "cosine":
 		sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
 	default:
 		sort.Sort(sort.Float64Slice(scores))

@@ -130,9 +130,10 @@ func main() {
 		Short: "Re-identify anonymized data from an original dataset",
 		Run: func(cmd *cobra.Command, args []string) {
 			sink := infra.NewJSONLineSink(os.Stdout)
-			original, anonymized := reidentification.LoadFiles(data.original, data.anonymized,
-				definition.qi, definition.sensitive)
+			original := reidentification.LoadFile(data.original, definition.qi, definition.sensitive)
+			anonymized := reidentification.LoadFile(data.anonymized, definition.qi, definition.sensitive)
 
+			// Reidentification
 			err := reidentification.ReIdentify(original, anonymized,
 				reidentification.NewIdentifier("canberra", definition.k), sink)
 			if err != nil {
@@ -194,6 +195,7 @@ func run(info infos, definition pdef, logs logs) {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}
 
+	// Anonymization
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
 		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
 	if err != nil {

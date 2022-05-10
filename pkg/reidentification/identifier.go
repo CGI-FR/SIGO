@@ -28,33 +28,15 @@ import (
 )
 
 type Identifier struct {
-	metric        Distance
+	metric        string
 	k             int
 	masked        *[]map[string]interface{}
 	groupedMasked *[]map[string]interface{}
 }
 
-func NewIdentifier(name string, k int) Identifier {
-	var metric Distance
-
-	switch name {
-	case "cosine":
-		metric = NewCosineSimilarity()
-	case "manhattan":
-		metric = NewManhattanDistance()
-	case "canberra":
-		metric = NewCanberraDistance()
-	case "chebyshev":
-		metric = NewChebyshevDistance()
-	case "minkowski":
-		//nolint: gomnd
-		metric = NewMinkowskiDistance(3)
-	default:
-		metric = NewEuclideanDistance()
-	}
-
+func NewIdentifier(distance string, k int) Identifier {
 	return Identifier{
-		metric: metric, k: k, masked: &[]map[string]interface{}{},
+		metric: distance, k: k, masked: &[]map[string]interface{}{},
 		groupedMasked: &[]map[string]interface{}{},
 	}
 }
@@ -164,7 +146,7 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 		X := MapItoMapF(x)
 		Y := MapItoMapF(sim.qi)
 		// we calculate the distance with the original data
-		score := id.metric.Compute(X, Y)
+		score := ComputeDistance(id.metric, X, Y)
 		sim.AddScore(score)
 
 		sims.Add(sim)

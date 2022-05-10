@@ -45,35 +45,21 @@ func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink 
 	return nil
 }
 
-// LoadFiles loads the original and anonymized data into a sigo.RecordSource.
-func LoadFiles(originalFile, anonymizedFile string, qi, s []string) (original, anonymized sigo.RecordSource) {
-	originalData, err := os.Open(originalFile)
+// LoadFile loads data into a sigo.RecordSource.
+func LoadFile(file string, qi, s []string) (source sigo.RecordSource) {
+	data, err := os.Open(file)
 	if err != nil {
-		log.Err(err).Msg("Cannot open original dataset")
+		log.Err(err).Msg("Cannot open dataset")
 		log.Warn().Int("return", 1).Msg("End SIGO")
 		os.Exit(1)
 	}
 
-	original, err = infra.NewJSONLineSource(bufio.NewReader(originalData), qi, s)
+	source, err = infra.NewJSONLineSource(bufio.NewReader(data), qi, s)
 	if err != nil {
-		log.Err(err).Msg("Cannot load jsonline original dataset")
+		log.Err(err).Msg("Cannot load jsonline dataset")
 		log.Warn().Int("return", 1).Msg("End SIGO")
 		os.Exit(1)
 	}
 
-	anonymizedData, err := os.Open(anonymizedFile)
-	if err != nil {
-		log.Err(err).Msg("Cannot open anonymized dataset")
-		log.Warn().Int("return", 1).Msg("End SIGO")
-		os.Exit(1)
-	}
-
-	anonymized, err = infra.NewJSONLineSource(bufio.NewReader(anonymizedData), qi, s)
-	if err != nil {
-		log.Err(err).Msg("Cannot load jsonline anonymized dataset")
-		log.Warn().Int("return", 1).Msg("End SIGO")
-		os.Exit(1)
-	}
-
-	return original, anonymized
+	return source
 }
