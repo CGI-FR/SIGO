@@ -135,7 +135,7 @@ func main() {
 
 			// Reidentification
 			err := reidentification.ReIdentify(original, anonymized,
-				reidentification.NewIdentifier("canberra", definition.k), sink)
+				reidentification.NewIdentifier("canberra"), sink)
 			if err != nil {
 				log.Err(err).Msg("Cannot reidentify data")
 				log.Warn().Int("return", 1).Msg("End SIGO")

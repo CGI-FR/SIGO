@@ -30,9 +30,10 @@ import (
 // ReIdentify returns the list of reidentified data into sigo.RecordSink.
 func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink sigo.RecordSink) error {
 	identifier.SaveMasked(masked)
+	identifier.GroupMasked(masked.QuasiIdentifer(), masked.Sensitive())
 
 	for original.Next() {
-		identified := identifier.Identify(original.Value(), masked, masked.QuasiIdentifer(), masked.Sensitive())
+		identified := identifier.Identify(original.Value(), masked.QuasiIdentifer(), masked.Sensitive())
 
 		if !identified.IsEmpty() {
 			err := sink.Collect(identified.Record())

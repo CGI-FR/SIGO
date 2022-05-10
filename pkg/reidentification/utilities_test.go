@@ -48,27 +48,19 @@ func TestMapInterfaceToFloat(t *testing.T) {
 func TestRecover(t *testing.T) {
 	t.Parallel()
 
-	row := jsonline.NewRow()
-	row.Set("x", 3)
-	row.Set("y", 6)
-	// record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{})
 	test := []reidentification.Similarity{}
 
-	for i := 0; i < 3; i++ {
-		record1 := make(map[string]interface{})
-		record1["x"] = 3
-		record1["y"] = 7
-		record1["z"] = "c"
+	record1 := make(map[string]interface{})
+	record1["x"] = 3
+	record1["y"] = 7
+	record1["z"] = "c"
 
-		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
-		// sim.ComputeSimilarity(record, []string{"x", "y"}, reidentification.NewCosineSimilarity())
+	sim := reidentification.NewSimilarity(1, record1, []string{"x", "y"}, []string{"z"})
 
-		test = append(test, sim)
-	}
+	test = append(test, sim)
 
-	res, risk := reidentification.Recover(test)
+	res, _ := reidentification.Recover(test)
 
-	assert.True(t, risk)
 	assert.Equal(t, []string{"c"}, res)
 }
 

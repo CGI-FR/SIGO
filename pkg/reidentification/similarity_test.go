@@ -27,10 +27,10 @@ import (
 func TestTopSimilarity(t *testing.T) {
 	t.Parallel()
 
-	x := []float64{3, 7, 16.67, 4.33, 16.67}
-	y := []float64{7, 3, 18.33, 17.67, 16}
-	z := []string{"a", "a", "b", "c", "a"}
-	scores := []float64{0.8, 0.5, 0.9, 0.6, 0.9}
+	x := []float64{3, 7, 16.67, 4.33}
+	y := []float64{7, 3, 18.33, 17.67}
+	z := []string{"a", "a", "b", "c"}
+	scores := []float64{0.8, 0.5, 0.9, 0.6}
 	test := reidentification.NewSimilarities("cosine")
 
 	for i := range x {
@@ -45,25 +45,15 @@ func TestTopSimilarity(t *testing.T) {
 		test.Add(sim)
 	}
 
-	res := test.TopSimilarity(2)
+	res := test.TopSimilarity()
 
-	idE := []int{2, 4}
-	xE := []float64{16.67, 16.67}
-	yE := []float64{18.33, 16}
-	zE := []string{"b", "a"}
-	scoresE := []float64{0.9, 0.9}
-	expected := reidentification.NewSimilarities("cosine")
+	recordE := make(map[string]interface{})
+	recordE["x"] = float64(16.67)
+	recordE["y"] = float64(18.33)
+	recordE["z"] = "b"
 
-	for i := range xE {
-		recordE := make(map[string]interface{})
-		recordE["x"] = xE[i]
-		recordE["y"] = yE[i]
-		recordE["z"] = zE[i]
-
-		simE := reidentification.NewSimilarity(idE[i], recordE, []string{"x", "y"}, []string{"z"})
-		simE.AddScore(scoresE[i])
-		expected.Add(simE)
-	}
+	expected := reidentification.NewSimilarity(2, recordE, []string{"x", "y"}, []string{"z"})
+	expected.AddScore(float64(0.9))
 
 	assert.Equal(t, expected, res)
 }

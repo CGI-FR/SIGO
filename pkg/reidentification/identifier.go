@@ -29,14 +29,13 @@ import (
 
 type Identifier struct {
 	metric        string
-	k             int
 	masked        *[]map[string]interface{}
 	groupedMasked *[]map[string]interface{}
 }
 
-func NewIdentifier(distance string, k int) Identifier {
+func NewIdentifier(distance string) Identifier {
 	return Identifier{
-		metric: distance, k: k, masked: &[]map[string]interface{}{},
+		metric: distance, masked: &[]map[string]interface{}{},
 		groupedMasked: &[]map[string]interface{}{},
 	}
 }
@@ -63,7 +62,12 @@ func (ir IdentifiedRecord) Record() sigo.Record {
 
 // IsEmpty check if IdentifiedRecord is empty.
 func (ir IdentifiedRecord) IsEmpty() bool {
-	return len(ir.sensitive) == 0
+	return ir.sensitive[0] == ""
+}
+
+// ReturnGroup returns anonymized data without duplicate individuals.
+func (id Identifier) ReturnGroup() *[]map[string]interface{} {
+	return id.groupedMasked
 }
 
 // SaveMasked saves anonymized data in memory.
@@ -78,25 +82,28 @@ func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
 	}
 }
 
-// GroupMasked groups anonymized data of the same value.
-func (id Identifier) GroupMasked(maskedDataset sigo.RecordSource, qi, s []string) {
+// GroupMasked groups anonymized data of the same value
+// {"x":7,"y":6.67,"z":"a"}, {"x":7,"y":6.67,"z":"a"}, {"x":7,"y":6.67,"z":"a"}
+// returns {"x":7,"y":6.67,"z":"a"}
+// {"x":3,"y":7,"z":"b"}, {"x":3,"y":7,"z":"a"}, {"x":3,"y":7,"z":"c"}
+// returns {"x":3,"y":7,"z":""}.
+func (id Identifier) GroupMasked(qi, s []string) {
 	sink := infra.NewSliceDictionariesSink(id.groupedMasked)
 	tmp := make(map[string][]string)
 
-	for maskedDataset.Next() {
-		record := maskedDataset.Value()
+	for _, record := range *id.masked {
 		val := ""
 
 		for i, q := range qi {
 			if i == 0 {
-				val += string(record.Row()[q].(json.Number))
+				val += string(record[q].(json.Number))
 			} else {
-				val += "-" + string(record.Row()[q].(json.Number))
+				val += "-" + string(record[q].(json.Number))
 			}
 		}
 
 		for _, sens := range s {
-			tmp[val] = append(tmp[val], record.Row()[sens].(string))
+			tmp[val] = append(tmp[val], record[sens].(string))
 		}
 	}
 
@@ -111,7 +118,7 @@ func (id Identifier) GroupMasked(maskedDataset sigo.RecordSource, qi, s []string
 		if IsUnique(sensitives) {
 			row.Set(s[0], sensitives[0])
 		} else {
-			row.Set(s[0], nil)
+			row.Set(s[0], "")
 		}
 
 		record := infra.NewJSONLineRecord(&row, &qi, &s)
@@ -123,13 +130,8 @@ func (id Identifier) GroupMasked(maskedDataset sigo.RecordSource, qi, s []string
 	}
 }
 
-func (id Identifier) ReturnsGroup() *[]map[string]interface{} {
-	return id.groupedMasked
-}
-
 // Identify returns an IdentifiedRecord if an anonymized record matches the original record.
-func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.RecordSource,
-	qi, s []string) IdentifiedRecord {
+func (id Identifier) Identify(originalRec sigo.Record, qi, s []string) IdentifiedRecord {
 	// map containing the original sigo.record
 	x := make(map[string]interface{})
 
@@ -141,7 +143,7 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 	i := 0
 
 	// for each anonymized data
-	for _, record := range *id.masked {
+	for _, record := range *id.groupedMasked {
 		sim := NewSimilarity(i, record, qi, s)
 		X := MapItoMapF(x)
 		Y := MapItoMapF(sim.qi)
@@ -153,15 +155,11 @@ func (id Identifier) Identify(originalRec sigo.Record, maskedDataset sigo.Record
 		i++
 	}
 
-	// we collect the k most similar data to the original data
-	top := sims.TopSimilarity(id.k)
-	// if the n most similar data have the same value of sensitive data
-	sensitive, risk := Recover(top.Slice())
+	// we collect the most similar data to the original data
+	top := sims.TopSimilarity()
 
-	// then we can reassociate the anonymized data with its sensitive data
-	if risk {
-		return IdentifiedRecord{original: x, sensitive: sensitive}
-	}
+	// if the most similar data have sensitive data
+	sensitive := top.sensitive
 
-	return IdentifiedRecord{original: x, sensitive: []string{}}
+	return IdentifiedRecord{original: x, sensitive: sensitive}
 }

@@ -48,22 +48,6 @@ func MapItoMapF(m map[string]interface{}) map[string]float64 {
 	return mFloat
 }
 
-// RemoveDuplicate removes duplicate elements from the float slice.
-func RemoveDuplicate(floatSlice []float64) []float64 {
-	keys := make(map[float64]bool)
-	list := []float64{}
-
-	for _, val := range floatSlice {
-		if _, value := keys[val]; !value {
-			keys[val] = true
-
-			list = append(list, val)
-		}
-	}
-
-	return list
-}
-
 // Risk returns the probability of re-identification.
 func Risk(slice []Similarity) float64 {
 	sensitives := []string{}

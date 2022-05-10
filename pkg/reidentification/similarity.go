@@ -70,17 +70,16 @@ func (s Similarities) Metric() string {
 	return s.metric
 }
 
-// TopSimilarity returns the n best scores.
-// Scores closest to 0 for the euclidean distance, ...
-// And score closest to 1 for the cosine distance.
-func (s Similarities) TopSimilarity(n int) (res Similarities) {
+// TopSimilarity returns the best score.
+func (s Similarities) TopSimilarity() (res Similarity) {
 	type tmp struct {
 		individu  map[string]interface{}
 		score     float64
 		sensitive []string
 	}
 
-	m := make(map[float64][]int)
+	// map containing for each distance score the identifier of the individual associated to this score
+	m := make(map[float64]int)
 	scores := []float64{}
 	mapTmp := make(map[int]tmp)
 
@@ -88,42 +87,32 @@ func (s Similarities) TopSimilarity(n int) (res Similarities) {
 		var t tmp
 
 		scores = append(scores, sim.score)
-		m[sim.score] = append(m[sim.score], sim.id)
+		m[sim.score] = sim.id
 		t.individu = sim.qi
 		t.score = sim.score
 		t.sensitive = sim.sensitive
 		mapTmp[sim.id] = t
 	}
 
-	scores = RemoveDuplicate(scores)
-
 	switch s.metric {
 	case "cosine":
+		// Score closest to 1 for the cosine distance
 		sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
 	default:
+		// Scores closest to 0 for the other distance
 		sort.Sort(sort.Float64Slice(scores))
 	}
 
-	count := 0
+	// best score
+	top := scores[0]
 
-	for _, k := range scores {
-		for _, i := range m[k] {
-			ind := Similarity{id: i, qi: mapTmp[i].individu, score: k, sensitive: mapTmp[i].sensitive}
-			count++
+	// recover the individual associated with the best score
+	i := m[top]
 
-			res.slice = append(res.slice, ind)
-
-			if count == n {
-				break
-			}
-		}
-
-		if count == n {
-			break
-		}
-	}
-
-	res.metric = s.metric
+	res.id = i
+	res.qi = mapTmp[i].individu
+	res.score = top
+	res.sensitive = mapTmp[i].sensitive
 
 	return res
 }
