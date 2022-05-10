@@ -48,27 +48,6 @@ func MapItoMapF(m map[string]interface{}) map[string]float64 {
 	return mFloat
 }
 
-// Risk returns the probability of re-identification.
-func Risk(slice []Similarity) float64 {
-	sensitives := []string{}
-
-	for _, sim := range slice {
-		sensitives = append(sensitives, sim.sensitive...)
-	}
-
-	count := CountValues(sensitives)
-
-	if len(count) == 1 {
-		return 1
-	}
-
-	if len(count) == len(sensitives) {
-		return 1 / float64(len(sensitives))
-	}
-
-	return float64(len(count)) / float64(len(sensitives))
-}
-
 // CountValues returns a map with the number of occurrences for each sensitive data value.
 func CountValues(sensitives []string) map[string]int {
 	count := make(map[string]int)
@@ -77,15 +56,6 @@ func CountValues(sensitives []string) map[string]int {
 	}
 
 	return count
-}
-
-// Recover returns the sensitive data if the risk of re-identification is equal to 1.
-func Recover(slice []Similarity) ([]string, bool) {
-	if Risk(slice) == 1 {
-		return slice[0].sensitive, true
-	}
-
-	return []string{""}, false
 }
 
 // IsUnique returns if the string slice contains unique values or not.

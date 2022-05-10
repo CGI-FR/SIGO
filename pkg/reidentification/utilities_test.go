@@ -21,7 +21,6 @@ import (
 	"math"
 	"testing"
 
-	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/pkg/reidentification"
 	"github.com/stretchr/testify/assert"
 )
@@ -45,25 +44,6 @@ func TestMapInterfaceToFloat(t *testing.T) {
 	assert.InDelta(t, 0.45418744744022516, dist, math.Pow10(-15))
 }
 
-func TestRecover(t *testing.T) {
-	t.Parallel()
-
-	test := []reidentification.Similarity{}
-
-	record1 := make(map[string]interface{})
-	record1["x"] = 3
-	record1["y"] = 7
-	record1["z"] = "c"
-
-	sim := reidentification.NewSimilarity(1, record1, []string{"x", "y"}, []string{"z"})
-
-	test = append(test, sim)
-
-	res, _ := reidentification.Recover(test)
-
-	assert.Equal(t, []string{"c"}, res)
-}
-
 func TestCountValues(t *testing.T) {
 	t.Parallel()
 
@@ -73,45 +53,4 @@ func TestCountValues(t *testing.T) {
 	assert.Equal(t, 4, count["a"])
 	assert.Equal(t, 2, count["b"])
 	assert.Equal(t, 2, count["c"])
-}
-
-func TestRisk(t *testing.T) {
-	t.Parallel()
-
-	row := jsonline.NewRow()
-	row.Set("x", 11)
-	row.Set("y", 9)
-	// record := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{})
-	test := []reidentification.Similarity{}
-
-	for i := 0; i < 3; i++ {
-		record1 := make(map[string]interface{})
-		record1["x"] = 19.67
-		record1["y"] = 17.67
-		record1["z"] = "b"
-
-		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
-		test = append(test, sim)
-	}
-
-	risk := reidentification.Risk(test)
-
-	assert.Equal(t, float64(1), risk)
-
-	test2 := []reidentification.Similarity{}
-	z := []string{"a", "b", "b", "b"}
-
-	for i := range z {
-		record1 := make(map[string]interface{})
-		record1["x"] = 19.67
-		record1["y"] = 17.67
-		record1["z"] = z[i]
-
-		sim := reidentification.NewSimilarity(i, record1, []string{"x", "y"}, []string{"z"})
-		test2 = append(test2, sim)
-	}
-
-	risk2 := reidentification.Risk(test2)
-
-	assert.Equal(t, float64(0.5), risk2)
 }
