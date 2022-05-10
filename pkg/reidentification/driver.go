@@ -29,11 +29,16 @@ import (
 
 // ReIdentify returns the list of reidentified data into sigo.RecordSink.
 func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink sigo.RecordSink) error {
-	identifier.SaveMasked(masked)
+	identifier.SaveData(original, "original")
+	identifier.SaveData(masked, "anonymized")
 	identifier.GroupMasked(masked.QuasiIdentifer(), masked.Sensitive())
 
-	for original.Next() {
-		identified := identifier.Identify(original.Value(), masked.QuasiIdentifer(), masked.Sensitive())
+	scaledOriginal := ScaleData(*identifier.original, masked.Sensitive())
+
+	for i := range *identifier.original {
+		originalValue := (*identifier.original)[i]
+		originalScaledValue := scaledOriginal[i]
+		identified := identifier.Identify(originalScaledValue, originalValue, masked.QuasiIdentifer(), masked.Sensitive())
 
 		if !identified.IsEmpty() {
 			err := sink.Collect(identified.Record())

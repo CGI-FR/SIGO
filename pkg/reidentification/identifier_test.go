@@ -33,10 +33,9 @@ func TestIdentify(t *testing.T) {
 
 	id := reidentification.NewIdentifier("cosine")
 
-	row := jsonline.NewRow()
-	row.Set("x", 20)
-	row.Set("y", 18)
-	original := infra.NewJSONLineRecord(&row, &[]string{"x", "y"}, &[]string{"z"})
+	row := make(map[string]interface{})
+	row["x"] = 20
+	row["y"] = 18
 
 	maskedDataset, err := os.Open("../../examples/re-identification/anonymized.json")
 	assert.Nil(t, err)
@@ -44,10 +43,10 @@ func TestIdentify(t *testing.T) {
 	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedDataset), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
-	id.SaveMasked(masked)
+	id.SaveData(masked, "anonymized")
 	id.GroupMasked([]string{"x", "y"}, []string{"z"})
 
-	identified := id.Identify(original, []string{"x", "y"}, []string{"z"})
+	identified := id.Identify(row, row, []string{"x", "y"}, []string{"z"})
 
 	expected := jsonline.NewRow()
 	expected.Set("x", 20)
@@ -69,7 +68,7 @@ func TestGroupAnonymizedData(t *testing.T) {
 	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedDataset), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
-	id.SaveMasked(masked)
+	id.SaveData(masked, "anonymized")
 	id.GroupMasked([]string{"x", "y"}, []string{"z"})
 
 	res := id.ReturnGroup()
@@ -77,26 +76,26 @@ func TestGroupAnonymizedData(t *testing.T) {
 	var res1, res2 map[string]interface{}
 
 	for _, record := range *res {
-		if record["x"] == "3" && record["y"] == "7" {
+		if record["x"] == 3.00 && record["y"] == 7.00 {
 			res1 = record
 		}
 
-		if record["x"] == "7" && record["y"] == "6.67" {
+		if record["x"] == 7.00 && record["y"] == 6.67 {
 			res2 = record
 		}
 	}
 
 	expected1 := jsonline.NewRow()
-	expected1.Set("x", "3")
-	expected1.Set("y", "7")
+	expected1.Set("x", 3.00)
+	expected1.Set("y", 7.00)
 	expected1.Set("z", "")
 	recordExpected1 := infra.NewJSONLineRecord(&expected1, &[]string{"x", "y"}, &[]string{"z"})
 
 	assert.Equal(t, res1, recordExpected1.Row())
 
 	expected2 := jsonline.NewRow()
-	expected2.Set("x", "7")
-	expected2.Set("y", "6.67")
+	expected2.Set("x", 7.00)
+	expected2.Set("y", 6.67)
 	expected2.Set("z", "a")
 	recordExpected2 := infra.NewJSONLineRecord(&expected2, &[]string{"x", "y"}, &[]string{"z"})
 

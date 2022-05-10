@@ -49,7 +49,7 @@ func TestReIdentify(t *testing.T) {
 	err = reidentification.ReIdentify(original, masked, reidentification.NewIdentifier("canberra"), sink)
 	assert.Nil(t, err)
 
-	assert.Equal(t, json.Number("5"), result[0]["x"])
-	assert.Equal(t, json.Number("6"), result[0]["y"])
+	assert.Equal(t, json.Number("8"), result[0]["x"])
+	assert.Equal(t, json.Number("4"), result[0]["y"])
 	assert.Equal(t, []string{"a"}, result[0]["sensitive"])
 }

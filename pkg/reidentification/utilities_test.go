@@ -81,9 +81,9 @@ func TestListValues(t *testing.T) {
 
 	res := reidentification.ListValues(data, []string{"z"})
 
-	expected := make(map[string][]float64)
-	expected["x"] = []float64{2.12, 4.36, 12.17}
-	expected["y"] = []float64{4.5, 8.75, 3.96}
+	expected := make(map[string][]interface{})
+	expected["x"] = []interface{}{2.12, 4.36, 12.17}
+	expected["y"] = []interface{}{4.5, 8.75, 3.96}
 
 	assert.Equal(t, expected, res)
 }

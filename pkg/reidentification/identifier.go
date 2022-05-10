@@ -20,6 +20,7 @@ package reidentification
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -29,13 +30,16 @@ import (
 
 type Identifier struct {
 	metric        string
+	original      *[]map[string]interface{}
 	masked        *[]map[string]interface{}
 	groupedMasked *[]map[string]interface{}
 }
 
 func NewIdentifier(distance string) Identifier {
 	return Identifier{
-		metric: distance, masked: &[]map[string]interface{}{},
+		metric:        distance,
+		original:      &[]map[string]interface{}{},
+		masked:        &[]map[string]interface{}{},
 		groupedMasked: &[]map[string]interface{}{},
 	}
 }
@@ -70,12 +74,19 @@ func (id Identifier) ReturnGroup() *[]map[string]interface{} {
 	return id.groupedMasked
 }
 
-// SaveMasked saves anonymized data in memory.
-func (id Identifier) SaveMasked(maskedDataset sigo.RecordSource) {
-	sink := infra.NewSliceDictionariesSink(id.masked)
+// SaveData saves data in Identifier according to the type of dataset (original, anonymized).
+func (id Identifier) SaveData(dataset sigo.RecordSource, typeData string) {
+	var sink *infra.SliceDictionariesSink
 
-	for maskedDataset.Next() {
-		err := sink.Collect(maskedDataset.Value())
+	switch typeData {
+	case "original":
+		sink = infra.NewSliceDictionariesSink(id.original)
+	case "anonymized":
+		sink = infra.NewSliceDictionariesSink(id.masked)
+	}
+
+	for dataset.Next() {
+		err := sink.Collect(dataset.Value())
 		if err != nil {
 			fmt.Println("Cannot collect data")
 		}
@@ -113,7 +124,9 @@ func (id Identifier) GroupMasked(qi, s []string) {
 		row := jsonline.NewRow()
 
 		for i, q := range qi {
-			row.Set(q, vals[i])
+			//nolint: gomnd
+			val, _ := strconv.ParseFloat(vals[i], 64)
+			row.Set(q, val)
 		}
 
 		if IsUnique(sensitives) {
@@ -132,21 +145,17 @@ func (id Identifier) GroupMasked(qi, s []string) {
 }
 
 // Identify returns an IdentifiedRecord if an anonymized record matches the original record.
-func (id Identifier) Identify(originalRec sigo.Record, qi, s []string) IdentifiedRecord {
-	// map containing the original sigo.record
-	x := make(map[string]interface{})
-
-	for _, q := range qi {
-		x[q] = originalRec.Row()[q]
-	}
-
+func (id Identifier) Identify(scaledData map[string]interface{}, originalData map[string]interface{},
+	qi, s []string) IdentifiedRecord {
 	sims := NewSimilarities(id.metric)
 	i := 0
 
-	// for each anonymized data
-	for _, record := range *id.groupedMasked {
+	scaledAnonymized := ScaleData(*id.groupedMasked, s)
+
+	// for each anonymized scaled data
+	for _, record := range scaledAnonymized {
 		sim := NewSimilarity(i, record, qi, s)
-		X := MapItoMapF(x)
+		X := MapItoMapF(scaledData)
 		Y := MapItoMapF(sim.qi)
 		// we calculate the distance with the original data
 		score := ComputeDistance(id.metric, X, Y)
@@ -162,5 +171,5 @@ func (id Identifier) Identify(originalRec sigo.Record, qi, s []string) Identifie
 	// if the most similar data have sensitive data
 	sensitive := top.sensitive
 
-	return IdentifiedRecord{original: x, sensitive: sensitive}
+	return IdentifiedRecord{original: originalData, sensitive: sensitive}
 }
