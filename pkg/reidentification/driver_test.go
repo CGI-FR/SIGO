@@ -46,7 +46,7 @@ func TestReIdentify(t *testing.T) {
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)
 
-	err = reidentification.ReIdentify(original, masked, reidentification.NewIdentifier("canberra"), sink)
+	err = reidentification.ReIdentify(original, masked, reidentification.NewIdentifier("canberra", 0.5), sink)
 	assert.Nil(t, err)
 
 	assert.Equal(t, json.Number("8"), result[0]["x"])

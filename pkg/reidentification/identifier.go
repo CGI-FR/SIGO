@@ -32,24 +32,27 @@ import (
 // the original data, the anonymized data and the filtered data
 // which is the anonymized data filtered from the duplicate data.
 type Identifier struct {
-	metric   string
-	original *[]map[string]interface{}
-	masked   *[]map[string]interface{}
-	filtered *[]map[string]interface{}
+	metric    string
+	threshold float32
+	original  *[]map[string]interface{}
+	masked    *[]map[string]interface{}
+	filtered  *[]map[string]interface{}
 }
 
-func NewIdentifier(distance string) Identifier {
+func NewIdentifier(distance string, thrshld float32) Identifier {
 	return Identifier{
-		metric:   distance,
-		original: &[]map[string]interface{}{},
-		masked:   &[]map[string]interface{}{},
-		filtered: &[]map[string]interface{}{},
+		metric:    distance,
+		threshold: thrshld,
+		original:  &[]map[string]interface{}{},
+		masked:    &[]map[string]interface{}{},
+		filtered:  &[]map[string]interface{}{},
 	}
 }
 
 type IdentifiedRecord struct {
 	original  map[string]interface{}
 	sensitive []string
+	score     float64
 }
 
 // Record returns the original sigo.Record of IdentifiedRecord.
@@ -70,6 +73,11 @@ func (ir IdentifiedRecord) Record() sigo.Record {
 // IsEmpty check if IdentifiedRecord is empty.
 func (ir IdentifiedRecord) IsEmpty() bool {
 	return ir.sensitive[0] == ""
+}
+
+// Score returns the similarity score of IdentifiedRecord.
+func (ir IdentifiedRecord) Score() float64 {
+	return ir.score
 }
 
 // ReturnGroup returns anonymized data without duplicate individuals.
@@ -164,6 +172,13 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 		Y := MapItoMapF(sim.qi)
 		// we calculate the distance with the original data
 		score := ComputeDistance(id.metric, X, Y)
+
+		// Cosine in already a similarity score
+		if sims.metric != "cosine" {
+			// Transform distance into similarity
+			score = 1 / (1 + score)
+		}
+
 		sim.AddScore(score)
 
 		sims.Add(sim)
@@ -176,5 +191,5 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 	// if the most similar data have sensitive data
 	sensitive := top.sensitive
 
-	return IdentifiedRecord{original: originalData, sensitive: sensitive}
+	return IdentifiedRecord{original: originalData, sensitive: sensitive, score: top.score}
 }

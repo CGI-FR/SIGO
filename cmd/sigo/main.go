@@ -125,7 +125,8 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringVar(&data.anonymized, "load-anonymized", "", "name and location of the anonymized dataset file")
 	rootCmd.PersistentFlags().
-		Float32Var(&data.threshold, "threshold", data.threshold, "re-identification threshold")
+		//nolint:gomnd
+		Float32VarP(&data.threshold, "threshold", "t", 0.5, "re-identification threshold")
 
 	//nolint: exhaustivestruct
 	rootCmd.AddCommand(&cobra.Command{
@@ -138,7 +139,7 @@ func main() {
 
 			// Reidentification
 			err := reidentification.ReIdentify(original, anonymized,
-				reidentification.NewIdentifier("euclidean"), sink)
+				reidentification.NewIdentifier("euclidean", data.threshold), sink)
 			if err != nil {
 				log.Err(err).Msg("Cannot reidentify data")
 				log.Warn().Int("return", 1).Msg("End SIGO")

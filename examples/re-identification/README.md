@@ -67,3 +67,8 @@ sigo reidentification -q x,y -s z --load-original examples/re-identification/ope
 - Similarity
 - Distance
 - Data Standardization
+
+similarity = 1 / (1+distance)
+
+if distance = 0 <=> similarity = 1
+if distance = +infinity <=> similarity = 0

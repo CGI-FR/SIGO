@@ -94,14 +94,7 @@ func (s Similarities) TopSimilarity() (res Similarity) {
 		mapTmp[sim.id] = t
 	}
 
-	switch s.metric {
-	case "cosine":
-		// Score closest to 1 for the cosine distance
-		sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
-	default:
-		// Scores closest to 0 for the other distance
-		sort.Sort(sort.Float64Slice(scores))
-	}
+	sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
 
 	// best score
 	top := scores[0]

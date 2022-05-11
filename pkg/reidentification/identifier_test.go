@@ -32,7 +32,7 @@ import (
 func TestIdentify(t *testing.T) {
 	t.Parallel()
 
-	id := reidentification.NewIdentifier("cosine")
+	id := reidentification.NewIdentifier("cosine", 0.5)
 
 	row := make(map[string]interface{})
 	row["x"] = 20
@@ -63,7 +63,7 @@ func TestIdentify(t *testing.T) {
 func TestGroupAnonymizedData(t *testing.T) {
 	t.Parallel()
 
-	id := reidentification.NewIdentifier("cosine")
+	id := reidentification.NewIdentifier("cosine", 0.5)
 
 	original, err := infra.NewJSONLineSource(strings.NewReader(`{"x":20,"y":18}`), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)

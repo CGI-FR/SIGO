@@ -38,7 +38,7 @@ func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink 
 		originalScaledValue := scaledOriginal[i]
 		identified := identifier.Identify(originalScaledValue, originalValue, masked.QuasiIdentifer(), masked.Sensitive())
 
-		if !identified.IsEmpty() {
+		if !identified.IsEmpty() && identified.Score() > float64(identifier.threshold) {
 			err := sink.Collect(identified.Record())
 			if err != nil {
 				return fmt.Errorf("%w", err)
