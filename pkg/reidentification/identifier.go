@@ -28,19 +28,22 @@ import (
 	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
+// Identifier contains the metric used to do the identification
+// the original data, the anonymized data and the filtered data
+// which is the anonymized data filtered from the duplicate data.
 type Identifier struct {
-	metric        string
-	original      *[]map[string]interface{}
-	masked        *[]map[string]interface{}
-	groupedMasked *[]map[string]interface{}
+	metric   string
+	original *[]map[string]interface{}
+	masked   *[]map[string]interface{}
+	filtered *[]map[string]interface{}
 }
 
 func NewIdentifier(distance string) Identifier {
 	return Identifier{
-		metric:        distance,
-		original:      &[]map[string]interface{}{},
-		masked:        &[]map[string]interface{}{},
-		groupedMasked: &[]map[string]interface{}{},
+		metric:   distance,
+		original: &[]map[string]interface{}{},
+		masked:   &[]map[string]interface{}{},
+		filtered: &[]map[string]interface{}{},
 	}
 }
 
@@ -71,20 +74,22 @@ func (ir IdentifiedRecord) IsEmpty() bool {
 
 // ReturnGroup returns anonymized data without duplicate individuals.
 func (id Identifier) ReturnGroup() *[]map[string]interface{} {
-	return id.groupedMasked
+	return id.filtered
 }
 
-// SaveData saves data in Identifier according to the type of dataset (original, anonymized).
-func (id Identifier) SaveData(dataset sigo.RecordSource, typeData string) {
-	var sink *infra.SliceDictionariesSink
+// InitData saves original and anonymized data in Identifier object.
+func (id Identifier) InitData(original, anonymized sigo.RecordSource) {
+	sinkOriginal := infra.NewSliceDictionariesSink(id.original)
+	SaveData(original, sinkOriginal)
 
-	switch typeData {
-	case "original":
-		sink = infra.NewSliceDictionariesSink(id.original)
-	case "anonymized":
-		sink = infra.NewSliceDictionariesSink(id.masked)
-	}
+	sinkAnonymized := infra.NewSliceDictionariesSink(id.masked)
+	SaveData(anonymized, sinkAnonymized)
 
+	id.FilterMasked(anonymized.QuasiIdentifer(), anonymized.Sensitive())
+}
+
+// SaveData saves data in infra.SliceDictionariesSink.
+func SaveData(dataset sigo.RecordSource, sink *infra.SliceDictionariesSink) {
 	for dataset.Next() {
 		err := sink.Collect(dataset.Value())
 		if err != nil {
@@ -98,8 +103,8 @@ func (id Identifier) SaveData(dataset sigo.RecordSource, typeData string) {
 // returns {"x":7,"y":6.67,"z":"a"}
 // {"x":3,"y":7,"z":"b"}, {"x":3,"y":7,"z":"a"}, {"x":3,"y":7,"z":"c"}
 // returns {"x":3,"y":7,"z":""}.
-func (id Identifier) GroupMasked(qi, s []string) {
-	sink := infra.NewSliceDictionariesSink(id.groupedMasked)
+func (id Identifier) FilterMasked(qi, s []string) {
+	sink := infra.NewSliceDictionariesSink(id.filtered)
 	// map containing for each tuple of quasi-identifier the list of sensitive data
 	tmp := make(map[string][]string)
 
@@ -150,7 +155,7 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 	sims := NewSimilarities(id.metric)
 	i := 0
 
-	scaledAnonymized := ScaleData(*id.groupedMasked, s)
+	scaledAnonymized := ScaleData(*id.filtered, s)
 
 	// for each anonymized scaled data
 	for _, record := range scaledAnonymized {

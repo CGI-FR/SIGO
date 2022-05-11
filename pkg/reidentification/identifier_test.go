@@ -20,6 +20,7 @@ package reidentification_test
 import (
 	"bufio"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -37,14 +38,16 @@ func TestIdentify(t *testing.T) {
 	row["x"] = 20
 	row["y"] = 18
 
+	original, err := infra.NewJSONLineSource(strings.NewReader(`{"x":20,"y":18}`), []string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
+
 	maskedDataset, err := os.Open("../../examples/re-identification/anonymized.json")
 	assert.Nil(t, err)
 
 	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedDataset), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
-	id.SaveData(masked, "anonymized")
-	id.GroupMasked([]string{"x", "y"}, []string{"z"})
+	id.InitData(original, masked)
 
 	identified := id.Identify(row, row, []string{"x", "y"}, []string{"z"})
 
@@ -62,14 +65,16 @@ func TestGroupAnonymizedData(t *testing.T) {
 
 	id := reidentification.NewIdentifier("cosine")
 
+	original, err := infra.NewJSONLineSource(strings.NewReader(`{"x":20,"y":18}`), []string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
+
 	maskedDataset, err := os.Open("../../examples/re-identification/anonymized.json")
 	assert.Nil(t, err)
 
 	masked, err := infra.NewJSONLineSource(bufio.NewReader(maskedDataset), []string{"x", "y"}, []string{"z"})
 	assert.Nil(t, err)
 
-	id.SaveData(masked, "anonymized")
-	id.GroupMasked([]string{"x", "y"}, []string{"z"})
+	id.InitData(original, masked)
 
 	res := id.ReturnGroup()
 

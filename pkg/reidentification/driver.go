@@ -29,9 +29,7 @@ import (
 
 // ReIdentify returns the list of reidentified data into sigo.RecordSink.
 func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink sigo.RecordSink) error {
-	identifier.SaveData(original, "original")
-	identifier.SaveData(masked, "anonymized")
-	identifier.GroupMasked(masked.QuasiIdentifer(), masked.Sensitive())
+	identifier.InitData(original, masked)
 
 	scaledOriginal := ScaleData(*identifier.original, masked.Sensitive())
 
