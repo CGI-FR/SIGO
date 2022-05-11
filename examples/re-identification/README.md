@@ -45,16 +45,37 @@ The data that the attacker has is in the `openData.json` file.
 
 ![image](intro.png)
 
+Our method of re-identification is to find the closest or most similar individuals.
+
+This approach depends greatly on the concepts of distance and similarity.
+
 ## Key concepts
 
-- Similarity
-- Distance
-- Data Standardization
+**Definition of distance :** (*wikipédia*)
+We call distance, on a set ![equation](https://latex.codecogs.com/svg.image?E), any application `d` defined on ![equation](https://latex.codecogs.com/svg.image?E%5E%7B2%7D) and with values in the set of positive or zero real numbers (![equation](https://latex.codecogs.com/svg.image?%5Cmathbb%7BR%7D&plus;)),
 
-similarity = 1 / (1+distance)
+> ![equation](https://latex.codecogs.com/svg.image?d%20:%20E%20%5Ctimes%20E%20%5Cto%20%5Cmathbb%7BR%7D&plus;)
 
-if distance = 0 <=> similarity = 1
-if distance = +infinity <=> similarity = 0
+verifying the following properties :
+
+- symmetry : ![equation](https://latex.codecogs.com/svg.image?%5Cforall%20(a,b)%20%5Cin%20E%5E%7B2%7D,%20d(a,b)%20=%20d(b,a)%20)
+- separation : ![equation](https://latex.codecogs.com/svg.image?%5Cforall%20(a,b)%20%5Cin%20E%5E%7B2%7D,%20d(a,b)%20=%200%20%5CLeftrightarrow%20a%20=%20b%20)
+- triangular inequality : ![equation](https://latex.codecogs.com/svg.image?%5Cforall%20(a,b,c)%20%5Cin%20E%5E%7B3%7D,%20d(a,c)%20%5Cleq%20d(a,b)%20&plus;%20d(b,c))
+
+The best known distances are the **Euclidean distance** and the **Manhattan distance**.
+
+> Euclidean distance :
+> ![equation](https://latex.codecogs.com/svg.image?d(a,b)%20=%20%5Csqrt%7B%5Csum_%7Bi=1%7D%5E%7Bn%7D%5Cleft%20(%20a_%7Bi%7D%20-%20b_%7Bi%7D%20%5Cright%20)%5E%7B2%7D%7D%20)
+
+> Manhattan distance :
+> ![equation](https://latex.codecogs.com/svg.image?d(a,b)&space;=&space;\sum_{i=1}^{n}&space;\left|&space;a_{i}&space;-&space;b_{i}&space;\right|)
+
+![image](manhattan.png)
+
+> Similarity
+> ![equation](https://latex.codecogs.com/svg.image?s%20=%20%5Cfrac%7B1%7D%7B1%20&plus;%20d%7D)
+
+![equation](https://latex.codecogs.com/svg.image?%5Cleft%5C%7B%5Cbegin%7Bmatrix%7Dd%20=%200%20%5CLeftrightarrow%20s%20=%201%20%5C%5Cd%20=%20&plus;%5Cinfty%20%5CLeftrightarrow%20s%20=%200%20%20%20%5Cend%7Bmatrix%7D%5Cright.)
 
 ## Approach
 
