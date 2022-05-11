@@ -157,7 +157,7 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 
 	scaledAnonymized := ScaleData(*id.filtered, s)
 
-	// for each anonymized scaled data
+	// for each anonymized scaled filtered data
 	for _, record := range scaledAnonymized {
 		sim := NewSimilarity(i, record, qi, s)
 		X := MapItoMapF(scaledData)

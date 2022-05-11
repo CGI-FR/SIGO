@@ -64,6 +64,7 @@ type pdef struct {
 type data struct {
 	original   string
 	anonymized string
+	threshold  float32
 }
 
 //nolint: funlen
@@ -123,6 +124,8 @@ func main() {
 		StringVar(&data.original, "load-original", "", "name and location of the original dataset file")
 	rootCmd.PersistentFlags().
 		StringVar(&data.anonymized, "load-anonymized", "", "name and location of the anonymized dataset file")
+	rootCmd.PersistentFlags().
+		Float32Var(&data.threshold, "threshold", data.threshold, "re-identification threshold")
 
 	//nolint: exhaustivestruct
 	rootCmd.AddCommand(&cobra.Command{
@@ -135,7 +138,7 @@ func main() {
 
 			// Reidentification
 			err := reidentification.ReIdentify(original, anonymized,
-				reidentification.NewIdentifier("canberra"), sink)
+				reidentification.NewIdentifier("euclidean"), sink)
 			if err != nil {
 				log.Err(err).Msg("Cannot reidentify data")
 				log.Warn().Int("return", 1).Msg("End SIGO")

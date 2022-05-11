@@ -54,13 +54,12 @@ sigo reidentification -q x,y -s z --load-original examples/re-identification/ope
 ```
 
 ```json
-{"x":8, "y":4, "sensitive":["a"]}
-{"x":8, "y":10, "sensitive":["a"]}
-{"x":20, "y":20, "sensitive":["b"]}
-{"x":20, "y":18, "sensitive":["b"]}
-{"x":19, "y":15, "sensitive":["b"]}
-
-{"x":18, "y":18, "sensitive":["b"]}
+{"x":5,"y":6,"sensitive":["a"]}
+{"x":8,"y":4,"sensitive":["a"]}
+{"x":8,"y":10,"sensitive":["a"]}
+{"x":20,"y":20,"sensitive":["b"]}
+{"x":20,"y":18,"sensitive":["b"]}
+{"x":19,"y":15,"sensitive":["b"]}
 ```
 
 ## Key concepts
