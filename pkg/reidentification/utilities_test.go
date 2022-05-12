@@ -92,8 +92,8 @@ func TestScaledData(t *testing.T) {
 	t.Parallel()
 
 	data := make([]map[string]interface{}, 3)
-	x := []float64{2.12, 4.36, 12.17}
-	y := []float64{4.5, 8.75, 3.96}
+	x := []float64{10, 30, 50}
+	y := []float64{20, 40, 50}
 	z := []string{"a", "b", "c"}
 
 	for i := range x {
@@ -106,8 +106,8 @@ func TestScaledData(t *testing.T) {
 	}
 
 	dataScaled := make([]map[string]interface{}, 3)
-	xScaled := []float64{-0.9517561291715603, -0.4317722927461224, 1.3812070655050694}
-	yScaled := []float64{-0.5788644148002112, 1.4051466843134157, -0.8309505309228838}
+	xScaled := []float64{-1.224744871391589, 0, 1.224744871391589}
+	yScaled := []float64{-1.3365734230692703, 0.26699397113501305, 1.0687776682371546}
 	zScaled := []string{"a", "b", "c"}
 
 	for i := range xScaled {

@@ -49,6 +49,9 @@ func TestIdentify(t *testing.T) {
 
 	id.InitData(original, masked)
 
+	id.ScaleData("original", []string{"x", "y"}, []string{"z"})
+	id.ScaleData("filtered", []string{"x", "y"}, []string{"z"})
+
 	identified := id.Identify(row, row, []string{"x", "y"}, []string{"z"})
 
 	expected := jsonline.NewRow()
@@ -106,4 +109,42 @@ func TestGroupAnonymizedData(t *testing.T) {
 	recordExpected2 := infra.NewJSONLineRecord(&expected2, &[]string{"x", "y"}, &[]string{"z"})
 
 	assert.Equal(t, res2, recordExpected2.Row())
+}
+
+func TestScaleData(t *testing.T) {
+	t.Parallel()
+
+	id := reidentification.NewIdentifier("euclidean", 0.5)
+
+	original, err := infra.NewJSONLineSource(strings.NewReader(`{"x":20,"y":18}`), []string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
+
+	source := `{"x":10,"y":20,"z":"a"}
+			   {"x":30,"y":40,"z":"b"}
+			   {"x":50,"y":50,"z":"c"}`
+
+	masked, err := infra.NewJSONLineSource(strings.NewReader(source), []string{"x", "y"}, []string{"z"})
+	assert.Nil(t, err)
+
+	id.InitData(original, masked)
+
+	id.ScaleData("filtered", []string{"x", "y"}, []string{"z"})
+
+	res := *id.ReturnScaled("filtered")
+
+	dataScaled := make([]map[string]interface{}, 3)
+	xScaled := []float64{-1.224744871391589, 0, 1.224744871391589}
+	yScaled := []float64{-1.3365734230692703, 0.26699397113501305, 1.0687776682371546}
+	zScaled := []string{"a", "b", "c"}
+
+	for i := range xScaled {
+		vals := make(map[string]interface{})
+		vals["x"] = xScaled[i]
+		vals["y"] = yScaled[i]
+		vals["z"] = zScaled[i]
+
+		dataScaled[i] = vals
+	}
+
+	assert.Equal(t, dataScaled, res)
 }

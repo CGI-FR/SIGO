@@ -33,20 +33,24 @@ import (
 // the original data, the anonymized data and the filtered data
 // which is the anonymized data filtered from the duplicate data.
 type Identifier struct {
-	metric    string
-	threshold float32
-	original  *[]map[string]interface{}
-	masked    *[]map[string]interface{}
-	filtered  *[]map[string]interface{}
+	metric         string
+	threshold      float32
+	original       *[]map[string]interface{}
+	originalScaled *[]map[string]interface{}
+	masked         *[]map[string]interface{}
+	filtered       *[]map[string]interface{}
+	filteredScaled *[]map[string]interface{}
 }
 
 func NewIdentifier(distance string, thrshld float32) Identifier {
 	return Identifier{
-		metric:    distance,
-		threshold: thrshld,
-		original:  &[]map[string]interface{}{},
-		masked:    &[]map[string]interface{}{},
-		filtered:  &[]map[string]interface{}{},
+		metric:         distance,
+		threshold:      thrshld,
+		original:       &[]map[string]interface{}{},
+		originalScaled: &[]map[string]interface{}{},
+		masked:         &[]map[string]interface{}{},
+		filtered:       &[]map[string]interface{}{},
+		filteredScaled: &[]map[string]interface{}{},
 	}
 }
 
@@ -89,6 +93,15 @@ func (id Identifier) ReturnGroup() *[]map[string]interface{} {
 	return id.filtered
 }
 
+// ReturnScaled returns scaled data.
+func (id Identifier) ReturnScaled(name string) *[]map[string]interface{} {
+	if name == "filtered" {
+		return id.filteredScaled
+	}
+
+	return id.originalScaled
+}
+
 // InitData saves original and anonymized data in Identifier object.
 func (id Identifier) InitData(original, anonymized sigo.RecordSource) {
 	sinkOriginal := infra.NewSliceDictionariesSink(id.original)
@@ -106,6 +119,36 @@ func SaveData(dataset sigo.RecordSource, sink *infra.SliceDictionariesSink) {
 		err := sink.Collect(dataset.Value())
 		if err != nil {
 			fmt.Println("Cannot collect data")
+		}
+	}
+}
+
+// ScaleData scale all data and save it in infra.SliceDictionariesSink.
+func (id Identifier) ScaleData(name string, qi, s []string) {
+	var scaled []map[string]interface{}
+
+	var sink *infra.SliceDictionariesSink
+
+	switch name {
+	case "original":
+		scaled = ScaleData(*id.original, s)
+		sink = infra.NewSliceDictionariesSink(id.originalScaled)
+	case "filtered":
+		scaled = ScaleData(*id.filtered, s)
+		sink = infra.NewSliceDictionariesSink(id.filteredScaled)
+	}
+
+	for _, mapScaled := range scaled {
+		row := jsonline.NewRow()
+		for key, val := range mapScaled {
+			row.Set(key, val)
+		}
+
+		record := infra.NewJSONLineRecord(&row, &qi, &s)
+
+		err := sink.Collect(record)
+		if err != nil {
+			fmt.Println("Cannot collect scaled data")
 		}
 	}
 }
@@ -166,12 +209,10 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 	qi, s []string) IdentifiedRecord {
 	sims := NewSimilarities(id.metric)
 
-	scaledAnonymized := ScaleData(*id.filtered, s)
-
 	// for each anonymized scaled filtered data
-	for i := range scaledAnonymized {
+	for i := range *id.filteredScaled {
 		anonymizedValue := (*id.filtered)[i]
-		anonymizedScaledValue := scaledAnonymized[i]
+		anonymizedScaledValue := (*id.filteredScaled)[i]
 
 		sim := NewSimilarity(i, anonymizedScaledValue, qi, s)
 		X := MapItoMapF(scaledData)
@@ -179,7 +220,7 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 		// we calculate the distance with the original data
 		score := ComputeDistance(id.metric, X, Y)
 
-		// Cosine in already a similarity score
+		// Cosine is already a similarity score
 		if sims.metric != "cosine" {
 			// Transform distance into similarity
 			score = 1 / (1 + score)

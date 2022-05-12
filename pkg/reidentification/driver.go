@@ -36,16 +36,17 @@ func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink 
 
 	identifier.InitData(original, masked)
 
-	log.Info().Msg("Scaling Original Data")
+	log.Info().Msg("Scaling Data")
 
-	scaledOriginal := ScaleData(*identifier.original, masked.Sensitive())
+	identifier.ScaleData("original", masked.QuasiIdentifer(), masked.Sensitive())
+	identifier.ScaleData("filtered", masked.QuasiIdentifer(), masked.Sensitive())
 
 	log.Info().
 		Msg("Re-identifying Data")
 
 	for i := range *identifier.original {
 		originalValue := (*identifier.original)[i]
-		originalScaledValue := scaledOriginal[i]
+		originalScaledValue := (*identifier.originalScaled)[i]
 
 		identified := identifier.Identify(originalScaledValue, originalValue, masked.QuasiIdentifer(), masked.Sensitive())
 
