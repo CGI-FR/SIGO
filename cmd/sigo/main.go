@@ -24,8 +24,8 @@ import (
 	"strings"
 
 	over "github.com/Trendyol/overlog"
+	"github.com/cgi-fr/sigo/internal/app/reidentify"
 	"github.com/cgi-fr/sigo/internal/infra"
-	"github.com/cgi-fr/sigo/pkg/reidentification"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/mattn/go-isatty"
 	"github.com/pkg/profile"
@@ -61,21 +61,12 @@ type pdef struct {
 	config    string
 }
 
-type data struct {
-	original   string
-	anonymized string
-	threshold  float32
-}
-
-//nolint: funlen
 func main() {
 	var info infos
 
 	var logs logs
 
 	var definition pdef
-
-	var data data
 
 	//nolint: exhaustivestruct
 	rootCmd := &cobra.Command{
@@ -120,33 +111,9 @@ func main() {
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
-	rootCmd.PersistentFlags().
-		StringVar(&data.original, "load-original", "", "name and location of the original dataset file")
-	rootCmd.PersistentFlags().
-		StringVar(&data.anonymized, "load-anonymized", "", "name and location of the anonymized dataset file")
-	rootCmd.PersistentFlags().
-		//nolint:gomnd
-		Float32VarP(&data.threshold, "threshold", "t", 0.5, "re-identification threshold")
 
-	//nolint: exhaustivestruct
-	rootCmd.AddCommand(&cobra.Command{
-		Use:   "reidentification",
-		Short: "Re-identify anonymized data from an original dataset",
-		Run: func(cmd *cobra.Command, args []string) {
-			sink := infra.NewJSONLineSink(os.Stdout)
-			original := reidentification.LoadFile(data.original, definition.qi, definition.sensitive)
-			anonymized := reidentification.LoadFile(data.anonymized, definition.qi, definition.sensitive)
-
-			// Reidentification
-			err := reidentification.ReIdentify(original, anonymized,
-				reidentification.NewIdentifier("euclidean", data.threshold), sink)
-			if err != nil {
-				log.Err(err).Msg("Cannot reidentify data")
-				log.Warn().Int("return", 1).Msg("End SIGO")
-				os.Exit(1)
-			}
-		},
-	})
+		// reidentification
+	rootCmd.AddCommand(reidentify.NewCommand("sigo", os.Stderr, os.Stdout, os.Stdin))
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
