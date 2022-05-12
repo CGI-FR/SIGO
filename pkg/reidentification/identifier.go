@@ -26,6 +26,7 @@ import (
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
+	"github.com/rs/zerolog/log"
 )
 
 // Identifier contains the metric used to do the identification
@@ -51,6 +52,7 @@ func NewIdentifier(distance string, thrshld float32) Identifier {
 
 type IdentifiedRecord struct {
 	original  map[string]interface{}
+	anonymize map[string]interface{}
 	sensitive []string
 	score     float64
 }
@@ -163,13 +165,15 @@ func (id Identifier) FilterMasked(qi, s []string) {
 func (id Identifier) Identify(scaledData map[string]interface{}, originalData map[string]interface{},
 	qi, s []string) IdentifiedRecord {
 	sims := NewSimilarities(id.metric)
-	i := 0
 
 	scaledAnonymized := ScaleData(*id.filtered, s)
 
 	// for each anonymized scaled filtered data
-	for _, record := range scaledAnonymized {
-		sim := NewSimilarity(i, record, qi, s)
+	for i := range scaledAnonymized {
+		anonymizedValue := (*id.filtered)[i]
+		anonymizedScaledValue := scaledAnonymized[i]
+
+		sim := NewSimilarity(i, anonymizedScaledValue, qi, s)
 		X := MapItoMapF(scaledData)
 		Y := MapItoMapF(sim.qi)
 		// we calculate the distance with the original data
@@ -181,10 +185,15 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 			score = 1 / (1 + score)
 		}
 
+		log.Trace().
+			Interface("filtered anonymized", anonymizedValue).
+			Interface("original", originalData).
+			Float64("score", score).
+			Msg("Compute Similarity")
+
 		sim.AddScore(score)
 
 		sims.Add(sim)
-		i++
 	}
 
 	// we collect the most similar data to the original data
@@ -193,5 +202,8 @@ func (id Identifier) Identify(scaledData map[string]interface{}, originalData ma
 	// if the most similar data have sensitive data
 	sensitive := top.sensitive
 
-	return IdentifiedRecord{original: originalData, sensitive: sensitive, score: top.score}
+	return IdentifiedRecord{
+		original: originalData, anonymize: (*id.filtered)[top.id],
+		sensitive: sensitive, score: top.score,
+	}
 }

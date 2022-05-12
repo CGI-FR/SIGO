@@ -80,6 +80,9 @@ func NewCommand(fullName string, err *os.File, out *os.File, in *os.File) *cobra
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 			sink := infra.NewJSONLineSink(out)
+
+			log.Info().Msg("Loading Data")
+
 			original := reidentification.LoadFile(data.original, data.qi, data.sensitive)
 			anonymized := reidentification.LoadFile(data.anonymized, data.qi, data.sensitive)
 
@@ -101,10 +104,10 @@ func NewCommand(fullName string, err *os.File, out *os.File, in *os.File) *cobra
 	cmd.Flags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	cmd.Flags().StringSliceVarP(&data.qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	cmd.Flags().StringSliceVarP(&data.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
-	cmd.Flags().StringVar(&data.original, "load-original", "", "name and location of the original dataset file")
-	cmd.Flags().StringVar(&data.anonymized, "load-anonymized", "", "name and location of the anonymized dataset file")
+	cmd.Flags().StringVarP(&data.original, "load-original", "o", "", "name and location of the original dataset file")
+	cmd.Flags().StringVarP(&data.anonymized, "load-masked", "m", "", "name and location of the anonymized dataset file")
 	//nolint: gomnd
-	cmd.Flags().Float32VarP(&data.threshold, "threshold", "t", 0.5, "re-identification threshold")
+	cmd.Flags().Float32VarP(&data.threshold, "threshold", "t", 0.5, "re-identification threshold beteween [0,1]")
 	cmd.SetOut(out)
 	cmd.SetErr(err)
 	cmd.SetIn(in)

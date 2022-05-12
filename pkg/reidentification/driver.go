@@ -29,16 +29,33 @@ import (
 
 // ReIdentify returns the list of reidentified data into sigo.RecordSink.
 func ReIdentify(original, masked sigo.RecordSource, identifier Identifier, sink sigo.RecordSink) error {
+	log.Info().
+		Interface("metric used", identifier.metric).
+		Float32("threshold", identifier.threshold).
+		Msg("Initializing Identifier")
+
 	identifier.InitData(original, masked)
 
+	log.Info().Msg("Scaling Original Data")
+
 	scaledOriginal := ScaleData(*identifier.original, masked.Sensitive())
+
+	log.Info().
+		Msg("Re-identifying Data")
 
 	for i := range *identifier.original {
 		originalValue := (*identifier.original)[i]
 		originalScaledValue := scaledOriginal[i]
+
 		identified := identifier.Identify(originalScaledValue, originalValue, masked.QuasiIdentifer(), masked.Sensitive())
 
-		if !identified.IsEmpty() && identified.Score() > float64(identifier.threshold) {
+		log.Debug().
+			Interface("original", originalValue).
+			Interface("anonymized", identified.anonymize).
+			Float64("similarity", identified.score).
+			Msg("Reidentification")
+
+		if !identified.IsEmpty() && identified.Score() >= float64(identifier.threshold) {
 			err := sink.Collect(identified.Record())
 			if err != nil {
 				return fmt.Errorf("%w", err)

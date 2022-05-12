@@ -13,7 +13,6 @@ The following flags can be used:
 - `--anonymizer,-a <string>`, allows to choose the method used for data anonymization (default value is `"NoAnonymizer"`). Choose from the following list [`"general"`, `"meanAggregation"`, `"medianAggregation"`, `"outlier"`, `"laplaceNoise"`, `"gaussianNoise"`, `"swapping"`].
 - `--cluster-info,-i <string>`, allows to display information about cluster.
 - `--entropy <bool>`, allows to choose if entropy model for l-diversity used.
-- `--load-original=data.json`, allows to re-identify individuals from an anonymized dataset using the original dataset `data.json`.
 
 ## DEMO
 
@@ -365,7 +364,7 @@ The approach is as follows :
 Below is the use of `sigo` for re-identification with a `threshold` set to **0.6**.
 
 ```console
-sigo reidentification -q x,y -s z --load-original examples/re-identification/openData.json --load-anonymized examples/re-identification/anonymized.json --threshold 0.6
+sigo reidentification -q x,y -s z --load-original examples/re-identification/openData.json --load-masked examples/re-identification/anonymized.json --threshold 0.6
 ```
 
 ```json
@@ -376,6 +375,17 @@ sigo reidentification -q x,y -s z --load-original examples/re-identification/ope
 {"x":20,"y":18,"sensitive":["b"],"similarity":98.11}
 {"x":19,"y":15,"sensitive":["b"],"similarity":65.02}
 ```
+
+### Usage for sigo reidentification
+
+The following flags can be used:
+
+- `--quasi-identifier,-q <strings>`, this flag lists the attributes (quasi-identifiers) of datasets.
+- `--sensitive,-s <strings>`, this flag lists the sensitive attributes of the anonymized dataset.
+- `--load-original=openData.json`, allows to load the data collected from the open data `openData.json`.
+- `--load-masked=anonymizedData.json`, allows to load the anonymized data `anonymizedData.json` that you want to re-identify.
+- `--threshold,-t <float32>`, this flag indicates the level of similarity we want to have for the re-identification between 0 and 1. 1 means that we want to re-identify individuals with a 100% similarity level.
+
 ## Contributors
 
 - CGI France ✉[Contact support](mailto:LINO.fr@cgi.com)
