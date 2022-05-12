@@ -64,18 +64,28 @@ verifying the following properties :
 
 The best known distances are the **Euclidean distance** and the **Manhattan distance**.
 
-> Euclidean distance :
-> ![equation](https://latex.codecogs.com/svg.image?d(a,b)%20=%20%5Csqrt%7B%5Csum_%7Bi=1%7D%5E%7Bn%7D%5Cleft%20(%20a_%7Bi%7D%20-%20b_%7Bi%7D%20%5Cright%20)%5E%7B2%7D%7D%20)
-
-> Manhattan distance :
-> ![equation](https://latex.codecogs.com/svg.image?d(a,b)&space;=&space;\sum_{i=1}^{n}&space;\left|&space;a_{i}&space;-&space;b_{i}&space;\right|)
-
 ![image](manhattan.png)
+
+|![equation](https://latex.codecogs.com/svg.image?d(a,b)%20=%20%5Csqrt%7B%5Csum_%7Bi=1%7D%5E%7Bn%7D%5Cleft%20(%20a_%7Bi%7D%20-%20b_%7Bi%7D%20%5Cright%20)%5E%7B2%7D%7D%20) | ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20d(a,b)%20=%20%5Csum_%7Bi=1%7D%5E%7Bn%7D%20%5Cleft%7C%20a_%7Bi%7D%20-%20b_%7Bi%7D%20%5Cright%7C) |
+|:----------------------:|:---------------------:|
+| **Euclidean** distance | **Manhattan** distance|
+
+![image](distances.png)
+
+> https://towardsdatascience.com/17-types-of-similarity-and-dissimilarity-measures-used-in-data-science-3eb914d2681
+
+We can use a distance to define a similarity: the more two points are distant, the less similar they are, and inversely. We can then transform a distance `d` into a similarity `s` in the following way :
 
 > Similarity
 > ![equation](https://latex.codecogs.com/svg.image?s%20=%20%5Cfrac%7B1%7D%7B1%20&plus;%20d%7D)
 
+A similarity index is between 0 and 1 where 0 indicates a total difference between the points and 1 indicates a total similarity.
+
+We have the following properties :
+
 ![equation](https://latex.codecogs.com/svg.image?%5Cleft%5C%7B%5Cbegin%7Bmatrix%7Dd%20=%200%20%5CLeftrightarrow%20s%20=%201%20%5C%5Cd%20=%20&plus;%5Cinfty%20%5CLeftrightarrow%20s%20=%200%20%20%20%5Cend%7Bmatrix%7D%5Cright.)
+
+![image](sim.png)
 
 ## Approach
 
@@ -110,5 +120,4 @@ sigo reidentification -q x,y -s z --load-original examples/re-identification/ope
 {"x":20,"y":18,"sensitive":["b"]}
 {"x":19,"y":15,"sensitive":["b"]}
 ```
-
 
