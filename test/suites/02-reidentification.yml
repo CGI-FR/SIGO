@@ -36,5 +36,14 @@ testcases:
           sigo reidentification -q x,y -s z --load-original=../../examples/re-identification/openData.json --load-anonymized=anonymized.json
         assertions:
           - result.systemoutjson ShouldContainKey sensitive
+          - result.systemoutjson ShouldContainKey similarity
+          - result.code ShouldEqual 0
+
+  - name: reidentification with threshold
+    steps:
+      - script: |-
+          sigo reidentification -q x,y -s z --load-original=../../examples/re-identification/openData.json --load-anonymized=anonymized.json --threshold 0.99
+        assertions:
+          - result.systemoutjson ShouldBeEmpty
           - result.code ShouldEqual 0
       - script: rm -f anonymized.json

@@ -19,6 +19,7 @@ package reidentification
 
 import (
 	"encoding/json"
+	"math"
 	"strconv"
 
 	"github.com/cgi-fr/jsonline/pkg/cast"
@@ -125,4 +126,12 @@ func SliceToFloat64(slice []interface{}) (res []float64) {
 	}
 
 	return res
+}
+
+// RoundFloat round a float with a given precision.
+func RoundFloat(val float64, precision uint) float64 {
+	//nolint: gomnd
+	ratio := math.Pow(10, float64(precision))
+
+	return math.Round(val*ratio) / ratio
 }

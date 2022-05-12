@@ -123,3 +123,16 @@ func TestScaledData(t *testing.T) {
 
 	assert.Equal(t, dataScaled, res)
 }
+
+func TestRoundFloat(t *testing.T) {
+	t.Parallel()
+
+	v := 0.957895
+	v2 := 0.6058987922965455
+
+	res := reidentification.RoundFloat(v, 4)
+	res2 := reidentification.RoundFloat(v2, 4)
+
+	assert.Equal(t, 0.9579, res)
+	assert.Equal(t, 0.6059, res2)
+}

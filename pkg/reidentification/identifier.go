@@ -55,7 +55,7 @@ type IdentifiedRecord struct {
 	score     float64
 }
 
-// Record returns the original sigo.Record of IdentifiedRecord.
+// Record returns the original sigo.Record of IdentifiedRecord with the associated sensitive data and similarity score.
 func (ir IdentifiedRecord) Record() sigo.Record {
 	record := jsonline.NewRow()
 	qi := []string{}
@@ -66,6 +66,8 @@ func (ir IdentifiedRecord) Record() sigo.Record {
 	}
 
 	record.Set("sensitive", ir.sensitive)
+	//nolint: gomnd
+	record.Set("similarity", RoundFloat(ir.score*100, 2))
 
 	return infra.NewJSONLineRecord(&record, &qi, &[]string{"sensitive"})
 }

@@ -55,6 +55,7 @@ func TestIdentify(t *testing.T) {
 	expected.Set("x", 20)
 	expected.Set("y", 18)
 	expected.Set("sensitive", []string{"b"})
+	expected.Set("similarity", 99.18)
 	recordExpected := infra.NewJSONLineRecord(&expected, &[]string{"x", "y"}, &[]string{"sensitive"})
 
 	assert.Equal(t, recordExpected.Row(), identified.Record().Row())
