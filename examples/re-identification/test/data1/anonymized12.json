@@ -1,0 +1,100 @@
+{"age":26.25,"location":1.75,"weight":52,"height":1.53,"sickness":"flu","id":98}
+{"age":26.25,"location":1.75,"weight":52,"height":1.53,"sickness":"cancer","id":71}
+{"id":49,"age":26.25,"location":1.75,"weight":52,"height":1.53,"sickness":"heart disease"}
+{"id":99,"age":26.25,"location":1.75,"weight":52,"height":1.53,"sickness":"heart disease"}
+{"location":1.8,"weight":59.4,"height":1.64,"sickness":"flu","id":17,"age":45.6}
+{"id":91,"age":45.6,"location":1.8,"weight":59.4,"height":1.64,"sickness":"cancer"}
+{"weight":59.4,"height":1.64,"sickness":"cancer","id":81,"age":45.6,"location":1.8}
+{"weight":59.4,"height":1.64,"sickness":"cancer","id":93,"age":45.6,"location":1.8}
+{"id":42,"age":45.6,"location":1.8,"weight":59.4,"height":1.64,"sickness":"cancer"}
+{"weight":47,"height":1.94,"sickness":"flu","id":32,"age":34.8,"location":1.6}
+{"id":37,"age":34.8,"location":1.6,"weight":47,"height":1.94,"sickness":"cancer"}
+{"height":1.94,"sickness":"flu","id":18,"age":34.8,"location":1.6,"weight":47}
+{"weight":47,"height":1.94,"sickness":"cancer","id":6,"age":34.8,"location":1.6}
+{"id":11,"age":34.8,"location":1.6,"weight":47,"height":1.94,"sickness":"heart disease"}
+{"id":43,"age":56,"location":1.8,"weight":51,"height":1.92,"sickness":"flu"}
+{"weight":51,"height":1.92,"sickness":"flu","id":47,"age":56,"location":1.8}
+{"id":2,"age":56,"location":1.8,"weight":51,"height":1.92,"sickness":"heart disease"}
+{"weight":51,"height":1.92,"sickness":"heart disease","id":20,"age":56,"location":1.8}
+{"height":1.92,"sickness":"cancer","id":78,"age":56,"location":1.8,"weight":51}
+{"height":1.64,"sickness":"cancer","id":1,"age":31.4,"location":1.6,"weight":86}
+{"sickness":"heart disease","id":29,"age":31.4,"location":1.6,"weight":86,"height":1.64}
+{"weight":86,"height":1.64,"sickness":"heart disease","id":3,"age":31.4,"location":1.6}
+{"height":1.64,"sickness":"flu","id":13,"age":31.4,"location":1.6,"weight":86}
+{"height":1.64,"sickness":"flu","id":24,"age":31.4,"location":1.6,"weight":86}
+{"location":1.4,"weight":96.8,"height":1.78,"sickness":"heart disease","id":46,"age":51.8}
+{"id":68,"age":51.8,"location":1.4,"weight":96.8,"height":1.78,"sickness":"flu"}
+{"id":61,"age":51.8,"location":1.4,"weight":96.8,"height":1.78,"sickness":"heart disease"}
+{"id":79,"age":51.8,"location":1.4,"weight":96.8,"height":1.78,"sickness":"cancer"}
+{"height":1.78,"sickness":"flu","id":51,"age":51.8,"location":1.4,"weight":96.8}
+{"height":2,"sickness":"heart disease","id":22,"age":21.5,"location":1.75,"weight":97.5}
+{"id":31,"age":21.5,"location":1.75,"weight":97.5,"height":2,"sickness":"flu"}
+{"weight":97.5,"height":2,"sickness":"cancer","id":33,"age":21.5,"location":1.75}
+{"weight":97.5,"height":2,"sickness":"flu","id":66,"age":21.5,"location":1.75}
+{"id":44,"age":45.8,"location":2,"weight":97,"height":1.97,"sickness":"cancer"}
+{"height":1.97,"sickness":"cancer","id":21,"age":45.8,"location":2,"weight":97}
+{"weight":97,"height":1.97,"sickness":"cancer","id":86,"age":45.8,"location":2}
+{"id":57,"age":45.8,"location":2,"weight":97,"height":1.97,"sickness":"cancer"}
+{"id":16,"age":45.8,"location":2,"weight":97,"height":1.97,"sickness":"heart disease"}
+{"id":84,"age":41.67,"location":3.67,"weight":69.83,"height":1.85,"sickness":"cancer"}
+{"location":3.67,"weight":69.83,"height":1.85,"sickness":"cancer","id":5,"age":41.67}
+{"weight":69.83,"height":1.85,"sickness":"cancer","id":67,"age":41.67,"location":3.67}
+{"height":1.85,"sickness":"flu","id":55,"age":41.67,"location":3.67,"weight":69.83}
+{"weight":69.83,"height":1.85,"sickness":"heart disease","id":69,"age":41.67,"location":3.67}
+{"id":9,"age":41.67,"location":3.67,"weight":69.83,"height":1.85,"sickness":"cancer"}
+{"id":34,"age":25,"location":3.33,"weight":96,"height":1.79,"sickness":"flu"}
+{"sickness":"cancer","id":60,"age":25,"location":3.33,"weight":96,"height":1.79}
+{"sickness":"flu","id":72,"age":25,"location":3.33,"weight":96,"height":1.79}
+{"height":1.79,"sickness":"flu","id":28,"age":47.75,"location":3.5,"weight":94.5}
+{"id":8,"age":47.75,"location":3.5,"weight":94.5,"height":1.79,"sickness":"flu"}
+{"id":40,"age":47.75,"location":3.5,"weight":94.5,"height":1.79,"sickness":"flu"}
+{"height":1.79,"sickness":"heart disease","id":54,"age":47.75,"location":3.5,"weight":94.5}
+{"age":77,"location":1.6,"weight":59.4,"height":1.61,"sickness":"heart disease","id":25}
+{"id":97,"age":77,"location":1.6,"weight":59.4,"height":1.61,"sickness":"heart disease"}
+{"age":77,"location":1.6,"weight":59.4,"height":1.61,"sickness":"cancer","id":96}
+{"id":59,"age":77,"location":1.6,"weight":59.4,"height":1.61,"sickness":"flu"}
+{"weight":59.4,"height":1.61,"sickness":"heart disease","id":23,"age":77,"location":1.6}
+{"height":1.63,"sickness":"flu","id":38,"age":93,"location":1.4,"weight":61.6}
+{"sickness":"heart disease","id":35,"age":93,"location":1.4,"weight":61.6,"height":1.63}
+{"id":41,"age":93,"location":1.4,"weight":61.6,"height":1.63,"sickness":"cancer"}
+{"id":80,"age":93,"location":1.4,"weight":61.6,"height":1.63,"sickness":"heart disease"}
+{"height":1.63,"sickness":"heart disease","id":15,"age":93,"location":1.4,"weight":61.6}
+{"weight":60.25,"height":1.94,"sickness":"flu","id":45,"age":73.5,"location":1.5}
+{"age":73.5,"location":1.5,"weight":60.25,"height":1.94,"sickness":"cancer","id":75}
+{"location":1.5,"weight":60.25,"height":1.94,"sickness":"flu","id":100,"age":73.5}
+{"id":89,"age":73.5,"location":1.5,"weight":60.25,"height":1.94,"sickness":"heart disease"}
+{"sickness":"cancer","id":88,"age":88.8,"location":1.8,"weight":65.2,"height":1.86}
+{"id":19,"age":88.8,"location":1.8,"weight":65.2,"height":1.86,"sickness":"heart disease"}
+{"sickness":"heart disease","id":48,"age":88.8,"location":1.8,"weight":65.2,"height":1.86}
+{"sickness":"flu","id":7,"age":88.8,"location":1.8,"weight":65.2,"height":1.86}
+{"location":1.8,"weight":65.2,"height":1.86,"sickness":"cancer","id":62,"age":88.8}
+{"sickness":"cancer","id":50,"age":65,"location":1.75,"weight":88.75,"height":1.62}
+{"location":1.75,"weight":88.75,"height":1.62,"sickness":"flu","id":64,"age":65}
+{"location":1.75,"weight":88.75,"height":1.62,"sickness":"heart disease","id":53,"age":65}
+{"id":10,"age":65,"location":1.75,"weight":88.75,"height":1.62,"sickness":"flu"}
+{"height":1.59,"sickness":"heart disease","id":27,"age":91.2,"location":1.2,"weight":93.8}
+{"location":1.2,"weight":93.8,"height":1.59,"sickness":"cancer","id":14,"age":91.2}
+{"age":91.2,"location":1.2,"weight":93.8,"height":1.59,"sickness":"flu","id":85}
+{"weight":93.8,"height":1.59,"sickness":"heart disease","id":94,"age":91.2,"location":1.2}
+{"id":74,"age":91.2,"location":1.2,"weight":93.8,"height":1.59,"sickness":"flu"}
+{"location":1.5,"weight":96.5,"height":1.92,"sickness":"cancer","id":63,"age":65.5}
+{"weight":96.5,"height":1.92,"sickness":"heart disease","id":87,"age":65.5,"location":1.5}
+{"id":95,"age":65.5,"location":1.5,"weight":96.5,"height":1.92,"sickness":"flu"}
+{"id":90,"age":65.5,"location":1.5,"weight":96.5,"height":1.92,"sickness":"heart disease"}
+{"age":91.2,"location":1.6,"weight":103,"height":1.99,"sickness":"cancer","id":92}
+{"location":1.6,"weight":103,"height":1.99,"sickness":"heart disease","id":52,"age":91.2}
+{"id":36,"age":91.2,"location":1.6,"weight":103,"height":1.99,"sickness":"heart disease"}
+{"weight":103,"height":1.99,"sickness":"cancer","id":73,"age":91.2,"location":1.6}
+{"height":1.99,"sickness":"cancer","id":4,"age":91.2,"location":1.6,"weight":103}
+{"id":30,"age":82.33,"location":3.33,"weight":63.67,"height":1.79,"sickness":"flu"}
+{"location":3.33,"weight":63.67,"height":1.79,"sickness":"flu","id":76,"age":82.33}
+{"height":1.79,"sickness":"heart disease","id":65,"age":82.33,"location":3.33,"weight":63.67}
+{"id":26,"age":79,"location":3.67,"weight":61.67,"height":2.04,"sickness":"heart disease"}
+{"id":83,"age":79,"location":3.67,"weight":61.67,"height":2.04,"sickness":"heart disease"}
+{"sickness":"cancer","id":56,"age":79,"location":3.67,"weight":61.67,"height":2.04}
+{"height":1.73,"sickness":"cancer","id":39,"age":79,"location":3.17,"weight":93.5}
+{"age":79,"location":3.17,"weight":93.5,"height":1.73,"sickness":"heart disease","id":77}
+{"sickness":"cancer","id":58,"age":79,"location":3.17,"weight":93.5,"height":1.73}
+{"id":82,"age":79,"location":3.17,"weight":93.5,"height":1.73,"sickness":"cancer"}
+{"age":79,"location":3.17,"weight":93.5,"height":1.73,"sickness":"cancer","id":70}
+{"location":3.17,"weight":93.5,"height":1.73,"sickness":"cancer","id":12,"age":79}
