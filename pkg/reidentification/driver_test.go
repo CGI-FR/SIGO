@@ -20,6 +20,7 @@ package reidentification_test
 import (
 	"bufio"
 	"encoding/json"
+	"io"
 	"os"
 	"testing"
 
@@ -52,4 +53,38 @@ func TestReIdentify(t *testing.T) {
 	assert.Equal(t, json.Number("8"), result[0]["x"])
 	assert.Equal(t, json.Number("4"), result[0]["y"])
 	assert.Equal(t, []string{"a"}, result[0]["sensitive"])
+}
+
+func BenchmarkSimpleReidentification(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		data1, err := os.Open("testdata/simple.json")
+		assert.Nil(b, err)
+
+		data2, err := os.Open("testdata/maskedsimple.json")
+		assert.Nil(b, err)
+
+		original, err := infra.NewJSONLineSource(bufio.NewReader(data1), []string{"x", "y"}, []string{"z"})
+		assert.Nil(b, err)
+
+		masked, err := infra.NewJSONLineSource(bufio.NewReader(data2), []string{"x", "y"}, []string{"z"})
+		assert.Nil(b, err)
+
+		b.StartTimer()
+
+		// ReIdentify ran 1 times and each call took an average of 26056784800 nanoseconds to complete.
+		// 26 seconds for 1000 rows.
+		err = reidentification.ReIdentify(
+			original,
+			masked,
+			reidentification.NewIdentifier("euclidean", 0.5),
+			infra.NewJSONLineSink(io.Discard),
+		)
+
+		assert.Nil(b, err)
+		b.StopTimer()
+
+		data1.Close()
+
+		data2.Close()
+	}
 }

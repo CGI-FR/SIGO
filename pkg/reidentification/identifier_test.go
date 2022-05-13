@@ -64,7 +64,43 @@ func TestIdentify(t *testing.T) {
 	assert.Equal(t, recordExpected.Row(), identified.Record().Row())
 }
 
-func TestGroupAnonymizedData(t *testing.T) {
+func BenchmarkIdentify(b *testing.B) {
+	id := reidentification.NewIdentifier("cosine", 0.5)
+
+	row := make(map[string]interface{})
+	row["x"] = 20
+	row["y"] = 18
+
+	data1, err := os.Open("testdata/simple.json")
+	assert.Nil(b, err)
+
+	data2, err := os.Open("testdata/maskedsimple.json")
+	assert.Nil(b, err)
+
+	original, err := infra.NewJSONLineSource(bufio.NewReader(data1), []string{"x", "y"}, []string{"z"})
+	assert.Nil(b, err)
+
+	masked, err := infra.NewJSONLineSource(bufio.NewReader(data2), []string{"x", "y"}, []string{"z"})
+	assert.Nil(b, err)
+
+	id.InitData(original, masked)
+
+	id.ScaleData("original", []string{"x", "y"}, []string{"z"})
+	id.ScaleData("filtered", []string{"x", "y"}, []string{"z"})
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		// Identify ran 100 times and each call took an average of 22357170 nanoseconds to complete.
+		// 0.02 seconds for 1000 rows.
+		id.Identify(row, row, []string{"x", "y"}, []string{"z"})
+	}
+
+	data1.Close()
+	data2.Close()
+}
+
+func TestInitData(t *testing.T) {
 	t.Parallel()
 
 	id := reidentification.NewIdentifier("cosine", 0.5)
@@ -111,6 +147,33 @@ func TestGroupAnonymizedData(t *testing.T) {
 	assert.Equal(t, res2, recordExpected2.Row())
 }
 
+func BenchmarkInitData(b *testing.B) {
+	id := reidentification.NewIdentifier("cosine", 0.5)
+
+	data1, err := os.Open("testdata/simple.json")
+	assert.Nil(b, err)
+
+	data2, err := os.Open("testdata/maskedsimple.json")
+	assert.Nil(b, err)
+
+	original, err := infra.NewJSONLineSource(bufio.NewReader(data1), []string{"x", "y"}, []string{"z"})
+	assert.Nil(b, err)
+
+	masked, err := infra.NewJSONLineSource(bufio.NewReader(data2), []string{"x", "y"}, []string{"z"})
+	assert.Nil(b, err)
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		// InitData ran 1132 times and each call took an average of 1354702 nanoseconds to complete.
+		// 0.001 seconds for 1000 rows.
+		id.InitData(original, masked)
+	}
+
+	data1.Close()
+	data2.Close()
+}
+
 func TestScaleData(t *testing.T) {
 	t.Parallel()
 
@@ -146,5 +209,37 @@ func TestScaleData(t *testing.T) {
 		dataScaled[i] = vals
 	}
 
-	assert.Equal(t, dataScaled, res)
+	assert.Contains(t, dataScaled, res[0])
+	assert.Contains(t, dataScaled, res[1])
+	assert.Contains(t, dataScaled, res[2])
+}
+
+func BenchmarkScaleData(b *testing.B) {
+	id := reidentification.NewIdentifier("cosine", 0.5)
+
+	data1, err := os.Open("testdata/simple.json")
+	assert.Nil(b, err)
+
+	data2, err := os.Open("testdata/maskedsimple.json")
+	assert.Nil(b, err)
+
+	original, err := infra.NewJSONLineSource(bufio.NewReader(data1), []string{"x", "y"}, []string{"z"})
+	assert.Nil(b, err)
+
+	masked, err := infra.NewJSONLineSource(bufio.NewReader(data2), []string{"x", "y"}, []string{"z"})
+	assert.Nil(b, err)
+
+	id.InitData(original, masked)
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		// Scaledata ran 1 times and each call took an average of 2783410300 nanoseconds to complete.
+		// 2 seconds for 1000 rows.
+		id.ScaleData("original", []string{"x", "y"}, []string{"z"})
+		id.ScaleData("filtered", []string{"x", "y"}, []string{"z"})
+	}
+
+	data1.Close()
+	data2.Close()
 }

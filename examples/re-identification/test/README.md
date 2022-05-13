@@ -38,11 +38,21 @@ sigo reidentification -q age,location,weight,height -s sickness -o examples/re-i
 - l = 1
 - method = *meanAggregation*
 
-| Re-identify  | 13 |  9  |  2  |  0  |
-|:------------:|:--:|:---:|:---:|:---:|
-| threshold    |  0 | 0.4 | 0.5 | 0.7 |
-|   correctly  | 10 |  8  |  2  |  0  |
-|  incorrectly |  3 |  1  |  0  |  0  |
+**Euclidean:**
+| Re-identify  |  13  |   9  |  2  |  0  |
+|:------------:|:----:|:----:|:---:|:---:|
+| threshold    |   0  |  0.4 | 0.5 | 0.7 |
+|   correctly  |  10  |   8  |  2  |  0  |
+|  incorrectly |   3  |   1  |  0  |  0  |
+|     ratio    | 0.76 | 0.88 |  1  |  0  |
+
+**Cosine:**
+| Re-identify  |  12  |  12  |   9  |  8  |
+|:------------:|:----:|:----:|:----:|:---:|
+| threshold    |   0  |  0.4 | 0.75 | 0.8 |
+|   correctly  |  10  |  10  |   9  |  8  |
+|  incorrectly |   2  |   2  |   0  |  0  |
+|     ratio    | 0.83 | 0.83 |   1  |  1  |
 
 `sigo` parameter: `data1/anonymized12.json`
 
@@ -50,6 +60,7 @@ sigo reidentification -q age,location,weight,height -s sickness -o examples/re-i
 - l = 3
 - method = *meanAggregation*
 
+**Euclidean & Cosine:**
 | Re-identify  | 0 |
 |:------------:|:-:|
 | threshold    | 0 |
@@ -62,11 +73,21 @@ sigo reidentification -q age,location,weight,height -s sickness -o examples/re-i
 - l = 3
 - method = *gaussianNoise*
 
-| Re-identify  | 100 |  76 |  40 |  8  |  0  |
-|:------------:|:---:|:---:|:---:|:---:|:---:|
-|   threshold  |  0  | 0.4 | 0.5 | 0.7 | 0.8 |
-|   correctly  |  55 |  45 |  25 |  5  |  0  |
-|  incorrectly |  45 |  31 |  15 |  3  |  0  |
+**Euclidean:**
+| Re-identify  |  100 |  76  |   40   |    8    |  0  |
+|:------------:|:----:|:----:|:------:|:-------:|:---:|
+|   threshold  |   0  | 0.4  |  0.5   |   0.7   | 0.8 |
+|   correctly  |  55  |  45  |   25   |    5    |  0  |
+|  incorrectly |  45  |  31  |   15   |    3    |  0  |
+|     ratio    | 0.55 | 0.59 |  0.625 |  0.625  |  0  |
+
+**Cosine:**
+| Re-identify  |  100 |  88  |   67  |   42   |   20  |
+|:------------:|:----:|:----:|:-----:|:------:|:-----:|
+|   threshold  |  0   | 0.7  |  0.8  |  0.9   | 0.95  |
+|   correctly  |  53  |  48  |   37  |   25   |  11   |
+|  incorrectly |  47  |  40  |   30  |   17   |   9   |
+|     ratio    | 0.53 | 0.54 |  0.55 |  0.59  | 0.55  |
 
 `sigo` parameter: `data1/anonymized14.json`
 
@@ -74,11 +95,21 @@ sigo reidentification -q age,location,weight,height -s sickness -o examples/re-i
 - l = 3
 - method = *swapping*
 
-| Re-identify  | 100 |  77 |  41 |  12 |  5  |  2  |
-|:------------:|:---:|:---:|:---:|:---:|:---:|:---:|
-|   threshold  |  0  | 0.4 | 0.5 | 0.7 | 0.8 | 0.9 |
-|   correctly  |  41 |  31 |  18 |  6  |  2  |  0  |
-|  incorrectly |  59 |  46 |  23 |  6  |  3  |  2  |
+**Euclidean:**
+| Re-identify  | 100  |  77  |   41  |   12   |   5   |  2  |
+|:------------:|:----:|:----:|:-----:|:------:|:-----:|:---:|
+|   threshold  |   0  | 0.4  |  0.5  |   0.7  |  0.8  | 0.9 |
+|   correctly  |  41  |  31  |   18  |    6   |   2   |  0  |
+|  incorrectly |  59  |  46  |   23  |    6   |   3   |  2  |
+|     ratio    | 0.41 | 0.40 |  0.43 |   0.5  |  0.4  |  0  |
+
+**Cosine:**
+| Re-identify  | 100  |  87  |   70  |   44   |   24   |
+|:------------:|:----:|:----:|:-----:|:------:|:------:|
+|   threshold  |   0  | 0.7  |  0.8  |   0.9  |  0.95  |
+|   correctly  |  46  |  39  |   33  |   22   |   14   |
+|  incorrectly |  54  |  48  |   37  |   22   |   10   |
+|     ratio    | 0.46 | 0.44 |  0.47 |   0.5  |  0.58  |
 
 ## 2nd Dataset (500 rows)
 
@@ -151,11 +182,13 @@ sigo reidentification -q genre,circonference,hauteur,x,y -s remarquable -o examp
 - l = 1
 - method = *meanAggregation*
 
-| Re-identify  | 98 |  77 |  41 |  1  |
-|:------------:|:--:|:---:|:---:|:---:|
-|   threshold  |  0 | 0.4 | 0.5 | 0.7 |
-|   correctly  | 87 |  69 |  38 |  1  |
-|  incorrectly | 11 |  8  |  3  |  0  |
+**Euclidean:**
+| Re-identify  |  98  |  77  |  41  |  1  |
+|:------------:|:----:|:----:|:----:|:---:|
+|   threshold  |   0  |  0.4 |  0.5 | 0.7 |
+|   correctly  |  87  |  69  |  38  |  1  |
+|  incorrectly |  11  |   8  |   3  |  0  |
+|     ratio    | 0.88 | 0.89 | 0.92 |  1  |
 
 `sigo` parameter: `data2/anonymized22.json`
 
@@ -163,6 +196,7 @@ sigo reidentification -q genre,circonference,hauteur,x,y -s remarquable -o examp
 - l = 3
 - method = *meanAggregation*
 
+**Euclidean:**
 | Re-identify  | 0 |
 |:------------:|:-:|
 | threshold    | 0 |
@@ -175,11 +209,13 @@ sigo reidentification -q genre,circonference,hauteur,x,y -s remarquable -o examp
 - l = 3
 - method = *gaussianNoise*
 
-| Re-identify  | 500 | 400 | 226 |  27 |  5  |
-|:------------:|:---:|:---:|:---:|:---:|:---:|
-|   threshold  |  0  | 0.4 | 0.5 | 0.7 | 0.8 |
-|   correctly  | 340 | 280 | 157 |  19 |  5  |
-|  incorrectly | 160 | 120 |  69 |  8  |  0  |
+**Euclidean:**
+| Re-identify  |  500 | 400 |  226 |  27  |  5  |
+|:------------:|:----:|:---:|:----:|:----:|:---:|
+|   threshold  |   0  | 0.4 |  0.5 |  0.7 | 0.8 |
+|   correctly  |  340 | 280 |  157 |  19  |  5  |
+|  incorrectly |  160 | 120 |  69  |   8  |  0  |
+|     ratio    | 0.68 | 0.7 | 0.69 | 0.70 |  1  |
 
 `sigo` parameter: `data2/anonymized24.json`
 
@@ -187,20 +223,11 @@ sigo reidentification -q genre,circonference,hauteur,x,y -s remarquable -o examp
 - l = 3
 - method = *gaussianNoise*
 
-| Re-identify  | 500 | 392 | 210 |  18 |  1  |
-|:------------:|:---:|:---:|:---:|:---:|:---:|
-|   threshold  |  0  | 0.4 | 0.5 | 0.7 | 0.8 |
-|   correctly  | 306 | 235 | 121 |  11 |  1  |
-|  incorrectly | 194 | 157 |  89 |  7  |  0  |
+**Euclidean:**
+| Re-identify  |  500 |  392 |  210 |  18  |  1  |
+|:------------:|:----:|:----:|:----:|:----:|:---:|
+|   threshold  |   0  |  0.4 |  0.5 |  0.7 | 0.8 |
+|   correctly  |  306 |  235 |  121 |  11  |  1  |
+|  incorrectly |  194 |  157 |  86  |   7  |  0  |
+|     ratio    | 0.61 | 0.59 | 0.57 | 0.61 |  1  |
 
-`sigo` parameter: `data2/anonymized25.json`
-
-- k = 20
-- l = 3
-- method = *gaussianNoise*
-
-| Re-identify  | 500 | 389 | 201 |  13 |  1  |
-|:------------:|:---:|:---:|:---:|:---:|:---:|
-|   threshold  |  0  | 0.4 | 0.5 | 0.7 | 0.8 |
-|   correctly  | 280 | 217 | 112 |  8  |  1  |
-|  incorrectly | 220 | 172 |  89 |  5  |  0  |
