@@ -1,4 +1,4 @@
-package reidentification
+package sigo
 
 import (
 	"math"
@@ -97,4 +97,8 @@ func ComputeDistance(name string, x, y map[string]float64) float64 {
 	default:
 		return Euclidean(x, y)
 	}
+}
+
+func Similarity(distance float64) float64 {
+	return 1 / (1 + distance)
 }

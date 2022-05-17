@@ -15,13 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with SIGO.  If not, see <http://www.gnu.org/licenses/>.
 
-package reidentification_test
+package sigo_test
 
 import (
+	"encoding/json"
 	"math"
 	"testing"
 
-	"github.com/cgi-fr/sigo/pkg/reidentification"
+	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -36,10 +37,10 @@ func TestMapInterfaceToFloat(t *testing.T) {
 	m2["x"] = 1
 	m2["y"] = 15
 
-	s1 := reidentification.MapItoMapF(m1)
-	s2 := reidentification.MapItoMapF(m2)
+	s1 := sigo.MapItoMapF(m1)
+	s2 := sigo.MapItoMapF(m2)
 
-	dist := reidentification.Cosine(s1, s2)
+	dist := sigo.Cosine(s1, s2)
 
 	assert.InDelta(t, 0.45418744744022516, dist, math.Pow10(-15))
 }
@@ -48,7 +49,7 @@ func TestCountValues(t *testing.T) {
 	t.Parallel()
 
 	values := []string{"a", "a", "b", "a", "c", "c", "a", "b"}
-	count := reidentification.CountValues(values)
+	count := sigo.CountValues(values)
 
 	assert.Equal(t, 4, count["a"])
 	assert.Equal(t, 2, count["b"])
@@ -79,7 +80,7 @@ func TestListValues(t *testing.T) {
 	data[1] = vals1
 	data[2] = vals2
 
-	res := reidentification.ListValues(data, []string{"z"})
+	res := sigo.ListValues(data, []string{"z"})
 
 	expected := make(map[string][]interface{})
 	expected["x"] = []interface{}{2.12, 4.36, 12.17}
@@ -119,7 +120,7 @@ func TestScaledData(t *testing.T) {
 		dataScaled[i] = vals
 	}
 
-	res := reidentification.ScaleData(data, []string{"z"})
+	res := sigo.ScaleData(data, []string{"z"})
 
 	assert.Equal(t, dataScaled, res)
 }
@@ -130,9 +131,29 @@ func TestRoundFloat(t *testing.T) {
 	v := 0.957895
 	v2 := 0.6058987922965455
 
-	res := reidentification.RoundFloat(v, 4)
-	res2 := reidentification.RoundFloat(v2, 4)
+	res := sigo.RoundFloat(v, 4)
+	res2 := sigo.RoundFloat(v2, 4)
 
 	assert.Equal(t, 0.9579, res)
 	assert.Equal(t, 0.6059, res2)
+}
+
+func TestUnique(t *testing.T) {
+	t.Parallel()
+
+	slice := make([]map[string]interface{}, 3)
+
+	data := make(map[string]interface{})
+	data["original"] = 0
+	data["x"] = json.Number("7")
+	data["y"] = json.Number("6.67")
+	data["z"] = "a"
+
+	slice[0] = data
+	slice[1] = data
+	slice[2] = data
+
+	res := sigo.Unique(slice, []string{"x", "y"})
+
+	assert.True(t, res)
 }

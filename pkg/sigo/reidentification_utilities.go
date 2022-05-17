@@ -15,15 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with SIGO.  If not, see <http://www.gnu.org/licenses/>.
 
-package reidentification
+package sigo
 
 import (
 	"encoding/json"
 	"math"
+	"sort"
 	"strconv"
 
 	"github.com/cgi-fr/jsonline/pkg/cast"
-	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
 // MapItoMapF convert a map[string]interface{} to a map[string]float64.
@@ -98,7 +98,7 @@ func ScaleData(data []map[string]interface{}, s []string) (scaledData []map[stri
 			for _, sens := range s {
 				if key != sens {
 					v, _ := cast.ToFloat64(val)
-					scaledMap[key] = Scaling(v, listValues[key])
+					scaledMap[key] = Scaling2(v, listValues[key])
 				} else {
 					// nolint: forcetypeassert
 					scaledMap[key] = val.(string)
@@ -113,10 +113,10 @@ func ScaleData(data []map[string]interface{}, s []string) (scaledData []map[stri
 }
 
 // Scaling returns the scaled value to ensure the mean and the standard deviation to be 0 and 1, respectively.
-func Scaling(value interface{}, listValues []interface{}) float64 {
+func Scaling2(value interface{}, listValues []interface{}) float64 {
 	listVals := SliceToFloat64(listValues)
 	// Standardization
-	return (value.(float64) - sigo.Mean(listVals)) / sigo.Std(listVals)
+	return (value.(float64) - Mean(listVals)) / Std(listVals)
 }
 
 // SliceToFloat64 convert a slice of interface into a slice of float64.
@@ -134,4 +134,42 @@ func RoundFloat(val float64, precision uint) float64 {
 	ratio := math.Pow(10, float64(precision))
 
 	return math.Round(val*ratio) / ratio
+}
+
+func TopSimilarity(s map[float64]interface{}) (float64, interface{}) {
+	scores := []float64{}
+
+	for similarity := range s {
+		scores = append(scores, similarity)
+	}
+
+	sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
+
+	// best score
+	top := scores[0]
+
+	return scores[0], s[top]
+}
+
+// Unique returns if the slice contains unique map[string]interface{} or not.
+func Unique(slice []map[string]interface{}, qi []string) bool {
+	tmp := make(map[string]int)
+
+	for _, data := range slice {
+		val := ""
+
+		for i, q := range qi {
+			s, _ := cast.ToString(data[q])
+			if i == 0 {
+				//nolint: forcetypeassert
+				val += s.(string)
+			} else {
+				val += "-" + s.(string)
+			}
+		}
+
+		tmp[val]++
+	}
+
+	return len(tmp) == 1
 }

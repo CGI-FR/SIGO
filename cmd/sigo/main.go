@@ -24,7 +24,6 @@ import (
 	"strings"
 
 	over "github.com/Trendyol/overlog"
-	"github.com/cgi-fr/sigo/internal/app/reidentify"
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
 	"github.com/mattn/go-isatty"
@@ -102,7 +101,8 @@ func main() {
 		StringSliceVarP(&definition.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.method, "anonymizer", "a", "", "anonymization method used. Select one from this list "+
-			"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
+			"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping',"+
+			" 'reidentification']")
 	rootCmd.PersistentFlags().
 		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().
@@ -111,9 +111,6 @@ func main() {
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
-
-		// reidentification
-	rootCmd.AddCommand(reidentify.NewCommand("sigo", os.Stderr, os.Stdout, os.Stdin))
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -242,6 +239,8 @@ func newAnonymizer(name string) sigo.Anonymizer {
 		return sigo.NewNoiseAnonymizer("gaussian")
 	case "swapping":
 		return sigo.NewSwapAnonymizer()
+	case "reidentification":
+		return sigo.NewReidentification()
 	default:
 		return sigo.NewNoAnonymizer()
 	}

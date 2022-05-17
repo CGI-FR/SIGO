@@ -17,6 +17,10 @@
 
 package sigo
 
+import (
+	"encoding/json"
+)
+
 const (
 	laplace  = "laplace"
 	gaussian = "gaussian"
@@ -44,6 +48,14 @@ func NewSwapAnonymizer() SwapAnonymizer {
 	return SwapAnonymizer{swapValues: make(map[string]map[string][]float64)}
 }
 
+func NewReidentification() Reidentification {
+	return Reidentification{
+		masked:    make(map[string][]map[string]interface{}),
+		unique:    make(map[string]bool),
+		sensitive: make(map[string]interface{}),
+	}
+}
+
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
@@ -63,6 +75,12 @@ type (
 	AnonymizedRecord struct {
 		original Record
 		mask     map[string]interface{}
+	}
+
+	Reidentification struct {
+		masked    map[string][]map[string]interface{}
+		unique    map[string]bool
+		sensitive map[string]interface{}
 	}
 )
 
@@ -240,6 +258,88 @@ func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	}
 
 	a.swapValues[clus.ID()] = swapVal
+}
+
+func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	mask := map[string]interface{}{}
+
+	// initialize re-identification object
+	if r.masked[clus.ID()] == nil {
+		r.InitReidentification(clus, qi)
+	}
+
+	original, _ := rec.Sensitives()[0].(json.Number).Int64()
+
+	if original == 1 {
+		for _, q := range qi {
+			mask[q] = rec.Row()[q]
+		}
+
+		if r.sensitive[clus.ID()] != nil {
+			mask[s[1]] = r.sensitive[clus.ID()]
+		} else if !r.unique[clus.ID()] {
+			scores := r.ComputeSimilarity(rec, clus, qi, s)
+			_, sens := TopSimilarity(scores)
+			mask[s[1]] = sens
+		}
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+// InitReidentification initialize the re-identification object.
+func (r Reidentification) InitReidentification(clus Cluster, qi []string) {
+	maskedData := []map[string]interface{}{}
+
+	sens := []string{}
+
+	for _, rec := range clus.Records() {
+		original, _ := rec.Sensitives()[0].(json.Number).Int64()
+		if original == 0 {
+			maskedData = append(maskedData, rec.Row())
+			sens = append(sens, rec.Sensitives()[1].(string))
+		}
+	}
+
+	// groups all the anonymized records
+	r.masked[clus.ID()] = maskedData
+
+	// indicates if the cluster contains unique masked data
+	r.unique[clus.ID()] = Unique(maskedData, qi)
+
+	// checks if the sensitive data is well represented
+	if IsUnique(sens) {
+		r.sensitive[clus.ID()] = sens[0]
+	} else {
+		r.sensitive[clus.ID()] = nil
+	}
+}
+
+func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
+	qi []string, s []string) map[float64]interface{} {
+	scores := make(map[float64]interface{})
+
+	x := make(map[string]interface{})
+	for _, q := range qi {
+		x[q] = rec.Row()[q]
+	}
+
+	X := MapItoMapF(x)
+
+	for _, row := range r.masked[clus.ID()] {
+		y := make(map[string]interface{})
+		for _, q := range qi {
+			y[q] = row[q]
+		}
+
+		Y := MapItoMapF(y)
+
+		score := Similarity(ComputeDistance("", X, Y))
+
+		scores[score] = row[s[1]]
+	}
+
+	return scores
 }
 
 // Returns the list of values present in the cluster for each qi.
