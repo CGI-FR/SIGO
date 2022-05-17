@@ -75,3 +75,36 @@ func TestUnique(t *testing.T) {
 
 	assert.True(t, res)
 }
+
+func TestListValues(t *testing.T) {
+	t.Parallel()
+
+	data := make([]map[string]interface{}, 3)
+
+	vals0 := make(map[string]interface{})
+	vals0["x"] = 2.12
+	vals0["y"] = 4.5
+	vals0["z"] = "a"
+
+	vals1 := make(map[string]interface{})
+	vals1["x"] = 4.36
+	vals1["y"] = 8.75
+	vals1["z"] = "b"
+
+	vals2 := make(map[string]interface{})
+	vals2["x"] = 12.17
+	vals2["y"] = 3.96
+	vals2["z"] = "c"
+
+	data[0] = vals0
+	data[1] = vals1
+	data[2] = vals2
+
+	res := sigo.ListValues(data, []string{"", "z"})
+
+	expected := make(map[string][]interface{})
+	expected["x"] = []interface{}{2.12, 4.36, 12.17}
+	expected["y"] = []interface{}{4.5, 8.75, 3.96}
+
+	assert.Equal(t, expected, res)
+}

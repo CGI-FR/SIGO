@@ -58,6 +58,7 @@ type pdef struct {
 	method    string
 	cmdLine   []string
 	config    string
+	args      []string
 }
 
 func main() {
@@ -111,6 +112,8 @@ func main() {
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
+	rootCmd.PersistentFlags().
+		StringSliceVar(&definition.args, "args", []string{}, "list of arguments for anonymizer method")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -165,7 +168,7 @@ func run(info infos, definition pdef, logs logs) {
 
 	// Anonymization
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
-		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
+		len(definition.qi), newAnonymizer(definition.method, definition.args), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
@@ -223,7 +226,7 @@ func initLog(logs logs, info infos) {
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
 }
 
-func newAnonymizer(name string) sigo.Anonymizer {
+func newAnonymizer(name string, args []string) sigo.Anonymizer {
 	switch name {
 	case "general":
 		return sigo.NewGeneralAnonymizer()
@@ -240,7 +243,7 @@ func newAnonymizer(name string) sigo.Anonymizer {
 	case "swapping":
 		return sigo.NewSwapAnonymizer()
 	case "reidentification":
-		return sigo.NewReidentification()
+		return sigo.NewReidentification(args)
 	default:
 		return sigo.NewNoAnonymizer()
 	}

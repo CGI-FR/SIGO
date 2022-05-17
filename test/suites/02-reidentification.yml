@@ -57,8 +57,9 @@ testcases:
           {"original":0,"id":24,"x":19.67,"y":17.67,"z":"b"}
           EOF
       - script: |-
-          sigo -q x,y -s original,z -a reidentification < anonymized.json
+          sigo -q x,y -s original -a reidentification --args z < anonymized.json
         assertions:
           - result.systemoutjson ShouldContainKey original
           - result.systemoutjson ShouldContainKey z
           - result.code ShouldEqual 0
+      - script: rm -f anonymized.json

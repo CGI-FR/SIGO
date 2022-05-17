@@ -62,10 +62,15 @@ func CountValues(sensitives []string) map[string]int {
 }
 
 // IsUnique returns if the string slice contains unique values or not.
-func IsUnique(sensitives []string) bool {
-	count := CountValues(sensitives)
+func IsUnique(sensitives map[string][]interface{}) map[string]bool {
+	unique := make(map[string]bool)
 
-	return len(count) == 1
+	for key, vals := range sensitives {
+		count := CountValues(SliceString(vals))
+		unique[key] = len(count) == 1
+	}
+
+	return unique
 }
 
 func TopSimilarity(s map[float64]interface{}) (float64, interface{}) {
@@ -104,4 +109,47 @@ func Unique(slice []map[string]interface{}, qi []string) bool {
 	}
 
 	return len(tmp) == 1
+}
+
+// Returns the list of values present in the slice of map[string]interface{}.
+func ListValues(data []map[string]interface{}, s []string) (mapValues map[string][]interface{}) {
+	mapValues = make(map[string][]interface{})
+
+	for _, mapData := range data {
+		for key, val := range mapData {
+			if key != s[0] && key != s[1] {
+				v, _ := cast.ToFloat64(val)
+				mapValues[key] = append(mapValues[key], v)
+			}
+		}
+	}
+
+	return mapValues
+}
+
+// SliceToFloat64 convert a slice of interface into a slice of float64.
+func SliceToFloat64(slice []interface{}) (res []float64) {
+	for _, elt := range slice {
+		val, _ := cast.ToFloat64(elt)
+		res = append(res, val.(float64))
+	}
+
+	return res
+}
+
+// SliceString convert a slice of interface into a slice of string.
+func SliceString(slice []interface{}) (res []string) {
+	for _, elt := range slice {
+		val, _ := cast.ToString(elt)
+		res = append(res, val.(string))
+	}
+
+	return res
+}
+
+// Scale returns the scaled value to ensure the mean and the standard deviation to be 0 and 1, respectively.
+func Scale(value interface{}, mean float64, std float64) float64 {
+	val, _ := cast.ToFloat64(value)
+	// Standardization
+	return (val.(float64) - mean) / std
 }

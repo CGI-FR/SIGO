@@ -231,8 +231,8 @@ func TestReidentification(t *testing.T) {
 	node.Add(createRowReidentification(7, 6.67, qi, json.Number("0"), s, "c"))
 	node.Add(createRowReidentification(8, 10, qi, json.Number("1"), s, ""))
 
-	anonymizer := sigo.NewReidentification()
-	anonymizedRecord := anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"original", "z"})
+	anonymizer := sigo.NewReidentification([]string{"z"})
+	anonymizedRecord := anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"original"})
 	expected := map[string]interface{}{
 		"original": json.Number("1"),
 		"x":        5.00,
