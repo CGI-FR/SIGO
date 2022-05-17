@@ -18,7 +18,6 @@ package sigo_test
 
 import (
 	"encoding/json"
-	"log"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -242,31 +241,6 @@ func TestReidentification(t *testing.T) {
 	}
 
 	assert.Equal(t, expected, anonymizedRecord.Row())
-}
-
-func TestReidentification2(t *testing.T) {
-	t.Parallel()
-
-	qi := []string{"x", "y"}
-	s := []string{"original", "z"}
-
-	tree := sigo.NewKDTree(3, 2, 2, make(map[string]int))
-	node := sigo.NewNode(&tree, "root", 0)
-
-	record1 := createRowReidentification(5, 6, qi, json.Number("1"), s, "")
-	node.Add(record1)
-
-	record2 := createRowReidentification(7, 6.67, qi, json.Number("0"), s, "a")
-	node.Add(record2)
-	node.Add(createRowReidentification(8, 9, qi, json.Number("0"), s, "b"))
-	node.Add(createRowReidentification(8, 4, qi, json.Number("1"), s, ""))
-	node.Add(createRowReidentification(5, 3, qi, json.Number("0"), s, "c"))
-	node.Add(createRowReidentification(8, 10, qi, json.Number("1"), s, ""))
-
-	anonymizer := sigo.NewReidentification()
-	anonymizedRecord := anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"original", "z"})
-
-	log.Println(anonymizedRecord.Row())
 }
 
 func createRow(x, y float64, qi []string, z string, s []string) infra.JSONLineRecord {

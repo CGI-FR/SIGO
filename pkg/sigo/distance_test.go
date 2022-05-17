@@ -90,3 +90,14 @@ func TestComputeDistance(t *testing.T) {
 
 	assert.Equal(t, 2.00, dist)
 }
+
+func TestComputeSimilarity(t *testing.T) {
+	t.Parallel()
+
+	X := map[string]float64{"k1": 0, "k2": 0}
+	Y := map[string]float64{"k1": 2, "k2": 0}
+
+	dist := sigo.ComputeDistance("", X, Y)
+
+	assert.Equal(t, float64(1)/float64(3), sigo.Similarity(dist))
+}

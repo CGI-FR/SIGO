@@ -18,7 +18,7 @@
 package sigo
 
 import (
-	"encoding/json"
+	"github.com/cgi-fr/jsonline/pkg/cast"
 )
 
 const (
@@ -260,6 +260,7 @@ func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	a.swapValues[clus.ID()] = swapVal
 }
 
+// Anonymize object Reidentification re-identifies the original data using the anonymized data.
 func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 
@@ -268,16 +269,20 @@ func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		r.InitReidentification(clus, qi)
 	}
 
-	original, _ := rec.Sensitives()[0].(json.Number).Int64()
+	original, _ := cast.ToInt64(rec.Sensitives()[0])
 
-	if original == 1 {
+	// re-identification of the original data
+	if original.(int64) == 1 {
 		for _, q := range qi {
 			mask[q] = rec.Row()[q]
 		}
 
+		// if in a cluster the sensitive data is unique then we can re-identify the individuals
 		if r.sensitive[clus.ID()] != nil {
 			mask[s[1]] = r.sensitive[clus.ID()]
 		} else if !r.unique[clus.ID()] {
+			// else if the masked data are not unique, then the distances are computed
+			// (if they are unique, impossible to re-identify)
 			scores := r.ComputeSimilarity(rec, clus, qi, s)
 			_, sens := TopSimilarity(scores)
 			mask[s[1]] = sens
@@ -294,8 +299,8 @@ func (r Reidentification) InitReidentification(clus Cluster, qi []string) {
 	sens := []string{}
 
 	for _, rec := range clus.Records() {
-		original, _ := rec.Sensitives()[0].(json.Number).Int64()
-		if original == 0 {
+		original, _ := cast.ToInt64(rec.Sensitives()[0])
+		if original.(int64) == 0 {
 			maskedData = append(maskedData, rec.Row())
 			sens = append(sens, rec.Sensitives()[1].(string))
 		}
@@ -334,6 +339,7 @@ func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 
 		Y := MapItoMapF(y)
 
+		// Compute similarity
 		score := Similarity(ComputeDistance("", X, Y))
 
 		scores[score] = row[s[1]]

@@ -19,7 +19,6 @@ package sigo
 
 import (
 	"encoding/json"
-	"math"
 	"sort"
 	"strconv"
 
@@ -67,73 +66,6 @@ func IsUnique(sensitives []string) bool {
 	count := CountValues(sensitives)
 
 	return len(count) == 1
-}
-
-// Returns the list of values present in the cluster for each qi.
-func ListValues(data []map[string]interface{}, s []string) (mapValues map[string][]interface{}) {
-	mapValues = make(map[string][]interface{})
-
-	for _, mapData := range data {
-		for key, val := range mapData {
-			for _, sens := range s {
-				if key != sens {
-					v, _ := cast.ToFloat64(val)
-					mapValues[key] = append(mapValues[key], v)
-				}
-			}
-		}
-	}
-
-	return mapValues
-}
-
-// ScaleData returns the all scaled data.
-func ScaleData(data []map[string]interface{}, s []string) (scaledData []map[string]interface{}) {
-	listValues := ListValues(data, s)
-
-	for _, originalMap := range data {
-		scaledMap := make(map[string]interface{})
-
-		for key, val := range originalMap {
-			for _, sens := range s {
-				if key != sens {
-					v, _ := cast.ToFloat64(val)
-					scaledMap[key] = Scaling2(v, listValues[key])
-				} else {
-					// nolint: forcetypeassert
-					scaledMap[key] = val.(string)
-				}
-			}
-		}
-
-		scaledData = append(scaledData, scaledMap)
-	}
-
-	return scaledData
-}
-
-// Scaling returns the scaled value to ensure the mean and the standard deviation to be 0 and 1, respectively.
-func Scaling2(value interface{}, listValues []interface{}) float64 {
-	listVals := SliceToFloat64(listValues)
-	// Standardization
-	return (value.(float64) - Mean(listVals)) / Std(listVals)
-}
-
-// SliceToFloat64 convert a slice of interface into a slice of float64.
-func SliceToFloat64(slice []interface{}) (res []float64) {
-	for _, elt := range slice {
-		res = append(res, elt.(float64))
-	}
-
-	return res
-}
-
-// RoundFloat round a float with a given precision.
-func RoundFloat(val float64, precision uint) float64 {
-	//nolint: gomnd
-	ratio := math.Pow(10, float64(precision))
-
-	return math.Round(val*ratio) / ratio
 }
 
 func TopSimilarity(s map[float64]interface{}) (float64, interface{}) {
