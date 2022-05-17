@@ -101,9 +101,9 @@ func main() {
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&definition.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&definition.method, "anonymizer", "a", "", "anonymization method used. Select one from this list "+
-			"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping',"+
-			" 'reidentification']")
+		StringVarP(&definition.method, "anonymizer", "a", "NoAnonymizer", "anonymization method used."+
+			"Select one from this list ['general', 'meanAggregation', 'medianAggregation', 'outlier',"+
+			"'laplaceNoise', 'gaussianNoise', 'swapping', 'reidentification']")
 	rootCmd.PersistentFlags().
 		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().
@@ -124,8 +124,7 @@ func main() {
 func run(info infos, definition pdef, logs logs) {
 	initLog(logs, info)
 
-	// if the configuration file is present in the current directory
-	if sigo.Exist(definition.config) {
+	if sigo.Exist(definition.config) { // if the configuration file is present in the current directory
 		if err := definition.initConfig(); err != nil {
 			log.Err(err).Msg("Cannot load configuration definition from file")
 			log.Warn().Int("return", 1).Msg("End SIGO")
@@ -134,14 +133,10 @@ func run(info infos, definition pdef, logs logs) {
 	}
 
 	log.Info().
-		Str("configuration", definition.config).
-		Int("k-anonymity", definition.k).
-		Int("l-diversity", definition.l).
-		Strs("Quasi-Identifiers", definition.qi).
-		Strs("Sensitive", definition.sensitive).
-		Str("Method", definition.method).
-		Str("Cluster-Info", logs.info).
-		Msg("Start SIGO")
+		Str("configuration", definition.config).Int("k-anonymity", definition.k).
+		Int("l-diversity", definition.l).Strs("Quasi-Identifiers", definition.qi).
+		Strs("Sensitive", definition.sensitive).Str("Method", definition.method).
+		Str("Cluster-Info", logs.info).Msg("Start SIGO")
 
 	source, err := infra.NewJSONLineSource(os.Stdin, definition.qi, definition.sensitive)
 	if err != nil {
@@ -166,7 +161,17 @@ func run(info infos, definition pdef, logs logs) {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}
 
-	// Anonymization
+	methodName := []string{
+		"NoAnonymizer", "general", "meanAggregation", "medianAggregation", "outlier",
+		"laplaceNoise", "gaussianNoise", "swapping", "reidentification",
+	}
+
+	if !sigo.Find(methodName, definition.method) {
+		log.Err(err).Msg("Unknown anonymization method")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
 		len(definition.qi), newAnonymizer(definition.method, definition.args), sink, debugger)
 	if err != nil {
@@ -226,6 +231,7 @@ func initLog(logs logs, info infos) {
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
 }
 
+//nolint: cyclop
 func newAnonymizer(name string, args []string) sigo.Anonymizer {
 	switch name {
 	case "general":
@@ -243,6 +249,12 @@ func newAnonymizer(name string, args []string) sigo.Anonymizer {
 	case "swapping":
 		return sigo.NewSwapAnonymizer()
 	case "reidentification":
+		if len(args) == 0 {
+			log.Error().Msg("The list of arguments is empty")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
+
 		return sigo.NewReidentification(args)
 	default:
 		return sigo.NewNoAnonymizer()

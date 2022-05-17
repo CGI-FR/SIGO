@@ -18,7 +18,10 @@
 package sigo
 
 import (
+	"os"
+
 	"github.com/cgi-fr/jsonline/pkg/cast"
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -276,7 +279,12 @@ func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		r.InitReidentification(clus, qi, s)
 	}
 
-	original, _ := cast.ToInt64(rec.Sensitives()[0])
+	original, err := cast.ToInt64(rec.Sensitives()[0])
+	if err != nil {
+		log.Err(err).Msg("Cannot cast original value")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
 
 	// re-identification of the original data
 	if original.(int64) == 1 {
@@ -288,12 +296,14 @@ func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 			// if in a cluster the sensitive data is unique then we can re-identify the individuals
 			if r.sensitive[clus.ID()][sensitive] != nil {
 				mask[r.sensitivesFields[0]] = r.sensitive[clus.ID()][sensitive]
+				mask["similarity"] = 1
 			} else if !r.unique[clus.ID()] {
 				// else if the masked data are not unique, then the distances are computed
 				// (if they are unique, impossible to re-identify)
 				scores := r.ComputeSimilarity(rec, clus, qi, s)
-				_, sens := TopSimilarity(scores)
+				sim, sens := TopSimilarity(scores)
 				mask[r.sensitivesFields[0]] = sens
+				mask["similarity"] = sim
 			}
 		}
 	}
@@ -305,8 +315,8 @@ func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 func (r Reidentification) InitReidentification(clus Cluster, qi []string, s []string) {
 	// map containing the anonymized data
 	maskedData := []map[string]interface{}{}
+	// slice containing the records of cluster
 	data := []map[string]interface{}{}
-	statistics := make(map[string]map[string]float64)
 
 	// map containing for each sensitive attribute the list of sensitive data
 	sensitivesData := make(map[string][]interface{})
@@ -314,7 +324,13 @@ func (r Reidentification) InitReidentification(clus Cluster, qi []string, s []st
 	for _, rec := range clus.Records() {
 		data = append(data, rec.Row())
 
-		original, _ := cast.ToInt64(rec.Sensitives()[0])
+		original, err := cast.ToInt64(rec.Sensitives()[0])
+		if err != nil {
+			log.Err(err).Msg("Cannot cast original value")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
+
 		if original.(int64) == 0 {
 			maskedData = append(maskedData, rec.Row())
 
@@ -324,12 +340,16 @@ func (r Reidentification) InitReidentification(clus Cluster, qi []string, s []st
 		}
 	}
 
+	if len(maskedData) == 0 {
+		log.Error().Msg("Clusters with only original data, pay attention to the l-diversity parameter ")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
 	// groups all the anonymized records
 	r.masked[clus.ID()] = maskedData
-
 	// indicates if the cluster contains unique masked data
 	r.unique[clus.ID()] = Unique(maskedData, qi)
-
 	// checks if the sensitive data is well represented
 	uniqueSensitive := IsUnique(sensitivesData)
 
@@ -346,6 +366,13 @@ func (r Reidentification) InitReidentification(clus Cluster, qi []string, s []st
 	r.sensitive[clus.ID()] = tmp
 
 	// computes the mean and standard deviation of each cluster
+	r.ComputeStatistics(data, clus, s)
+}
+
+// ComputeStatistics computes the mean and standart deviation for cluster clus.
+func (r Reidentification) ComputeStatistics(data []map[string]interface{}, clus Cluster, s []string) {
+	statistics := make(map[string]map[string]float64)
+
 	for key, val := range ListValues(data, append(s, r.sensitivesFields...)) {
 		stats := make(map[string]float64)
 		stats["mean"] = Mean(SliceToFloat64(val))
@@ -357,6 +384,11 @@ func (r Reidentification) InitReidentification(clus Cluster, qi []string, s []st
 	r.stats[clus.ID()] = statistics
 }
 
+// Statistics returns the statistics of the q attribute of the cluster with path idCluster.
+func (r Reidentification) Statistics(idCluster string, q string) (mean float64, std float64) {
+	return r.stats[idCluster][q]["mean"], r.stats[idCluster][q]["std"]
+}
+
 // ComputeSimilarity computes the similarity score between the record rec and the anonymized cluster data.
 func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 	qi []string, s []string) map[float64]interface{} {
@@ -365,8 +397,7 @@ func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 	x := make(map[string]interface{})
 
 	for _, q := range qi {
-		mean := r.stats[clus.ID()][q]["mean"]
-		std := r.stats[clus.ID()][q]["std"]
+		mean, std := r.Statistics(clus.ID(), q)
 		x[q] = Scale(rec.Row()[q], mean, std)
 	}
 
@@ -376,8 +407,7 @@ func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 		y := make(map[string]interface{})
 
 		for _, q := range qi {
-			mean := r.stats[clus.ID()][q]["mean"]
-			std := r.stats[clus.ID()][q]["std"]
+			mean, std := r.Statistics(clus.ID(), q)
 			y[q] = Scale(row[q], mean, std)
 		}
 

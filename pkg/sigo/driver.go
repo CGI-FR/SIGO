@@ -64,5 +64,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 		}
 	}
 
+	log.Info().Msg("End of Anonymization")
+
 	return nil
 }

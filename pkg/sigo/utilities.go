@@ -150,6 +150,21 @@ func SliceString(slice []interface{}) (res []string) {
 // Scale returns the scaled value to ensure the mean and the standard deviation to be 0 and 1, respectively.
 func Scale(value interface{}, mean float64, std float64) float64 {
 	val, _ := cast.ToFloat64(value)
+
+	if std == 0 {
+		return 0
+	}
+
 	// Standardization
 	return (val.(float64) - mean) / std
+}
+
+func Find(slice []string, val string) bool {
+	for _, item := range slice {
+		if item == val {
+			return true
+		}
+	}
+
+	return false
 }

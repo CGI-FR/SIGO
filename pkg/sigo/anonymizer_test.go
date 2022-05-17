@@ -216,7 +216,7 @@ func TestReidentification(t *testing.T) {
 	t.Parallel()
 
 	qi := []string{"x", "y"}
-	s := []string{"original", "z"}
+	s := []string{"original"}
 
 	tree := sigo.NewKDTree(3, 2, 2, make(map[string]int))
 	node := sigo.NewNode(&tree, "root", 0)
