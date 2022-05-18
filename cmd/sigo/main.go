@@ -53,6 +53,7 @@ type logs struct {
 type pdef struct {
 	k         int
 	l         int
+	entropy   bool
 	qi        []string
 	sensitive []string
 	method    string
@@ -85,8 +86,6 @@ func main() {
 		},
 	}
 
-	var entropy bool
-
 	rootCmd.PersistentFlags().
 		StringVarP(&logs.verbosity, "verbosity", "v", "info",
 			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
@@ -112,8 +111,7 @@ func main() {
 		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
 	rootCmd.PersistentFlags().BoolVarP(&logs.profiling, "profiling", "p", false,
 		"start sigo with profiling and generate a cpu.pprof file (debug)")
-	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
-	over.MDC().Set("entropy", entropy)
+	rootCmd.PersistentFlags().BoolVar(&definition.entropy, "entropy", false, "use entropy model for l-diversity")
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
 
@@ -124,7 +122,7 @@ func main() {
 }
 
 func run(info infos, definition pdef, logs logs) {
-	initLog(logs, info)
+	initLog(logs, info, definition.entropy)
 
 	// if the configuration file is present in the current directory
 	if sigo.Exist(definition.config) {
@@ -180,7 +178,7 @@ func run(info infos, definition pdef, logs logs) {
 }
 
 // nolint: cyclop
-func initLog(logs logs, info infos) {
+func initLog(logs logs, info infos, entropy bool) {
 	color := false
 
 	switch strings.ToLower(logs.colormode) {
@@ -223,6 +221,8 @@ func initLog(logs logs, info infos) {
 	default:
 		zerolog.SetGlobalLevel(zerolog.Disabled)
 	}
+
+	over.MDC().Set("entropy", entropy)
 
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
 }
