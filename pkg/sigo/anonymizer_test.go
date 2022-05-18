@@ -243,6 +243,66 @@ func TestReidentification(t *testing.T) {
 	assert.Equal(t, expected, anonymizedRecord.Row())
 }
 
+func TestComputeStatistics(t *testing.T) {
+	t.Parallel()
+
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+	s := []string{"original"}
+
+	record1 := createRowReidentification(10, 2, qi, json.Number("0"), s, "a")
+	node.Add(record1)
+
+	node.Add(createRowReidentification(20, 2, qi, json.Number("0"), s, "b"))
+	node.Add(createRowReidentification(30, 2, qi, json.Number("0"), s, "c"))
+
+	node.Add(createRowReidentification(12, 2, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(22, 2, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(32, 2, qi, json.Number("1"), s, ""))
+
+	reidentification := sigo.NewReidentification([]string{"z"})
+
+	reidentification.InitReidentification(node.Clusters()[0], qi, s)
+
+	mean, std := reidentification.Statistics(node.Clusters()[0].ID(), "x")
+
+	assert.Equal(t, 21.00, mean)
+	assert.Equal(t, 8.225975119502044, std)
+}
+
+func TestComputeSimilarityFunction(t *testing.T) {
+	t.Parallel()
+
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+	s := []string{"original"}
+
+	node.Add(createRowReidentification(10, 2, qi, json.Number("0"), s, "a")) // dist : 0.24313226954193223
+	node.Add(createRowReidentification(20, 2, qi, json.Number("0"), s, "b")) // dist : 0.9725290781677294
+	node.Add(createRowReidentification(30, 2, qi, json.Number("0"), s, "c")) // dist : 2.188190425877391
+
+	record := createRowReidentification(12, 2, qi, json.Number("1"), s, "")
+
+	node.Add(record)
+	node.Add(createRowReidentification(22, 2, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(32, 2, qi, json.Number("1"), s, ""))
+
+	reidentification := sigo.NewReidentification([]string{"z"})
+
+	reidentification.InitReidentification(node.Clusters()[0], qi, s)
+
+	res := reidentification.ComputeSimilarity(record, node.Clusters()[0], qi, s)
+
+	expected := make(map[float64]interface{})
+	expected[0.8044196297538626] = "a"
+	expected[0.5069633756319041] = "b"
+	expected[0.3136575506542397] = "c"
+
+	assert.Equal(t, expected, res)
+}
+
 func createRow(x, y float64, qi []string, z string, s []string) infra.JSONLineRecord {
 	row := jsonline.NewRow()
 	row.Set("x", x)
