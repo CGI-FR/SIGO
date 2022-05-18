@@ -309,47 +309,127 @@ This approach depends greatly on the concepts of distance and similarity (more d
 
 ### Approach
 
-The approach is as follows :
+- 1st step:
 
-- Individuals with the same tuples of quasi-identifiers are grouped together.
-- If individuals in a group have the same value of sensitive data :
+Merge the anonymized data and the data from the open data, then add a binary attribute *original* which indicates the origin of the individual (`0` if it is the anonymized data and `1` if it is the external data to be re-identified).
 
-> ```diff
-> - then this sensitive data is given,
-> + else it is not given
-> ```
-
-![image](examples/re-identification/filtredData.png)
-
-- After that, we calculate the similarity between each individual collected from the open data and the filtered individuals of the anonymized dataset.
-- If similarity score is higher than the `threshold` set by the user and the sensitive data is found, then the individual can be re-identified.
-
-![image](examples/re-identification/similarity.png)
-
-Below is the use of `sigo` for re-identification with a `threshold` set to **0.6**.
+![image](examples/re-identification/step1.png)
 
 ```console
-sigo reidentification -q x,y -s z --load-original examples/re-identification/openData.json --load-masked examples/re-identification/anonymized.json --threshold 0.6
+cat examples/re-identification/anonymizedAggregation.json examples/re-identification/openData.json > examples/re-identification/merged.json
+```
+
+``` json
+...
+{"original":0,"id":22,"x":16.67,"y":18.33,"z":"c"}
+{"original":0,"id":23,"x":16.67,"y":18.33,"z":"b"}
+{"original":0,"id":24,"x":19.67,"y":17.67,"z":"b"}
+{"original":1,"id": 1, "x": 5, "y": 6}
+{"original":1,"id": 2, "x": 3, "y": 7}
+{"original":1,"id": 3, "x": 4, "y": 4}
+...
+```
+
+- 2nd step:
+
+Use sigo to form clusters of similar individuals.
+
+```console
+sigo -q x,y -s original -k 6 -l 2 -i cluster < examples/re-identification/merged.json
+```
+
+``` json
+{"id":2,"original":0,"x":3,"y":7,"z":"a","cluster":1}
+{"id":2,"original":1,"x":3,"y":7,"z":null,"cluster":1}
+{"id":3,"original":0,"x":3,"y":7,"z":"c","cluster":1}
+{"id":3,"original":1,"x":4,"y":4,"z":null,"cluster":1}
+{"id":4,"original":1,"x":2,"y":10,"z":null,"cluster":1}
+{"id":4,"original":0,"x":3,"y":7,"z":"b","cluster":1}
+{"id":1,"original":1,"x":5,"y":6,"z":null,"cluster":2}
+{"id":1,"original":0,"x":7,"y":6.67,"z":"a","cluster":2}
+{"id":5,"original":0,"x":7,"y":6.67,"z":"a","cluster":2}
+{"id":5,"original":1,"x":8,"y":4,"z":null,"cluster":2}
+{"id":6,"original":0,"x":7,"y":6.67,"z":"a","cluster":2}
+{"id":6,"original":1,"x":8,"y":10,"z":null,"cluster":2}
+...
+```
+
+- 3rd step:
+
+    - if in a cluster the sensitive data has the same value then we can re-identify the original individuals with this sensitive data.
+    - if in a cluster the sensitive data is not the same but the anonymized individuals are the same then we are not able to re-identify the original individuals.
+    - if in a cluster the sensitive data is not the same and the anonymized individuals are not the same then a distance computation will be performed to try to re-identify the individuals.
+
+![image](examples/re-identification/step3.png)
+
+Below is the use of `sigo` for re-identification.
+
+```console
+sigo -q x,y -s original -k 6 -l 2 -a reidentification --args z < examples/re-identification/merged.json
 ```
 
 ```json
-{"x":5,"y":6,"sensitive":["a"],"similarity":75.36}
-{"x":8,"y":4,"sensitive":["a"],"similarity":69.3}
-{"x":8,"y":10,"sensitive":["a"],"similarity":60.59}
-{"x":20,"y":20,"sensitive":["b"],"similarity":74.69}
-{"x":20,"y":18,"sensitive":["b"],"similarity":98.11}
-{"x":19,"y":15,"sensitive":["b"],"similarity":65.02}
+{"id":1,"original":1,"x":5,"y":6,"z":"a"}
+{"id":1,"original":0,"x":7,"y":6.67,"z":"a"}
+{"id":2,"original":0,"x":3,"y":7,"z":"a"}
+{"id":2,"original":1,"x":3,"y":7,"z":null}
+{"id":3,"original":0,"x":3,"y":7,"z":"c"}
+{"id":3,"original":1,"x":4,"y":4,"z":null}
+{"id":4,"original":1,"x":2,"y":10,"z":null}
+{"id":4,"original":0,"x":3,"y":7,"z":"b"}
+{"id":5,"original":0,"x":7,"y":6.67,"z":"a"}
+{"id":5,"original":1,"x":8,"y":4,"z":"a"}
+{"id":6,"original":0,"x":7,"y":6.67,"z":"a"}
+{"id":6,"original":1,"x":8,"y":10,"z":"a"}
+{"id":7,"original":1,"x":3,"y":16,"z":"a"}
+{"id":7,"original":0,"x":4.33,"y":17.67,"z":"a"}
+{"id":8,"original":1,"x":7,"y":19,"z":null}
+{"id":8,"original":0,"x":8,"y":15.67,"z":"a"}
+{"id":9,"original":0,"x":4.33,"y":17.67,"z":"a"}
+{"id":9,"original":1,"x":6,"y":18,"z":"a"}
+{"id":10,"original":0,"x":4,"y":18,"z":"b"}
+{"id":10,"original":1,"x":4,"y":19,"z":"b"}
+{"id":11,"original":1,"x":7,"y":14,"z":null}
+{"id":11,"original":0,"x":8,"y":15.67,"z":"c"}
+{"id":12,"original":0,"x":8,"y":15.67,"z":"c"}
+{"id":12,"original":1,"x":10,"y":14,"z":null}
+{"id":13,"original":1,"x":15,"y":5,"z":null}
+{"id":13,"original":0,"x":16,"y":6,"z":"c"}
+{"id":14,"original":1,"x":15,"y":7,"z":null}
+{"id":14,"original":0,"x":16,"y":6,"z":"b"}
+{"id":15,"original":1,"x":11,"y":9,"z":null}
+{"id":15,"original":0,"x":12.33,"y":6,"z":"b"}
+{"id":16,"original":1,"x":12,"y":3,"z":null}
+{"id":16,"original":0,"x":12.33,"y":6,"z":"a"}
+{"id":17,"original":0,"x":16,"y":6,"z":"c"}
+{"id":17,"original":1,"x":18,"y":6,"z":null}
+{"id":18,"original":0,"x":12.33,"y":6,"z":"c"}
+{"id":18,"original":1,"x":14,"y":6,"z":null}
+{"id":19,"original":0,"x":19.67,"y":17.67,"z":"b"}
+{"id":19,"original":1,"x":20,"y":20,"z":"b"}
+{"id":20,"original":0,"x":16.67,"y":18.33,"z":"c"}
+{"id":20,"original":1,"x":18,"y":19,"z":null}
+{"id":21,"original":0,"x":19.67,"y":17.67,"z":"b"}
+{"id":21,"original":1,"x":20,"y":18,"z":"b"}
+{"id":22,"original":0,"x":16.67,"y":18.33,"z":"c"}
+{"id":22,"original":1,"x":18,"y":18,"z":null}
+{"id":23,"original":1,"x":14,"y":18,"z":null}
+{"id":23,"original":0,"x":16.67,"y":18.33,"z":"b"}
+{"id":24,"original":1,"x":19,"y":15,"z":"b"}
+{"id":24,"original":0,"x":19.67,"y":17.67,"z":"b"}
 ```
 
 ### Usage for sigo reidentification
 
-The following flags can be used:
+These flags must be used for re-identification :
 
 - `--quasi-identifier,-q <strings>`, this flag lists the attributes (quasi-identifiers) of datasets.
-- `--sensitive,-s <strings>`, this flag lists the sensitive attributes of the anonymized dataset.
-- `--load-original=openData.json`, allows to load the data collected from the open data `openData.json`.
-- `--load-masked=anonymizedData.json`, allows to load the anonymized data `anonymizedData.json` that you want to re-identify.
-- `--threshold,-t <float32>`, this flag indicates the level of similarity we want to have for the re-identification between 0 and 1. 1 means that we want to re-identify individuals with a 100% similarity level.
+- `--sensitive,-s original`, this flag tells sigo to make the difference between anonymized data and original data to be re-identified.
+- `--l-value,-l 2`, the l-diversity parameter is set to 2 to have at least one anonymized data and one original data in the same cluster.
+- `--anonymizer,-a reidentification`, this flag allows to run the re-identification.
+- `--args <strings>`, this flag lists the arguments to pass to the re-identification method, i.e. the list of sensitive attributes of the dataset.
+
+The other `sigo` flags can be used in addition.
 
 ## Contributors
 
