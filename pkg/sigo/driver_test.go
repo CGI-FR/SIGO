@@ -19,7 +19,6 @@ package sigo_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -36,7 +35,7 @@ import (
 func TestSimpleClustering(t *testing.T) {
 	t.Parallel()
 
-	//nolint: goconst
+	// nolint: goconst
 	sourceText := `{"x":0, "y":0, "foo":"bar"}
 				   {"x":1, "y":1, "foo":"bar"}
 				   {"x":0, "y":1, "foo":"bar"}
@@ -98,16 +97,16 @@ type LoopReader struct {
 
 func (lr *LoopReader) Read(b []byte) (int, error) {
 	n, err := strings.NewReader(lr.template).Read(b)
-	fmt.Println(len(b))
+	// fmt.Println(len(b))
 	// fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
-	fmt.Printf("b[:n] = %q\n", b[:n])
+	// fmt.Printf("b[:n] = %q\n", b[:n])
 
 	if err == io.EOF {
 		if lr.n == 0 {
 			return n, io.EOF
 		}
 
-		fmt.Println(lr.n)
+		// fmt.Println(lr.n)
 
 		lr.n--
 
