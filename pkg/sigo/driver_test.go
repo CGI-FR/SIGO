@@ -26,6 +26,7 @@ import (
 
 	"github.com/cgi-fr/sigo/internal/infra"
 	"github.com/cgi-fr/sigo/pkg/sigo"
+	"github.com/rs/zerolog"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 
@@ -90,34 +91,9 @@ func TestGeneralizedClustering(t *testing.T) {
 	assert.Equal(t, 2, result[5]["clusterID"])
 }
 
-type LoopReader struct {
-	template string
-	n        int
-}
-
-func (lr *LoopReader) Read(b []byte) (int, error) {
-	n, err := strings.NewReader(lr.template).Read(b)
-	// fmt.Println(len(b))
-	// fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
-	// fmt.Printf("b[:n] = %q\n", b[:n])
-
-	if err == io.EOF {
-		if lr.n == 0 {
-			return n, io.EOF
-		}
-
-		// fmt.Println(lr.n)
-
-		lr.n--
-
-		return n, nil
-	}
-
-	//nolint: wrapcheck
-	return n, err
-}
-
 func BenchmarkSimpleClustering(b *testing.B) {
+	zerolog.SetGlobalLevel(zerolog.ErrorLevel)
+
 	iter := `{"x":0, "y":0, "foo":"bar"}
 				   {"x":1, "y":1, "foo":"bar"}
 				   {"x":0, "y":1, "foo":"bar"}
@@ -143,6 +119,8 @@ func BenchmarkSimpleClustering(b *testing.B) {
 }
 
 func BenchmarkLongClustering(b *testing.B) {
+	zerolog.SetGlobalLevel(zerolog.ErrorLevel)
+
 	for i := 0; i < b.N; i++ {
 		jsonBytes, err := os.Open("testdata/tree.json")
 
