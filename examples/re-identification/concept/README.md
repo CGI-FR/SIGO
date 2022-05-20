@@ -1,23 +1,27 @@
 # Reidentification key concepts
 
 **Definition of distance :** (*wikipédia*)
-We call distance, on a set $E$, any application $d$ defined on $E^2$ and with values in the set of positive or zero real numbers $\left( \R^+ \right)$,
+We call distance, on a set $E$, any application $d$ defined on $E^2$ and with values in the set of positive or zero real numbers $\left( \mathbb{R}^+ \right)$,
 
-> $d: E \times E \to \R^+$
+> $$d: E \times E \to \mathbb{R}^+$$
 
 verifying the following properties :
 
-> - symmetry : $\forall (a,b) \in E^2, d(a,b) = d(b,a)$
-> - separation : $\forall (a,b) \in E^2, d(a,b) = 0 \Leftrightarrow a = b$
-> - triangular inequality : $\forall (a,b,c) \in E^3, d(a,c) \leq d(a,b) + d(b,c)$
+> - symmetry : $$\forall (a,b) \in E^2, d(a,b) = d(b,a)$$
+> - separation : $$\forall (a,b) \in E^2, d(a,b) = 0 \Leftrightarrow a = b$$
+> - triangular inequality : $$\forall (a,b,c) \in E^3, d(a,c) \leq d(a,b) + d(b,c)$$
 
 The best known distances are the **Euclidean distance** and the **Manhattan distance**.
 
 ![image](manhattan.png)
 
-> |$$d(a,b) = \sqrt{\sum_{i=1}^{n} \left( a_i - b_i \right)^2} $$ | $$d(a,b) = \sum_{i=1}^{n} \left\| a_i - b_i \right\| $$|
-> |:----------------------:|:---------------------:|
-> | **Euclidean** distance | **Manhattan** distance|
+> **Euclidean** distance :
+
+$$d(a,b) = \sqrt{\sum_{i=1}^{n} \left( a_i - b_i \right)^2} $$
+
+> **Manhattan** distance :
+
+$$d(a,b) = \sum_{i=1}^{n} \left| a_i - b_i \right| $$
 
 ![image](distances.png)
 

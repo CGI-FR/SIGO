@@ -49,10 +49,10 @@ $$ \rho \left( x, y \right) = \frac{\sum \left[ \left( x_i - \overline x \right)
 
 With,
 
-$ \overline x  \text : \space \text mean \space \text of \space \text x \space \text variable. $
-$ \overline y  \text : \space \text mean \space \text of \space \text y \space \text variable. $
-$ \sigma_x  \text : \space \text standart \space \text deviation \space \text of \space \text x \space \text variable. $
-$ \sigma_y  \text : \space \text standart \space \text deviation \space \text of \space \text y \space \text variable. $
+$$ \overline x  \text : \space \text mean \space \text of \space \text x \space \text variable. \\
+\overline y  \text : \space \text mean \space \text of \space \text y \space \text variable. \\
+\sigma_x  \text : \space \text standart \space \text deviation \space \text of \space \text x \space \text variable. \\
+\sigma_y  \text : \space \text standart \space \text deviation \space \text of \space \text y \space \text variable. $$
 
 ```python
 import pandas as pd
