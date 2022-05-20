@@ -40,11 +40,14 @@ To calculate the correlation between each variable of the dataset we use the pea
 Pearson correlation measures the strength of the linear relationship between two continuous variables. It has a value between -1 to 1, with a value of -1 meaning a total negative linear correlation, 0 being no correlation, and + 1 meaning a total positive correlation.
 
 Pearson Correlation Coefficient :
-![equation](https://latex.codecogs.com/svg.image?%5Crho(x,y)%20=%20%5Cfrac%7B%5Csum%20%5Cleft%20%5B%20%5Cleft%20(%20x_%7Bi%7D%20-%20%5Cbar%7Bx%7D%20%5Cright%20)%20*%20%5Cleft%20(%20y_%7Bi%7D%20-%20%5Cbar%7By%7D%20%5Cright%20)%20%20%5Cright%20%5D%7D%7B%5Csigma_%7Bx%7D%20*%20%5Csigma_%7By%7D%7D)
+$$ \rho \left( x, y \right) = \frac{\sum \left[ \left( x_i - \overline x \right) \times \left( y_i - \overline y \right) \right]}{\sigma_x \times \sigma_y}  $$
 
 With,
 
-![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5C%5C%5Cbar%7Bx%7D%20%5Ctext%7B%20:%20mean%20of%20x%20variable.%7D%20%5C%5C%5Cbar%7By%7D%20%5Ctext%7B%20:%20mean%20of%20y%20variable.%7D%20%5C%5C%5Csigma_x%20%5Ctext%7B%20:%20standart%20deviation%20of%20x%20variable.%7D%20%5C%5C%5Csigma_y%20%5Ctext%7B%20:%20standart%20deviation%20of%20y%20variable.%7D)
+$ \overline x  \text : \space \text mean \space \text of \space \text x \space \text variable. $
+$ \overline y  \text : \space \text mean \space \text of \space \text y \space \text variable. $
+$ \sigma_x  \text : \space \text standart \space \text deviation \space \text of \space \text x \space \text variable. $
+$ \sigma_y  \text : \space \text standart \space \text deviation \space \text of \space \text y \space \text variable. $
 
 ```python
 import pandas as pd
