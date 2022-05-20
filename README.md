@@ -318,7 +318,7 @@ Merge the anonymized data and the data from the open data, then add a binary att
 The files are located in the folder `examples/re-identification`.
 
 ```console
-cat anonymizedAggregation.json openData.json > merged.json
+cat anonymized.json openData.json > merged.json
 ```
 
 ``` json
