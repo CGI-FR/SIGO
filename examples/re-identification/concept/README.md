@@ -7,11 +7,16 @@ We call distance, on a set $E$, any application $d$ defined on $E^2$ and with va
 
 verifying the following properties :
 
-- symmetry :
+> symmetry :
+
 $$\forall (a,b) \in E^2, d(a,b) = d(b,a)$$
-- separation :
+
+> separation :
+
 $$\forall (a,b) \in E^2, d(a,b) = 0 \Leftrightarrow a = b$$
-- triangular inequality :
+
+> triangular inequality :
+
 $$\forall (a,b,c) \in E^3, d(a,c) \leq d(a,b) + d(b,c)$$
 
 The best known distances are the **Euclidean distance** and the **Manhattan distance**.
