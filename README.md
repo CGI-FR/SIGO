@@ -274,7 +274,7 @@ Let's take as an example a very simple dataset that you can find in the `origina
 And suppose that we have 2 quasi-identifiers: `x` and `y` and as sensitive data the variable `z`. Anonymize the dataset using `sigo`, we use sigo's default settings **k=3** and **l=1** with the **meanAggregation** method :
 
 ```console
-sigo -q x,y -s z -a meanAggregation < original.json > anonymized.json
+sigo -q x,y -s z -a meanAggregation -i cluster < original.json > anonymized.json
 ```
 
 ```json
@@ -315,8 +315,10 @@ Merge the anonymized data and the data from the open data, then add a binary att
 
 ![image](examples/re-identification/step1.png)
 
+The files are located in the folder `examples/re-identification`.
+
 ```console
-cat examples/re-identification/anonymizedAggregation.json examples/re-identification/openData.json > examples/re-identification/merged.json
+cat anonymizedAggregation.json openData.json > merged.json
 ```
 
 ``` json
@@ -335,7 +337,7 @@ cat examples/re-identification/anonymizedAggregation.json examples/re-identifica
 Use sigo to form clusters of similar individuals.
 
 ```console
-sigo -q x,y -s original -k 6 -l 2 -i cluster < examples/re-identification/merged.json
+sigo -q x,y -s original -k 6 -l 2 -i cluster < merged.json
 ```
 
 ``` json
@@ -365,7 +367,7 @@ sigo -q x,y -s original -k 6 -l 2 -i cluster < examples/re-identification/merged
 Below is the use of `sigo` for re-identification.
 
 ```console
-sigo -q x,y -s original -k 6 -l 2 -a reidentification --args z < examples/re-identification/merged.json
+sigo -q x,y -s original -k 6 -l 2 -a reidentification --args z < merged.json
 ```
 
 ```json
