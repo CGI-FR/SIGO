@@ -112,7 +112,7 @@ The data is recorded in the carsn.json file, below you will find an overview of 
 | Weight_in_lbs    |     -0.927248    |  0.951283 |   0.985833   |  0.964514  |    1.000000   |   -0.500590  |
 | Acceleration     |     0.546557     | -0.501903 |   -0.528976  |  -0.669607 |   -0.500590   |   1.000000   |
 
-The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%5Cleft%20%5B%20%5Cpm%200.003%20;%20%5Cpm%200.163%20%5Cright%20%5D)
+The correlation after anonymization is in the range $\left[ \pm 0.003; \pm 0.163\right]$.
 
 ### Bibliography
 

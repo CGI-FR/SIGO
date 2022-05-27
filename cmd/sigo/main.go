@@ -58,6 +58,7 @@ type pdef struct {
 	method    string
 	cmdLine   []string
 	config    string
+	args      []string
 }
 
 func main() {
@@ -87,35 +88,32 @@ func main() {
 
 	var entropy bool
 
-	rootCmd.PersistentFlags().
-		StringVarP(&logs.verbosity, "verbosity", "v", "info",
-			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
-	rootCmd.PersistentFlags().
-		BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
-	rootCmd.PersistentFlags().
-		BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
+	rootCmd.PersistentFlags().StringVarP(&logs.verbosity, "verbosity", "v", "info",
+		"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
+	rootCmd.PersistentFlags().BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
+	rootCmd.PersistentFlags().BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
 	rootCmd.PersistentFlags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
-	rootCmd.PersistentFlags().
-		IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
-	rootCmd.PersistentFlags().
-		IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
+	rootCmd.PersistentFlags().IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
+	rootCmd.PersistentFlags().IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&definition.qi, "quasi-identifier", "q", []string{}, "list of quasi-identifying attributes")
 	rootCmd.PersistentFlags().
 		StringSliceVarP(&definition.sensitive, "sensitive", "s", []string{}, "list of sensitive attributes")
 	rootCmd.PersistentFlags().
-		StringVarP(&definition.method, "anonymizer", "a", "",
-			"anonymization method used. Select one from this list "+
-				"['general', 'meanAggregation', 'medianAggregation', 'outlier', 'laplaceNoise', 'gaussianNoise', 'swapping']")
+		StringVarP(&definition.method, "anonymizer", "a", "NoAnonymizer", "anonymization method used."+
+			"Select one from this list ['general', 'meanAggregation', 'medianAggregation', 'outlier',"+
+			"'laplaceNoise', 'gaussianNoise', 'swapping', 'reidentification']")
 	rootCmd.PersistentFlags().
 		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
-	rootCmd.PersistentFlags().BoolVarP(&logs.profiling, "profiling", "p", false,
-		"start sigo with profiling and generate a cpu.pprof file (debug)")
+	rootCmd.PersistentFlags().
+		BoolVarP(&logs.profiling, "profiling", "p", false, "start sigo with profiling and generate a cpu.pprof file (debug)")
 	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
 	over.MDC().Set("entropy", entropy)
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
+	rootCmd.PersistentFlags().
+		StringSliceVar(&definition.args, "args", []string{}, "list of arguments for anonymizer method")
 
 	if err := rootCmd.Execute(); err != nil {
 		log.Err(err).Msg("Error when executing command")
@@ -126,8 +124,7 @@ func main() {
 func run(info infos, definition pdef, logs logs) {
 	initLog(logs, info)
 
-	// if the configuration file is present in the current directory
-	if sigo.Exist(definition.config) {
+	if sigo.Exist(definition.config) { // if the configuration file is present in the current directory
 		if err := definition.initConfig(); err != nil {
 			log.Err(err).Msg("Cannot load configuration definition from file")
 			log.Warn().Int("return", 1).Msg("End SIGO")
@@ -136,14 +133,10 @@ func run(info infos, definition pdef, logs logs) {
 	}
 
 	log.Info().
-		Str("configuration", definition.config).
-		Int("k-anonymity", definition.k).
-		Int("l-diversity", definition.l).
-		Strs("Quasi-Identifiers", definition.qi).
-		Strs("Sensitive", definition.sensitive).
-		Str("Method", definition.method).
-		Str("Cluster-Info", logs.info).
-		Msg("Start SIGO")
+		Str("configuration", definition.config).Int("k-anonymity", definition.k).
+		Int("l-diversity", definition.l).Strs("Quasi-Identifiers", definition.qi).
+		Strs("Sensitive", definition.sensitive).Str("Method", definition.method).
+		Str("Cluster-Info", logs.info).Msg("Start SIGO")
 
 	source, err := infra.NewJSONLineSource(os.Stdin, definition.qi, definition.sensitive)
 	if err != nil {
@@ -168,8 +161,19 @@ func run(info infos, definition pdef, logs logs) {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}
 
+	methodName := []string{
+		"NoAnonymizer", "general", "meanAggregation", "medianAggregation", "outlier",
+		"laplaceNoise", "gaussianNoise", "swapping", "reidentification",
+	}
+
+	if !sigo.Find(methodName, definition.method) {
+		log.Err(err).Msg("Unknown anonymization method")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
-		len(definition.qi), newAnonymizer(definition.method), sink, debugger)
+		len(definition.qi), newAnonymizer(definition.method, definition.args), sink, debugger)
 	if err != nil {
 		panic(err)
 	}
@@ -227,7 +231,8 @@ func initLog(logs logs, info infos) {
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
 }
 
-func newAnonymizer(name string) sigo.Anonymizer {
+//nolint: cyclop
+func newAnonymizer(name string, args []string) sigo.Anonymizer {
 	switch name {
 	case "general":
 		return sigo.NewGeneralAnonymizer()
@@ -243,6 +248,14 @@ func newAnonymizer(name string) sigo.Anonymizer {
 		return sigo.NewNoiseAnonymizer("gaussian")
 	case "swapping":
 		return sigo.NewSwapAnonymizer()
+	case "reidentification":
+		if len(args) == 0 {
+			log.Error().Msg("The list of arguments is empty")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
+
+		return sigo.NewReidentification(args)
 	default:
 		return sigo.NewNoAnonymizer()
 	}
