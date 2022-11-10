@@ -2,7 +2,7 @@ FROM adrienaury/go-devcontainer-ci:v0.5
 
 USER root
 
-RUN apk add --update --progress --no-cache make gomplate
+RUN apk add --update --progress --no-cache make gomplate jq
 
 ARG VERSION_GOLICENSE=0.2.0
 ARG VERSION_MILLER=5.10.2
