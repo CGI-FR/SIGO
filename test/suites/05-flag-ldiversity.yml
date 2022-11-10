@@ -11,10 +11,11 @@ testcases:
           { "x": 50, "y": 3, "z": "c" }
           { "x": 60, "y": 6, "z": "a" }
           EOF
-        # - script: |-
-        #     jq -n '[inputs] | map(.cluster) | max' < clusters.jsonl
+      - script: |-
+          jq -n '[inputs] | map(.cluster) | max' < clusters.jsonl
         assertions:
-          # - result.systemout ShouldEqual 1
+          - result.systemout ShouldEqual 1
+          - result.systemerr ShouldBeEmpty
           - result.code ShouldEqual 0
       - script: rm -f clusters.jsonl
 
