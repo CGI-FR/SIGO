@@ -249,18 +249,23 @@ func (n *node) isValid() bool {
 // (https://tel.archives-ouvertes.fr/tel-01783967/document p.29/30).
 func (n node) wellLDiv() bool {
 	var f func([]Record, int) float64
+
+	var condition float64
+
 	if b, ok := over.MDC().Get("entropy"); !ok || !b.(bool) {
 		// Distinct l-diversity
 		f = logQ
+		condition = float64(n.tree.l)
 	} else {
 		// Entropy l-diversity
 		f = entropy
+		condition = math.Log(float64(n.tree.l))
 	}
 
 	rec := n.cluster[0]
 	for i := 0; i < len(rec.Sensitives()); i++ {
 		e := f(n.cluster, i)
-		if e < math.Log(float64(n.tree.l)) {
+		if e < condition {
 			return false
 		}
 	}

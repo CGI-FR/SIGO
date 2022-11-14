@@ -17,7 +17,6 @@
 package sigo_test
 
 import (
-	"log"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -214,9 +213,6 @@ func TestSwapAnonymizer(t *testing.T) {
 	anonymizer := sigo.NewSwapAnonymizer()
 
 	anonymizedRecord := anonymizer.Anonymize(record, node.Clusters()[0], []string{"x", "y"}, []string{})
-
-	log.Println(anonymizedRecord.Row()["x"])
-	log.Println(anonymizedRecord.Row()["y"])
 
 	assert.Contains(t, []float64{1, 2, 3}, anonymizedRecord.Row()["x"])
 	assert.Contains(t, []float64{4, 5, 6}, anonymizedRecord.Row()["y"])
