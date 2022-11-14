@@ -87,12 +87,7 @@ func NewNode(tree *KDTree, path string, rot int) node {
 		pivot:       []float64{},
 		valid:       false,
 		rot:         rot % tree.dim,
-		bounds:      make([]bounds, tree.dim),
 	}
-}
-
-type bounds struct {
-	down, up float64
 }
 
 type node struct {
@@ -100,7 +95,6 @@ type node struct {
 	cluster     []Record
 	clusterPath string
 	subNodes    []node
-	bounds      []bounds
 	pivot       []float64
 	valid       bool
 	rot         int
@@ -125,10 +119,6 @@ func (n *node) build() {
 		Msg("Cluster:")
 
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
-		if n == n.tree.root {
-			n.initiateBounds()
-		}
-
 		// rollback to simple node
 		var (
 			lower, upper node
@@ -157,29 +147,9 @@ func (n *node) build() {
 		}
 
 		n.cluster = nil
-		n.bounds = make([]bounds, n.tree.dim)
 		n.subNodes[0].build()
 		n.subNodes[1].build()
 	}
-}
-
-// initiateBounds() initializes the node bounds with the min and max values.
-func (n *node) initiateBounds() {
-	for rot := 0; rot < n.tree.dim; rot++ {
-		sort.SliceStable(n.cluster, func(i int, j int) bool {
-			return n.cluster[i].QuasiIdentifer()[rot] < n.cluster[j].QuasiIdentifer()[rot]
-		})
-
-		n.bounds[rot] = bounds{
-			down: n.cluster[0].QuasiIdentifer()[rot],
-			up:   n.cluster[len(n.cluster)-1].QuasiIdentifer()[rot],
-		}
-	}
-}
-
-// Bounds returns the node bounds.
-func (n *node) Bounds() []bounds {
-	return n.bounds
 }
 
 // split creates 2 subnodes by ordering the node and splitting in order to have 2 equal parts
@@ -191,9 +161,7 @@ func (n *node) split() (node, node, bool) {
 
 	n.pivot = nil
 	lower := NewNode(n.tree, n.clusterPath+"-l", n.rot+1)
-	copy(lower.bounds, n.bounds)
 	upper := NewNode(n.tree, n.clusterPath+"-u", n.rot+1)
-	copy(upper.bounds, n.bounds)
 
 	lowerSize := 0
 	upperSize := 0
@@ -208,8 +176,6 @@ func (n *node) split() (node, node, bool) {
 		} else {
 			if n.pivot == nil {
 				n.pivot = row.QuasiIdentifer()
-				lower.bounds[n.rot].up = previous.QuasiIdentifer()[n.rot]
-				upper.bounds[n.rot].down = n.pivot[n.rot]
 			}
 			upper.Add(row)
 			upperSize++
@@ -253,7 +219,7 @@ func (n *node) string(offset int) string {
 
 		result += "]"
 
-		return result + "|" + fmt.Sprint(n.bounds)
+		return result
 	}
 
 	return fmt.Sprintf("{\n%s pivot: %v,\n%s rot: %v, \n%s n0: %s,\n%s n1: %s,\n%s}",

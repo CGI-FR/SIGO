@@ -22,6 +22,10 @@ const (
 	gaussian = "gaussian"
 )
 
+type bounds struct {
+	down, up float64
+}
+
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 func NewGeneralAnonymizer() GeneralAnonymizer {
@@ -99,8 +103,6 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record
 // the record takes the bounds of the cluster.
 func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
-
-	// b := clus.Bounds()
 
 	if a.boundsValues[clus.ID()] == nil {
 		a.ComputeGeneralization(clus, qi)
