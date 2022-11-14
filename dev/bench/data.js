@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1653635796660,
+  "lastUpdate": 1668438521231,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -557,6 +557,66 @@ window.BENCHMARK_DATA = {
             "name": "BenchmarkLongClustering",
             "value": 82938241668,
             "unit": "ns/op\t7607308720 B/op\t562700589 allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "1f53123c58d9d565ec37b0b64206156cd41ff9bf",
+          "message": "fix: wellDiv function (#37)\n\n* fix: wellDiv function\r\n\r\n* test: add test venom\r\n\r\n* test: add test venom\r\n\r\n* test: add zerolog on benchmarck test\r\n\r\n* test: error CI pipeline\r\n\r\n* test: error CI pipeline 2\r\n\r\n* test: error CI pipeline 3\r\n\r\n* test: assert empty stdout\r\n\r\n* fix: add jq in devcontainer\r\n\r\n* test: update test venom\r\n\r\n* fix: change devcontainer version\r\n\r\nCo-authored-by: Youen Péron <youen.peron-ext@pole-emploi.fr>",
+          "timestamp": "2022-11-14T16:04:31+01:00",
+          "tree_id": "84153ce28320bc6ce2a3a3e7383547f6732d6090",
+          "url": "https://github.com/CGI-FR/SIGO/commit/1f53123c58d9d565ec37b0b64206156cd41ff9bf"
+        },
+        "date": 1668438520259,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkAggregationAnonymizer",
+            "value": 489.4,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "25291780 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer",
+            "value": 5712,
+            "unit": "ns/op\t    1968 B/op\t      97 allocs/op",
+            "extra": "2109609 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer",
+            "value": 68704,
+            "unit": "ns/op\t    2712 B/op\t     130 allocs/op",
+            "extra": "168735 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer",
+            "value": 516.9,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "22473723 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering",
+            "value": 147339,
+            "unit": "ns/op\t   35965 B/op\t    1075 allocs/op",
+            "extra": "81549 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 75926732259,
+            "unit": "ns/op\t7606506048 B/op\t562716866 allocs/op",
             "extra": "1 times\n2 procs"
           }
         ]
