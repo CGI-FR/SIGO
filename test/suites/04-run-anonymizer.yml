@@ -41,6 +41,9 @@ testcases:
         assertions:
           - result.code ShouldEqual 0
       - script: cat output.json | jq -c "{fruit:.fruit,taille:.taille,poids:.poids,meurtre:.meurtre,natation:.natation,course:.course,voltige:.voltige,animal:.animal}" > output.json
+        assertions:
+          - result.systemerr ShouldBeEmpty
+          - result.code ShouldEqual 0
       - script: diff output.json expected.json
         assertions:
           - result.code ShouldEqual 0
