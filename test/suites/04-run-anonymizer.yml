@@ -28,7 +28,7 @@ testcases:
           {"fruit":[1,1],"taille":[4,5],"poids":[4,5],"meurtre":0,"natation":[1,1],"course":[1,1],"voltige":[0,0],"animal":"elephant"}
           EOF
       - script: |-
-          sigo -q taille,poids,fruit,natation,course,voltige -s meurtre -k 2 -l 3 -a general > output.json <<EOF
+          sigo -q taille,poids,fruit,natation,course,voltige -s meurtre -k 2 -l 2 -a general > output.json <<EOF
           {"fruit":1, "taille": 2, "poids": 2 , "meurtre": 0, "natation":1, "course":1, "voltige":1 , "animal": "canard"}
           {"fruit":1, "taille": 5, "poids": 5 , "meurtre": 0, "natation":1, "course":1, "voltige":0 , "animal": "elephant"}
           {"fruit":1, "taille": 4, "poids": 4 , "meurtre": 1, "natation":1, "course":1, "voltige":0 , "animal": "ours"}
