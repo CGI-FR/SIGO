@@ -33,13 +33,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type infos struct {
+// nolint: gochecknoglobals
+var (
 	name      string
 	version   string
 	commit    string
 	buildDate string
 	builtBy   string
-}
+)
 
 type logs struct {
 	verbosity string
@@ -62,27 +63,25 @@ type pdef struct {
 }
 
 func main() {
-	var info infos
-
 	var logs logs
 
 	var definition pdef
 
 	//nolint: exhaustivestruct
 	rootCmd := &cobra.Command{
-		Use:   info.name,
+		Use:   name,
 		Short: "Command line to generalize and anonymize the content of a jsonline flow set",
 		Version: fmt.Sprintf(`%v (commit=%v date=%v by=%v)
-	Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
-	This is free software: you are free to change and redistribute it.
-	There is NO WARRANTY, to the extent permitted by law.`, info.version, info.commit, info.buildDate, info.builtBy),
+Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
 		Run: func(cmd *cobra.Command, args []string) {
 			// nolint: exhaustivestruct
 			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 			definition.flagIsSet(*cmd)
 
-			run(info, definition, logs)
+			run(definition, logs)
 		},
 	}
 
@@ -121,8 +120,8 @@ func main() {
 	}
 }
 
-func run(info infos, definition pdef, logs logs) {
-	initLog(logs, info, definition.entropy)
+func run(definition pdef, logs logs) {
+	initLog(logs, definition.entropy)
 
 	// if the configuration file is present in the current directory
 	if sigo.Exist(definition.config) {
@@ -178,7 +177,7 @@ func run(info infos, definition pdef, logs logs) {
 }
 
 // nolint: cyclop
-func initLog(logs logs, info infos, entropy bool) {
+func initLog(logs logs, entropy bool) {
 	color := false
 
 	switch strings.ToLower(logs.colormode) {
@@ -224,7 +223,7 @@ func initLog(logs logs, info infos, entropy bool) {
 
 	over.MDC().Set("entropy", entropy)
 
-	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
+	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
 }
 
 func newAnonymizer(name string) sigo.Anonymizer {
