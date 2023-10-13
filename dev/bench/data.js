@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1697139744474,
+  "lastUpdate": 1697202915684,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -748,6 +748,138 @@ window.BENCHMARK_DATA = {
           {
             "name": "BenchmarkLongClustering - allocs/op",
             "value": 562716907,
+            "unit": "allocs/op",
+            "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "f5ee9f875bd855f888b54d4c00ca4fb108ad8aef",
+          "message": "fix: change struct infos by simple vars (#45)",
+          "timestamp": "2023-10-13T15:10:58+02:00",
+          "tree_id": "2a0845c5d4c6e3f068956424f0286ddf41b1005d",
+          "url": "https://github.com/CGI-FR/SIGO/commit/f5ee9f875bd855f888b54d4c00ca4fb108ad8aef"
+        },
+        "date": 1697202914809,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkAggregationAnonymizer - ns/op",
+            "value": 489.1,
+            "unit": "ns/op",
+            "extra": "21507672 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkAggregationAnonymizer - B/op",
+            "value": 416,
+            "unit": "B/op",
+            "extra": "21507672 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkAggregationAnonymizer - allocs/op",
+            "value": 7,
+            "unit": "allocs/op",
+            "extra": "21507672 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer - ns/op",
+            "value": 5610,
+            "unit": "ns/op",
+            "extra": "2235633 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer - B/op",
+            "value": 1968,
+            "unit": "B/op",
+            "extra": "2235633 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer - allocs/op",
+            "value": 97,
+            "unit": "allocs/op",
+            "extra": "2235633 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer - ns/op",
+            "value": 64036,
+            "unit": "ns/op",
+            "extra": "187048 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer - B/op",
+            "value": 2712,
+            "unit": "B/op",
+            "extra": "187048 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer - allocs/op",
+            "value": 130,
+            "unit": "allocs/op",
+            "extra": "187048 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer - ns/op",
+            "value": 520.2,
+            "unit": "ns/op",
+            "extra": "22528110 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer - B/op",
+            "value": 416,
+            "unit": "B/op",
+            "extra": "22528110 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer - allocs/op",
+            "value": 7,
+            "unit": "allocs/op",
+            "extra": "22528110 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering - ns/op",
+            "value": 159482,
+            "unit": "ns/op",
+            "extra": "77730 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering - B/op",
+            "value": 35965,
+            "unit": "B/op",
+            "extra": "77730 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering - allocs/op",
+            "value": 1075,
+            "unit": "allocs/op",
+            "extra": "77730 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering - ns/op",
+            "value": 82957433652,
+            "unit": "ns/op",
+            "extra": "1 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering - B/op",
+            "value": 7606505784,
+            "unit": "B/op",
+            "extra": "1 times\n2 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering - allocs/op",
+            "value": 562716865,
             "unit": "allocs/op",
             "extra": "1 times\n2 procs"
           }
