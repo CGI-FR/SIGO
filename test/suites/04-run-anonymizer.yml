@@ -16,6 +16,9 @@ testcases:
 
   - name: generalization
     steps:
+      - script: rm -f output_sigo.json
+      - script: rm -f output_jq.json
+      - script: rm -f expected.json
       - script: |-
           cat > expected.json <<EOF
           {"fruit":[0,1],"taille":[1,2],"poids":[1,2],"meurtre":0,"natation":[0,1],"course":[0,1],"voltige":[0,1],"animal":"souris"}
@@ -28,7 +31,7 @@ testcases:
           {"fruit":[1,1],"taille":[4,5],"poids":[4,5],"meurtre":0,"natation":[1,1],"course":[1,1],"voltige":[0,0],"animal":"elephant"}
           EOF
       - script: |-
-          sigo -q taille,poids,fruit,natation,course,voltige -s meurtre -k 2 -l 2 -a general > output.json <<EOF
+          sigo -q taille,poids,fruit,natation,course,voltige -s meurtre -k 2 -l 2 -a general > output_sigo.json <<EOF
           {"fruit":1, "taille": 2, "poids": 2 , "meurtre": 0, "natation":1, "course":1, "voltige":1 , "animal": "canard"}
           {"fruit":1, "taille": 5, "poids": 5 , "meurtre": 0, "natation":1, "course":1, "voltige":0 , "animal": "elephant"}
           {"fruit":1, "taille": 4, "poids": 4 , "meurtre": 1, "natation":1, "course":1, "voltige":0 , "animal": "ours"}
@@ -40,13 +43,12 @@ testcases:
           EOF
         assertions:
           - result.code ShouldEqual 0
-      - script: cat output.json | jq -c "{fruit:.fruit,taille:.taille,poids:.poids,meurtre:.meurtre,natation:.natation,course:.course,voltige:.voltige,animal:.animal}" > output.json
+      - script: cat output_sigo.json | jq -c "{fruit:.fruit,taille:.taille,poids:.poids,meurtre:.meurtre,natation:.natation,course:.course,voltige:.voltige,animal:.animal}" > output_jq.json
         assertions:
           - result.systemerr ShouldBeEmpty
           - result.code ShouldEqual 0
-      - script: diff output.json expected.json
+      - script: diff output_jq.json expected.json
         assertions:
           - result.code ShouldEqual 0
           - result.systemout ShouldBeEmpty
-      - script: rm -f output.json
-      - script: rm -f expected.json
+
