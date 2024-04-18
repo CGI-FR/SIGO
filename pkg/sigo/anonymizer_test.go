@@ -17,6 +17,7 @@
 package sigo_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
@@ -28,29 +29,16 @@ import (
 func TestAggregationAnonymizer(t *testing.T) {
 	t.Parallel()
 
-	row1 := jsonline.NewRow()
-	row1.Set("x", 0)
-	row1.Set("y", 9)
-	row1.Set("z", "a")
-	record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
+	qi := []string{"x", "y"}
+	s := []string{"z"}
 
 	tree := sigo.NewKDTree(2, 3, 2, make(map[string]int))
 	node := sigo.NewNode(&tree, "root", 0)
+
+	record1 := createRow(0, 9, qi, "a", s)
 	node.Add(record1)
-
-	row2 := jsonline.NewRow()
-	row2.Set("x", 1)
-	row2.Set("y", 3)
-	row2.Set("z", "b")
-	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{"z"})
-	node.Add(record2)
-
-	row3 := jsonline.NewRow()
-	row3.Set("x", 4)
-	row3.Set("y", 8)
-	row3.Set("z", "c")
-	record3 := infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{"z"})
-	node.Add(record3)
+	node.Add(createRow(1, 3, qi, "b", s))
+	node.Add(createRow(4, 8, qi, "c", s))
 
 	anonymizer := sigo.NewAggregationAnonymizer("mean")
 	anonymizedRecord := anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"z"})
@@ -66,29 +54,16 @@ func TestAggregationAnonymizer(t *testing.T) {
 }
 
 func BenchmarkAggregationAnonymizer(b *testing.B) {
-	row1 := jsonline.NewRow()
-	row1.Set("x", 0)
-	row1.Set("y", 9)
-	row1.Set("z", "a")
-	record1 := infra.NewJSONLineRecord(&row1, &[]string{"x", "y"}, &[]string{"z"})
+	qi := []string{"x", "y"}
+	s := []string{"z"}
 
 	tree := sigo.NewKDTree(2, 3, 2, make(map[string]int))
 	node := sigo.NewNode(&tree, "root", 0)
+
+	record1 := createRow(0, 9, qi, "a", s)
 	node.Add(record1)
-
-	row2 := jsonline.NewRow()
-	row2.Set("x", 1)
-	row2.Set("y", 3)
-	row2.Set("z", "b")
-	record2 := infra.NewJSONLineRecord(&row2, &[]string{"x", "y"}, &[]string{"z"})
-	node.Add(record2)
-
-	row3 := jsonline.NewRow()
-	row3.Set("x", 4)
-	row3.Set("y", 8)
-	row3.Set("z", "c")
-	record3 := infra.NewJSONLineRecord(&row3, &[]string{"x", "y"}, &[]string{"z"})
-	node.Add(record3)
+	node.Add(createRow(1, 3, qi, "b", s))
+	node.Add(createRow(4, 8, qi, "c", s))
 
 	anonymizer := sigo.NewAggregationAnonymizer("mean")
 
@@ -106,26 +81,26 @@ func TestTopBottomCodingAnonymizer(t *testing.T) {
 	node := sigo.NewNode(&tree, "root", 0)
 	qi := []string{"x", "y"}
 
-	node.Add(createRow(3, 5, qi))
-	record2 := createRow(5, 3, qi)
+	node.Add(createRow(3, 5, qi, "", []string{}))
+	record2 := createRow(5, 3, qi, "", []string{})
 	node.Add(record2)
-	node.Add(createRow(6, 5, qi))
-	node.Add(createRow(9, 10, qi))
-	node.Add(createRow(10, 30, qi))
-	node.Add(createRow(11, 11, qi))
-	node.Add(createRow(12, 11, qi))
-	record8 := createRow(48, 12, qi)
+	node.Add(createRow(6, 5, qi, "", []string{}))
+	node.Add(createRow(9, 10, qi, "", []string{}))
+	node.Add(createRow(10, 30, qi, "", []string{}))
+	node.Add(createRow(11, 11, qi, "", []string{}))
+	node.Add(createRow(12, 11, qi, "", []string{}))
+	record8 := createRow(48, 12, qi, "", []string{})
 	node.Add(record8)
 
 	anonymizer := sigo.NewCodingAnonymizer()
 
 	anonymizedRecord := anonymizer.Anonymize(record2, node.Clusters()[0], []string{"x", "y"}, []string{})
-	expected := map[string]interface{}{"x": 5.50, "y": 5.00}
+	expected := map[string]interface{}{"x": 5.50, "y": 5.00, "z": ""}
 
 	assert.Equal(t, expected, anonymizedRecord.Row())
 
 	anonymizedRecord = anonymizer.Anonymize(record8, node.Clusters()[0], []string{"x", "y"}, []string{})
-	expected = map[string]interface{}{"x": 11.50, "y": 11.50}
+	expected = map[string]interface{}{"x": 11.50, "y": 11.50, "z": ""}
 
 	assert.Equal(t, expected, anonymizedRecord.Row())
 }
@@ -135,15 +110,15 @@ func BenchmarkTopBottomCodingAnonymizer(b *testing.B) {
 	node := sigo.NewNode(&tree, "root", 0)
 	qi := []string{"x", "y"}
 
-	node.Add(createRow(3, 5, qi))
-	record2 := createRow(5, 3, qi)
+	node.Add(createRow(3, 5, qi, "", []string{}))
+	record2 := createRow(5, 3, qi, "", []string{})
 	node.Add(record2)
-	node.Add(createRow(6, 5, qi))
-	node.Add(createRow(9, 10, qi))
-	node.Add(createRow(10, 30, qi))
-	node.Add(createRow(11, 11, qi))
-	node.Add(createRow(12, 11, qi))
-	record8 := createRow(48, 12, qi)
+	node.Add(createRow(6, 5, qi, "", []string{}))
+	node.Add(createRow(9, 10, qi, "", []string{}))
+	node.Add(createRow(10, 30, qi, "", []string{}))
+	node.Add(createRow(11, 11, qi, "", []string{}))
+	node.Add(createRow(12, 11, qi, "", []string{}))
+	record8 := createRow(48, 12, qi, "", []string{})
 	node.Add(record8)
 
 	anonymizer := sigo.NewCodingAnonymizer()
@@ -162,11 +137,11 @@ func TestRandomNoiseAnonymizer(t *testing.T) {
 	node := sigo.NewNode(&tree, "root", 0)
 	qi := []string{"x", "y"}
 
-	record := createRow(3, 5, qi)
+	record := createRow(3, 5, qi, "", []string{})
 	node.Add(record)
-	node.Add(createRow(5, 3, qi))
-	node.Add(createRow(6, 5, qi))
-	node.Add(createRow(9, 10, qi))
+	node.Add(createRow(5, 3, qi, "", []string{}))
+	node.Add(createRow(6, 5, qi, "", []string{}))
+	node.Add(createRow(9, 10, qi, "", []string{}))
 
 	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
 
@@ -183,11 +158,11 @@ func BenchmarkRandomNoiseAnonymizer(b *testing.B) {
 	node := sigo.NewNode(&tree, "root", 0)
 	qi := []string{"x", "y"}
 
-	record := createRow(3, 5, qi)
+	record := createRow(3, 5, qi, "", []string{})
 	node.Add(record)
-	node.Add(createRow(5, 3, qi))
-	node.Add(createRow(6, 5, qi))
-	node.Add(createRow(9, 10, qi))
+	node.Add(createRow(5, 3, qi, "", []string{}))
+	node.Add(createRow(6, 5, qi, "", []string{}))
+	node.Add(createRow(9, 10, qi, "", []string{}))
 
 	anonymizer := sigo.NewNoiseAnonymizer("gaussian")
 
@@ -205,10 +180,10 @@ func TestSwapAnonymizer(t *testing.T) {
 	node := sigo.NewNode(&tree, "root", 0)
 	qi := []string{"x", "y"}
 
-	record := createRow(1, 4, qi)
+	record := createRow(1, 4, qi, "", []string{})
 	node.Add(record)
-	node.Add(createRow(2, 5, qi))
-	node.Add(createRow(3, 6, qi))
+	node.Add(createRow(2, 5, qi, "", []string{}))
+	node.Add(createRow(3, 6, qi, "", []string{}))
 
 	anonymizer := sigo.NewSwapAnonymizer()
 
@@ -223,10 +198,10 @@ func BenchmarkSwapAnonymizer(b *testing.B) {
 	node := sigo.NewNode(&tree, "root", 0)
 	qi := []string{"x", "y"}
 
-	record := createRow(1, 4, qi)
+	record := createRow(1, 4, qi, "", []string{})
 	node.Add(record)
-	node.Add(createRow(2, 5, qi))
-	node.Add(createRow(3, 6, qi))
+	node.Add(createRow(2, 5, qi, "", []string{}))
+	node.Add(createRow(3, 6, qi, "", []string{}))
 
 	anonymizer := sigo.NewSwapAnonymizer()
 
@@ -237,10 +212,112 @@ func BenchmarkSwapAnonymizer(b *testing.B) {
 	}
 }
 
-func createRow(x, y float64, qi []string) infra.JSONLineRecord {
+func TestReidentification(t *testing.T) {
+	t.Parallel()
+
+	qi := []string{"x", "y"}
+	s := []string{"original"}
+
+	tree := sigo.NewKDTree(3, 2, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+
+	record1 := createRowReidentification(5, 6, qi, json.Number("1"), s, "")
+	node.Add(record1)
+
+	record2 := createRowReidentification(7, 6.67, qi, json.Number("0"), s, "a")
+	node.Add(record2)
+	node.Add(createRowReidentification(7, 6.67, qi, json.Number("0"), s, "b"))
+	node.Add(createRowReidentification(8, 4, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(7, 6.67, qi, json.Number("0"), s, "c"))
+	node.Add(createRowReidentification(8, 10, qi, json.Number("1"), s, ""))
+
+	anonymizer := sigo.NewReidentification([]string{"z"})
+	anonymizedRecord := anonymizer.Anonymize(record1, node.Clusters()[0], []string{"x", "y"}, []string{"original"})
+	expected := map[string]interface{}{
+		"original": json.Number("1"),
+		"x":        5.00,
+		"y":        6.00,
+		"z":        "",
+	}
+
+	assert.Equal(t, expected, anonymizedRecord.Row())
+}
+
+func TestComputeStatistics(t *testing.T) {
+	t.Parallel()
+
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+	s := []string{"original"}
+
+	record1 := createRowReidentification(10, 2, qi, json.Number("0"), s, "a")
+	node.Add(record1)
+
+	node.Add(createRowReidentification(20, 2, qi, json.Number("0"), s, "b"))
+	node.Add(createRowReidentification(30, 2, qi, json.Number("0"), s, "c"))
+
+	node.Add(createRowReidentification(12, 2, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(22, 2, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(32, 2, qi, json.Number("1"), s, ""))
+
+	reidentification := sigo.NewReidentification([]string{"z"})
+
+	reidentification.InitReidentification(node.Clusters()[0], qi, s)
+
+	mean, std := reidentification.Statistics(node.Clusters()[0].ID(), "x")
+
+	assert.Equal(t, 21.00, mean)
+	assert.Equal(t, 8.225975119502044, std)
+}
+
+func TestComputeSimilarityFunction(t *testing.T) {
+	t.Parallel()
+
+	tree := sigo.NewKDTree(3, 1, 2, make(map[string]int))
+	node := sigo.NewNode(&tree, "root", 0)
+	qi := []string{"x", "y"}
+	s := []string{"original"}
+
+	node.Add(createRowReidentification(10, 2, qi, json.Number("0"), s, "a")) // dist : 0.24313226954193223
+	node.Add(createRowReidentification(20, 2, qi, json.Number("0"), s, "b")) // dist : 0.9725290781677294
+	node.Add(createRowReidentification(30, 2, qi, json.Number("0"), s, "c")) // dist : 2.188190425877391
+
+	record := createRowReidentification(12, 2, qi, json.Number("1"), s, "")
+
+	node.Add(record)
+	node.Add(createRowReidentification(22, 2, qi, json.Number("1"), s, ""))
+	node.Add(createRowReidentification(32, 2, qi, json.Number("1"), s, ""))
+
+	reidentification := sigo.NewReidentification([]string{"z"})
+
+	reidentification.InitReidentification(node.Clusters()[0], qi, s)
+
+	res := reidentification.ComputeSimilarity(record, node.Clusters()[0], qi, s)
+
+	expected := make(map[float64]interface{})
+	expected[0.8044196297538626] = "a"
+	expected[0.5069633756319041] = "b"
+	expected[0.3136575506542397] = "c"
+
+	assert.Equal(t, expected, res)
+}
+
+func createRow(x, y float64, qi []string, z string, s []string) infra.JSONLineRecord {
 	row := jsonline.NewRow()
 	row.Set("x", x)
 	row.Set("y", y)
+	row.Set("z", z)
 
-	return infra.NewJSONLineRecord(&row, &qi, &[]string{})
+	return infra.NewJSONLineRecord(&row, &qi, &s)
+}
+
+func createRowReidentification(x, y float64, qi []string, o json.Number, s []string, z string) infra.JSONLineRecord {
+	row := jsonline.NewRow()
+	row.Set("x", x)
+	row.Set("y", y)
+	row.Set("z", z)
+	row.Set("original", o)
+
+	return infra.NewJSONLineRecord(&row, &qi, &s)
 }

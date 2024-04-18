@@ -161,7 +161,7 @@ masking:
 | Weight_in_lbs    |     -0.711799    |  0.665301 |   0.672666   |  0.638299  |    1.000000   |   -0.170356  |
 | Acceleration     |     0.269291     | -0.175330 |   -0.239672  |  -0.332941 |   -0.170356   |   1.000000   |
 
-The correlation after anonymization is in the range ![equation](https://latex.codecogs.com/svg.image?%5Cleft%20%5B%20%5Cpm%200.08%20;%20%5Cpm%200.36%20%5Cright%20%5D)
+The correlation after anonymization is in the range $\left[ \pm 0.08; \pm 0.36\right]$.
 
 ### Bibliography
 

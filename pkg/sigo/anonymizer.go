@@ -17,6 +17,13 @@
 
 package sigo
 
+import (
+	"os"
+
+	"github.com/cgi-fr/jsonline/pkg/cast"
+	"github.com/rs/zerolog/log"
+)
+
 const (
 	laplace  = "laplace"
 	gaussian = "gaussian"
@@ -48,6 +55,16 @@ func NewSwapAnonymizer() SwapAnonymizer {
 	return SwapAnonymizer{swapValues: make(map[string]map[string][]float64)}
 }
 
+func NewReidentification(args []string) Reidentification {
+	return Reidentification{
+		masked:           make(map[string][]map[string]interface{}),
+		unique:           make(map[string]bool),
+		sensitive:        make(map[string]map[string]interface{}),
+		stats:            make(map[string]map[string]map[string]float64),
+		sensitivesFields: args,
+	}
+}
+
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
@@ -69,6 +86,14 @@ type (
 	AnonymizedRecord struct {
 		original Record
 		mask     map[string]interface{}
+	}
+
+	Reidentification struct {
+		masked           map[string][]map[string]interface{}
+		unique           map[string]bool
+		sensitive        map[string]map[string]interface{}
+		stats            map[string]map[string]map[string]float64
+		sensitivesFields []string
 	}
 )
 
@@ -265,6 +290,161 @@ func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	}
 
 	a.swapValues[clus.ID()] = swapVal
+}
+
+// Anonymize on object Reidentification re-identifies the original data using the anonymized data.
+func (r Reidentification) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	mask := map[string]interface{}{}
+
+	// initialize re-identification object: groups the anonymized data,
+	// checks if the sensitive data is not unique in the cluster,
+	// checks if the anonymized data of the cluster have the same qi value,
+	// and computes the mean and the standard deviation of the cluster
+	if r.masked[clus.ID()] == nil {
+		r.InitReidentification(clus, qi, s)
+	}
+
+	original, err := cast.ToInt64(rec.Sensitives()[0])
+	if err != nil {
+		log.Err(err).Msg("Cannot cast original value")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
+	// re-identification of the original data
+	if original.(int64) == 1 {
+		for _, q := range qi {
+			mask[q] = rec.Row()[q]
+		}
+
+		for _, sensitive := range r.sensitivesFields {
+			// if in a cluster the sensitive data is unique then we can re-identify the individuals
+			if r.sensitive[clus.ID()][sensitive] != nil {
+				mask[r.sensitivesFields[0]] = r.sensitive[clus.ID()][sensitive]
+				mask["similarity"] = 1
+			} else if !r.unique[clus.ID()] {
+				// else if the masked data are not unique, then the distances are computed
+				// (if they are unique, impossible to re-identify)
+				scores := r.ComputeSimilarity(rec, clus, qi, s)
+				sim, sens := TopSimilarity(scores)
+				mask[r.sensitivesFields[0]] = sens
+				mask["similarity"] = sim
+			}
+		}
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+// InitReidentification initialize the re-identification object.
+func (r Reidentification) InitReidentification(clus Cluster, qi []string, s []string) {
+	// map containing the anonymized data
+	maskedData := []map[string]interface{}{}
+	// slice containing the records of cluster
+	data := []map[string]interface{}{}
+
+	// map containing for each sensitive attribute the list of sensitive data
+	sensitivesData := make(map[string][]interface{})
+
+	for _, rec := range clus.Records() {
+		data = append(data, rec.Row())
+
+		original, err := cast.ToInt64(rec.Sensitives()[0])
+		if err != nil {
+			log.Err(err).Msg("Cannot cast original value")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
+
+		if original.(int64) == 0 {
+			maskedData = append(maskedData, rec.Row())
+
+			for _, s := range r.sensitivesFields {
+				sensitivesData[s] = append(sensitivesData[s], rec.Row()[s])
+			}
+		}
+	}
+
+	if len(maskedData) == 0 {
+		log.Error().Msg("Clusters with only original data, pay attention to the l-diversity parameter ")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
+	// groups all the anonymized records
+	r.masked[clus.ID()] = maskedData
+	// indicates if the cluster contains unique masked data
+	r.unique[clus.ID()] = Unique(maskedData, qi)
+	// checks if the sensitive data is well represented
+	uniqueSensitive := IsUnique(sensitivesData)
+
+	tmp := make(map[string]interface{})
+
+	for _, s := range r.sensitivesFields {
+		if uniqueSensitive[s] {
+			tmp[s] = sensitivesData[s][0]
+		} else {
+			tmp[s] = nil
+		}
+	}
+
+	r.sensitive[clus.ID()] = tmp
+
+	// computes the mean and standard deviation of each cluster
+	r.ComputeStatistics(data, clus, s)
+}
+
+// ComputeStatistics computes the mean and standart deviation for cluster clus.
+func (r Reidentification) ComputeStatistics(data []map[string]interface{}, clus Cluster, s []string) {
+	statistics := make(map[string]map[string]float64)
+
+	for key, val := range ListValues(data, append(s, r.sensitivesFields...)) {
+		stats := make(map[string]float64)
+		stats["mean"] = Mean(SliceToFloat64(val))
+		stats["std"] = Std(SliceToFloat64(val))
+
+		statistics[key] = stats
+	}
+
+	r.stats[clus.ID()] = statistics
+}
+
+// Statistics returns the statistics of the q attribute of the cluster with path idCluster.
+func (r Reidentification) Statistics(idCluster string, q string) (mean float64, std float64) {
+	return r.stats[idCluster][q]["mean"], r.stats[idCluster][q]["std"]
+}
+
+// ComputeSimilarity computes the similarity score between the record rec and the anonymized cluster data.
+func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
+	qi []string, s []string) map[float64]interface{} {
+	scores := make(map[float64]interface{})
+
+	x := make(map[string]interface{})
+
+	for _, q := range qi {
+		mean, std := r.Statistics(clus.ID(), q)
+		x[q] = Scale(rec.Row()[q], mean, std)
+	}
+
+	X := MapItoMapF(x)
+
+	for _, row := range r.masked[clus.ID()] {
+		y := make(map[string]interface{})
+
+		for _, q := range qi {
+			mean, std := r.Statistics(clus.ID(), q)
+			y[q] = Scale(row[q], mean, std)
+		}
+
+		Y := MapItoMapF(y)
+
+		// Compute similarity
+		score := Similarity(ComputeDistance("", X, Y))
+
+		scores[score] = row[r.sensitivesFields[0]]
+	}
+
+	return scores
 }
 
 // Returns the list of values present in the cluster for each qi.
