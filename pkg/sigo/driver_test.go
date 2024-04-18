@@ -36,7 +36,7 @@ import (
 func TestSimpleClustering(t *testing.T) {
 	t.Parallel()
 
-	//nolint: goconst
+	// nolint: goconst
 	sourceText := `{"x":0, "y":0, "foo":"bar"}
 				   {"x":1, "y":1, "foo":"bar"}
 				   {"x":0, "y":1, "foo":"bar"}

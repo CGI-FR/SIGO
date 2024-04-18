@@ -1,6 +1,11 @@
 # SIGO
 
-Sigo is a k-anonymity and l-diversity compliant anonymization tool.
+SIGO is a k-anonymity and l-diversity compliant anonymization tool.
+
+![sigo](examples/sigo.png)
+
+SIGO only takes numerical data as input, so pre-processing is required to convert textual data into numerical data.
+To do this, you can use [PIMO](https://github.com/CGI-FR/PIMO) ([Go to example](#usage-of-pimo)).
 
 ## Usage
 

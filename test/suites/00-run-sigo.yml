@@ -1,0 +1,49 @@
+name: run sigo
+testcases:
+  - name: vars
+    steps:
+      - script: |-
+          sigo --version
+        vars:
+          myname:
+            from: result.systemout
+            regex: ([a-z]+) version
+          myversion:
+            from: result.systemout
+            regex: sigo version (.*) \(commit=
+          mycommit:
+            from: result.systemout
+            regex: \(commit=(.*) date=
+          mydate:
+            from: result.systemout
+            regex: date=(.*) by=
+          myby:
+            from: result.systemout
+            regex: by=(.*)\)
+
+  - name: --version
+    steps:
+      - script: echo {{.vars.myname}}
+        assertions:
+          - result.systemout ShouldEqual sigo
+          - result.code ShouldEqual 0
+
+      - script: echo {{.vars.myversion}}
+        assertions:
+          - result.systemout ShouldNotBeEmpty
+          - result.code ShouldEqual 0
+
+      - script: echo {{.vars.mycommit}}
+        assertions:
+          - result.systemout ShouldNotBeEmpty
+          - result.code ShouldEqual 0
+
+      - script: echo {{.vars.mydate}}
+        assertions:
+          - result.systemout ShouldNotBeEmpty
+          - result.code ShouldEqual 0
+
+      - script: echo {{.vars.myby}}
+        assertions:
+          - result.systemout ShouldNotBeEmpty
+          - result.code ShouldEqual 0

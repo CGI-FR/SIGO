@@ -29,10 +29,14 @@ const (
 	gaussian = "gaussian"
 )
 
+type bounds struct {
+	down, up float64
+}
+
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 func NewGeneralAnonymizer() GeneralAnonymizer {
-	return GeneralAnonymizer{groupMap: make(map[Cluster]map[string]string)}
+	return GeneralAnonymizer{boundsValues: make(map[string]map[string]bounds)}
 }
 
 func NewAggregationAnonymizer(typeAgg string) AggregationAnonymizer {
@@ -64,7 +68,9 @@ func NewReidentification(args []string) Reidentification {
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
-		groupMap map[Cluster]map[string]string
+		// groupMap map[Cluster]map[string]string
+		// map of cluster -> qi -> bounds
+		boundsValues map[string]map[string]bounds
 	}
 	AggregationAnonymizer struct {
 		typeAggregation string
@@ -121,14 +127,33 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record
 // Anonymize returns the record anonymize with the method general
 // the record takes the bounds of the cluster.
 func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	b := clus.Bounds()
-
 	mask := map[string]interface{}{}
-	for i, q := range qi {
-		mask[q] = []float64{b[i].down, b[i].up}
+
+	if a.boundsValues[clus.ID()] == nil {
+		a.ComputeGeneralization(clus, qi)
+	}
+
+	for _, key := range qi {
+		mask[key] = []float64{a.boundsValues[clus.ID()][key].down, a.boundsValues[clus.ID()][key].up}
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+// ComputeGeneralization calculates the min and max values of the cluster for each qi.
+func (a GeneralAnonymizer) ComputeGeneralization(clus Cluster, qi []string) {
+	values := listValues(clus, qi)
+
+	boundsVal := make(map[string]bounds)
+
+	for _, key := range qi {
+		var b bounds
+		b.down = Min(values[key])
+		b.up = Max(values[key])
+		boundsVal[key] = b
+	}
+
+	a.boundsValues[clus.ID()] = boundsVal
 }
 
 // Anonymize returns the record anonymized with the method meanAggregarion or medianAggregation

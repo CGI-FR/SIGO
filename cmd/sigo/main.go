@@ -33,13 +33,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type infos struct {
+// nolint: gochecknoglobals
+var (
 	name      string
 	version   string
 	commit    string
 	buildDate string
 	builtBy   string
-}
+)
 
 type logs struct {
 	verbosity string
@@ -53,6 +54,7 @@ type logs struct {
 type pdef struct {
 	k         int
 	l         int
+	entropy   bool
 	qi        []string
 	sensitive []string
 	method    string
@@ -62,36 +64,35 @@ type pdef struct {
 }
 
 func main() {
-	var info infos
-
 	var logs logs
 
 	var definition pdef
 
 	//nolint: exhaustivestruct
 	rootCmd := &cobra.Command{
-		Use:   info.name,
+		Use:   name,
 		Short: "Command line to generalize and anonymize the content of a jsonline flow set",
 		Version: fmt.Sprintf(`%v (commit=%v date=%v by=%v)
-	Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
-	This is free software: you are free to change and redistribute it.
-	There is NO WARRANTY, to the extent permitted by law.`, info.version, info.commit, info.buildDate, info.builtBy),
+Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
 		Run: func(cmd *cobra.Command, args []string) {
 			// nolint: exhaustivestruct
 			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 			definition.flagIsSet(*cmd)
 
-			run(info, definition, logs)
+			run(definition, logs)
 		},
 	}
 
-	var entropy bool
-
-	rootCmd.PersistentFlags().StringVarP(&logs.verbosity, "verbosity", "v", "info",
-		"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
-	rootCmd.PersistentFlags().BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
-	rootCmd.PersistentFlags().BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
+	rootCmd.PersistentFlags().
+		StringVarP(&logs.verbosity, "verbosity", "v", "info",
+			"set level of log verbosity : none (0), error (1), warn (2), info (3), debug (4), trace (5)")
+	rootCmd.PersistentFlags().
+		BoolVar(&logs.debug, "debug", false, "add debug information to logs (very slow)")
+	rootCmd.PersistentFlags().
+		BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
 	rootCmd.PersistentFlags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
 	// nolint: gomnd
 	rootCmd.PersistentFlags().IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
@@ -106,10 +107,9 @@ func main() {
 			"'laplaceNoise', 'gaussianNoise', 'swapping', 'reidentification']")
 	rootCmd.PersistentFlags().
 		StringVarP(&logs.info, "cluster-info", "i", "", "display cluster for each jsonline flow")
-	rootCmd.PersistentFlags().
-		BoolVarP(&logs.profiling, "profiling", "p", false, "start sigo with profiling and generate a cpu.pprof file (debug)")
-	rootCmd.PersistentFlags().BoolVar(&entropy, "entropy", false, "use entropy model for l-diversity")
-	over.MDC().Set("entropy", entropy)
+	rootCmd.PersistentFlags().BoolVarP(&logs.profiling, "profiling", "p", false,
+		"start sigo with profiling and generate a cpu.pprof file (debug)")
+	rootCmd.PersistentFlags().BoolVar(&definition.entropy, "entropy", false, "use entropy model for l-diversity")
 	rootCmd.PersistentFlags().
 		StringVarP(&definition.config, "configuration", "c", "sigo.yml", "name and location of the configuration file")
 	rootCmd.PersistentFlags().
@@ -121,8 +121,8 @@ func main() {
 	}
 }
 
-func run(info infos, definition pdef, logs logs) {
-	initLog(logs, info)
+func run(definition pdef, logs logs) {
+	initLog(logs, definition.entropy)
 
 	if sigo.Exist(definition.config) { // if the configuration file is present in the current directory
 		if err := definition.initConfig(); err != nil {
@@ -184,7 +184,7 @@ func run(info infos, definition pdef, logs logs) {
 }
 
 // nolint: cyclop
-func initLog(logs logs, info infos) {
+func initLog(logs logs, entropy bool) {
 	color := false
 
 	switch strings.ToLower(logs.colormode) {
@@ -228,7 +228,9 @@ func initLog(logs logs, info infos) {
 		zerolog.SetGlobalLevel(zerolog.Disabled)
 	}
 
-	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", info.name, info.version, info.commit, info.buildDate, info.builtBy)
+	over.MDC().Set("entropy", entropy)
+
+	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
 }
 
 //nolint: cyclop
