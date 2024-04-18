@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1698752846624,
+  "lastUpdate": 1713471851444,
   "repoUrl": "https://github.com/CGI-FR/SIGO",
   "entries": {
     "Benchmark": [
@@ -1146,6 +1146,174 @@ window.BENCHMARK_DATA = {
             "value": 467975791,
             "unit": "allocs/op",
             "extra": "1 times\n2 procs"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "89643755+giraud10@users.noreply.github.com",
+            "name": "giraud10",
+            "username": "giraud10"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "ce175b451f2648296aa92b76628f755a91ec453e",
+          "message": "FEAT: Sigo Re-identification (#21)\n\n* docs: re-identification issue\r\n\r\n* test: re-identification function\r\n\r\n* test: package re-identification\r\n\r\n* test: re-identification dataset\r\n\r\n* test: doc TestReidentification\r\n\r\n* test: similarity metric on 2 dataset\r\n\r\n* refactor: package reidentification\r\n\r\n* feat: add reidentification in sigo\r\n\r\n* docs: example of trees reidentification\r\n\r\n* docs: 2nde example reidentification\r\n\r\n* docs: 2nde example reidentification\r\n\r\n* docs: 3rd example reidentification\r\n\r\n* docs: prevent re-identification\r\n\r\n* docs: prevent reidentification\r\n\r\n* docs: prevent reidentification\r\n\r\n* feat: sigo reidentification\r\n\r\n* feat: sigo reidentification\r\n\r\n* docs: add comments to functions\r\n\r\n* feat: sigo reidentification\r\n\r\n* refactor: define distance functions\r\n\r\n* feat: sigo reidentification\r\n\r\n* feat: sigo reidentification\r\n\r\n* feat: add function to scale data\r\n\r\n* feat: scale data before compute distance\r\n\r\n* docs: add README part reidentification\r\n\r\n* feat: add flag threshold reidentification\r\n\r\n* feat: add threshold to reidentification\r\n\r\n* docs: update README reidentification example\r\n\r\n* docs: update README reidentification example\r\n\r\n* docs: README explain reidentification\r\n\r\n* feat: add similarity score in output\r\n\r\n* docs: README add reidentification section\r\n\r\n* feat: add logs\r\n\r\n* feat: add logs\r\n\r\n* feat: add logs\r\n\r\n* docs: add reidentification tests\r\n\r\n* test: add benchmarck tests\r\n\r\n* feat: add reidentification in anonymizer\r\n\r\n* feat: add reidentification in anonymizer\r\n\r\n* feat: add arguments to anonymizer\r\n\r\n* feat: add checks for re-identification\r\n\r\n* test: add unit tests\r\n\r\n* docs: update README section reidentification\r\n\r\n* docs: remove old tests in example\r\n\r\n* docs: update README\r\n\r\n* docs: update README\r\n\r\n* docs: update README\r\n\r\n* docs: use LaTeX style syntax for formulas\r\n\r\n* docs: use LaTeX style syntax for formulas\r\n\r\n* docs: use LaTeX style syntax for formulas\r\n\r\n* docs: use LaTeX style syntax for formulas\r\n\r\n* docs: use LaTeX style syntax for formulas\r\n\r\n* test: add zerolog on benchmarck test\r\n\r\n---------\r\n\r\nCo-authored-by: Youen Péron <youen.peron@cgi.com>",
+          "timestamp": "2024-04-18T22:20:40+02:00",
+          "tree_id": "19ea5efd95520754a24a6a24d37de14a9dbc4761",
+          "url": "https://github.com/CGI-FR/SIGO/commit/ce175b451f2648296aa92b76628f755a91ec453e"
+        },
+        "date": 1713471850896,
+        "tool": "go",
+        "benches": [
+          {
+            "name": "BenchmarkAggregationAnonymizer",
+            "value": 282.8,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "42388234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkAggregationAnonymizer - ns/op",
+            "value": 282.8,
+            "unit": "ns/op",
+            "extra": "42388234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkAggregationAnonymizer - B/op",
+            "value": 416,
+            "unit": "B/op",
+            "extra": "42388234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkAggregationAnonymizer - allocs/op",
+            "value": 7,
+            "unit": "allocs/op",
+            "extra": "42388234 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer",
+            "value": 3202,
+            "unit": "ns/op\t    1968 B/op\t      97 allocs/op",
+            "extra": "3763060 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer - ns/op",
+            "value": 3202,
+            "unit": "ns/op",
+            "extra": "3763060 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer - B/op",
+            "value": 1968,
+            "unit": "B/op",
+            "extra": "3763060 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkTopBottomCodingAnonymizer - allocs/op",
+            "value": 97,
+            "unit": "allocs/op",
+            "extra": "3763060 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer",
+            "value": 47522,
+            "unit": "ns/op\t    2712 B/op\t     130 allocs/op",
+            "extra": "254293 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer - ns/op",
+            "value": 47522,
+            "unit": "ns/op",
+            "extra": "254293 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer - B/op",
+            "value": 2712,
+            "unit": "B/op",
+            "extra": "254293 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkRandomNoiseAnonymizer - allocs/op",
+            "value": 130,
+            "unit": "allocs/op",
+            "extra": "254293 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer",
+            "value": 311,
+            "unit": "ns/op\t     416 B/op\t       7 allocs/op",
+            "extra": "38645335 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer - ns/op",
+            "value": 311,
+            "unit": "ns/op",
+            "extra": "38645335 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer - B/op",
+            "value": 416,
+            "unit": "B/op",
+            "extra": "38645335 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSwapAnonymizer - allocs/op",
+            "value": 7,
+            "unit": "allocs/op",
+            "extra": "38645335 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering",
+            "value": 94832,
+            "unit": "ns/op\t   33608 B/op\t     903 allocs/op",
+            "extra": "127740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering - ns/op",
+            "value": 94832,
+            "unit": "ns/op",
+            "extra": "127740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering - B/op",
+            "value": 33608,
+            "unit": "B/op",
+            "extra": "127740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkSimpleClustering - allocs/op",
+            "value": 903,
+            "unit": "allocs/op",
+            "extra": "127740 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering",
+            "value": 37119387821,
+            "unit": "ns/op\t6467718744 B/op\t467975784 allocs/op",
+            "extra": "1 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering - ns/op",
+            "value": 37119387821,
+            "unit": "ns/op",
+            "extra": "1 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering - B/op",
+            "value": 6467718744,
+            "unit": "B/op",
+            "extra": "1 times\n4 procs"
+          },
+          {
+            "name": "BenchmarkLongClustering - allocs/op",
+            "value": 467975784,
+            "unit": "allocs/op",
+            "extra": "1 times\n4 procs"
           }
         ]
       }
