@@ -38,7 +38,6 @@ type Record interface {
 type Cluster interface {
 	Records() []Record
 	ID() string
-	Bounds() []bounds
 }
 
 type Generalizer interface {

@@ -9,5 +9,7 @@ require (
 	github.com/pkg/profile v1.6.0
 	github.com/rs/zerolog v1.26.1
 	github.com/spf13/cobra v1.3.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
+	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
+	gopkg.in/yaml.v2 v2.4.0
 )

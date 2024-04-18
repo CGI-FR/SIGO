@@ -45,3 +45,33 @@ func TestUnique(t *testing.T) {
 	assert.Equal(t, 7, res1)
 	assert.Equal(t, 12, res2)
 }
+
+func TestRandInt(t *testing.T) {
+	t.Parallel()
+
+	res, err := sigo.RandInt(int64(10))
+	assert.Nil(t, err)
+
+	assert.LessOrEqual(t, res, 10)
+}
+
+func TestRandFloat(t *testing.T) {
+	t.Parallel()
+
+	res, err := sigo.RandFloat()
+	assert.Nil(t, err)
+
+	assert.LessOrEqual(t, res, float64(1))
+	assert.GreaterOrEqual(t, res, float64(0))
+}
+
+func TestShuffle(t *testing.T) {
+	t.Parallel()
+
+	values := []float64{1, 2, 3, 4, 5}
+
+	res := sigo.Shuffle(values)
+
+	assert.Contains(t, res, float64(4))
+	assert.Equal(t, len(res), len(values))
+}

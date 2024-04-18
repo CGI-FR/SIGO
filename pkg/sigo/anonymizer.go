@@ -22,10 +22,14 @@ const (
 	gaussian = "gaussian"
 )
 
+type bounds struct {
+	down, up float64
+}
+
 func NewNoAnonymizer() NoAnonymizer { return NoAnonymizer{} }
 
 func NewGeneralAnonymizer() GeneralAnonymizer {
-	return GeneralAnonymizer{groupMap: make(map[Cluster]map[string]string)}
+	return GeneralAnonymizer{boundsValues: make(map[string]map[string]bounds)}
 }
 
 func NewAggregationAnonymizer(typeAgg string) AggregationAnonymizer {
@@ -40,10 +44,16 @@ func NewNoiseAnonymizer(mechanism string) NoiseAnonymizer {
 	return NoiseAnonymizer{typeNoise: mechanism}
 }
 
+func NewSwapAnonymizer() SwapAnonymizer {
+	return SwapAnonymizer{swapValues: make(map[string]map[string][]float64)}
+}
+
 type (
 	NoAnonymizer      struct{}
 	GeneralAnonymizer struct {
-		groupMap map[Cluster]map[string]string
+		// groupMap map[Cluster]map[string]string
+		// map of cluster -> qi -> bounds
+		boundsValues map[string]map[string]bounds
 	}
 	AggregationAnonymizer struct {
 		typeAggregation string
@@ -52,6 +62,9 @@ type (
 	CodingAnonymizer struct{}
 	NoiseAnonymizer  struct {
 		typeNoise string
+	}
+	SwapAnonymizer struct {
+		swapValues map[string]map[string][]float64
 	}
 	AnonymizedRecord struct {
 		original Record
@@ -76,6 +89,7 @@ func (ar AnonymizedRecord) Row() map[string]interface{} {
 	return original
 }
 
+// Anonymize returns the original record, there is no anonymization.
 func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 	for _, q := range qi {
@@ -85,17 +99,40 @@ func (a NoAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// Anonymize returns the record anonymize with the method general
+// the record takes the bounds of the cluster.
 func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	b := clus.Bounds()
-
 	mask := map[string]interface{}{}
-	for i, q := range qi {
-		mask[q] = []float64{b[i].down, b[i].up}
+
+	if a.boundsValues[clus.ID()] == nil {
+		a.ComputeGeneralization(clus, qi)
+	}
+
+	for _, key := range qi {
+		mask[key] = []float64{a.boundsValues[clus.ID()][key].down, a.boundsValues[clus.ID()][key].up}
 	}
 
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// ComputeGeneralization calculates the min and max values of the cluster for each qi.
+func (a GeneralAnonymizer) ComputeGeneralization(clus Cluster, qi []string) {
+	values := listValues(clus, qi)
+
+	boundsVal := make(map[string]bounds)
+
+	for _, key := range qi {
+		var b bounds
+		b.down = Min(values[key])
+		b.up = Max(values[key])
+		boundsVal[key] = b
+	}
+
+	a.boundsValues[clus.ID()] = boundsVal
+}
+
+// Anonymize returns the record anonymized with the method meanAggregarion or medianAggregation
+// the record takes the aggregated values of the cluster.
 func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	mask := map[string]interface{}{}
 
@@ -110,6 +147,8 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// ComputeAggregation calculates the mean (method meanAggreagtion)
+// or median (method medianAggregation) value of the cluster for each qi.
 func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 	values := listValues(clus, qi)
 
@@ -127,6 +166,10 @@ func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 	a.values[clus.ID()] = valAggregation
 }
 
+// Anonymize returns the record anonymized with the method outlier
+// if the record is in the interval [Q1;Q3] then we don't change its value
+// if the record is > Q3 then it takes the Q3 value
+// if the record is < Q1 then it takes the Q1 value.
 func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
@@ -152,6 +195,9 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+// Anonymize returns the record anonymized with the method laplaceNoise or gaussianNoise
+// the record takes as value the original value added to a Laplacian or Gaussian noise
+// the anonymized value stays within the bounds of the cluster.
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
 	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
@@ -183,6 +229,45 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 	return AnonymizedRecord{original: rec, mask: mask}
 }
 
+func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
+	mask := map[string]interface{}{}
+
+	// cluster value swapping
+	if a.swapValues[clus.ID()] == nil {
+		a.Swap(clus, qi)
+	}
+
+	var idx int
+
+	// retrieve the position (idx) of the record in the cluster
+	for i, r := range clus.Records() {
+		if rec == r {
+			idx = i
+		}
+	}
+
+	for _, key := range qi {
+		// retrieve the swapped value
+		mask[key] = a.swapValues[clus.ID()][key][idx]
+	}
+
+	return AnonymizedRecord{original: rec, mask: mask}
+}
+
+func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
+	// retrieve the cluster values for each qi
+	values := listValues(clus, qi)
+	swapVal := make(map[string][]float64)
+
+	for _, key := range qi {
+		// values permutation
+		swapVal[key] = Shuffle(values[key])
+	}
+
+	a.swapValues[clus.ID()] = swapVal
+}
+
+// Returns the list of values present in the cluster for each qi.
 func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 	mapValues = make(map[string][]float64)
 

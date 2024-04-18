@@ -57,19 +57,23 @@ func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
 	return KDTree{k: k, l: l, dim: dim, clusterID: clusterID}
 }
 
+// Add add a record to the tree (root node).
 func (t KDTree) Add(r Record) {
 	t.root.Add(r)
 	t.analyzer.Add(r)
 }
 
+// Build starts building the tree.
 func (t KDTree) Build() {
 	t.root.build()
 }
 
+// Clusters returns the list of clusters in the tree.
 func (t KDTree) Clusters() []Cluster {
 	return t.root.Clusters()
 }
 
+// String returns the tree in a literary way.
 func (t KDTree) String() string {
 	return t.root.string(0)
 }
@@ -84,12 +88,7 @@ func NewNode(tree *KDTree, path string, rot int) node {
 		pivot:       []float64{},
 		valid:       false,
 		rot:         rot % tree.dim,
-		bounds:      make([]bounds, tree.dim),
 	}
-}
-
-type bounds struct {
-	down, up float64
 }
 
 type node struct {
@@ -97,20 +96,22 @@ type node struct {
 	cluster     []Record
 	clusterPath string
 	subNodes    []node
-	bounds      []bounds
 	pivot       []float64
 	valid       bool
 	rot         int
 }
 
+// Add add a record to the node.
 func (n *node) Add(r Record) {
 	n.cluster = append(n.cluster, r)
 }
 
+// incRot increments the value of rot which refers to the dimension on which we build our nodes.
 func (n *node) incRot() {
 	n.rot = (n.rot + 1) % n.tree.dim
 }
 
+// build creates nodes.
 func (n *node) build() {
 	log.Debug().
 		Str("Dimension", n.tree.analyzer.QI(n.rot)).
@@ -119,10 +120,6 @@ func (n *node) build() {
 		Msg("Cluster:")
 
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
-		if n == n.tree.root {
-			n.initiateBounds()
-		}
-
 		// rollback to simple node
 		var (
 			lower, upper node
@@ -151,29 +148,13 @@ func (n *node) build() {
 		}
 
 		n.cluster = nil
-		n.bounds = make([]bounds, n.tree.dim)
 		n.subNodes[0].build()
 		n.subNodes[1].build()
 	}
 }
 
-func (n *node) initiateBounds() {
-	for rot := 0; rot < n.tree.dim; rot++ {
-		sort.SliceStable(n.cluster, func(i int, j int) bool {
-			return n.cluster[i].QuasiIdentifer()[rot] < n.cluster[j].QuasiIdentifer()[rot]
-		})
-
-		n.bounds[rot] = bounds{
-			down: n.cluster[0].QuasiIdentifer()[rot],
-			up:   n.cluster[len(n.cluster)-1].QuasiIdentifer()[rot],
-		}
-	}
-}
-
-func (n *node) Bounds() []bounds {
-	return n.bounds
-}
-
+// split creates 2 subnodes by ordering the node and splitting in order to have 2 equal parts
+// and all elements having the same value in the same subnode.
 func (n *node) split() (node, node, bool) {
 	dim := n.tree.analyzer.Dimension(n.rot)
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
@@ -182,24 +163,21 @@ func (n *node) split() (node, node, bool) {
 
 	n.pivot = nil
 	lower := NewNode(n.tree, n.clusterPath+"-l", n.rot+1)
-	copy(lower.bounds, n.bounds)
 	upper := NewNode(n.tree, n.clusterPath+"-u", n.rot+1)
-	copy(upper.bounds, n.bounds)
 
 	lowerSize := 0
 	upperSize := 0
 	previous := n.cluster[0]
 
 	for _, row := range n.cluster {
-		if lowerSize < len(n.cluster)/2 { // || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
+		// equal subnodes and all elements having the same value in the same subnode
+		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
 			lower.Add(row)
 			previous = row
 			lowerSize++
 		} else {
 			if n.pivot == nil {
 				n.pivot = row.QuasiIdentifer()
-				lower.bounds[n.rot].up = previous.QuasiIdentifer()[n.rot]
-				upper.bounds[n.rot].down = n.pivot[n.rot]
 			}
 			upper.Add(row)
 			upperSize++
@@ -209,6 +187,7 @@ func (n *node) split() (node, node, bool) {
 	return lower, upper, upperSize >= n.tree.k && lower.wellLDiv() && upper.wellLDiv()
 }
 
+// Records returns the list of records in the node.
 func (n *node) Records() []Record {
 	if n.cluster != nil {
 		return n.cluster
@@ -217,10 +196,12 @@ func (n *node) Records() []Record {
 	return []Record{}
 }
 
+// ID return the path of the node.
 func (n *node) ID() string {
 	return n.clusterPath
 }
 
+// Clusters returns the list of clusters in the node.
 func (n *node) Clusters() []Cluster {
 	if n.cluster != nil {
 		return []Cluster{n}
@@ -229,6 +210,7 @@ func (n *node) Clusters() []Cluster {
 	return append(n.subNodes[0].Clusters(), n.subNodes[1].Clusters()...)
 }
 
+// string retunrs the node information (pivot, dimension, subnodes).
 func (n *node) string(offset int) string {
 	if n.cluster != nil {
 		result := "["
@@ -239,7 +221,7 @@ func (n *node) string(offset int) string {
 
 		result += "]"
 
-		return result + "|" + fmt.Sprint(n.bounds)
+		return result
 	}
 
 	return fmt.Sprintf("{\n%s pivot: %v,\n%s rot: %v, \n%s n0: %s,\n%s n1: %s,\n%s}",
@@ -255,26 +237,37 @@ func (n *node) string(offset int) string {
 	)
 }
 
+// validate validates the node.
 func (n *node) validate() {
 	n.valid = true
 }
 
+// isValid returns if the node is valid or not.
 func (n *node) isValid() bool {
 	return n.valid
 }
 
+// weelDiv returns if the node respects the l-diversity (https://en.wikipedia.org/wiki/L-diversity).
+// (https://tel.archives-ouvertes.fr/tel-01783967/document p.29/30).
 func (n node) wellLDiv() bool {
 	var f func([]Record, int) float64
+
+	var condition float64
+
 	if b, ok := over.MDC().Get("entropy"); !ok || !b.(bool) {
+		// Distinct l-diversity
 		f = logQ
+		condition = float64(n.tree.l)
 	} else {
+		// Entropy l-diversity
 		f = entropy
+		condition = math.Log(float64(n.tree.l))
 	}
 
 	rec := n.cluster[0]
 	for i := 0; i < len(rec.Sensitives()); i++ {
 		e := f(n.cluster, i)
-		if e < math.Log(float64(n.tree.l)) {
+		if e < condition {
 			return false
 		}
 	}
@@ -282,6 +275,8 @@ func (n node) wellLDiv() bool {
 	return true
 }
 
+// entropy returns the value of the entropy for the cluster clus and the sensible attribute sens.
+// (https://tel.archives-ouvertes.fr/tel-01783967/document p.30).
 func entropy(clus []Record, sens int) float64 {
 	frequency := make(map[interface{}]int)
 
@@ -298,6 +293,8 @@ func entropy(clus []Record, sens int) float64 {
 	return e
 }
 
+// logQ returns the number of represented values in the cluster clus for the sensible attribute sens.
+// (https://tel.archives-ouvertes.fr/tel-01783967/document p.29).
 func logQ(clus []Record, sens int) float64 {
 	frequency := make(map[interface{}]int)
 

@@ -1,0 +1,37 @@
+name: run sigo with l-diversity
+testcases:
+  - name: distinct l-diversity
+    steps:
+      - script: |-
+          sigo -q x,y -s z -l 2 -i cluster > clusters.jsonl <<EOF
+          { "x": 10, "y": 1, "z": "a" }
+          { "x": 20, "y": 5, "z": "a" }
+          { "x": 30, "y": 4, "z": "a" }
+          { "x": 40, "y": 2, "z": "a" }
+          { "x": 50, "y": 3, "z": "c" }
+          { "x": 60, "y": 6, "z": "a" }
+          EOF
+      - script: |-
+          jq -n '[inputs] | map(.cluster) | max' < clusters.jsonl
+        assertions:
+          - result.systemout ShouldEqual 1
+          - result.code ShouldEqual 0
+      - script: rm -f clusters.jsonl
+
+  - name: entropy l-diversity
+    steps:
+      - script: |-
+          sigo -q x,y -s z -l 2 --entropy -i cluster > clusters.jsonl <<EOF
+          { "x": 10, "y": 1, "z": "a" }
+          { "x": 20, "y": 5, "z": "b" }
+          { "x": 30, "y": 4, "z": "b" }
+          { "x": 40, "y": 2, "z": "a" }
+          { "x": 50, "y": 3, "z": "c" }
+          { "x": 60, "y": 6, "z": "b" }
+          EOF
+      - script: |-
+          jq -n '[inputs] | map(.cluster) | max' < clusters.jsonl
+        assertions:
+          - result.systemout ShouldEqual 1
+          - result.code ShouldEqual 0
+      - script: rm -f clusters.jsonl
