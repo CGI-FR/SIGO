@@ -30,6 +30,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 	count := 0
 
 	log.Info().Msg("Reading source")
+
 	for source.Next() {
 		if source.Err() != nil {
 			return fmt.Errorf("%w", source.Err())

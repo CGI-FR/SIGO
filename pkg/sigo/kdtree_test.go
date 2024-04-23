@@ -50,7 +50,7 @@ func TestAddRecord(t *testing.T) {
 	assert.Equal(t, 0, clusters[0].Records()[0].Row()["x"])
 }
 
-// nolint: funlen
+//nolint: funlen
 func TestAddNRecords(t *testing.T) {
 	t.Parallel()
 
@@ -112,7 +112,7 @@ func TestAddNRecords(t *testing.T) {
 		{k: 6, n: 1000, d: 6, s: 5},
 	}
 
-	// nolint: paralleltest
+	//nolint: paralleltest
 	for i, tc := range tests {
 		t.Run(fmt.Sprintf("test %d", i), func(t *testing.T) {
 			t.Parallel()
@@ -127,9 +127,9 @@ func TestAddNRecords(t *testing.T) {
 			rows := []jsonline.Row{}
 
 			for i := 0; i < N; i++ {
-				// nolint: gosec
+				//nolint: gosec
 				x := rand.Intn(N)
-				// nolint: gosec
+				//nolint: gosec
 				y := rand.Intn(N)
 				for j := 0; j < D; j++ {
 					row := jsonline.NewRow()
@@ -186,7 +186,9 @@ func TestAddClusterInfos(t *testing.T) {
 		kdtree.Add(record)
 	}
 
-	kdtree.Build()
+	err := kdtree.Build()
+	assert.Nil(t, err)
+
 	clusters := kdtree.Clusters()
 
 	for _, cluster := range clusters {

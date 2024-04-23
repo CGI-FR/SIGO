@@ -148,7 +148,6 @@ func BenchmarkLongClustering(b *testing.B) {
 func TestNullValueShouldReturnError(t *testing.T) {
 	t.Parallel()
 
-	// nolint: goconst
 	sourceText := `{"x":0, "y":0, "foo":"bar"}
 				   {"x":null, "y":1, "foo":"bar"}
 				   {"x":0, "y":null, "foo":"bar"}

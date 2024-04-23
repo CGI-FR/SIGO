@@ -143,7 +143,7 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 
 // ComputeGeneralization calculates the min and max values of the cluster for each qi.
 func (a GeneralAnonymizer) ComputeGeneralization(clus Cluster, qi []string) {
-	values, _ := listValues(clus, qi)
+	values := listValues(clus, qi)
 
 	boundsVal := make(map[string]bounds)
 
@@ -176,7 +176,7 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 // ComputeAggregation calculates the mean (method meanAggreagtion)
 // or median (method medianAggregation) value of the cluster for each qi.
 func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
-	values, _ := listValues(clus, qi)
+	values := listValues(clus, qi)
 
 	valAggregation := make(map[string]float64)
 
@@ -197,7 +197,7 @@ func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 // if the record is > Q3 then it takes the Q3 value
 // if the record is < Q1 then it takes the Q1 value.
 func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	values, _ := listValues(clus, qi)
+	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
@@ -206,11 +206,8 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		bottom := q.Q1
 		top := q.Q3
 
-		recVals, err := rec.QuasiIdentifer()
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
+		recVals, _ := rec.QuasiIdentifer()
+
 		val := recVals[i]
 
 		switch {
@@ -230,15 +227,17 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 // the record takes as value the original value added to a Laplacian or Gaussian noise
 // the anonymized value stays within the bounds of the cluster.
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	values, _ := listValues(clus, qi)
+	values := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
 		recVals, err := rec.QuasiIdentifer()
 		if err != nil {
 			fmt.Println(err)
+
 			break
 		}
+
 		val := recVals[i]
 
 		laplaceVal := Scaling(val, values[key], laplace)
@@ -292,7 +291,7 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 
 func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	// retrieve the cluster values for each qi
-	values, _ := listValues(clus, qi)
+	values := listValues(clus, qi)
 
 	swapVal := make(map[string][]float64)
 
@@ -461,20 +460,16 @@ func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 }
 
 // Returns the list of values present in the cluster for each qi.
-func listValues(clus Cluster, qi []string) (mapValues map[string][]float64, err error) {
+func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 	mapValues = make(map[string][]float64)
 
 	for _, record := range clus.Records() {
 		for i, key := range qi {
 			vals, _ := record.QuasiIdentifer()
-			// if err != nil {
-			// 	fmt.Println(err)
-			// 	return map[string][]float64{}, err
-			// }
 			val := vals[i]
 			mapValues[key] = append(mapValues[key], val)
 		}
 	}
 
-	return mapValues, nil
+	return mapValues
 }

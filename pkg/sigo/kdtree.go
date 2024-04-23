@@ -118,6 +118,7 @@ func (n *node) build() error {
 		Int("Size", len(n.cluster)).
 		Msg("Cluster:")
 
+	//nolint: nestif
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
 		var (
@@ -130,7 +131,9 @@ func (n *node) build() error {
 			lower, upper, valide, err = n.split()
 			if err != nil {
 				return err
-			} else if !valide {
+			}
+
+			if !valide {
 				n.incRot()
 			} else {
 				break
@@ -151,9 +154,11 @@ func (n *node) build() error {
 
 		n.cluster = nil
 		err = n.subNodes[0].build()
+
 		if err != nil {
 			return err
 		}
+
 		err = n.subNodes[1].build()
 		if err != nil {
 			return err
@@ -173,17 +178,22 @@ func (n *node) split() (node, node, bool, error) {
 		if err != nil {
 			// Stocker l'erreur dans la variable globale
 			globalError = err
+
 			return false
 		}
+
 		valueJ, err := n.cluster[j].QuasiIdentifer()
 		if err != nil {
 			globalError = err
+
 			return false
 		}
+
 		return valueI[n.rot] < valueJ[n.rot]
 	}
 
 	sort.SliceStable(n.cluster, less)
+
 	if globalError != nil {
 		return node{}, node{}, false, globalError
 	}
@@ -243,6 +253,7 @@ func (n *node) Clusters() []Cluster {
 func (n *node) string(offset int) string {
 	if n.cluster != nil {
 		result := "["
+		
 		for _, rec := range n.cluster {
 			// result += fmt.Sprintf("%v ", rec.QuasiIdentifer()[n.rot])
 			recValue, _ := rec.QuasiIdentifer()
