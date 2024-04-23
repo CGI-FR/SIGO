@@ -18,6 +18,7 @@
 package sigo
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/cgi-fr/jsonline/pkg/cast"
@@ -97,7 +98,7 @@ type (
 	}
 )
 
-func (ar AnonymizedRecord) QuasiIdentifer() []float64 {
+func (ar AnonymizedRecord) QuasiIdentifer() ([]float64, error) {
 	return ar.original.QuasiIdentifer()
 }
 
@@ -142,7 +143,7 @@ func (a GeneralAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) R
 
 // ComputeGeneralization calculates the min and max values of the cluster for each qi.
 func (a GeneralAnonymizer) ComputeGeneralization(clus Cluster, qi []string) {
-	values := listValues(clus, qi)
+	values, _ := listValues(clus, qi)
 
 	boundsVal := make(map[string]bounds)
 
@@ -175,7 +176,7 @@ func (a AggregationAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []strin
 // ComputeAggregation calculates the mean (method meanAggreagtion)
 // or median (method medianAggregation) value of the cluster for each qi.
 func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
-	values := listValues(clus, qi)
+	values, _ := listValues(clus, qi)
 
 	valAggregation := make(map[string]float64)
 
@@ -196,7 +197,7 @@ func (a AggregationAnonymizer) ComputeAggregation(clus Cluster, qi []string) {
 // if the record is > Q3 then it takes the Q3 value
 // if the record is < Q1 then it takes the Q1 value.
 func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	values := listValues(clus, qi)
+	values, _ := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
@@ -205,7 +206,12 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		bottom := q.Q1
 		top := q.Q3
 
-		val := rec.QuasiIdentifer()[i]
+		recVals, err := rec.QuasiIdentifer()
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+		val := recVals[i]
 
 		switch {
 		case val < bottom:
@@ -224,11 +230,16 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 // the record takes as value the original value added to a Laplacian or Gaussian noise
 // the anonymized value stays within the bounds of the cluster.
 func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Record {
-	values := listValues(clus, qi)
+	values, _ := listValues(clus, qi)
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
-		val := rec.QuasiIdentifer()[i]
+		recVals, err := rec.QuasiIdentifer()
+		if err != nil {
+			fmt.Println(err)
+			break
+		}
+		val := recVals[i]
 
 		laplaceVal := Scaling(val, values[key], laplace)
 		gaussianVal := Scaling(val, values[key], gaussian)
@@ -281,7 +292,8 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 
 func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	// retrieve the cluster values for each qi
-	values := listValues(clus, qi)
+	values, _ := listValues(clus, qi)
+
 	swapVal := make(map[string][]float64)
 
 	for _, key := range qi {
@@ -416,7 +428,8 @@ func (r Reidentification) Statistics(idCluster string, q string) (mean float64, 
 
 // ComputeSimilarity computes the similarity score between the record rec and the anonymized cluster data.
 func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
-	qi []string, s []string) map[float64]interface{} {
+	qi []string, s []string,
+) map[float64]interface{} {
 	scores := make(map[float64]interface{})
 
 	x := make(map[string]interface{})
@@ -448,14 +461,20 @@ func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 }
 
 // Returns the list of values present in the cluster for each qi.
-func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
+func listValues(clus Cluster, qi []string) (mapValues map[string][]float64, err error) {
 	mapValues = make(map[string][]float64)
 
 	for _, record := range clus.Records() {
 		for i, key := range qi {
-			mapValues[key] = append(mapValues[key], record.QuasiIdentifer()[i])
+			vals, _ := record.QuasiIdentifer()
+			// if err != nil {
+			// 	fmt.Println(err)
+			// 	return map[string][]float64{}, err
+			// }
+			val := vals[i]
+			mapValues[key] = append(mapValues[key], val)
 		}
 	}
 
-	return mapValues
+	return mapValues, nil
 }

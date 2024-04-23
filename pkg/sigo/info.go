@@ -29,7 +29,7 @@ type InfosRecord struct {
 	infos    map[string]interface{}
 }
 
-func (ir InfosRecord) QuasiIdentifer() []float64 {
+func (ir InfosRecord) QuasiIdentifer() ([]float64, error) {
 	return ir.original.QuasiIdentifer()
 }
 

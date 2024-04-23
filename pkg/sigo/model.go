@@ -30,7 +30,7 @@ type RecordSink interface {
 }
 
 type Record interface {
-	QuasiIdentifer() []float64
+	QuasiIdentifer() ([]float64, error)
 	Sensitives() []interface{}
 	Row() map[string]interface{}
 }
@@ -44,7 +44,7 @@ type Generalizer interface {
 	Add(Record)
 	Clusters() []Cluster
 	String() string
-	Build()
+	Build() error
 }
 
 type GeneralizerFactory interface {

@@ -175,7 +175,9 @@ func run(definition pdef, logs logs) {
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
 		len(definition.qi), newAnonymizer(definition.method, definition.args), sink, debugger)
 	if err != nil {
-		panic(err)
+		log.Err(err).Msg("Anonymize failed")
+		log.Warn().Msg("End SIGO")
+		os.Exit(1)
 	}
 
 	if logs.profiling {

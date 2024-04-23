@@ -144,3 +144,27 @@ func BenchmarkLongClustering(b *testing.B) {
 		jsonBytes.Close()
 	}
 }
+
+func TestNullValueShouldReturnError(t *testing.T) {
+	t.Parallel()
+
+	// nolint: goconst
+	sourceText := `{"x":0, "y":0, "foo":"bar"}
+				   {"x":null, "y":1, "foo":"bar"}
+				   {"x":0, "y":null, "foo":"bar"}
+				   {"x":2, "y":1, "foo":"null"}
+				   {"x":3, "y":2, "foo":"baz"}
+				   {"x":2, "y":3, "foo":"baz"}`
+
+	expectedMessage := "null value in dataset"
+
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
+	assert.Nil(t, err)
+
+	result := []map[string]interface{}{}
+	sink := infra.NewSliceDictionariesSink(&result)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,
+		sigo.NewSequenceDebugger("clusterID"))
+	assert.NotNil(t, err)
+	assert.Equal(t, expectedMessage, err.Error())
+}
