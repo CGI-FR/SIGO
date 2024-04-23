@@ -48,20 +48,6 @@ func (jlr JSONLineRecord) QuasiIdentifer() ([]float64, error) {
 		}
 
 		result = append(result, (*jlr.row).GetFloat64(key))
-
-		// switch v := value.(type) {
-		// case float64:
-		// 	result = append(result, v)
-		// case json.Number:
-		// 	floatValue, err := v.Float64()
-		// 	if err != nil {
-		// 		return []float64{}, err
-		// 	}
-		// 	result = append(result, floatValue)
-		// default:
-		// 	err := fmt.Errorf("unsupported type: %T", v)
-		// 	return []float64{}, err
-		// }
 	}
 
 	return result, nil

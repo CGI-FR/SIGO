@@ -253,7 +253,7 @@ func (n *node) Clusters() []Cluster {
 func (n *node) string(offset int) string {
 	if n.cluster != nil {
 		result := "["
-		
+
 		for _, rec := range n.cluster {
 			// result += fmt.Sprintf("%v ", rec.QuasiIdentifer()[n.rot])
 			recValue, _ := rec.QuasiIdentifer()
