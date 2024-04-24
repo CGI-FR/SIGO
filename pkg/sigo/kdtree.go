@@ -20,6 +20,7 @@ package sigo
 import (
 	"fmt"
 	"math"
+	"os"
 	"sort"
 	"strings"
 
@@ -257,7 +258,13 @@ func (n *node) string(offset int) string {
 
 		for _, rec := range n.cluster {
 			// result += fmt.Sprintf("%v ", rec.QuasiIdentifer()[n.rot])
-			recValue, _ := rec.QuasiIdentifer()
+			recValue, err := rec.QuasiIdentifer()
+			if err != nil {
+				log.Err(err).Msg("Cannot cast quasi-identifier to float64 in node")
+				log.Warn().Int("return", 1).Msg("End SIGO")
+				os.Exit(1)
+			}
+
 			result += fmt.Sprintf("%v ", recValue)
 		}
 

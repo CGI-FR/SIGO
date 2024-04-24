@@ -18,7 +18,6 @@
 package sigo
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/cgi-fr/jsonline/pkg/cast"
@@ -206,7 +205,12 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		bottom := q.Q1
 		top := q.Q3
 
-		recVals, _ := rec.QuasiIdentifer()
+		recVals, err := rec.QuasiIdentifer()
+		if err != nil {
+			log.Err(err).Msg("Cannot cast quasi-identifier to float64")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
+		}
 
 		val := recVals[i]
 
@@ -233,9 +237,9 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 	for i, key := range qi {
 		recVals, err := rec.QuasiIdentifer()
 		if err != nil {
-			fmt.Println(err)
-
-			break
+			log.Err(err).Msg("Cannot cast quasi-identifier to float64")
+			log.Warn().Int("return", 1).Msg("End SIGO")
+			os.Exit(1)
 		}
 
 		val := recVals[i]
@@ -465,8 +469,14 @@ func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 
 	for _, record := range clus.Records() {
 		for i, key := range qi {
-			vals, _ := record.QuasiIdentifer()
-			val := vals[i]
+			recVals, err := record.QuasiIdentifer()
+			if err != nil {
+				log.Err(err).Msg("Cannot cast quasi-identifier to float64")
+				log.Warn().Int("return", 1).Msg("End SIGO")
+				os.Exit(1)
+			}
+
+			val := recVals[i]
 			mapValues[key] = append(mapValues[key], val)
 		}
 	}
