@@ -206,6 +206,7 @@ func (n *node) split() (node, node, bool, error) {
 	upperSize := 0
 	previous := n.cluster[0]
 
+	// All cluster are passed err check from sort func
 	for _, row := range n.cluster {
 		rowValue, _ := row.QuasiIdentifer()
 		previousValue, _ := previous.QuasiIdentifer()

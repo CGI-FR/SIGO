@@ -18,8 +18,11 @@
 package infra
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
+	"strconv"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/pkg/sigo"
@@ -47,7 +50,26 @@ func (jlr JSONLineRecord) QuasiIdentifer() ([]float64, error) {
 			return []float64{}, err
 		}
 
-		result = append(result, (*jlr.row).GetFloat64(key))
+		var val float64
+		switch t := value.(type) {
+		case int:
+			val = float64(t)
+		case string:
+			val, _ = strconv.ParseFloat(t, 64)
+		case float32:
+			val = float64(t)
+		case json.Number:
+			val, _ = t.Float64()
+		case float64:
+			val = t
+		default:
+			//nolint: goerr113
+			err := fmt.Errorf("unsupported type: %T", t)
+
+			return []float64{}, err
+		}
+
+		result = append(result, val)
 	}
 
 	return result, nil
