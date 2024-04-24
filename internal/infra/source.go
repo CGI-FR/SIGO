@@ -55,6 +55,7 @@ func (jlr JSONLineRecord) QuasiIdentifer() ([]float64, error) {
 		case int:
 			val = float64(t)
 		case string:
+			//nolint: gomnd
 			val, _ = strconv.ParseFloat(t, 64)
 		case float32:
 			val = float64(t)

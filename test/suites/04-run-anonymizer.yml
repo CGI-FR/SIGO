@@ -70,3 +70,22 @@ testcases:
         assertions:
           - result.code ShouldEqual 1
           - result.systemerr ShouldContainSubstring Anonymize failed
+
+  - name: wrong type in dataset should return error
+    steps:
+      - script: rm -f output_sigo.json
+      - script: rm -f output_jq.json
+      - script: |-
+          sigo -q taille,poids,fruit,natation,course,voltige -s meurtre -k 2 -l 2 -a general -v 5 > output_sigo.json <<EOF
+          {"fruit":1, "taille": 2, "poids": 2 , "meurtre": 0, "natation":1, "course":1, "voltige":1 , "animal": "canard"}
+          {"fruit":1, "taille": 5, "poids": 5 , "meurtre": 0, "natation":1, "course":1, "voltige":0 , "animal": "elephant"}
+          {"fruit":1, "taille": false, "poids": 4 , "meurtre": 1, "natation":1, "course":1, "voltige":0 , "animal": "ours"}
+          {"fruit":1, "taille": 1, "poids": 1 , "meurtre": 0, "natation":0, "course":1, "voltige":0, "animal":"souris" }
+          {"fruit":0, "taille": 2, "poids": 2 , "meurtre": 0, "natation":1, "course":0, "voltige":0 , "animal": "saumon"}
+          {"fruit":0, "taille": 2, "poids": 1 , "meurtre": 1, "natation":0, "course":0, "voltige":1, "animal" : "chouette" }
+          {"fruit":1, "taille": 3, "poids": 3 , "meurtre": 0, "natation":1, "course":0, "voltige":1 , "animal": "singe"}
+          {"fruit":0, "taille": 3, "poids": false , "meurtre": 1, "natation":0, "course":1, "voltige":0 , "animal" : "loup"}
+          EOF
+        assertions:
+          - result.code ShouldEqual 1
+          - result.systemerr ShouldContainSubstring unsupported type
