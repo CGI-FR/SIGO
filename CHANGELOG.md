@@ -14,6 +14,9 @@ Types of changes
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [0.3.1]
+- `Fixed` panic when a null value in dataset (#22)
+
 ## [0.3.0]
 
 - `Added`export configuration in yaml file (#32)
