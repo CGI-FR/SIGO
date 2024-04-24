@@ -15,6 +15,7 @@ Types of changes
 - `Security` in case of vulnerabilities.
 
 ## [0.3.1]
+
 - `Fixed` panic when a null value in dataset (#22)
 
 ## [0.3.0]
