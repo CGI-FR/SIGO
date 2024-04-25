@@ -58,3 +58,7 @@ type Anonymizer interface {
 type Debugger interface {
 	Information(Record, Cluster) Record
 }
+
+type DataValidator interface {
+	Validation() error
+}
