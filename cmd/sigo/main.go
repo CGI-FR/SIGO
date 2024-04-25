@@ -145,6 +145,15 @@ func run(definition pdef, logs logs) {
 		os.Exit(1)
 	}
 
+	validator := infra.NewFloat64DataValidator(source)
+	err = validator.Validation()
+
+	if err != nil {
+		log.Err(err).Msg("Unsupported input data.")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
+	}
+
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	var debugger sigo.Debugger
@@ -233,7 +242,7 @@ func initLog(logs logs, entropy bool) {
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
 }
 
-//nolint: cyclop
+// nolint: cyclop
 func newAnonymizer(name string, args []string) sigo.Anonymizer {
 	switch name {
 	case "general":
