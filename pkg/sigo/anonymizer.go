@@ -97,7 +97,7 @@ type (
 	}
 )
 
-func (ar AnonymizedRecord) QuasiIdentifer() ([]float64, error) {
+func (ar AnonymizedRecord) QuasiIdentifer() []float64 {
 	return ar.original.QuasiIdentifer()
 }
 
@@ -205,14 +205,7 @@ func (a CodingAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Re
 		bottom := q.Q1
 		top := q.Q3
 
-		recVals, err := rec.QuasiIdentifer()
-		if err != nil {
-			log.Err(err).Msg("Cannot cast quasi-identifier to float64")
-			log.Warn().Int("return", 1).Msg("End SIGO")
-			os.Exit(1)
-		}
-
-		val := recVals[i]
+		val := rec.QuasiIdentifer()[i]
 
 		switch {
 		case val < bottom:
@@ -235,14 +228,7 @@ func (a NoiseAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Rec
 	mask := map[string]interface{}{}
 
 	for i, key := range qi {
-		recVals, err := rec.QuasiIdentifer()
-		if err != nil {
-			log.Err(err).Msg("Cannot cast quasi-identifier to float64")
-			log.Warn().Int("return", 1).Msg("End SIGO")
-			os.Exit(1)
-		}
-
-		val := recVals[i]
+		val := rec.QuasiIdentifer()[i]
 
 		laplaceVal := Scaling(val, values[key], laplace)
 		gaussianVal := Scaling(val, values[key], gaussian)
@@ -296,7 +282,6 @@ func (a SwapAnonymizer) Anonymize(rec Record, clus Cluster, qi, s []string) Reco
 func (a SwapAnonymizer) Swap(clus Cluster, qi []string) {
 	// retrieve the cluster values for each qi
 	values := listValues(clus, qi)
-
 	swapVal := make(map[string][]float64)
 
 	for _, key := range qi {
@@ -431,8 +416,7 @@ func (r Reidentification) Statistics(idCluster string, q string) (mean float64, 
 
 // ComputeSimilarity computes the similarity score between the record rec and the anonymized cluster data.
 func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
-	qi []string, s []string,
-) map[float64]interface{} {
+	qi []string, s []string) map[float64]interface{} {
 	scores := make(map[float64]interface{})
 
 	x := make(map[string]interface{})
@@ -469,15 +453,7 @@ func listValues(clus Cluster, qi []string) (mapValues map[string][]float64) {
 
 	for _, record := range clus.Records() {
 		for i, key := range qi {
-			recVals, err := record.QuasiIdentifer()
-			if err != nil {
-				log.Err(err).Msg("Cannot cast quasi-identifier to float64")
-				log.Warn().Int("return", 1).Msg("End SIGO")
-				os.Exit(1)
-			}
-
-			val := recVals[i]
-			mapValues[key] = append(mapValues[key], val)
+			mapValues[key] = append(mapValues[key], record.QuasiIdentifer()[i])
 		}
 	}
 

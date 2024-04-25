@@ -24,8 +24,7 @@ import (
 )
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger,
-) error {
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
 	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
 	count := 0
 
@@ -43,10 +42,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 	log.Info().Msgf("%v individuals to anonymize", count)
 	log.Info().Msg("Tree building")
 
-	err := generalizer.Build()
-	if err != nil {
-		return err
-	}
+	generalizer.Build()
 
 	log.Info().Msg("Cluster Anonymization")
 

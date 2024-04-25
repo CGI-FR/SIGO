@@ -77,7 +77,7 @@ Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.o
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
 		Run: func(cmd *cobra.Command, args []string) {
-			//nolint: exhaustivestruct
+			// nolint: exhaustivestruct
 			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 			definition.flagIsSet(*cmd)
@@ -94,7 +94,7 @@ There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDa
 	rootCmd.PersistentFlags().
 		BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
 	rootCmd.PersistentFlags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
-	//nolint: gomnd
+	// nolint: gomnd
 	rootCmd.PersistentFlags().IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
@@ -121,7 +121,6 @@ There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDa
 	}
 }
 
-//nolint: funlen
 func run(definition pdef, logs logs) {
 	initLog(logs, definition.entropy)
 
@@ -176,9 +175,7 @@ func run(definition pdef, logs logs) {
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
 		len(definition.qi), newAnonymizer(definition.method, definition.args), sink, debugger)
 	if err != nil {
-		log.Err(err).Msg("Anonymize failed")
-		log.Warn().Msg("End SIGO")
-		os.Exit(1)
+		panic(err)
 	}
 
 	if logs.profiling {
@@ -186,7 +183,7 @@ func run(definition pdef, logs logs) {
 	}
 }
 
-//nolint: cyclop
+// nolint: cyclop
 func initLog(logs logs, entropy bool) {
 	color := false
 
@@ -203,7 +200,7 @@ func initLog(logs logs, entropy bool) {
 	if logs.jsonlog {
 		logger = zerolog.New(os.Stderr)
 	} else {
-		//nolint: exhaustivestruct
+		// nolint: exhaustivestruct
 		logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, NoColor: !color})
 	}
 

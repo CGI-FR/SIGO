@@ -20,7 +20,6 @@ package sigo
 import (
 	"fmt"
 	"math"
-	"os"
 	"sort"
 	"strings"
 
@@ -64,8 +63,8 @@ func (t KDTree) Add(r Record) {
 }
 
 // Build starts building the tree.
-func (t KDTree) Build() error {
-	return t.root.build()
+func (t KDTree) Build() {
+	t.root.build()
 }
 
 // Clusters returns the list of clusters in the tree.
@@ -78,7 +77,7 @@ func (t KDTree) String() string {
 	return t.root.string(0)
 }
 
-// nolint: revive, golint
+//nolint: revive, golint
 func NewNode(tree *KDTree, path string, rot int) node {
 	return node{
 		tree:        tree,
@@ -112,28 +111,22 @@ func (n *node) incRot() {
 }
 
 // build creates nodes.
-func (n *node) build() error {
+func (n *node) build() {
 	log.Debug().
 		Str("Dimension", n.tree.qi[n.rot]).
 		Str("Path", n.clusterPath).
 		Int("Size", len(n.cluster)).
 		Msg("Cluster:")
 
-	//nolint: nestif
 	if n.isValid() && len(n.cluster) >= 2*n.tree.k {
 		// rollback to simple node
 		var (
 			lower, upper node
 			valide       bool
-			err          error
 		)
 
 		for i := 1; i <= n.tree.dim; i++ {
-			lower, upper, valide, err = n.split()
-			if err != nil {
-				return err
-			}
-
+			lower, upper, valide = n.split()
 			if !valide {
 				n.incRot()
 			} else {
@@ -142,7 +135,7 @@ func (n *node) build() error {
 		}
 
 		if !valide {
-			return nil
+			return
 		}
 
 		lower.validate()
@@ -154,50 +147,17 @@ func (n *node) build() error {
 		}
 
 		n.cluster = nil
-		err = n.subNodes[0].build()
-
-		if err != nil {
-			return err
-		}
-
-		err = n.subNodes[1].build()
-		if err != nil {
-			return err
-		}
+		n.subNodes[0].build()
+		n.subNodes[1].build()
 	}
-
-	return nil
 }
 
 // split creates 2 subnodes by ordering the node and splitting in order to have 2 equal parts
 // and all elements having the same value in the same subnode.
-func (n *node) split() (node, node, bool, error) {
-	var globalError error
-
-	less := func(i, j int) bool {
-		valueI, err := n.cluster[i].QuasiIdentifer()
-		if err != nil {
-			// Stocker l'erreur dans la variable globale
-			globalError = err
-
-			return false
-		}
-
-		valueJ, err := n.cluster[j].QuasiIdentifer()
-		if err != nil {
-			globalError = err
-
-			return false
-		}
-
-		return valueI[n.rot] < valueJ[n.rot]
-	}
-
-	sort.SliceStable(n.cluster, less)
-
-	if globalError != nil {
-		return node{}, node{}, false, globalError
-	}
+func (n *node) split() (node, node, bool) {
+	sort.SliceStable(n.cluster, func(i int, j int) bool {
+		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
+	})
 
 	n.pivot = nil
 	lower := NewNode(n.tree, n.clusterPath+"-l", n.rot+1)
@@ -207,25 +167,22 @@ func (n *node) split() (node, node, bool, error) {
 	upperSize := 0
 	previous := n.cluster[0]
 
-	// All cluster are passed err check from sort func
 	for _, row := range n.cluster {
-		rowValue, _ := row.QuasiIdentifer()
-		previousValue, _ := previous.QuasiIdentifer()
 		// equal subnodes and all elements having the same value in the same subnode
-		if lowerSize < len(n.cluster)/2 || rowValue[n.rot] == previousValue[n.rot] {
+		if lowerSize < len(n.cluster)/2 || row.QuasiIdentifer()[n.rot] == previous.QuasiIdentifer()[n.rot] {
 			lower.Add(row)
 			previous = row
 			lowerSize++
 		} else {
 			if n.pivot == nil {
-				n.pivot = rowValue
+				n.pivot = row.QuasiIdentifer()
 			}
 			upper.Add(row)
 			upperSize++
 		}
 	}
 
-	return lower, upper, upperSize >= n.tree.k && lower.wellLDiv() && upper.wellLDiv(), nil
+	return lower, upper, upperSize >= n.tree.k && lower.wellLDiv() && upper.wellLDiv()
 }
 
 // Records returns the list of records in the node.
@@ -255,17 +212,9 @@ func (n *node) Clusters() []Cluster {
 func (n *node) string(offset int) string {
 	if n.cluster != nil {
 		result := "["
-
 		for _, rec := range n.cluster {
 			// result += fmt.Sprintf("%v ", rec.QuasiIdentifer()[n.rot])
-			recValue, err := rec.QuasiIdentifer()
-			if err != nil {
-				log.Err(err).Msg("Cannot cast quasi-identifier to float64 in node")
-				log.Warn().Int("return", 1).Msg("End SIGO")
-				os.Exit(1)
-			}
-
-			result += fmt.Sprintf("%v ", recValue)
+			result += fmt.Sprintf("%v ", rec.QuasiIdentifer())
 		}
 
 		result += "]"

@@ -18,11 +18,8 @@
 package infra
 
 import (
-	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
-	"strconv"
 
 	"github.com/cgi-fr/jsonline/pkg/jsonline"
 	"github.com/cgi-fr/sigo/pkg/sigo"
@@ -38,42 +35,14 @@ type JSONLineRecord struct {
 	sensitives      *[]string
 }
 
-func (jlr JSONLineRecord) QuasiIdentifer() ([]float64, error) {
+func (jlr JSONLineRecord) QuasiIdentifer() []float64 {
 	result := []float64{}
 
 	for _, key := range *jlr.quasiIdentifers {
-		value, _ := (*jlr.row).Get(key)
-		if value == nil {
-			//nolint: goerr113
-			err := errors.New("null value in dataset")
-
-			return []float64{}, err
-		}
-
-		var val float64
-		switch t := value.(type) {
-		case int:
-			val = float64(t)
-		case string:
-			//nolint: gomnd
-			val, _ = strconv.ParseFloat(t, 64)
-		case float32:
-			val = float64(t)
-		case json.Number:
-			val, _ = t.Float64()
-		case float64:
-			val = t
-		default:
-			//nolint: goerr113
-			err := fmt.Errorf("unsupported type: %T", t)
-
-			return []float64{}, err
-		}
-
-		result = append(result, val)
+		result = append(result, (*jlr.row).GetFloat64(key))
 	}
 
-	return result, nil
+	return result
 }
 
 func (jlr JSONLineRecord) Sensitives() []interface{} {
