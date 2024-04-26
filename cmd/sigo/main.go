@@ -120,6 +120,7 @@ There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDa
 		os.Exit(1)
 	}
 }
+
 //nolint: funlen
 func run(definition pdef, logs logs) {
 	initLog(logs, definition.entropy)
