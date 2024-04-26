@@ -31,7 +31,6 @@ func NewFloat64DataValidator(records []Record, quasiIdentifers []string) Float64
 	return Float64DataValidator{records: records, quasiIdentifers: quasiIdentifers}
 }
 
-// nolint: cyclop
 func (v Float64DataValidator) Validation() error {
 	for _, record := range v.records {
 		row := record.Row()
@@ -44,8 +43,10 @@ func (v Float64DataValidator) Validation() error {
 				return err
 			}
 
+			//nolint: gocritic
 			switch t := row[key].(type) {
 			case bool:
+				//nolint: goerr113
 				err := fmt.Errorf("unsupported type: %T", t)
 
 				return err

@@ -146,7 +146,7 @@ func run(definition pdef, logs logs) {
 	}
 
 	sink := infra.NewJSONLineSink(os.Stdout)
-
+	
 	var debugger sigo.Debugger
 
 	if logs.info != "" {
@@ -156,7 +156,6 @@ func run(definition pdef, logs logs) {
 	}
 
 	var cpuProfiler interface{ Stop() }
-
 	if logs.profiling {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}

@@ -29,6 +29,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
 	count := 0
 	records := []Record{}
+
 	log.Info().Msg("Reading source")
 
 	for source.Next() {
@@ -43,6 +44,7 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 
 	validator := NewFloat64DataValidator(records, source.QuasiIdentifer())
 	err := validator.Validation()
+	
 	if err != nil {
 		return err
 	}
