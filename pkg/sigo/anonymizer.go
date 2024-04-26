@@ -416,7 +416,8 @@ func (r Reidentification) Statistics(idCluster string, q string) (mean float64, 
 
 // ComputeSimilarity computes the similarity score between the record rec and the anonymized cluster data.
 func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
-	qi []string, s []string) map[float64]interface{} {
+	qi []string, s []string,
+) map[float64]interface{} {
 	scores := make(map[float64]interface{})
 
 	x := make(map[string]interface{})

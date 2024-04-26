@@ -24,10 +24,11 @@ import (
 )
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger,
+) error {
 	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
 	count := 0
-
+	records := []Record{}
 	log.Info().Msg("Reading source")
 
 	for source.Next() {
@@ -36,7 +37,14 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 		}
 
 		generalizer.Add(source.Value())
+		records = append(records, source.Value())
 		count++
+	}
+
+	validator := NewFloat64DataValidator(records, source.QuasiIdentifer())
+	err := validator.Validation()
+	if err != nil {
+		return err
 	}
 
 	log.Info().Msgf("%v individuals to anonymize", count)

@@ -145,15 +145,6 @@ func run(definition pdef, logs logs) {
 		os.Exit(1)
 	}
 
-	validator := infra.NewFloat64DataValidator(source)
-	err = validator.Validation()
-
-	if err != nil {
-		log.Err(err).Msg("Unsupported input data.")
-		log.Warn().Int("return", 1).Msg("End SIGO")
-		os.Exit(1)
-	}
-
 	sink := infra.NewJSONLineSink(os.Stdout)
 
 	var debugger sigo.Debugger
@@ -184,7 +175,9 @@ func run(definition pdef, logs logs) {
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), definition.k, definition.l,
 		len(definition.qi), newAnonymizer(definition.method, definition.args), sink, debugger)
 	if err != nil {
-		panic(err)
+		log.Err(err).Msg("Unsupported input data.")
+		log.Warn().Int("return", 1).Msg("End SIGO")
+		os.Exit(1)
 	}
 
 	if logs.profiling {
@@ -192,7 +185,7 @@ func run(definition pdef, logs logs) {
 	}
 }
 
-// nolint: cyclop
+//nolint: cyclop
 func initLog(logs logs, entropy bool) {
 	color := false
 

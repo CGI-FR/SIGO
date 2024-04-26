@@ -15,38 +15,43 @@
 // You should have received a copy of the GNU General Public License
 // along with SIGO.  If not, see <http://www.gnu.org/licenses/>.
 
-package infra
+package sigo
 
 import (
 	"errors"
-
-	"github.com/cgi-fr/sigo/pkg/sigo"
+	"fmt"
 )
 
 type Float64DataValidator struct {
-	source sigo.RecordSource
+	records         []Record
+	quasiIdentifers []string
 }
 
-func NewFloat64DataValidator(source sigo.RecordSource) Float64DataValidator {
-	return Float64DataValidator{source: source}
+func NewFloat64DataValidator(records []Record, quasiIdentifers []string) Float64DataValidator {
+	return Float64DataValidator{records: records, quasiIdentifers: quasiIdentifers}
 }
 
+// nolint: cyclop
 func (v Float64DataValidator) Validation() error {
-	// Check Null value
-	// if value == nil {
-	// 	//nolint: goerr113
-	// 	err := errors.New("null value in dataset")
+	for _, record := range v.records {
+		row := record.Row()
 
-	// 	return err
-	// }
+		for _, key := range v.quasiIdentifers {
+			if row[key] == nil {
+				//nolint: goerr113
+				err := errors.New("null value in dataset")
 
-	// Check all data can transfer to float64
-	// for _, value := range data {
-	// 	_, err := strconv.ParseFloat(value, 64)
-	// 	if err != nil {
-	// 		return errors.New("unsupported type in dataset")
-	// 	}
-	// }
-	//nolint: goerr113
-	return errors.Unwrap(errors.New("not valide"))
+				return err
+			}
+
+			switch t := row[key].(type) {
+			case bool:
+				err := fmt.Errorf("unsupported type: %T", t)
+
+				return err
+			}
+		}
+	}
+
+	return nil
 }
