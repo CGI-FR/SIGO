@@ -33,7 +33,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// nolint: gochecknoglobals
+//nolint: gochecknoglobals
 var (
 	name      string
 	version   string
@@ -94,7 +94,7 @@ There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDa
 	rootCmd.PersistentFlags().
 		BoolVar(&logs.jsonlog, "log-json", false, "output logs in JSON format")
 	rootCmd.PersistentFlags().StringVar(&logs.colormode, "color", "auto", "use colors in log outputs : yes, no or auto")
-	// nolint: gomnd
+	//nolint: gomnd
 	rootCmd.PersistentFlags().IntVarP(&definition.k, "k-value", "k", 3, "k-value for k-anonymization")
 	rootCmd.PersistentFlags().IntVarP(&definition.l, "l-value", "l", 1, "l-value for l-diversity")
 	rootCmd.PersistentFlags().
@@ -120,7 +120,7 @@ There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDa
 		os.Exit(1)
 	}
 }
-
+//nolint: funlen
 func run(definition pdef, logs logs) {
 	initLog(logs, definition.entropy)
 
@@ -146,7 +146,7 @@ func run(definition pdef, logs logs) {
 	}
 
 	sink := infra.NewJSONLineSink(os.Stdout)
-	
+
 	var debugger sigo.Debugger
 
 	if logs.info != "" {
@@ -155,7 +155,8 @@ func run(definition pdef, logs logs) {
 		debugger = sigo.NewNoDebugger()
 	}
 
-	var cpuProfiler interface{ Stop() }
+	var cpuProfiler interface{ Stop()}
+
 	if logs.profiling {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
 	}
@@ -234,7 +235,7 @@ func initLog(logs logs, entropy bool) {
 	log.Info().Msgf("%v %v (commit=%v date=%v by=%v)", name, version, commit, buildDate, builtBy)
 }
 
-// nolint: cyclop
+//nolint: cyclop
 func newAnonymizer(name string, args []string) sigo.Anonymizer {
 	switch name {
 	case "general":

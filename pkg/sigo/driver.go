@@ -43,8 +43,8 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 	}
 
 	validator := NewFloat64DataValidator(records, source.QuasiIdentifer())
+
 	err := validator.Validation()
-	
 	if err != nil {
 		return err
 	}

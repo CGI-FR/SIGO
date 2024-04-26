@@ -168,11 +168,11 @@ func TestDataValidatorShouldReturnErrorWithNullValue(t *testing.T) {
 func TestDataValidatorShouldReturnErrorWithList(t *testing.T) {
 	t.Parallel()
 	//nolint: go-golangci-lint
-	sourceText := `{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"meurtre":0,"natation":[0,1],"course":[0,1],"voltige":[0,1],"animal":"souris"}
-					{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"meurtre":1,"natation":[0,1],"course":[0,1],"voltige":[0,1],"animal":"chouette"}
-					{"fruit":[0,1],"taille":[1,2],"poids":null,"meurtre":0,"natation":[0,1],"course":[0,1],"voltige":[0,1],"animal":"canard"}
-					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"meurtre":1,"natation":[0,1],"course":[0,1],"voltige":[0,1],"animal":"loup"}
-					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"meurtre":0,"natation":[0,1],"course":[0,1],"voltige":[0,1],"animal":"singe"}`
+	sourceText := `{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"animal":"souris"}
+					{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"animal":"chouette"}
+					{"fruit":[0,1],"taille":[1,2],"poids":null,"animal":"canard"}
+					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"animal":"loup"}
+					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"animal":"singe"}`
 
 	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"poids", "taille"}, []string{"animal"})
 	assert.Nil(t, err)
