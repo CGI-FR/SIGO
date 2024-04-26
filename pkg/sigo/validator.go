@@ -63,6 +63,7 @@ func checkType(row map[string]interface{}, key string) (bool, error) {
 	case int:
 		return false, nil
 	case string:
+		//nolint: gomnd
 		_, err := strconv.ParseFloat(t, 64)
 		if err != nil {
 			//nolint: goerr113
