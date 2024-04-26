@@ -77,7 +77,7 @@ Copyright (C) 2022 CGI France \n License GPLv3: GNU GPL version 3 <https://gnu.o
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.`, version, commit, buildDate, builtBy),
 		Run: func(cmd *cobra.Command, args []string) {
-			// nolint: exhaustivestruct
+			//nolint: exhaustivestruct
 			log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 			definition.flagIsSet(*cmd)
@@ -156,7 +156,7 @@ func run(definition pdef, logs logs) {
 		debugger = sigo.NewNoDebugger()
 	}
 
-	var cpuProfiler interface{ Stop()}
+	var cpuProfiler interface{ Stop() }
 
 	if logs.profiling {
 		cpuProfiler = profile.Start(profile.ProfilePath("."))
@@ -203,7 +203,7 @@ func initLog(logs logs, entropy bool) {
 	if logs.jsonlog {
 		logger = zerolog.New(os.Stderr)
 	} else {
-		// nolint: exhaustivestruct
+		//nolint: exhaustivestruct
 		logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, NoColor: !color})
 	}
 
