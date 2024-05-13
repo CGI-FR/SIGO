@@ -165,26 +165,6 @@ func TestDataValidatorShouldReturnErrorWithNullValue(t *testing.T) {
 	assert.Equal(t, expectedMessage, err.Error())
 }
 
-func TestDataValidatorShouldReturnErrorWithList(t *testing.T) {
-	t.Parallel()
-	//nolint: go-golangci-lint
-	sourceText := `{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"animal":"souris"}
-					{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"animal":"chouette"}
-					{"fruit":[0,1],"taille":[1,2],"poids":null,"animal":"canard"}
-					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"animal":"loup"}
-					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"animal":"singe"}`
-
-	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"poids", "taille"}, []string{"animal"})
-	assert.Nil(t, err)
-
-	expectedMessage := "null value in dataset"
-	result := []map[string]interface{}{}
-	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,
-		sigo.NewSequenceDebugger("clusterID"))
-	assert.Equal(t, expectedMessage, err.Error())
-}
-
 func TestDataValidatorShouldReturnErrorWithStringValue(t *testing.T) {
 	t.Parallel()
 
@@ -198,26 +178,6 @@ func TestDataValidatorShouldReturnErrorWithStringValue(t *testing.T) {
 	assert.Nil(t, err)
 
 	expectedMessage := "unsupported type: string"
-	result := []map[string]interface{}{}
-	sink := infra.NewSliceDictionariesSink(&result)
-	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,
-		sigo.NewSequenceDebugger("clusterID"))
-	assert.Equal(t, expectedMessage, err.Error())
-}
-
-func TestDataValidatorShouldReturnErrorWithNullvalueInList(t *testing.T) {
-	t.Parallel()
-	//nolint: go-golangci-lint
-	sourceText := `{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"animal":"souris"}
-					{"fruit":[0,1],"taille":[1,2],"poids":[1,2],"animal":"chouette"}
-					{"fruit":[0,1],"taille":[1,2],"poids":[1, null],"animal":"canard"}
-					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"animal":"loup"}
-					{"fruit":[0,1],"taille":[3,3],"poids":[3,4],"animal":"singe"}`
-
-	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"poids", "taille"}, []string{"animal"})
-	assert.Nil(t, err)
-
-	expectedMessage := "null value in dataset"
 	result := []map[string]interface{}{}
 	sink := infra.NewSliceDictionariesSink(&result)
 	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,

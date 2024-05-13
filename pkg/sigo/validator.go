@@ -91,15 +91,6 @@ func transformType(row map[string]interface{}, key string) (float64, error) {
 		result = val
 	case float64:
 		result = t
-	case []interface{}:
-		for _, val := range t {
-			if val == nil {
-				//nolint: goerr113
-				err := errors.New("null value in dataset")
-
-				return result, err
-			}
-		}
 	default:
 		//nolint: goerr113
 		err := fmt.Errorf("unsupported type: %T", t)
