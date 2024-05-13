@@ -33,7 +33,9 @@ func NewFloat64DataValidator(records []Record, quasiIdentifers []string) Float64
 	return Float64DataValidator{records: records, quasiIdentifers: quasiIdentifers}
 }
 
-func (v Float64DataValidator) Validation() error {
+func (v Float64DataValidator) Validation() ([]float64, error) {
+	results := []float64{}
+
 	for _, record := range v.records {
 		row := record.Row()
 
@@ -43,48 +45,67 @@ func (v Float64DataValidator) Validation() error {
 				//nolint: goerr113
 				err := errors.New("null value in dataset")
 
-				return err
+				return nil, err
 			}
 
 			// Type check
-			isValide, typeErr := checkType(row, key)
-			if isValide {
-				return typeErr
+			valFloat64, typeErr := transformType(row, key)
+			if typeErr != nil {
+				return nil, typeErr
 			}
+
+			results = append(results, valFloat64)
 		}
 	}
 
-	return nil
+	return results, nil
 }
 
-func checkType(row map[string]interface{}, key string) (bool, error) {
+func transformType(row map[string]interface{}, key string) (float64, error) {
+	var result float64
+
 	//nolint: varnamelen
 	switch t := row[key].(type) {
 	case int:
-		return false, nil
+		result = float64(t)
 	case string:
 		//nolint: gomnd
-		_, err := strconv.ParseFloat(t, 64)
+		val, err := strconv.ParseFloat(t, 64)
 		if err != nil {
 			//nolint: goerr113
 			err = fmt.Errorf("unsupported type: %T", t)
 
-			return true, err
+			return result, err
 		}
+		result = val
 	case float32:
-		return false, nil
+		result = float64(t)
 	case json.Number:
-		return false, nil
+		val, err := t.Float64()
+		if err != nil {
+			//nolint: goerr113
+			err = fmt.Errorf("unsupported type: %T", t)
+
+			return result, err
+		}
+		result = val
 	case float64:
-		return false, nil
+		result = t
 	case []interface{}:
-		return false, nil
+		for _, val := range t {
+			if val == nil {
+				//nolint: goerr113
+				err := errors.New("null value in dataset")
+
+				return result, err
+			}
+		}
 	default:
 		//nolint: goerr113
 		err := fmt.Errorf("unsupported type: %T", t)
 
-		return true, err
+		return result, err
 	}
 
-	return false, nil
+	return result, nil
 }
