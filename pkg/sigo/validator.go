@@ -77,6 +77,7 @@ func transformType(row map[string]interface{}, key string) (float64, error) {
 
 			return result, err
 		}
+
 		result = val
 	case float32:
 		result = float64(t)
@@ -88,6 +89,7 @@ func transformType(row map[string]interface{}, key string) (float64, error) {
 
 			return result, err
 		}
+
 		result = val
 	case float64:
 		result = t
