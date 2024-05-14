@@ -50,6 +50,10 @@ func (ir InfosRecord) GetQI() map[string]float64 {
 	return ir.original.GetQI()
 }
 
+func (ir InfosRecord) SetQI(float64Map map[string]float64) {
+	ir.original.SetQI(float64Map)
+}
+
 // id returns the path of cluster c coverts to integer.
 func (d SequenceDebugger) id(c Cluster) int {
 	count := len(d.cache)

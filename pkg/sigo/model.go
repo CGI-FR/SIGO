@@ -34,6 +34,7 @@ type Record interface {
 	Sensitives() []interface{}
 	Row() map[string]interface{}
 	GetQI() map[string]float64
+	SetQI(map[string]float64)
 }
 
 type Cluster interface {
