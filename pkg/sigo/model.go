@@ -33,6 +33,7 @@ type Record interface {
 	QuasiIdentifer() []float64
 	Sensitives() []interface{}
 	Row() map[string]interface{}
+	GetQI() map[string]float64
 }
 
 type Cluster interface {

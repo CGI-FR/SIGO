@@ -44,11 +44,11 @@ func Anonymize(source RecordSource, factory GeneralizerFactory,
 
 	validator := NewFloat64DataValidator(records, source.QuasiIdentifer())
 
-	_, err := validator.Validation()
+	valsFloat64, err := validator.Validation()
 	if err != nil {
 		return err
 	}
-
+	fmt.Println(valsFloat64)
 	log.Info().Msgf("%v individuals to anonymize", count)
 	log.Info().Msg("Tree building")
 
