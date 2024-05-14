@@ -26,14 +26,14 @@ import (
 )
 
 func NewJSONLineRecord(row *jsonline.Row, quasiIdentifers *[]string, sensitives *[]string) JSONLineRecord {
-	return JSONLineRecord{row, quasiIdentifers, sensitives, make(map[string]float64)}
+	return JSONLineRecord{row, quasiIdentifers, sensitives, &map[string]float64{}}
 }
 
 type JSONLineRecord struct {
 	row             *jsonline.Row
 	quasiIdentifers *[]string
 	sensitives      *[]string
-	float64QI       map[string]float64
+	float64QI       *map[string]float64
 }
 
 func (jlr JSONLineRecord) QuasiIdentifer() []float64 {
@@ -67,8 +67,9 @@ func (jlr JSONLineRecord) Row() map[string]interface{} {
 }
 
 func (jlr JSONLineRecord) GetQI() map[string]float64 {
-	return jlr.float64QI
+	return *jlr.float64QI
 }
+
 func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) (sigo.RecordSource, error) {
 	// nolint: exhaustivestruct
 	source := &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}
