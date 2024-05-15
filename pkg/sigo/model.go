@@ -18,6 +18,7 @@
 package sigo
 
 type RecordSource interface {
+	DataValidator
 	Next() bool
 	Err() error
 	Value() Record
@@ -61,5 +62,5 @@ type Debugger interface {
 }
 
 type DataValidator interface {
-	Validation() error
+	Validation(row map[string]interface{}, quasiIdentifers []string) (map[string]float64, error)
 }
