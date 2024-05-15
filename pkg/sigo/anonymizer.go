@@ -109,10 +109,6 @@ func (ar AnonymizedRecord) GetQI() map[string]float64 {
 	return ar.original.GetQI()
 }
 
-func (ar AnonymizedRecord) SetQI(float64Map map[string]float64) {
-	ar.original.SetQI(float64Map)
-}
-
 func (ar AnonymizedRecord) Row() map[string]interface{} {
 	original := ar.original.Row()
 	for k, v := range ar.mask {

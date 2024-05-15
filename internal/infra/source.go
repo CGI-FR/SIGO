@@ -74,16 +74,6 @@ func (jlr JSONLineRecord) GetQI() map[string]float64 {
 	return *jlr.float64QI
 }
 
-func (jlr JSONLineRecord) SetQI(float64Map map[string]float64) {
-	copiedMap := make(map[string]float64)
-
-	for key, value := range float64Map {
-		copiedMap[key] = value
-	}
-
-	jlr.float64QI = &copiedMap
-}
-
 func NewJSONLineSource(r io.Reader, quasiIdentifers []string, sensitives []string) (sigo.RecordSource, error) {
 	// nolint: exhaustivestruct
 	source := &JSONLineSource{importer: jsonline.NewImporter(r), quasiIdentifers: quasiIdentifers, sensitives: sensitives}

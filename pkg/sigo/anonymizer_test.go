@@ -335,7 +335,6 @@ func TestGetAndSetQI(t *testing.T) {
 
 	assert.Equal(t, 2, len(float64QI))
 	recordWithFloat64QI := createRowWithFloatQI(1, 4, qi, "", []string{}, float64QI)
-	record.SetQI(float64QI)
 	assert.Equal(t, 2, len(recordWithFloat64QI.GetQI()))
 }
 
