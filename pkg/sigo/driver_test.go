@@ -144,3 +144,43 @@ func BenchmarkLongClustering(b *testing.B) {
 		jsonBytes.Close()
 	}
 }
+
+func TestDataValidatorShouldReturnErrorWithNullValue(t *testing.T) {
+	t.Parallel()
+
+	sourceText := `{"x":0, "y":2, "foo":"bar"}
+				   {"x":1, "y":1, "foo":"bar"}
+				   {"x":0, "y":null, "foo":"bar"}
+				   {"x":2, "y":1, "foo":"baz"}
+				   {"x":3, "y":2, "foo":"baz"}`
+
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
+	assert.Nil(t, err)
+
+	expectedMessage := "null value in dataset"
+	result := []map[string]interface{}{}
+	sink := infra.NewSliceDictionariesSink(&result)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,
+		sigo.NewSequenceDebugger("clusterID"))
+	assert.Equal(t, expectedMessage, err.Error())
+}
+
+func TestDataValidatorShouldReturnErrorWithStringValue(t *testing.T) {
+	t.Parallel()
+
+	sourceText := `{"x":0, "y":2, "foo":"bar"}
+				   {"x":1, "y":1, "foo":"bar"}
+				   {"x":0, "y":"hello", "foo":"bar"}
+				   {"x":2, "y":1, "foo":"baz"}
+				   {"x":3, "y":2, "foo":"baz"}`
+
+	source, err := infra.NewJSONLineSource(strings.NewReader(sourceText), []string{"x", "y"}, []string{"foo"})
+	assert.Nil(t, err)
+
+	expectedMessage := "unsupported type: string"
+	result := []map[string]interface{}{}
+	sink := infra.NewSliceDictionariesSink(&result)
+	err = sigo.Anonymize(source, sigo.NewKDTreeFactory(), 2, 1, 2, sigo.NewNoAnonymizer(), sink,
+		sigo.NewSequenceDebugger("clusterID"))
+	assert.Equal(t, expectedMessage, err.Error())
+}

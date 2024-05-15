@@ -18,6 +18,7 @@
 package sigo
 
 type RecordSource interface {
+	DataValidator
 	Next() bool
 	Err() error
 	Value() Record
@@ -33,6 +34,7 @@ type Record interface {
 	QuasiIdentifer() []float64
 	Sensitives() []interface{}
 	Row() map[string]interface{}
+	GetQI() map[string]float64
 }
 
 type Cluster interface {
@@ -57,4 +59,8 @@ type Anonymizer interface {
 
 type Debugger interface {
 	Information(Record, Cluster) Record
+}
+
+type DataValidator interface {
+	Validation(row map[string]interface{}, quasiIdentifers []string) (map[string]float64, error)
 }

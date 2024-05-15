@@ -321,3 +321,28 @@ func createRowReidentification(x, y float64, qi []string, o json.Number, s []str
 
 	return infra.NewJSONLineRecord(&row, &qi, &s)
 }
+
+func TestGetAndSetQI(t *testing.T) {
+	t.Parallel()
+
+	qi := []string{"x", "y"}
+	float64QI := make(map[string]float64)
+	float64QI["x"] = float64(1)
+	float64QI["y"] = float64(4)
+
+	record := createRowWithFloatQI(1, 4, qi, "", []string{}, make(map[string]float64))
+	assert.Equal(t, 0, len(record.GetQI()))
+
+	assert.Equal(t, 2, len(float64QI))
+	recordWithFloat64QI := createRowWithFloatQI(1, 4, qi, "", []string{}, float64QI)
+	assert.Equal(t, 2, len(recordWithFloat64QI.GetQI()))
+}
+
+func createRowWithFloatQI(x, y float64, qi []string, z string, s []string, float64QI map[string]float64) infra.JSONLineRecord {
+	row := jsonline.NewRow()
+	row.Set("x", x)
+	row.Set("y", y)
+	row.Set("z", z)
+
+	return infra.NewJSONLineRecord(&row, &qi, &s, &float64QI)
+}

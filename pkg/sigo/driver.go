@@ -24,7 +24,8 @@ import (
 )
 
 func Anonymize(source RecordSource, factory GeneralizerFactory,
-	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger) error {
+	k int, l int, dim int, anonymyzer Anonymizer, sink RecordSink, debugger Debugger,
+) error {
 	generalizer := factory.New(k, l, dim, source.QuasiIdentifer())
 	count := 0
 

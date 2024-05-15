@@ -105,6 +105,10 @@ func (ar AnonymizedRecord) Sensitives() []interface{} {
 	return ar.original.Sensitives()
 }
 
+func (ar AnonymizedRecord) GetQI() map[string]float64 {
+	return ar.original.GetQI()
+}
+
 func (ar AnonymizedRecord) Row() map[string]interface{} {
 	original := ar.original.Row()
 	for k, v := range ar.mask {
@@ -416,9 +420,9 @@ func (r Reidentification) Statistics(idCluster string, q string) (mean float64, 
 
 // ComputeSimilarity computes the similarity score between the record rec and the anonymized cluster data.
 func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
-	qi []string, s []string) map[float64]interface{} {
+	qi []string, s []string,
+) map[float64]interface{} {
 	scores := make(map[float64]interface{})
-
 	x := make(map[string]interface{})
 
 	for _, q := range qi {
@@ -437,7 +441,6 @@ func (r Reidentification) ComputeSimilarity(rec Record, clus Cluster,
 		}
 
 		Y := MapItoMapF(y)
-
 		// Compute similarity
 		score := Similarity(ComputeDistance("", X, Y))
 
