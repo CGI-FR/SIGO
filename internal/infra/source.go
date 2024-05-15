@@ -25,8 +25,12 @@ import (
 	"github.com/cgi-fr/sigo/pkg/sigo"
 )
 
-func NewJSONLineRecord(row *jsonline.Row, quasiIdentifers *[]string, sensitives *[]string) JSONLineRecord {
-	return JSONLineRecord{row, quasiIdentifers, sensitives, &map[string]float64{}}
+func NewJSONLineRecord(row *jsonline.Row, quasiIdentifers *[]string, sensitives *[]string, options ...*map[string]float64) JSONLineRecord {
+	if len(options) != 0 {
+		return JSONLineRecord{row, quasiIdentifers, sensitives, options[0]}
+	} else {
+		return JSONLineRecord{row, quasiIdentifers, sensitives, &map[string]float64{}}
+	}
 }
 
 type JSONLineRecord struct {
