@@ -14,6 +14,12 @@ Types of changes
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
+## [0.4.0]
+
+- `Added` reidentification method
+- `Fixed` wellDiv function
+- `Fixed` general anonymisation method (min and max)
+
 ## [0.3.0]
 
 - `Added`export configuration in yaml file (#32)
