@@ -35,7 +35,7 @@ type KDTreeFactory struct{}
 
 func (f KDTreeFactory) New(k int, l int, dim int, qi []string) Generalizer {
 	// nolint: exhaustivestruct
-	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), qi: qi}
+	tree := KDTree{k: k, l: l, dim: dim, clusterID: make(map[string]int), analyzer: NewAnalyzer(qi)}
 	root := NewNode(&tree, "root", 0)
 	root.validate()
 	tree.root = &root
@@ -49,7 +49,7 @@ type KDTree struct {
 	root      *node
 	dim       int
 	clusterID map[string]int
-	qi        []string
+	analyzer  Analyzer
 }
 
 func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
@@ -60,6 +60,7 @@ func NewKDTree(k, l, dim int, clusterID map[string]int) KDTree {
 // Add add a record to the tree (root node).
 func (t KDTree) Add(r Record) {
 	t.root.Add(r)
+	t.analyzer.Add(r)
 }
 
 // Build starts building the tree.
@@ -113,7 +114,7 @@ func (n *node) incRot() {
 // build creates nodes.
 func (n *node) build() {
 	log.Debug().
-		Str("Dimension", n.tree.qi[n.rot]).
+		Str("Dimension", n.tree.analyzer.QI(n.rot)).
 		Str("Path", n.clusterPath).
 		Int("Size", len(n.cluster)).
 		Msg("Cluster:")
@@ -155,8 +156,9 @@ func (n *node) build() {
 // split creates 2 subnodes by ordering the node and splitting in order to have 2 equal parts
 // and all elements having the same value in the same subnode.
 func (n *node) split() (node, node, bool) {
+	dim := n.tree.analyzer.Dimension(n.rot)
 	sort.SliceStable(n.cluster, func(i int, j int) bool {
-		return n.cluster[i].QuasiIdentifer()[n.rot] < n.cluster[j].QuasiIdentifer()[n.rot]
+		return n.cluster[i].QuasiIdentifer()[dim] < n.cluster[j].QuasiIdentifer()[dim]
 	})
 
 	n.pivot = nil

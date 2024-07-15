@@ -58,3 +58,11 @@ type Anonymizer interface {
 type Debugger interface {
 	Information(Record, Cluster) Record
 }
+
+type Analyzer interface {
+	Add(Record)
+	QI(i int) string
+	CountUniqueValues() map[string]int
+	Order() map[int]string
+	Dimension(int) int
+}
